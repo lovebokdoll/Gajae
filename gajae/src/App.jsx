@@ -1,6 +1,8 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import KakaoMap from './api/kakao/KakaoMap';
 import './App.css';
+import BoardDetail from './components/board/BoardDetail';
+import BoardInsert from './components/board/BoardInsert';
+import BoardPage from './pages/board/BoardPage';
 import HotelPage from './pages/hotel/HotelPage';
 import LoginPage from './pages/login/LoginPage';
 import MainPage from './pages/main/MainPage';
@@ -15,13 +17,16 @@ function App({ imageUploader }) {
     <BrowserRouter>
       <Routes>
         <Route path="/" exact="true" element={<MainPage />} />
-        <Route path="/login" exact="true" element={<LoginPage />} />
-        <Route path="/signup" exact="true" element={<SignUpPage />} />
-        <Route path="/mypage" exact="true" element={<Mypage />} />
+        <Route path="/login" exact={true} element={<LoginPage />} />
+        <Route path="/signup" exact={true} element={<SignUpPage />} />
+        <Route path="/mypage" exact={true} element={<Mypage />} />
         <Route path="/propertylist" element={<PropertyListPage />} />
         <Route path="/hotel" element={<HotelPage />} />
         <Route path="/review" element={<ReviewBoradPage />} />
         <Route path="/review/write" element={<ReviewWritePage />} />
+        <Route path="/board" exact={true} element={<BoardPage />} />
+        <Route path="/board/selectOne/*" exact={true} element={<BoardDetail />} />
+        <Route path="/board/insert" exact={true} element={<BoardInsert />} />
       </Routes>
     </BrowserRouter>
   );

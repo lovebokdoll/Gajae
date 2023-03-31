@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="property">
+	<select id="list" parameterType="map"
+		resultType="com.gajae.demo.vo.PropertyVO">
+		SELECT P_ID,
+		P_TITLE,
+		P_POSTAL,
+		P_ADDRESS,
+		P_TEL,
+		P_MAPY,
+		P_MAPX,
+		P_OVERVIEW,
+		P_SCALE,
+		P_MAXPEOPLE,
+		P_ROOMCOUNT,
+		P_ROOMTYPE,
+		P_PARKING,
+		P_KITCHEN,
+		P_CHECKIN,
+		P_CHECKOUT,
+		P_GUIDE,
+		P_HOMEPAGE,
+		P_RESTAURANT,
+		P_EXTRA,
+		P_DETAIL,
+		P_REFUND
+		FROM MBLOG.PROPERTIES
+		<where>
+			<if test='P_ID!=null and P_ID.length()>0'> AND P_ID = #{P_ID}
+			</if>
+			<if test='ADDRESS!=null and ADDRESS.length()>0'>
+				AND P_ADDRESS LIKE '%'||#{ADDRESS}||'%'
+			</if>
+		</where>
+	</select>
+
+	<insert id="propertyInsert" parameterType="map"></insert>
+</mapper>
