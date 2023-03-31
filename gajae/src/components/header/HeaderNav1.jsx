@@ -10,7 +10,7 @@ const HeaderNav1 = () => {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
-              <Link to="/main" style={{ color: 'white' }} className="nav-link">
+              <Link to="/" style={{ color: 'white' }} className="nav-link">
                 GAJAE.COM
               </Link>
               <Link to="/mypage" style={{ color: 'white' }} className="nav-link">
@@ -21,6 +21,9 @@ const HeaderNav1 = () => {
               </Link>
               <Link to="/login" style={{ color: 'white' }} className="nav-link">
                 로그인
+              </Link>
+              <Link to="/board" style={{ color: 'white' }} className="nav-link">
+                게시판
               </Link>
             </Nav>
           </Navbar.Collapse>

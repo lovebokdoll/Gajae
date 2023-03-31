@@ -32,3 +32,45 @@ export const memberInsertDB = (member) => {
     }
   });
 };
+
+export const uploadImageDB = (file) => {
+  console.log('file ===> ', file);
+  return new Promise((resolve, reject) => {
+    try {
+      const response = axios({
+        method: 'post',
+        url: process.env.REACT_APP_SPRING_IP + 'reply/imageUpload',
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+        processData: false,
+        contentType: false,
+        data: file,
+      });
+      resolve(response);
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+
+export const uploadFileDB = (file) => {
+  console.log('file ===> ', file);
+  return new Promise((resolve, reject) => {
+    try {
+      const response = axios({
+        method: 'post',
+        url: process.env.REACT_APP_SPRING_IP + 'reply/fileUpload',
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+        processData: false,
+        contentType: false,
+        data: file,
+      });
+      resolve(response);
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
