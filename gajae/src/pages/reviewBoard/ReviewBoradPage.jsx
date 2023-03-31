@@ -2,8 +2,8 @@ import React from 'react';
 import { Button } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 /**
- * 
- * @returns 이용후기 게시판 
+ *
+ * @returns 이용후기 게시판
  */
 const ReviewBoradPage = () => {
   const navigate = useNavigate();
