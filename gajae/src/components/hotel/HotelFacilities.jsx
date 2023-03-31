@@ -1,11 +1,12 @@
-import React from 'react'
+import React from "react";
 
-const HotelFacilities = () => {
+const HotelFacilities = ({ hotel }) => {
   return (
     <>
-    <div>HotelFacilities</div>
-  </>
-  )
-}
+      <h1>옵션정보&요금</h1>
+      {/* <h3>{hotel.p_detail}</h3> */}
+    </>
+  );
+};
 
-export default HotelFacilities
+export default HotelFacilities;
