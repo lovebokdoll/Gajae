@@ -1,4 +1,4 @@
-package com.gajae.demo.vo;
+package com.gajae.demo.kakao;
 
 public class KakaoReadyResponse {
     

@@ -25,6 +25,9 @@ const HeaderNav1 = () => {
               <Link to="/board" style={{ color: 'white' }} className="nav-link">
                 게시판
               </Link>
+              <Link to="/qna/list" style={{ color: 'white' }} className="nav-link">
+                Q&A
+              </Link>
             </Nav>
           </Navbar.Collapse>
         </Container>

@@ -17,10 +17,10 @@ export const LoginForm = styled.form`
 `;
 
 export const SignupForm = styled(LoginForm)`
-  padding: 80px 40px 80px 40px;
-  max-width: 1000px;
+  padding: 50px 40px 80px 40px;
+  max-width: 800px;
   min-width: 300px;
-  width: 90%;
+  width: 100%;
 `;
 
 export const MyH1 = styled.h1`
@@ -114,7 +114,7 @@ export const GoogleButton = styled(SubmitButton)`
 
 export const MyButton = styled.button`
   margin-top: 10px;
-  margin-bottom: 40px;
+  margin-bottom: 10px;
   background-color: white;
   color: black;
   border-radius: 15px;
