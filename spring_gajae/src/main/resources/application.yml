@@ -13,9 +13,9 @@ spring:
       prefix: /WEB-INF/views/
       suffix: .jsp
   datasource:
-    url: jdbc:oracle:thin:@192.168.0.2:1521/orcl11
-    username: mblog
-    password: mblog
+    url: jdbc:oracle:thin:@focusrite.iptime.org:54300/orcl11
+    username: gajae
+    password: gajae
     driver-class-name: oracle.jdbc.OracleDriver
     hikari:
       connection-timeout: 20000

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="hotel">
+
+<select id="hotellist" parameterType="map" resultType="map">
+		select 
+			P_ID,
+    		P_TITLE,
+    		P_TEL,
+    		P_ADDRESS,
+    		P_MAPY,
+    		P_MAPX,
+    		P_OVERVIEW,
+    		P_SCALE,
+    		P_MAXPEOPLE,
+    		P_ROOM_COUNT,
+    		P_ROOM_TYPE,
+    		P_PARKING,
+    		P_KITCHEN,
+    		P_CHECKIN,
+    		P_CHECKOUT,
+    		P_GUIDE,
+    		P_HOMEPAGE,
+    		P_RESTAURANT,
+    		P_EXTRA,
+    		P_REFUND
+    		P_DETAIL,
+    		P_PRICE
+  		  from PROPERTIES
+    		</select>
+	</mapper>
