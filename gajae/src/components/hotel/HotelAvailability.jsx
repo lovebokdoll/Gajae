@@ -1,59 +1,38 @@
-import React, { useRef} from "react";
-import "./hotelAvailability.css";
+import React, { forwardRef, useEffect, useRef, useState } from "react";
+import "./hotel.css";
+
+import { useNavigate } from "react-router-dom";
+import HotelSearchBar from "./HotelSearchBar";
+import HotelAvailabilityRow from "./HotelAvailabilityRow";
 import { BButton } from "../../style/FormStyle";
-import HotelFacilities from "./HotelFacilities";
-import {useNavigate } from "react-router-dom";
-import HotelPolicies from "./HotelPolicies";
 
-const HotelAvailability = ({ hotel }) => {
-  const hotelFacilities = useRef();
-  const hotelPolicies = useRef();
-
-  //hotelFacilities로 이동
-  const onMoveToFacilites = () => {
-    console.log("눌렸디");
-    hotelFacilities.current.scrollIntoView({
-      behavior: "smooth",
-      block: "start",
-    });
-  };
-  //hotelPolicies로 이동
-  const onMoveToPolicies = () => {
-    console.log("눌렸디");
-    hotelPolicies.current.scrollIntoView({
-      behavior: "smooth",
-      block: "start",
-    });
-  };
-  //고객후기페이지로 이동
-  const reviewBoradPage = () => {
-    navigate("/review");
-  };
-  //const [menuID, setMenuID] = useState(0);
+/**
+ * 옵션정보&요금 - 숙소정보
+ * @param {*} param0
+ * @returns
+ */
+const HotelAvailability = forwardRef(({ row, props }, ref) => {
+  //const [roomType, setRoomType] = useState(item);
+  console.log(row);
   const navigate = useNavigate();
-  const reserve = () => {
-    console.log("지금예약버튼");
-    //navigate("/");
+  const onReservation = () => {
+    console.log("지금예약버튼 클릭 -> 결제확인페이지로 이동");
   };
+
   return (
     <>
-      <BButton onClick={onMoveToFacilites}>옵션정보&요금</BButton>
-      <BButton onClick={onMoveToPolicies}>시설</BButton>
-      <BButton onClick={onMoveToPolicies}>하우스룰</BButton>
-      <BButton onClick={reviewBoradPage}>고객후기</BButton>
-      <div className="hotel_title">{hotel.p_title}</div>
-      <BButton onClick={reserve}>지금예약</BButton>
-
-      <div className="contents" ref={hotelFacilities}></div>
-      <HotelFacilities />
-      {/*각각의 컴포넌트에 useRef로  DOM 에 접근하자*/}
-
-      <div className="contents" ref={hotelPolicies}>
-        여기로 오셈!!!!!!!!!!!!!!!!!
+      <div
+        className="title"
+        ref={(availabilityRef) => (ref.corrent[0] = availabilityRef)}
+      >
+        예약 가능 여부
       </div>
-      <HotelPolicies />
+      <BButton onClick={onReservation}>지금예약</BButton>
+      <div>{row.P_ROOM_TYPE}</div>
+      <div> {row.P_PRICE}</div>
+      {/* <HotelAvailabilityRow item={item} /> */}
     </>
   );
-};
+});
 
 export default HotelAvailability;

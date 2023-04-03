@@ -1,16 +1,20 @@
 import React from "react";
 
-const HotelPolicies = () => {
+/**
+ * 호텔정책 , 규칙
+ * @returns
+ */
+const HotelPolicies = ({ row }) => {
   return (
     <>
-   
-      <h1>정책</h1>
-      <h1>호텔정책</h1>
-      <h1>호텔정책</h1>
-      <h1>호텔정책</h1>
-      <h1>호텔정책</h1>
-      <h1>호텔정책</h1>
-
+      <div className="title">정책</div>
+      <div>{row.P_REFUND}</div>
+      <div>{row.P_PARKING}</div>
+      <div>{row.P_SCALE}</div>
+      <div>{row.P_MAXPEOPLE}</div>
+      <div>체크인:{row.P_CHECKIN}</div>
+      <div>체크아웃:{row.P_CHECKOUT}</div>
+      <div></div>
     </>
   );
 };

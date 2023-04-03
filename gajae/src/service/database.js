@@ -33,25 +33,15 @@ export const memberInsertDB = (member) => {
   });
 };
 
-export const hotelListDB = (hotel) => {
-  return new Promise((resolve, reject) => {
-    try {
-      const response = axios({
-        method: "get",
-        url: "http://localhost:8000/hotel/hotelList",
-        // url: process.env.REACT_APP_SPTING_IP + "hotel/hotelList",
-        params: hotel,
-
-        
 export const uploadImageDB = (file) => {
-  console.log('file ===> ', file);
+  console.log("file ===> ", file);
   return new Promise((resolve, reject) => {
     try {
       const response = axios({
-        method: 'post',
-        url: process.env.REACT_APP_SPRING_IP + 'reply/imageUpload',
+        method: "post",
+        url: process.env.REACT_APP_SPRING_IP + "reply/imageUpload",
         headers: {
-          'Content-Type': 'multipart/form-data',
+          "Content-Type": "multipart/form-data",
         },
         processData: false,
         contentType: false,
@@ -65,14 +55,14 @@ export const uploadImageDB = (file) => {
 };
 
 export const uploadFileDB = (file) => {
-  console.log('file ===> ', file);
+  console.log("file ===> ", file);
   return new Promise((resolve, reject) => {
     try {
       const response = axios({
-        method: 'post',
-        url: process.env.REACT_APP_SPRING_IP + 'reply/fileUpload',
+        method: "post",
+        url: process.env.REACT_APP_SPRING_IP + "reply/fileUpload",
         headers: {
-          'Content-Type': 'multipart/form-data',
+          "Content-Type": "multipart/form-data",
         },
         processData: false,
         contentType: false,

@@ -1,17 +1,18 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import './App.css';
-import BoardDetail from './components/board/BoardDetail';
-import BoardInsert from './components/board/BoardInsert';
-import BoardPage from './pages/board/BoardPage';
-import HotelPage from './pages/hotel/HotelPage';
-import LoginPage from './pages/login/LoginPage';
-import MainPage from './pages/main/MainPage';
-import Mypage from './pages/mypage/Mypage';
-import PropertyListPage from './pages/propertyList/PropertyListPage';
-import ReviewBoradPage from './pages/reviewBoard/ReviewBoradPage';
-import ReviewWritePage from './pages/reviewBoard/ReviewWritePage';
-import SignUpPage from './pages/signup/SignUpPage';
-
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import "./App.css";
+import BoardDetail from "./components/board/BoardDetail";
+import BoardInsert from "./components/board/BoardInsert";
+import ScrollToComponent from "./components/scroll/ScrollToComponent";
+import BoardPage from "./pages/board/BoardPage";
+import HotelPage from "./pages/hotel/HotelPage";
+import LoginPage from "./pages/login/LoginPage";
+import MainPage from "./pages/main/MainPage";
+import Mypage from "./pages/mypage/Mypage";
+import PropertyListPage from "./pages/propertyList/PropertyListPage";
+import ReviewBoradPage from "./pages/reviewBoard/ReviewBoradPage";
+import ReviewWritePage from "./pages/reviewBoard/ReviewWritePage";
+import SignUpPage from "./pages/signup/SignUpPage";
+import "bootstrap/dist/css/bootstrap.min.css";
 function App({ imageUploader }) {
   return (
     <BrowserRouter>
@@ -25,7 +26,11 @@ function App({ imageUploader }) {
         <Route path="/review" element={<ReviewBoradPage />} />
         <Route path="/review/write" element={<ReviewWritePage />} />
         <Route path="/board" exact={true} element={<BoardPage />} />
-        <Route path="/board/selectOne/*" exact={true} element={<BoardDetail />} />
+        <Route
+          path="/board/selectOne/*"
+          exact={true}
+          element={<BoardDetail />}
+        />
         <Route path="/board/insert" exact={true} element={<BoardInsert />} />
       </Routes>
     </BrowserRouter>
