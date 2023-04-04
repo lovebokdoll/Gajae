@@ -1,3 +1,4 @@
+import axios from 'axios';
 import {
   GoogleAuthProvider,
   getAuth,
@@ -8,6 +9,7 @@ import {
   signInWithEmailAndPassword,
   sendPasswordResetEmail,
 } from 'firebase/auth';
+import { useNavigate } from 'react-router';
 
 class AuthLogic {
   constructor() {
@@ -132,3 +134,5 @@ export const sendResetpwEmail = (auth, email) => {
       .catch((e) => reject(e));
   });
 };
+
+

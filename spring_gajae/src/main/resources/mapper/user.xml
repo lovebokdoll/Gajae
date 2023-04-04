@@ -5,8 +5,8 @@
 	<select id="signIn" parameterType="map" resultType="map">
 		SELECT USER_ID
 		FROM MBLOG.USER2
-		WHERE USER_ID = #{USER_ID}
-		AND USER_PW = #{USER_PW}
+		WHERE USER_ID = #{user_id}
+		AND USER_PW = #{user_pw}
 	</select>
 
 	<select id="getUser" parameterType="map" resultType="map">
@@ -79,7 +79,8 @@
 
 	<update id="userUpdate">
 		UPDATE MBLOG.USER2
-		SET USER_NAME = #{USER_NAME}
+		SET USER_NAME = #{USER_NAME},
+		USER_NICKNAME = #{USER_NICKNAME},
 		WHERE
 		USER_ID = #{USER_ID}
 	</update>
@@ -126,5 +127,4 @@
 		WHERE
 		USER_ID = #{USER_ID}
 	</update>
-
 </mapper>

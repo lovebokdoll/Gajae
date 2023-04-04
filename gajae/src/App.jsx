@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Route, Routes } from 'react-router-dom';
 import KakaoProfile from './api/kakao/KakaoProfile';
 import KakaoRedirectHandler from './api/kakao/KakaoRedirectHandler';
+import NaverPay from './api/naver/NaverPay';
 import './App.css';
 import BoardDetail from './components/board/BoardDetail';
 import BoardInsert from './components/board/BoardInsert';
@@ -48,8 +49,9 @@ function App({ authLogic, imageUploader }) {
         {/* qna */}
         <Route path="/qna/list" exact={true} element={<QNAListPage />} />
         <Route path="/qna/detail/:qna_bno" exact={true} element={<QNADetailPage />} />
-        <Route path="/qna/insert" exact={true} element={<QNAInsertForm />} />
+        <Route path="/qna/insert/*" exact={true} element={<QNAInsertForm authLogic={authLogic} />} />
         <Route path="/qna/update" exact={true} element={<QNAUpdatePage />} />
+        <Route path="/naverpay" exact={true} element={<NaverPay />} />
       </Routes>
     </div>
   );

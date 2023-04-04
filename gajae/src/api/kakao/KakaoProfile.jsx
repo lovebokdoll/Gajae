@@ -5,9 +5,9 @@ import { useNavigate } from 'react-router-dom';
 const KakaoProfile = () => {
   const navigate = useNavigate();
 
-  const [user_id, setUserId] = useState();
-  const [nickname, setNickname] = useState();
-  const [profileImage, setProfileImage] = useState();
+  const [user_id, setUserId] = useState('');
+  const [nickname, setNickname] = useState('');
+  const [profileImage, setProfileImage] = useState('');
 
   const getProfile = async () => {
     try {

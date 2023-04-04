@@ -20,7 +20,7 @@ const MyFilter = ({ types, type, id, title, handleTitle }) => {
     console.log('path ===>', path);
     return path;
   };
-
+  console.log(title);
   return (
     <DropdownButton variant="" title={title} style={{ border: '1px solid lightgray', borderRadius: '5px', height: '38px' }}>
       {types.map((element, index) => (

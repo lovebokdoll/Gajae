@@ -29,6 +29,8 @@ public class KakaoController {
     @GetMapping( "kakao/callback" )
     public String kakaoCallback( HttpSession session, String code ) {
         
+        log.info( "kakao callback" );
+        
         /**
          * POST 방식으로 KEY = VALUE DATA를 요청(카카오쪽으로)
          */
@@ -39,6 +41,7 @@ public class KakaoController {
          */
         HttpHeaders headers = new HttpHeaders();
         headers.add( "Content-type", "application/x-www-form-urlencoded;charset=utf-8" );
+        
         MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
         params.add( "grant_type", "authorization_code" );
         params.add( "client_id", "10bc17b138540bf921263110fe1e7167" );
@@ -109,6 +112,6 @@ public class KakaoController {
         String nickname = kakaoProfile.getProperties().nickname;
         session.setAttribute( "kakao_id", kakao_id );
         session.setAttribute( "kakao_nickname", nickname );
-        return "";
+        return "/";
     }
 }

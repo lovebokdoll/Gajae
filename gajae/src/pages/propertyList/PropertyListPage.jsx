@@ -27,6 +27,7 @@ const PropertyListPage = () => {
     propertyList();
   }, []);
   console.log(property);
+
   return (
     <>
       <HeaderNav1 />

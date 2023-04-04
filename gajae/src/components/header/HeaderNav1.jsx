@@ -1,11 +1,29 @@
+import axios from 'axios';
 import React from 'react';
 import { Container, Nav, Navbar } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import './headerNav1.css';
+const HeaderNav1 = ({ authLogic }) => {
+  const navigate = useNavigate();
 
-const HeaderNav1 = () => {
+  const kakaoLogout = async () => {
+    //insert here 로그아웃 처리
+    await axios({
+      method: 'get',
+      url: `https://kauth.kakao.com/oauth/logout?client_id=${process.env.REACT_APP_KAKAO_API_KEY}&logout_redirect_uri=http://localhost:3000`,
+    })
+      .then((res) => {
+        window.localStorage.removeItem('userId');
+        window.localStorage.removeItem('nickname');
+        navigate('/');
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
   return (
     <>
-      <Navbar bg="primary" expand="lg">
+      <Navbar id="aaa" expand="lg">
         <Container fluid>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
@@ -28,6 +46,9 @@ const HeaderNav1 = () => {
               <Link to="/qna/list" style={{ color: 'white' }} className="nav-link">
                 Q&A
               </Link>
+              <div>
+                <button onClick={kakaoLogout}>로그아웃</button>
+              </div>
             </Nav>
           </Navbar.Collapse>
         </Container>

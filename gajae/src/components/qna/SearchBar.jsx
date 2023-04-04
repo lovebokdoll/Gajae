@@ -30,9 +30,31 @@ const SearchBar = () => {
   const setPath = () => {
     console.log(tTitle, content);
     console.log('search ===>', search);
-    console.log('search.match(condition) ===>', search.match('condition'));
     let path;
-    console.log(path); ///qna/list?condition=제목&page=1
+    // 앞에서 조회한 적이 있을 때 기존의 쿼리스트링 삭제 후 다시 쿼리스트링 만들어야 한다.
+    if (search.match('condition')) {
+      console.log('search.match(condition) ===>', search.match('condition'));
+      path =
+        location.pathname +
+        search
+          .replace(
+            `&${search.split('&').filter((item) => {
+              return item.match('page');
+            })}&${search.split('&').filter((item) => {
+              return item.match('content');
+            })}`,
+            `&condition=${tTitle}&content=${content}`
+          )
+          .replace(
+            `&${search.split('&').filter((item) => {
+              return item.match('page');
+            })}`,
+            '&page=1&'
+          );
+    } else {
+      path = location.pathname + search + `?condition=${tTitle}&content=${content}`;
+    }
+    console.log('path ===>', path); ///qna/list?condition=제목&page=1
     return path;
   };
 
@@ -54,7 +76,6 @@ const SearchBar = () => {
           setContent(e.target.value);
         }}
       />
-      <div>{setPath()}</div>
       <BButton
         style={{ width: '70px', height: '40px', marginRight: '10px' }}
         onClick={() => {

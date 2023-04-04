@@ -36,6 +36,23 @@ const QNAListPage = ({ authLogic }) => {
 
   useEffect(() => {
     const qnaList = async () => {
+      //http://localhost:3000/qna/list?condition=제목|내용|작성자&content=입력한값
+      // [0] - ?condition=제목|내용|작성자
+      // [1] - content=입력한값
+      const condition = search
+        .split('&')
+        .filter((item) => {
+          return item.match('condition');
+        })[0]
+        ?.split('=')[1];
+
+      const content = search
+        .split('&')
+        .filter((item) => {
+          return item.match('content');
+        })[0]
+        ?.split('=')[1];
+
       //콤보박스 내용 -> 제목, 내용, 작성자 중 하나
       //사용자가 입력한 키워드
       const qna_type = search
@@ -44,12 +61,16 @@ const QNAListPage = ({ authLogic }) => {
           return item.match('qna_type');
         })[0]
         ?.split('=')[1];
-      console.log(qna_type);
+      console.log('qna_type ===>', qna_type);
+      console.log('condition ===>', condition);
+      console.log('content ===>', content);
       setTTitle(qna_type || '전체'); //쿼리스트링이 없으면 전체가 담긴다.
       const board = {
         //get방식 조건검색 - params 속성에 들어갈 변수
         page: page,
         qna_type: qna_type,
+        condition: condition,
+        content: content,
       };
       const res = await qnaListDB(board);
       console.log(res.data);
@@ -146,16 +167,17 @@ const QNAListPage = ({ authLogic }) => {
           <div>
             <div style={{ display: 'flex', justifyContent: 'space-between', height: '40px' }}>
               <MyFilter types={types} type={true} id={'qna_type'} title={tTitle} handleTitle={handleTTitle} />
-              {sessionStorage.getItem('auth') === '2' && (
-                <BButton
-                  style={{ width: '80px', height: '38px' }}
-                  onClick={() => {
-                    navigate(`/qna/write`);
-                  }}
-                >
-                  글쓰기
-                </BButton>
-              )}
+              {/*    {sessionStorage.getItem('auth') === '2' && (
+               
+              )} */}
+              <BButton
+                style={{ width: '80px', height: '38px' }}
+                onClick={() => {
+                  navigate(`/qna/insert`);
+                }}
+              >
+                글쓰기
+              </BButton>
             </div>
             <Table responsive hover style={{ minWidth: '800px' }}>
               <thead>
