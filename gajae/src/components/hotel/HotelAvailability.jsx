@@ -1,38 +1,38 @@
-import React, { forwardRef, useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
+import { roomtypeListDB } from "../../service/hotelReservLogic";
 import "./hotel.css";
 
-import { useNavigate } from "react-router-dom";
-import HotelSearchBar from "./HotelSearchBar";
 import HotelAvailabilityRow from "./HotelAvailabilityRow";
-import { BButton } from "../../style/FormStyle";
 
 /**
+ * 여기서 룸타입가져오기 -  pid참조해서 가져오기
+ * log.p_id 해서 가져오기
  * 옵션정보&요금 - 숙소정보
  * @param {*} param0
  * @returns
  */
-const HotelAvailability = forwardRef(({ row, props }, ref) => {
-  //const [roomType, setRoomType] = useState(item);
-  console.log(row);
-  const navigate = useNavigate();
-  const onReservation = () => {
-    console.log("지금예약버튼 클릭 -> 결제확인페이지로 이동");
-  };
-
+const HotelAvailability = () => {
+  const [roomType, setRoomType] = useState([]);
+  useEffect(() => {
+    const roomTypeList = async () => {
+      const room = {
+        P_ID: 1000,
+      };
+      const response = await roomtypeListDB(room);
+      setRoomType(response.data);
+      console.log(response.data);
+    };
+    roomTypeList();
+  }, []);
   return (
     <>
-      <div
-        className="title"
-        ref={(availabilityRef) => (ref.corrent[0] = availabilityRef)}
-      >
-        예약 가능 여부
+      <div className="title">예약 가능 여부</div>
+
+      <div>
+        <HotelAvailabilityRow roomType={roomType} />
       </div>
-      <BButton onClick={onReservation}>지금예약</BButton>
-      <div>{row.P_ROOM_TYPE}</div>
-      <div> {row.P_PRICE}</div>
-      {/* <HotelAvailabilityRow item={item} /> */}
     </>
   );
-});
+};
 
 export default HotelAvailability;

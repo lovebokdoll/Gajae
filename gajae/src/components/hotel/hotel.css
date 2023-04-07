@@ -1,6 +1,14 @@
 .title {
+  font-family: "Pretendard-Regular";
   font-size: 30px;
-  background-color: aquamarine;
+  background-color: rgb(249, 201, 55);
+}
+.hotel_title {
+  font-family: "TheJamsil5Bold";
+  font-size: 40px;
+  font-weight: bold;
+  background-color: bisque;
+  border-radius: 10%;
 }
 .hotel_address {
   font-size: 30px;
@@ -9,3 +17,26 @@
   background-color: rgb(255, 183, 0);
   font-size: 60px;
 }
+.table-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.table-wrapper-item1 {
+  flex-basis: 70%;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.table-wrapper-item2 {
+  flex-basis: 10%;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.table-wrapper-item3 {
+  flex-basis: 20%;
+  padding: 10px;
+  box-sizing: border-box;
+}
+

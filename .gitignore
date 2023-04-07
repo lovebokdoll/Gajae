@@ -32,6 +32,8 @@ local.properties
 # Java annotation processor (APT)
 .factorypath
 
+프로젝트관련문서_to_ignore/
+
 # PDT-specific (PHP Development Tools)
 .buildpath
 

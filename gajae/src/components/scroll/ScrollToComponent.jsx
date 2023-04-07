@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 
 import { useNavigate } from "react-router-dom";
-import { BButton } from "../../style/FormStyle";
 
 /**
  * 해당 컴포넌트로 이동
