@@ -2,14 +2,18 @@ import React from "react";
 import {
   BButton,
   ContainerDiv,
+  DragFileWrapper,
   FormDiv,
   HeaderDiv,
+  ImageWrapper,
+  UploadBoxWrapper,
 } from "../../style/FormStyle";
 import HeaderNav1 from "../../components/header/HeaderNav1";
 import Footer from "../../components/footer/Footer";
 import { useCallback, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { reviewInsertDB } from "../../service/reviewboardLogic";
+import { ToastContainer } from "react-bootstrap";
 
 /**
  *
@@ -20,6 +24,11 @@ const ReviewWritePage = () => {
   const [title, setTitle] = useState(""); //사용자가 입력한 제목 담기
   const [reviewgood, setReviewgood] = useState(""); //사용자가 입력한 내용 담기
   const [reviewbad, setReviewbad] = useState("");
+  const [service, setService] = useState(0);
+  const [facility, setFacility] = useState(0);
+  const [cleanliness, setCleanliness] = useState(0);
+  const [cost, setCost] = useState(0);
+  const [location, setLocation] = useState(0);
 
   const handleTitle = useCallback((value) => {
     setTitle(value);
@@ -35,17 +44,43 @@ const ReviewWritePage = () => {
     setReviewbad(value);
   }, []);
 
+  const handleService = useCallback((value) => {
+    setService(Number(value));
+  }, []);
+  const handleFacility = useCallback((value) => {
+    setFacility(Number(value));
+  }, []);
+  const handleCleanliness = useCallback((value) => {
+    setCleanliness(Number(value));
+  }, []);
+  const handleCost = useCallback((value) => {
+    setCost(Number(value));
+  }, []);
+  const handleLocation = useCallback((value) => {
+    setLocation(Number(value));
+  }, []);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // 리뷰를 서버에 보내는 로직
+  };
+
   const reviewInsert = async () => {
     console.log("reviewInsert");
     const review = {
       REVIEW_NUMBER: 0,
       R_NUMBER: 0,
-      P_ID: "상수한번더",
+      P_ID: "3",
       REVIEW_TITLE: title,
       REVIEW_GOOD: reviewgood,
       REVIEW_BAD: reviewbad,
-      REVIEW_DATE: "",
+      REVIEW_DATE: 0,
       USER_NICKNAME: "상수박아",
+      REVIEW_SERVICE: service,
+      REVIEW_FACILITY: facility,
+      REVIEW_CLEAN: cleanliness,
+      REVIEW_COST: cost,
+      REVIEW_LOCATION: location,
     };
     const res = await reviewInsertDB(review);
     console.log(res.data);
@@ -64,10 +99,10 @@ const ReviewWritePage = () => {
               style={{
                 display: "flex",
                 justifyContent: "space-between",
-                marginBottom: "5px",
+                marginBottom: "3px",
               }}
             >
-              <h3>제목</h3>
+              <h5>제목</h5>
               <BButton
                 onClick={() => {
                   reviewInsert();
@@ -85,7 +120,7 @@ const ReviewWritePage = () => {
                 width: "100%",
                 height: "40px",
                 border: "1px solid lightGray",
-                marginBottom: "5px",
+                marginBottom: "3px",
               }}
               onChange={(e) => {
                 handleTitle(e.target.value);
@@ -161,74 +196,133 @@ const ReviewWritePage = () => {
             <div
               style={{
                 display: "block",
-                height: "150px",
+                height: "500px",
                 border: "1px solid lightGray",
                 borderRadius: "10px",
                 minHeight: "60px",
                 padding: "5px",
               }}
             >
+              {/*첨부파일 이미지 보이는곳 */}
               <div
                 style={{
                   display: "flex",
                   justifyContent: "space-between",
                   marginBottom: "5px",
+                  alignItems: "center",
                 }}
               >
-                <h3>첨부파일</h3>
-              </div>
-              <input
-                id="file-input"
-                name="file_name"
-                type="file"
-                maxLength="50"
-                className="visuallyhidden"
-              />
-
-              <div class="dropdown">
-                <div class="btn-group">
-                  <button
-                    class="btn btn-secondary btn-sm dropdown-toggle"
-                    type="button"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                  >
-                    직원 친절도
-                  </button>
-                  <button
-                    class="btn btn-secondary btn-sm dropdown-toggle"
-                    type="button"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                  >
-                    시설
-                  </button>
-                  <button
-                    class="btn btn-secondary btn-sm dropdown-toggle"
-                    type="button"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                  >
-                    청결도
-                  </button>
-                  <button
-                    class="btn btn-secondary btn-sm dropdown-toggle"
-                    type="button"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                  >
-                    가성비
-                  </button>
-                  <button
-                    class="btn btn-secondary btn-sm dropdown-toggle"
-                    type="button"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                  >
-                    위치점수
-                  </button>
+                <div class="input-group mb-3">
+                  <input
+                    type="file"
+                    class="form-control"
+                    id="inputGroupFile02"
+                  />
+                  <label class="input-group-text" for="inputGroupFile02">
+                    Upload
+                  </label>
                 </div>
               </div>
+              {/*--------------------------------리뷰점수-------------------------------------  */}
+              <form onSubmit={handleSubmit}>
+                <label>
+                  친절도:
+                  <select
+                    value={service}
+                    onChange={(e) => {
+                      handleService(e.target.value);
+                    }}
+                  >
+                    <option value="0">0</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                  </select>
+                </label>
+                <label>
+                  시설:
+                  <select
+                    value={facility}
+                    onChange={(e) => handleFacility(e.target.value)}
+                  >
+                    <option value="0">0</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                  </select>
+                </label>
+                <label>
+                  청결도:
+                  <select
+                    value={cleanliness}
+                    onChange={(e) => handleCleanliness(e.target.value)}
+                  >
+                    <option value="0">0</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                  </select>
+                </label>
+                <label>
+                  가성비:
+                  <select
+                    value={cost}
+                    onChange={(e) => handleCost(e.target.value)}
+                  >
+                    <option value="0">0</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="8">9</option>
+                    <option value="8">10</option>
+                  </select>
+                </label>
+                <label>
+                  위치:
+                  <select
+                    value={location}
+                    onChange={(e) => handleLocation(e.target.value)}
+                  >
+                    <option value="0">0</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                  </select>
+                </label>
+              </form>
             </div>
           </div>
         </FormDiv>

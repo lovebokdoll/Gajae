@@ -21,7 +21,7 @@ export const reviewInsertDB = (review) => {
     try {
       const response = axios({
         method: "post",
-        url: process.env.REACT_APP_SPRING_IP + "/review/reviewInsert",
+        url: process.env.REACT_APP_SPRING_IP + "review/reviewInsert",
         data: review,
       });
       resolve(response);

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="reviewboard">
+	<insert id="reviewInsert" parameterType="map">
+	 	INSERT INTO REVIEW
+	 	( REVIEW_NUMBER,
+	      R_NUMBER,
+	      P_ID,
+	      REVIEW_TITLE,
+	      REVIEW_GOOD,
+	      REVIEW_BAD,
+	      REVIEW_DATE,
+	      USER_NICKNAME,
+	      REVIEW_SERVICE,
+	      REVIEW_FACILITY,
+	      REVIEW_CLEAN,
+	      REVIEW_COST,
+	      REVIEW_LOCATION
+	      )
+	 	VALUES(
+	 	 SEQ_REVIEW_NUMBER.NEXTVAL,
+	 	 SEQ_R_NUMBER.NEXTVAL,
+	 	 #{P_ID},
+	 	 #{REVIEW_TITLE},
+	 	 #{REVIEW_GOOD},
+	 	 #{REVIEW_BAD},
+	 	 TO_CHAR( SYSDATE, 'YYYY-MM-DD HH24:MI:SS'),
+	 	 #{USER_NICKNAME}
+	 	 #{REVIEW_SERVICE},
+	 	 #{REVIEW_FACILITY},
+	 	 #{REVIEW_CLEAN},
+	 	 #{REVIEW_COST},
+	 	 #{REVIEW_LOCATION}
+	 	)
+	</insert>
+</mapper>

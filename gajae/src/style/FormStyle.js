@@ -221,3 +221,31 @@ export const SpanA = styled.span`
     color: rgb(58, 129, 200);
   }
 `;
+
+export const UploadBoxWrapper = styled.div`
+  width: calc(50% - 15px);
+  box-sizing: border-box;
+  margin-right: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const DragFileWrapper = styled.div`
+  width: 100%;
+  height: 360px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 3px dashed #dbdbdb;
+
+  &.highlight {
+    border: 3px dashed red;
+  }
+`;
+
+export const ImageWrapper = styled.div`
+  width: 40px;
+`;
