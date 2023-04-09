@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { propertyListDB } from '../../service/database';
-import './propertyCard.css';
+import './propertyCardmini.css';
 
-const PropertyCard = ({ row }) => {
+const PropertyCard = () => {
   return (
     <>
       <div className="searchItem">
@@ -12,16 +11,15 @@ const PropertyCard = ({ row }) => {
           className="siImg"
         />
         <div className="siDesc">
-          <h1 className="siTitle"> {row.P_TITLE}</h1>
+          <h1 className="siTitle">  가자호텔 </h1>
           <span className="siCheck">
-            {' '}
-            CHECKIN: {row.P_CHECKIN} CKECKOUT: {row.P_CHECKOUT}
+            CHECKIN: 11:00 CKECKOUT: 14:00
           </span>
           <span className="siDistance">500m from center</span>
           <span className="siTaxiOp">Free airport taxi</span>
           <span className="siSubtitle">Studio Apartment with Air conditioning</span>
           <span className="siFeatures">Entire studio • 1 bathroom • 21m² 1 full bed</span>
-          <span className="siCancelOp">{row.p_refund} </span>
+          <span className="siCancelOp"> </span>
           <span className="siCancelOpSubtitle">You can cancel later, so lock in this great price today!</span>
         </div>
         <div className="siDetails">
