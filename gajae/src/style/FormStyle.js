@@ -221,3 +221,17 @@ export const SpanA = styled.span`
     color: rgb(58, 129, 200);
   }
 `;
+
+export const LoginButton = styled.button`
+  width: 100%;
+  height: 2em;
+  font-size: 1.2rem;
+  border-radius: 1.2rem;
+  background-color: transparent;
+  cursor: pointer;
+  border: 0.2rem solid #9e7676;
+  outline: 0;
+  &:hover {
+    background-color: #b0daff;
+  }
+`;

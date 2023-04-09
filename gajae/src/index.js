@@ -8,23 +8,26 @@ import { BrowserRouter } from 'react-router-dom';
 import { legacy_createStore } from 'redux';
 import App from './App';
 import rootReducer from './redux/rootReducer';
+import { setAuth } from './redux/userAuth/action';
 import AuthLogic from './service/authLogic';
 import firebaseApp from './service/firebase';
 import ImageUploader from './service/imageUploader';
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-const authLogic = new AuthLogic(firebaseApp);
 const imageUploader = new ImageUploader();
-
+const authLogic = new AuthLogic(firebaseApp);
+const root = ReactDOM.createRoot(document.getElementById('root'));
 const store = legacy_createStore(rootReducer);
+store.dispatch(setAuth(authLogic.getUserAuth(), authLogic.getGoogleAuthProvider()));
+
 console.log(store.getState());
 
 root.render(
   <>
-    <Provider store={store}>
-      <BrowserRouter>
-        <App authLogic={authLogic} imageUploader={imageUploader} />
-      </BrowserRouter>{' '}
-    </Provider>
+    {' '}
+    <BrowserRouter>
+      <Provider store={store}>
+        <App imageUploader={imageUploader} />
+      </Provider>
+    </BrowserRouter>
   </>
 );

@@ -1,41 +1,54 @@
 import React, { useEffect, useState } from 'react';
-import { Form } from 'react-bootstrap';
+import { Form, Image } from 'react-bootstrap';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
-import { checkPassword, regexBirthday, regexEmail, regexMobile, regexName, regexNickname, regexPassword } from '../../service/regex';
-import { siginupSubmitDB } from '../../service/signup/signup';
-import { idCheck, nicknameCheck } from '../../service/user/user';
+import { setToastMessage } from '../../redux/toastStatus/action';
+import {
+  checkPassword,
+  regexBirthday,
+  regexEmail,
+  regexID,
+  regexMobile,
+  regexName,
+  regexNickname,
+  regexPassword,
+} from '../../service/regex';
+import { idCheck, nicknameCheck, siginupSubmitDB } from '../../service/user/user';
 import { MyButton, MyH1, MyInput, MyLabel, MyLabelAb, PwEye, SignupForm, SubmitButton } from '../../style/FormStyle';
 import Footer from '../footer/Footer';
 import HeaderNav1 from '../header/HeaderNav1';
 import HeaderNav2 from '../header/HeaderNav2';
 
-const DivSignUp = styled.div`
-  width: 300px;
-  margin-bottom: 7px;
-`;
-const SignUpTest = ({ authLogic }) => {
-  //const auth = authLogic.getUserAuth();
-  // console.log('auth ===> ', auth);
+const SignUpTest = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const [isInputCheck, setIsInputCheck] = useState(false);
+
+  const [isIdCheck, setIsIdCheck] = useState(false);
+  const [isNickNameCheck, setIsNickNameCheck] = useState(false);
+
   const [googleEmail, setGoogleEmail] = useState('');
   const [comment, setComment] = useState({
-    user_email: '',
-    user_pw: '',
-    user_pw2: '',
-    user_name: '',
-    user_nickname: '',
-    user_mobile: '',
-    user_birthday: '',
+    id: '',
+    email: '',
+    password: '',
+    password2: '',
+    name: '',
+    nickname: '',
+    mobile: '',
+    birthday: '',
   });
 
   const [star, setStar] = useState({
-    user_email: '*',
-    user_pw: '*',
-    user_pw2: '*',
-    user_name: '*',
-    user_nickname: '*',
-    user_mobile: '*',
-    user_birthday: '*',
+    id: '*',
+    email: '*',
+    password: '*',
+    password2: '*',
+    name: '*',
+    nickname: '*',
+    mobile: '*',
+    birthday: '*',
   });
 
   useEffect(() => {
@@ -56,18 +69,28 @@ const SignUpTest = ({ authLogic }) => {
     let result;
     if (key === 'email') {
       result = regexEmail(event);
+      console.log(result);
+    } else if (key === 'id') {
+      result = regexID(event);
+      console.log(result);
     } else if (key === 'nickname') {
       result = regexNickname(event);
+      console.log(result);
     } else if (key === 'password') {
       result = regexPassword(event);
+      console.log(result);
     } else if (key === 'password2') {
-      result = checkPassword(userInfo.user_password, event);
+      result = checkPassword(userInfo.user_pw, event);
+      console.log(result);
     } else if (key === 'name') {
       result = regexName(event);
+      console.log(result);
     } else if (key === 'mobile') {
       result = regexMobile(event);
+      console.log(result);
     } else if (key === 'birthday') {
       result = regexBirthday(event);
+      console.log(result);
     }
     setComment({ ...comment, [key]: result });
     if (result) {
@@ -82,7 +105,6 @@ const SignUpTest = ({ authLogic }) => {
   };
 
   const type = 'user';
-  const navigate = useNavigate();
 
   const [userInfo, setUserInfo] = useState({
     user_uid: '',
@@ -95,34 +117,55 @@ const SignUpTest = ({ authLogic }) => {
     user_mobile: '',
     user_birthday: '',
     user_gender: '',
-    user_auth: '',
   });
 
+  /**
+   * 아이디, 닉네임 중복체크 함수
+   * 입력 받은 아이디가 공백이면 toast message로 '아이디를 입력해주세요' 출력
+   * 입력 받은 아이디가 공백이 아니면 아이디 중복체크 진행
+   * 사용자가 입력한 아이디가 중복이면 1을 반환, 중복이 아니면 0을 반환
+   * 0(중복이 아니면) isIdCheck를 true로 초기화
+   * (닉네임도 동일하게 진행)
+   * @param {*} key
+   * @returns
+   */
   const overlap = async (key) => {
     let params;
     let response;
     if (key === 'user_id') {
       params = { USER_ID: userInfo[key].trim(), type: 'overlap' };
+
       if (params.USER_ID === '') {
-        alert('공백입력');
+        dispatch(setToastMessage('아이디를 입력해주세요.'));
         return;
+      } else {
+        response = await idCheck(params);
+        if (response.data === 0) {
+          dispatch(setToastMessage('사용 가능한 ID 입니다.'));
+          setIsIdCheck(true);
+        } else if (response.data === 1) {
+          dispatch(setToastMessage('이미 사용중인 ID 입니다.'));
+        }
       }
-      response = await idCheck(params);
-    } else if (key === 'user_nickname') {
+    }
+
+    if (key === 'user_nickname') {
       params = { USER_NICKNAME: userInfo[key].trim(), type: 'overlap' };
+
       if (params.USER_NICKNAME === '') {
-        alert('공백입력');
+        dispatch(setToastMessage('닉네임을 입력해주세요.'));
         return;
+      } else {
+        response = await nicknameCheck(params);
+        if (response.data === 0) {
+          dispatch(setToastMessage('사용 가능한 닉네임 입니다.'));
+          setIsNickNameCheck(true);
+        } else if (response.data === 1) {
+          dispatch(setToastMessage('이미 사용중인 닉네임 입니다.'));
+        }
       }
-      response = await nicknameCheck(params);
     }
     console.log('params ===> ', params);
-    console.log(response.data);
-    if (response.data === 0) {
-      alert('사용 가능합니다.');
-    } else if (response.data === 1) {
-      alert('이미 사용중 입니다.');
-    }
   };
 
   const changeUserInfo = (event) => {
@@ -176,35 +219,54 @@ const SignUpTest = ({ authLogic }) => {
   };
 
   const signup = async () => {
-    try {
-      const b = userInfo.user_birthday;
-      let birthday = '';
-      if (b !== '') {
-        birthday = b.slice(0, 4) + '-' + b.slice(4, 6) + '-' + b.slice(6, 8);
-      }
-      const userRecord = {
-        //USER_UID: userInfo.user_uid,
-        USER_ID: userInfo.user_id,
-        USER_PW: userInfo.user_pw,
-        USER_NAME: userInfo.user_name,
-        USER_NICKNAME: userInfo.user_nickname,
-        USER_EMAIL: userInfo.user_email,
-        USER_MOBILE: userInfo.user_mobile,
-        USER_BIRTH: birthday,
-        USER_GENDER: userInfo.user_gender,
-        USER_AUTH: type === 'user' ? 'user' : 'staff',
-        USER_STATUS: 1,
-      };
-      console.log('userRecord ===>', userRecord);
-      const resonse = await siginupSubmitDB(userRecord);
+    console.log(userInfo.user_id == false);
+    if (
+      !userInfo.user_id ||
+      !userInfo.user_pw ||
+      !userInfo.user_email ||
+      !userInfo.user_pw2 ||
+      !userInfo.user_name ||
+      !userInfo.user_mobile ||
+      !userInfo.user_birthday ||
+      !userInfo.user_nickname
+    ) {
+      dispatch(setToastMessage('필수정보를 모두 입력해주세요.'));
+      return;
+    }
 
-      if (resonse.data !== 1) {
-        return '회원가입 실패';
-      } else if (resonse.data == 1) {
-        navigate('/login');
+    if (isIdCheck && isNickNameCheck) {
+      try {
+        const b = userInfo.user_birthday;
+        let birthday = '';
+        if (b !== '') {
+          birthday = b.slice(0, 4) + '-' + b.slice(4, 6) + '-' + b.slice(6, 8);
+        }
+        const userRecord = {
+          USER_ID: userInfo.user_id,
+          USER_PW: userInfo.user_pw,
+          USER_NAME: userInfo.user_name,
+          USER_NICKNAME: userInfo.user_nickname,
+          USER_EMAIL: userInfo.user_email,
+          USER_MOBILE: userInfo.user_mobile,
+          USER_BIRTH: birthday,
+          USER_AUTH: type === 'user' ? 'user' : 'staff',
+        };
+        console.log('userRecord ===>', userRecord);
+        const response = await siginupSubmitDB(userRecord);
+        console.log(response.data);
+
+        if (response.data !== 1) {
+          return '회원가입 실패';
+        } else if (response.data == 1) {
+          navigate('/login');
+        }
+      } catch (error) {
+        console.log('error ===>', error);
       }
-    } catch (error) {
-      console.log('error ===>', error);
+    } else if (isIdCheck === false) {
+      dispatch(setToastMessage('아이디 중복확인을 먼저 진행해주세요.'));
+    } else if (isNickNameCheck === false) {
+      dispatch(setToastMessage('닉네임 중복확인을 먼저 진행해주세요.'));
     }
   };
 
@@ -237,7 +299,7 @@ const SignUpTest = ({ authLogic }) => {
       <div style={{ display: 'flex', justifyContent: 'center' }}>
         <div style={{ display: 'flex', width: '100%' }}>
           <SignupForm suggested={false}>
-            <MyH1>{'Sign Up'}</MyH1>
+           <Image src='/images/1541.png' alt='회원가입'/>
             <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
               <div style={{ padding: '30px 30px 0px 30px' }}>
                 {googleEmail ? (
@@ -252,7 +314,7 @@ const SignUpTest = ({ authLogic }) => {
                   <div style={{ display: 'flex', flexWrap: 'wrap' }}>
                     <MyLabel>
                       {' '}
-                      이메일 <span style={{ color: 'red' }}>{star.user_email}</span>
+                      이메일 <span style={{ color: 'red' }}>{star.email}</span>
                       <MyInput
                         type="email"
                         id="user_email"
@@ -262,24 +324,25 @@ const SignUpTest = ({ authLogic }) => {
                           regex('email', e);
                         }}
                       />
-                      <MyLabelAb>{comment.user_email}</MyLabelAb>
+                      <MyLabelAb>{comment.email}</MyLabelAb>
                     </MyLabel>
                   </div>
                 )}
                 <div style={{ display: 'flex' }}>
                   <MyLabel>
                     {' '}
-                    아이디 <span style={{ color: 'red' }}>{star.user_id}</span>
+                    아이디 <span style={{ color: 'red' }}>{star.id}</span>
                     <MyInput
                       type="text"
                       id="user_id"
-                      defaultValue={userInfo.user_id}
-                      placeholder="닉네임을 입력해주세요."
+                      defaultValue={userInfo.id}
+                      placeholder="아이디을 입력해주세요."
                       onChange={(e) => {
                         changeUserInfo(e);
+                        regex('id', e);
                       }}
                     />
-                    <MyLabelAb>{comment.user_id}</MyLabelAb>
+                    <MyLabelAb>{comment.id}</MyLabelAb>
                   </MyLabel>
                   <MyButton
                     type="button"
@@ -292,7 +355,7 @@ const SignUpTest = ({ authLogic }) => {
                 </div>
                 <MyLabel>
                   {' '}
-                  비밀번호 <span style={{ color: 'red' }}>{star.user_pw}</span>
+                  비밀번호 <span style={{ color: 'red' }}>{star.password}</span>
                   <MyInput
                     type={passwordType[0].type}
                     id="user_pw"
@@ -315,11 +378,11 @@ const SignUpTest = ({ authLogic }) => {
                   >
                     <PwEye className="fa fa-eye fa-lg"></PwEye>
                   </div>
-                  <MyLabelAb>{comment.user_pw2}</MyLabelAb>
+                  <MyLabelAb>{comment.password}</MyLabelAb>
                 </MyLabel>
                 <MyLabel>
                   {' '}
-                  비밀번호 확인 <span style={{ color: 'red' }}>{star.user_pw2}</span>
+                  비밀번호 확인 <span style={{ color: 'red' }}>{star.password2}</span>
                   <MyInput
                     type={passwordType[1].type}
                     id="user_pw2"
@@ -339,14 +402,14 @@ const SignUpTest = ({ authLogic }) => {
                   >
                     <PwEye className="fa fa-eye fa-lg"></PwEye>
                   </div>
-                  <MyLabelAb>{comment.user_pw2}</MyLabelAb>
+                  <MyLabelAb>{comment.password2}</MyLabelAb>
                 </MyLabel>
               </div>
 
               <div style={{ padding: '30px 30px 0px 30px' }}>
                 <MyLabel>
                   {' '}
-                  이름 <span style={{ color: 'red' }}>{star.user_name}</span>
+                  이름 <span style={{ color: 'red' }}>{star.name}</span>
                   <MyInput
                     type="text"
                     id="user_name"
@@ -357,12 +420,12 @@ const SignUpTest = ({ authLogic }) => {
                       regex('name', e);
                     }}
                   />
-                  <MyLabelAb>{comment.user_name}</MyLabelAb>
+                  <MyLabelAb>{comment.name}</MyLabelAb>
                 </MyLabel>
                 <div style={{ display: 'flex' }}>
                   <MyLabel>
                     {' '}
-                    닉네임 <span style={{ color: 'red' }}>{star.user_nickname}</span>
+                    닉네임 <span style={{ color: 'red' }}>{star.nickname}</span>
                     <MyInput
                       type="text"
                       id="user_nickname"
@@ -373,7 +436,7 @@ const SignUpTest = ({ authLogic }) => {
                         regex('nickname', e);
                       }}
                     />
-                    <MyLabelAb>{comment.user_nickname}</MyLabelAb>
+                    <MyLabelAb>{comment.nickname}</MyLabelAb>
                   </MyLabel>
                   <MyButton
                     type="button"
@@ -386,7 +449,7 @@ const SignUpTest = ({ authLogic }) => {
                 </div>
                 <MyLabel>
                   {' '}
-                  전화번호 <span style={{ color: 'red' }}>{star.hp}</span>
+                  전화번호 <span style={{ color: 'red' }}>{star.mobile}</span>
                   <MyInput
                     type="text"
                     id="user_mobile"
@@ -397,11 +460,11 @@ const SignUpTest = ({ authLogic }) => {
                       regex('mobile', e);
                     }}
                   />
-                  <MyLabelAb>{comment.user_mobile}</MyLabelAb>
+                  <MyLabelAb>{comment.mobile}</MyLabelAb>
                 </MyLabel>
                 <MyLabel>
                   {' '}
-                  생년월일 <span style={{ color: 'red' }}>{star.user_birthday}</span>
+                  생년월일 <span style={{ color: 'red' }}>{star.birthday}</span>
                   <MyInput
                     type="text"
                     id="user_birthday"
@@ -412,7 +475,7 @@ const SignUpTest = ({ authLogic }) => {
                       regex('birthday', e);
                     }}
                   />
-                  <MyLabelAb>{comment.user_birthday}</MyLabelAb>
+                  <MyLabelAb>{comment.birthday}</MyLabelAb>
                 </MyLabel>
               </div>
             </div>

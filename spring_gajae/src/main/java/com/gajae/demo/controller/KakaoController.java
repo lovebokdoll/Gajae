@@ -1,5 +1,8 @@
 package com.gajae.demo.controller;
 
+import java.io.IOException;
+
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.http.HttpEntity;
@@ -27,7 +30,7 @@ import lombok.extern.log4j.Log4j2;
 public class KakaoController {
     
     @GetMapping( "kakao/callback" )
-    public String kakaoCallback( HttpSession session, String code ) {
+    public String kakaoCallback( HttpSession session, String code, HttpServletResponse res ) throws IOException {
         
         log.info( "kakao callback" );
         
@@ -112,6 +115,9 @@ public class KakaoController {
         String nickname = kakaoProfile.getProperties().nickname;
         session.setAttribute( "kakao_id", kakao_id );
         session.setAttribute( "kakao_nickname", nickname );
-        return "/";
+        log.info( session.getAttribute( "kakao_id" ) );
+        log.info( session.getAttribute( "kakao_nickname" ) );
+        // res.sendRedirect( "http://localhost:3000/login" );
+        return nickname;
     }
 }

@@ -13,6 +13,7 @@ export const textRegEx = (event) => {
 };
 
 export const regexEmail = (event) => {
+  console.log('event ===>', event);
   //eslint-disable-next-line
   const regex = /^([0-9a-zA-Z_\.-]+)@([0-9a-zA-Z_-]+)(\.[0-9a-zA-Z_-]+){1,2}$/;
   const email = event.target.value;
@@ -21,11 +22,25 @@ export const regexEmail = (event) => {
   } else if (!regex.test(email)) {
     return '이메일 형식이 아닙니다.';
   } else {
-    return '중복확인을 해주세요.';
+    return '사용 가능한 이메일 형식입니다.';
+  }
+};
+
+export const regexID = (event) => {
+  console.log('event ===>', event);
+  const regex = /^[a-z]+[a-z0-9]{5,15}$/g;
+  const id = event.target.value;
+  if (id === '') {
+    return ' ';
+  } else if (!regex.test(id)) {
+    return '영어 또는 숫자 6~15자리를 입력해주세요.';
+  } else {
+    return '멋진 아이디네요!';
   }
 };
 
 export const regexPassword = (event) => {
+  console.log('event ===>', event);
   const password = event.target.value;
   const num = password.search(/[0-9]/g);
   const eng = password.search(/[a-z]/gi);
@@ -48,6 +63,7 @@ export const regexPassword = (event) => {
 };
 
 export const checkPassword = (password, password2) => {
+  console.log(password, password2);
   if (password2) {
     if (password === password2) {
       return '';
@@ -60,6 +76,7 @@ export const checkPassword = (password, password2) => {
 };
 
 export const regexName = (event) => {
+  console.log('event ===>', event);
   const name = event.target.value;
   const kor = /^[가-힣]+$/;
   const eng = /^[a-zA-Z]+$/;
@@ -73,6 +90,7 @@ export const regexName = (event) => {
 };
 
 export const regexBirthday = (event) => {
+  console.log('event ===>', event);
   const birthday = event.target.value;
   const day = /^(19[0-9][0-9]|20\d{2})(0[0-9]|1[0-2])(0[1-9]|[1-2][0-9]|3[0-1])$/;
   if (birthday.length === 0) {
@@ -85,6 +103,7 @@ export const regexBirthday = (event) => {
 };
 
 export const regexMobile = (event) => {
+  console.log('event ===>', event);
   const mobile = event.target.value;
 
   const regex = /^01([0|1|6|7|8|9]?)([0-9]{4})([0-9]{4})$/;
@@ -99,6 +118,7 @@ export const regexMobile = (event) => {
 };
 
 export const regexNickname = (event) => {
+  console.log('event ===>', event);
   const nickname = event.target.value;
   const check = /^[가-힣a-zA-Z0-9]+$/;
 
@@ -109,7 +129,7 @@ export const regexNickname = (event) => {
   } else if (nickname.search(/\s/) !== -1) {
     return '닉네임은 공백 없이 입력해주세요.';
   } else if (check.test(nickname)) {
-    return '중복확인을 해주세요.';
+    return '멋진 닉네임이네요!';
   } else {
     return '해당 닉네임은 사용할 수 없습니다.';
   }

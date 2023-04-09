@@ -1,4 +1,4 @@
-import React, { useCallback, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { Form } from 'react-bootstrap';
 import { BButton, ContainerDiv, FormDiv, HeaderDiv } from '../../style/FormStyle';
 import QuillEditor from '../board/QuillEditor';
@@ -16,6 +16,7 @@ const QNAInsertForm = ({ authLogic }) => {
   const [types] = useState(['일반', '결제', '양도', '회원', '수업']); //qna_type의 라벨값
   const [files, setFiles] = useState([]); //파일처리
   const quillRef = useRef();
+
 
   const handleContent = useCallback((value) => {
     console.log(value);
@@ -45,8 +46,17 @@ const QNAInsertForm = ({ authLogic }) => {
       qna_type: tTitle,
       qna_secret: secret ? 'true' : 'false',
       qna_hit: 0,
-      mem_no: 7,
+      mem_no: 17,
+      fileNames: files,
     };
+
+    if (qna.qna_title === '') {
+      alert('제목을 입력해주세요');
+      return;
+    } else if (qna.qna_content === '') {
+      alert('내용을 입력해주세요');
+      return;
+    }
 
     const response = await qnaInsertDB(qna);
     console.log(response.data);

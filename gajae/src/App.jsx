@@ -1,4 +1,4 @@
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Route, Routes } from 'react-router-dom';
 import KakaoProfile from './api/kakao/KakaoProfile';
 import KakaoRedirectHandler from './api/kakao/KakaoRedirectHandler';
@@ -7,24 +7,23 @@ import './App.css';
 import BoardDetail from './components/board/BoardDetail';
 import BoardInsert from './components/board/BoardInsert';
 import SignUpTest from './components/login/SignUpTest';
-import QNADetailPage from './components/qna/QNADetailPage';
-import QNAInsertForm from './components/qna/QNAInsertForm';
-import QNAListPage from './components/qna/QNAListPage';
-import QNAUpdatePage from './components/qna/QNAUpdatePage';
 import Toast from './components/toast/Toast';
 import BoardPage from './pages/board/BoardPage';
 import HotelPage from './pages/hotel/HotelPage';
 import LoginPage from './pages/login/LoginPage';
 import MainPage from './pages/main/MainPage';
 import Mypage from './pages/mypage/Mypage';
+import MyPaymentPage from './pages/mypage/MyPaymentPage';
+import MyReservatiosPage from './pages/mypage/MyReservatiosPage';
+import MyReviewPage from './pages/mypage/MyReviewPage';
+import MyWishListPage from './pages/mypage/MyWishListPage';
+import MyNotificationsPage from './pages/mypage/MyNotificationsPage';
+import MySettings from './pages/mypage/MySettings';
 import PropertyListPage from './pages/propertyList/PropertyListPage';
 import ReviewBoradPage from './pages/reviewBoard/ReviewBoradPage';
 import ReviewWritePage from './pages/reviewBoard/ReviewWritePage';
-import SignUpPage from './pages/signup/SignUpPage';
 
-function App({ authLogic, imageUploader }) {
-  const ss = sessionStorage;
-  const dispatch = useDispatch();
+function App() {
   const toastStatus = useSelector((state) => state.toastStatus);
 
   return (
@@ -33,9 +32,8 @@ function App({ authLogic, imageUploader }) {
       <Routes>
         <Route path="/" exact="true" element={<MainPage />} />
         {/* signup & signin */}
-        <Route path="/signup" exact={true} element={<SignUpTest authLogic={authLogic} />} />
-        <Route path="/login" exact={true} element={<LoginPage authLogic={authLogic} />} />
-        <Route path="/signuptest" exact={true} element={<SignUpPage />} />
+        <Route path="/signup" exact={true} element={<SignUpTest />} />
+        <Route path="/login" element={<LoginPage />} />
         <Route path="/mypage" exact={true} element={<Mypage />} />
         <Route path="/propertylist" element={<PropertyListPage />} />
         <Route path="/hotel" element={<HotelPage />} />
@@ -46,12 +44,14 @@ function App({ authLogic, imageUploader }) {
         <Route path="/board/insert" exact={true} element={<BoardInsert />} />
         <Route path="/auth/kakao/callback" exact={true} element={<KakaoRedirectHandler />} />
         <Route path="/kakaoprofile" exact={true} element={<KakaoProfile />} />
-        {/* qna */}
-        <Route path="/qna/list" exact={true} element={<QNAListPage />} />
-        <Route path="/qna/detail/:qna_bno" exact={true} element={<QNADetailPage />} />
-        <Route path="/qna/insert/*" exact={true} element={<QNAInsertForm authLogic={authLogic} />} />
-        <Route path="/qna/update" exact={true} element={<QNAUpdatePage />} />
         <Route path="/naverpay" exact={true} element={<NaverPay />} />
+        <Route path="/mypage" exact={true} element={<Mypage />} />
+        <Route path="/mypage/settings" exact={true} element={<MySettings />} />
+        <Route path="/mypage/notifications" exact={true} element={<MyNotificationsPage />} />
+        <Route path="/mypage/reservations" exact={true} element={<MyReservatiosPage />} />
+        <Route path="/mypage/review" exact={true} element={<MyReviewPage />} />
+        <Route path="/mypage/payment" exact={true} element={<MyPaymentPage />} />
+        <Route path="/mypage/wishlist" exact={true} element={<MyWishListPage />} />
       </Routes>
     </div>
   );

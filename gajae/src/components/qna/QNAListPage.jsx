@@ -84,6 +84,7 @@ const QNAListPage = ({ authLogic }) => {
           mem_name: row.MEM_NAME,
           qna_date: row.QNA_DATE,
           qna_hit: row.QNA_HIT,
+          qna_secret: JSON.parse(row.QNA_SECRET),
         };
         list.push(obj);
       });

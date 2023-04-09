@@ -1,14 +1,13 @@
-package com.gajae.demo.vo;
+package com.gajae.demo.dto;
 
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import oracle.sql.DATE;
 
 @Getter
 @Setter
 @ToString
-public class PropertyVO {
+public class PropertyDTO {
     
     private int    P_ID;
     private String P_TITLE;
@@ -26,6 +25,6 @@ public class PropertyVO {
     private String P_STATUS;
     private String P_MAPY;
     private String P_MAPX;
-    private DATE   P_HIDERDATE;
-    private DATE   P_CHANGE_DATE;
+    private String P_HIDERDATE;
+    private String P_CHANGE_DATE;
 }

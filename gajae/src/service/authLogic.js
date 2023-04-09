@@ -1,4 +1,3 @@
-import axios from 'axios';
 import {
   GoogleAuthProvider,
   getAuth,
@@ -9,16 +8,29 @@ import {
   signInWithEmailAndPassword,
   sendPasswordResetEmail,
 } from 'firebase/auth';
-import { useNavigate } from 'react-router';
 
+/**
+ * 클래스 선언
+ * 생성자 - 전역 변수 초기화
+ */
 class AuthLogic {
   constructor() {
     this.auth = getAuth();
     this.googleProvider = new GoogleAuthProvider();
   }
+
+  /**
+   * auth를 반환하는 함수 선언, getUserAuth 함수를 사용하려면 AuthLogic 클래스가 있어야 한다.
+   * @returns auth
+   */
   getUserAuth = () => {
     return this.auth;
   };
+
+  /**
+   *
+   * @returns
+   */
   getGoogleAuthProvider = () => {
     return this.googleProvider;
   };
@@ -39,7 +51,8 @@ export const logout = (auth) => {
   return new Promise((resolve, reject) => {
     auth.signOut().catch((e) => reject(e + '로그아웃 오류입니다.'));
     //로그인 성공시 세션 스토리지에 담아둔 정보를 모두 지운다
-    sessionStorage.clear();
+    window.localStorage.removeItem('userId');
+    //window.sessionStorage.clear();
     //서비스를 더 이상 사용하지 않는 경우이므로 돌려줄 값은 없다
     resolve(); //그래서 파라미터는 비웠다
   });
@@ -100,15 +113,15 @@ export const linkEmail = (auth, user) => {
     console.log(auth.currentUser.uid);
     resolve(auth.currentUser.uid);
     /* 인증정보가 다른 사용자 계정에 이미 연결되어 있다면 아래 코드 에러 발생함
-    linkWithCredential(auth.currentUser, credential)
-      .then((usercred) => {
-        console.log(usercred);
-        const user = usercred.user;
-        console.log("Account linking success", user.uid);
-        resolve(user.uid);
-      })
-      .catch((e) => reject(e));
-    */
+      linkWithCredential(auth.currentUser, credential)
+        .then((usercred) => {
+          console.log(usercred);
+          const user = usercred.user;
+          console.log("Account linking success", user.uid);
+          resolve(user.uid);
+        })
+        .catch((e) => reject(e));
+      */
   });
 };
 
@@ -134,5 +147,3 @@ export const sendResetpwEmail = (auth, email) => {
       .catch((e) => reject(e));
   });
 };
-
-

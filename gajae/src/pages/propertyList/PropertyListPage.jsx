@@ -37,7 +37,6 @@ const PropertyListPage = () => {
       {property.map((row, index) => (
         <PropertyCard key={index} row={row} />
       ))}
-
       <Footer />
     </>
   );

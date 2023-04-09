@@ -3,10 +3,18 @@
 <mapper namespace="user">
 
 	<select id="signIn" parameterType="map" resultType="map">
-		SELECT USER_ID
-		FROM MBLOG.USER2
+		SELECT
+		USER_ID,
+		USER_UID,
+		USER_NICKNAME,
+		USER_EMAIL,
+		USER_BIRTH,
+		USER_AUTH
+		FROM
+		GAJAE.USERS
 		WHERE USER_ID = #{user_id}
-		AND USER_PW = #{user_pw}
+		AND USER_PW =
+		#{user_pw}
 	</select>
 
 	<select id="getUser" parameterType="map" resultType="map">
@@ -23,26 +31,26 @@
 		USER_STATUS,
 		USER_AUTH,
 		USER_HIREDATE
-		FROM MBLOG.USER2
+		FROM GAJAE.USERS
 	</select>
 
 	<select id="idCheck" parameterType="map" resultType="map">
 		SELECT
 		USER_ID
-		FROM MBLOG.USER2
+		FROM GAJAE.USERS
 		WHERE USER_ID = #{USER_ID}
 	</select>
 
 	<select id="nicknameCheck" parameterType="map" resultType="map">
 		SELECT
 		USER_NICKNAME
-		FROM MBLOG.USER2
+		FROM GAJAE.USERS
 		WHERE USER_NICKNAME =
 		#{USER_NICKNAME}
 	</select>
 
 	<update id="userDeactivate">
-		UPDATE MBLOG.USER2
+		UPDATE GAJAE.USERS
 		SET
 		USER_STATUS = 0
 		<if test="USER_ID != null">
@@ -50,10 +58,9 @@
 		</if>
 	</update>
 
-	<insert id="signup">INSERT INTO MBLOG.USER2
+	<insert id="signup">INSERT INTO GAJAE.USERS
 		(
 		USER_ID ,
-		USER_NUMBER ,
 		USER_PW ,
 		USER_NAME ,
 		USER_NICKNAME ,
@@ -61,11 +68,10 @@
 		USER_MOBILE ,
 		USER_BIRTH ,
 		USER_AUTH,
-		USER_STATUS
+		USER_HIREDATE
 		)
 		VALUES(
 		#{USER_ID},
-		USER_NUMBER.NEXTVAL,
 		#{USER_PW},
 		#{USER_NAME},
 		#{USER_NICKNAME},
@@ -73,58 +79,36 @@
 		#{USER_MOBILE},
 		#{USER_BIRTH},
 		#{USER_AUTH},
-		#{USER_STATUS}
+		TO_CHAR( SYSDATE, 'YYYY-MM-DD HH24:MI:SS')
 		)
 	</insert>
 
 	<update id="userUpdate">
-		UPDATE MBLOG.USER2
-		SET USER_NAME = #{USER_NAME},
-		USER_NICKNAME = #{USER_NICKNAME},
+		UPDATE GAJAE.USERS
+		SET
+		<if test="USER_NAME != null">
+			USER_NAME = #{USER_NAME}
+		</if>
+		<if test="USER_NICKNAME != null">
+			USER_NICKNAME = #{USER_NICKNAME}
+		</if>
+		<if test="USER_EMAIL != null">
+			USER_EMAIL = #{USER_EMAIL}
+		</if>
+		<if test="USER_MOBILE != null">
+			USER_MOBILE = #{USER_MOBILE}
+		</if>
+		<if test="USER_BIRTH != null">
+			USER_BIRTH = #{USER_BIRTH}
+		</if>
+		<if test="USER_ADDRESS != null">
+			USER_ADDRESS = #{USER_ADDRESS}
+		</if>
+		<if test="USER_GENDER != null">
+			USER_GENDER = #{USER_GENDER}
+		</if>
 		WHERE
 		USER_ID = #{USER_ID}
 	</update>
 
-	<update id="nameUpdate">
-		UPDATE MBLOG.USER2
-		SET USER_NAME = #{USER_NAME}
-		WHERE
-		USER_ID = #{USER_ID}
-	</update>
-
-	<update id="nicknameUpdate">
-		UPDATE MBLOG.USER2
-		SET USER_NICKNAME =
-		#{USER_NICKNAME}
-		WHERE
-		USER_ID = #{USER_ID}
-	</update>
-
-	<update id="emailUpdate">
-		UPDATE MBLOG.USER2
-		SET USER_EMAIL = #{USER_EMAIL}
-		WHERE
-		USER_ID = #{USER_ID}
-	</update>
-
-	<update id="mobileUpdate">
-		UPDATE MBLOG.USER2
-		SET USER_MOBILE = #{USER_MOBILE}
-		WHERE
-		USER_ID = #{USER_ID}
-	</update>
-
-	<update id="genderUpdate">
-		UPDATE MBLOG.USER2
-		SET USER_GENDER = #{USER_GENDER}
-		WHERE
-		USER_ID = #{USER_ID}
-	</update>
-
-	<update id="addressUpdate">
-		UPDATE MBLOG.USER2
-		SET USER_ADDRESS = #{USER_ADDRESS}
-		WHERE
-		USER_ID = #{USER_ID}
-	</update>
 </mapper>

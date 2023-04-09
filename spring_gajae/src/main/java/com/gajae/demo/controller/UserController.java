@@ -6,14 +6,13 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.gajae.demo.dto.UsersDTO;
 import com.gajae.demo.logic.UserLogic;
-import com.gajae.demo.vo.UserVO;
 import com.google.gson.Gson;
 
 import lombok.extern.log4j.Log4j2;
@@ -41,22 +40,23 @@ public class UserController {
         
         log.info( "map = {}", map );
         
-        List<UserVO> userList = userLogic.userSignIn( map );
+        List<UsersDTO> userList = userLogic.userSignIn( map );
+        String         temp     = null;
         
-        int result = 0;
-        
-        if ( userList.size() > 0 ) {
-            result = 1;
+        if ( userList != null && userList.size() > 0 ) {
+            Gson gson = new Gson();
+            temp = gson.toJson( userList );
+            log.info( "temp ={}", temp );
         }
         
-        return String.valueOf( result );
+        return temp;
     }
     
     @GetMapping( "getUser" )
     public String getUser( @RequestParam Map<String, Object> map ) {
         
         log.info( "map = {}", map );
-        List<UserVO> userList = userLogic.getUser( map );
+        List<UsersDTO> userList = userLogic.getUser( map );
         
         Gson   gson = new Gson();
         String temp = gson.toJson( userList );
@@ -90,7 +90,7 @@ public class UserController {
         
         log.info( "map = {}", map );
         
-        List<UserVO> userList = userLogic.idCheck( map );
+        List<UsersDTO> userList = userLogic.idCheck( map );
         
         int result = 0;
         
@@ -106,7 +106,7 @@ public class UserController {
         
         log.info( "map = {}", map );
         
-        List<UserVO> userList = userLogic.nicknameCheck( map );
+        List<UsersDTO> userList = userLogic.nicknameCheck( map );
         
         int result = 0;
         
@@ -116,57 +116,4 @@ public class UserController {
         return result;
     }
     
-    @PutMapping( "nameupdate" )
-    public String nameUpdate( @RequestBody Map<String, Object> map ) {
-        
-        log.info( "map = {}", map );
-        int result = userLogic.nameUpdate( map );
-        
-        return String.valueOf( result );
-    }
-    
-    @PutMapping( "nicknameupdate" )
-    public String nicknameUpdate( @RequestBody Map<String, Object> map ) {
-        
-        log.info( "map = {}", map );
-        int result = userLogic.nicknameUpdate( map );
-        
-        return String.valueOf( result );
-    }
-    
-    @PutMapping( "emailupdate" )
-    public String emailUpdate( @RequestBody Map<String, Object> map ) {
-        
-        log.info( "map = {}", map );
-        int result = userLogic.emailUpdate( map );
-        
-        return String.valueOf( result );
-    }
-    
-    @PutMapping( "mobileupdate" )
-    public String mobileUpdate( @RequestBody Map<String, Object> map ) {
-        
-        log.info( "map = {}", map );
-        int result = userLogic.mobileUpdate( map );
-        
-        return String.valueOf( result );
-    }
-    
-    @PutMapping( "genderupdate" )
-    public String genderUpdate( @RequestBody Map<String, Object> map ) {
-        
-        log.info( "map = {}", map );
-        int result = userLogic.genderUpdate( map );
-        
-        return String.valueOf( result );
-    }
-    
-    @PutMapping( "addressupdate" )
-    public String addressUpdate( @RequestBody Map<String, Object> map ) {
-        
-        log.info( "map = {}", map );
-        int result = userLogic.addressUpdate( map );
-        
-        return String.valueOf( result );
-    }
 }

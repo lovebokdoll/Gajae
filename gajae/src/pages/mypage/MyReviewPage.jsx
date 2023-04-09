@@ -2,14 +2,14 @@ import React from 'react';
 import Footer from '../../components/footer/Footer';
 import HeaderNav1 from '../../components/header/HeaderNav1';
 
-const MyPayment = () => {
+const MyReviewPage = () => {
   return (
     <>
       <HeaderNav1 />
-      <div>MyPayment</div>
-      <Footer/>
+      <div>MyReviewPage</div>
+      <Footer />
     </>
   );
 };
 
-export default MyPayment;
+export default MyReviewPage;
