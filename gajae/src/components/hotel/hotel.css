@@ -1,7 +1,11 @@
 .title {
-  font-family: "Pretendard-Regular";
-  font-size: 30px;
-  background-color: rgb(249, 201, 55);
+  position: relative;
+  margin: 20px;
+  padding: 5px;
+  font-family: "KOTRA_GOTHIC";
+  font-size: 20px;
+  font-weight: bold;
+  background-color: #0071c2;
 }
 .hotel_title {
   font-family: "TheJamsil5Bold";
@@ -11,14 +15,19 @@
   border-radius: 10%;
 }
 .hotel_address {
+  font-family: "KOTRA_GOTHIC";
   font-size: 30px;
 }
 .contents {
+  font-family: "KOTRA_GOTHIC";
   background-color: rgb(255, 183, 0);
   font-size: 60px;
 }
 .table-wrapper {
+  margin-left: 2.5em;
   display: flex;
+  position: relative;
+  top: 45px;
   flex-wrap: wrap;
 }
 
@@ -40,3 +49,92 @@
   box-sizing: border-box;
 }
 
+/*************** hotel search bar css *************/
+.headerBtn {
+  background-color: #0071c2;
+  color: white;
+  font-weight: 500;
+  border: none;
+  border-radius: 5%;
+  padding: 5px;
+  cursor: pointer;
+}
+
+.headerSearch {
+  margin-left: 3em;
+  position: absolute;
+  top: 340px;
+  height: 60px;
+  background-color: white;
+  border: 3px solid #febb02;
+  justify-content: space-around;
+  padding: 10px 0px;
+  border-radius: 5px;
+  width: 100%;
+  max-width: 1000px;
+}
+
+.headerIcon {
+  color: lightgray;
+}
+
+.headerSearchItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.headerSearchInput {
+  border: none;
+  outline: none;
+}
+
+.headerSearchText {
+  color: lightgray;
+  cursor: pointer;
+}
+
+.date {
+  position: absolute;
+  top: 50px;
+  z-index: 2;
+}
+
+.options {
+  z-index: 2;
+  position: absolute;
+  top: 50px;
+  background-color: white;
+  color: gray;
+  border-radius: 5px;
+  -webkit-box-shadow: 0px 0px 10px -5px rgba(0, 0, 0, 0.4);
+  box-shadow: 0px 0px 10px -5px rgba(0, 0, 0, 0.4);
+}
+
+.optionItem {
+  width: 200px;
+  display: flex;
+  justify-content: space-between;
+  margin: 10px;
+}
+
+.optionCounter {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 12px;
+  color: black;
+}
+
+.optionCounterButton {
+  width: 30px;
+  height: 30px;
+  border: 1px solid #0071c2;
+  color: #0071c2;
+  cursor: pointer;
+  background-color: white;
+}
+
+.optionCounterButton:disabled {
+  cursor: not-allowed;
+}

@@ -3,18 +3,16 @@ import { Button } from "react-bootstrap";
 import Footer from "../../components/footer/Footer";
 import HeaderNav1 from "../../components/header/HeaderNav1";
 import HeaderNav2 from "../../components/header/HeaderNav2";
-import HotelAvailability from "../../components/hotel/HotelAvailability";
 import HotelFacilities from "../../components/hotel/HotelFacilities";
 import HotelInformation from "../../components/hotel/HotelInformation";
 import HotelPolicies from "../../components/hotel/HotelPolicies";
 import HotelReview from "../../components/hotel/HotelReview";
-import { hotelListDB } from "../../service/hotelReservLogic";
+import { hotelDetailDB } from "../../service/hotelReservLogic";
+import HotelAvailabilityRow from "../../components/hotel/HotelAvailabilityRow";
+import HotelAvailabilityHeader from "../../components/hotel/HotelAvailabilityHeader";
 
 /**
- *룸타입을 빼고 나머지 정보 가져오기
- *       {property.map((row, index) => (
- *         <HotelAvailabilitykey={index} row={row} />
- *      ))}
+ * 사용자가 선택한 호텔의 정보를 보여준다.
  * @returns 예약 가능 옵션보기 페이지
  */
 const HotelPage = () => {
@@ -52,18 +50,19 @@ const HotelPage = () => {
 
   //호텔정보 담기
   const [property, setProperty] = useState([{}]);
-
+  //HotelAvailabilityRow 컴포넌트에 넘겨줄 정보 - 함수의 인자로 전달하기
+  //의존성 배열 위치 아이디 받아오는걸로 수정하기 - 현재는 상수로 설정해놓고 테스트
   useEffect(() => {
     const getHotelList = async () => {
       const hotel = {
         P_ID: 1000,
       };
-      const response = await hotelListDB(hotel);
+      const response = await hotelDetailDB(hotel);
       setProperty(response.data);
       console.log(response.data);
     };
     getHotelList();
-  }, []);
+  }, [setProperty]);
   console.log(property);
 
   return (
@@ -85,8 +84,9 @@ const HotelPage = () => {
       <HotelInformation row={property[0]} />
       {/* 이동할 컴포넌트에 ref로 넘겨준다 */}
       <div ref={availabilityRef}>
-        <HotelAvailability property={property} />
+        <HotelAvailabilityHeader />
       </div>
+      <HotelAvailabilityRow row={property} />
       <div ref={reviewRef}>
         <HotelReview />
       </div>

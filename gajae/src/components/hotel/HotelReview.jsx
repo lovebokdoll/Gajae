@@ -19,7 +19,7 @@ const GradeBtn = styled.button`
   border-bottom-right-radius: 20%;
   border-top-left-radius: 20%;
   border-top-right-radius: 20%;
-  background-color: #feff86;
+  background-color: #0071c2;
   outline: 0;
   border: 0;
   font-weight: bolder;
@@ -27,19 +27,16 @@ const GradeBtn = styled.button`
 const RateDiv = styled.div`
   width: 100%;
   position: relative;
-  border-top:2px;
+  border-top: 2px;
   font-family: "Pretendard-Regular";
   font-size: 20px;
 `;
 const HotelReview = () => {
   return (
     <>
-      <HeaderDiv>
-        이용후기
-      </HeaderDiv>
-        <GradeBtn>8.9</GradeBtn>
-     <RateDiv>항목별 점수</RateDiv> 
-
+      <div className="title">이용후기</div>
+      <GradeBtn>8.9</GradeBtn>
+      <RateDiv>항목별 점수</RateDiv>
 
       {/* <div className="title">이용후기</div> */}
     </>

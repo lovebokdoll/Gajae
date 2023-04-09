@@ -2,11 +2,11 @@ import React, { useEffect, useState } from "react";
 import "./hotel.css";
 import { hotelListDB } from "../../service/hotelReservLogic";
 import { BButton } from "../../style/FormStyle";
-import HotelAvailability from "./HotelAvailability";
+import HotelAvailability from "./HotelAvailabilityHeader";
 import HotelAvailabilityRow from "./HotelAvailabilityRow";
 import { Button } from "react-bootstrap";
 /**
- * 호텔정보
+ * 호텔정보를 나타낸다.
  * @param {*} param0
  * @returns
  */

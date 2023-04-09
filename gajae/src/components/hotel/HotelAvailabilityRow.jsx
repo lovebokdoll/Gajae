@@ -1,16 +1,35 @@
 import { useEffect, useState } from "react";
 import { Button, Dropdown } from "react-bootstrap";
-import styled from "styled-components";
 /**
- * 받아서 보여주기
+ * HotelPage에서 넘어온 정보를 이용하여 갯수만큼 화면에 뿌려준다.
+ *
+ * 옵션정보&요금 - 숙소정보
  */
 
-const HotelAvailabilityRow = ({ roomType }) => {
-  console.log(roomType);
+const HotelAvailabilityRow = ({ row }) => {
+  console.log(row); // 배열객체로 받아오기
   const [selectNumber, setSelectNumber] = useState(0);
+  const [hotels, setHotels] = useState([]);
   // const selectNum = () => {
   //   setSelectNumber(1);
   // };
+  useEffect(() => {
+    console.log(row);
+    // HotelAvailabilityRow에 넘겨줄 정보 list에 담기
+    // 빈배열 생성
+    const list = [];
+    row.forEach((item) => {
+      const obj = {
+        ROOM_TYPE: item.ROOM_TYPE,
+        ROOM_PRICE: item.ROOM_PRICE,
+        ROOM_CAPACITY: item.ROOM_CAPACITY,
+        ROOM_OPTION: item.ROOM_OPTION,
+      };
+      list.push(obj);
+    });
+    console.log(list);
+    setHotels(list);
+  }, [row]);
   const onReservation = () => {
     console.log("지금예약버튼 클릭 -> 결제확인페이지로 이동");
   };
@@ -29,13 +48,13 @@ const HotelAvailabilityRow = ({ roomType }) => {
               </tr>
             </thead>
             <tbody>
-              {roomType.map((item, index) => (
+              {hotels.map((hotel, index) => (
                 <tr key={index}>
-                  <td>{item.ROOM_TYPE}</td>
-                  <td>{item.ROOM_CAPACITY}명</td>
-                  <td>{item.ROOM_PRICE}원</td>
+                  <td>{hotel.ROOM_TYPE}</td>
+                  <td>{hotel.ROOM_CAPACITY}명</td>
+                  <td>{hotel.ROOM_PRICE}원</td>
                   <td>
-                    {item.ROOM_OPTION.split(",").map((option, index) => (
+                    {hotel.ROOM_OPTION?.split(",").map((option, index) => (
                       <div key={index}>{option}</div>
                     ))}
                   </td>

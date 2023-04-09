@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.gajae.demo.dto.HotelDTO;
 import com.gajae.demo.dao.HotelReserveDao;
 import com.gajae.demo.dto.P_RoomTypeDTO;
 import com.gajae.demo.dto.PropertyDTO;
@@ -18,16 +19,13 @@ public class HotelReservLogic {
 	@Autowired
 	private HotelReserveDao hotelReserveDao = null;
 
-	public List<PropertyDTO> hotelList(Map<String, Object> pMap) {
-		log.info("hotelList호출");
-		List<PropertyDTO> hotelList = hotelReserveDao.hotelList(pMap);
-		return hotelList;
-	}
 
-	public List<P_RoomTypeDTO> roomtypeList(Map<String, Object> pMap) {
-		log.info("roomtypeList호출");
-		List<P_RoomTypeDTO> roomtypeList = hotelReserveDao.roomtypeList(pMap);
-		return roomtypeList;
+	public List<HotelDTO> hotelDetail(Map<String, Object> pMap) {
+		
+		log.info("pMap={}",pMap);
+		
+		List<HotelDTO> hotelDetailList = hotelReserveDao.hotelDetail(pMap);
+		return hotelDetailList;
 	}
 
 }
