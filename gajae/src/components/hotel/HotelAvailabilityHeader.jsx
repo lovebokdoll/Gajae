@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { roomtypeListDB } from "../../service/hotelReservLogic";
 import "./hotel.css";
 
-import HotelAvailabilityRow from "./HotelAvailabilityRow";
 import HotelSearchBar from "./HotelSearchBar";
 
 /**
@@ -13,7 +11,7 @@ import HotelSearchBar from "./HotelSearchBar";
 const HotelAvailabilityHeader = () => {
   return (
     <>
-      <div className="title">예약 가능 여부</div>
+      <div className="availabilitytitle">예약 가능 여부</div>
       <div>
         <HotelSearchBar />
       </div>

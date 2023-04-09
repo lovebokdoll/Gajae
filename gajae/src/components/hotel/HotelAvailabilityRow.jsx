@@ -63,7 +63,6 @@ const HotelAvailabilityRow = ({ row }) => {
             </tbody>
           </table>
         </div>
-
         {/* 금액선택 토글 */}
         <div className="table-wrapper-item2">
           <Dropdown>
@@ -77,7 +76,6 @@ const HotelAvailabilityRow = ({ row }) => {
             </Dropdown.Menu>
           </Dropdown>
         </div>
-
         {/* 예약버튼 */}
         <div className="table-wrapper-item3">
           <Button variant="outline-info" onClick={onReservation}>

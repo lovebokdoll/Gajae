@@ -55,7 +55,7 @@ const HotelPage = () => {
   useEffect(() => {
     const getHotelList = async () => {
       const hotel = {
-        P_ID: 1000,
+        P_ID: 800,
       };
       const response = await hotelDetailDB(hotel);
       setProperty(response.data);
@@ -68,19 +68,20 @@ const HotelPage = () => {
   return (
     <>
       <HeaderNav1 />
-      <HeaderNav2 />
-      <Button variant="outline-success" onClick={onMoveToAvailability}>
-        옵션정보
-      </Button>{" "}
-      <Button variant="outline-success" onClick={onMoveToFacilities}>
-        시설
-      </Button>{" "}
-      <Button variant="outline-success" onClick={onMoveToPolicies}>
-        정책
-      </Button>{" "}
-      <Button variant="outline-info" onClick={onMoveToReview}>
-        고객후기를 확인하세요!
-      </Button>{" "}
+      <div className="refBtn">
+        <Button variant="outline-success" onClick={onMoveToAvailability}>
+          옵션정보
+        </Button>{" "}
+        <Button variant="outline-success" onClick={onMoveToFacilities}>
+          시설
+        </Button>{" "}
+        <Button variant="outline-success" onClick={onMoveToPolicies}>
+          정책
+        </Button>{" "}
+        <Button variant="outline-info" onClick={onMoveToReview}>
+          고객후기를 확인하세요!
+        </Button>{" "}
+      </div>
       <HotelInformation row={property[0]} />
       {/* 이동할 컴포넌트에 ref로 넘겨준다 */}
       <div ref={availabilityRef}>
