@@ -3,7 +3,7 @@ import React from 'react';
 const MainRecommandLoc = () => {
   return (
     <>
-      <div> MainRecommandLoc</div>
+      <div>MainRecommandLoc</div>
     </>
   );
 };

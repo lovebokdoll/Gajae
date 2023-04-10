@@ -1,17 +1,15 @@
 import React from 'react';
 import Footer from '../../components/footer/Footer';
 import HeaderNav1 from '../../components/header/HeaderNav1';
-import HeaderNav2 from '../../components/header/HeaderNav2';
 
-const SignUpPage = () => {
+const MyNotificationsPage = () => {
   return (
     <>
       <HeaderNav1 />
-      <HeaderNav2 />
-     {/*  <SignUp /> */}
+      <div>MyNotificationsPage</div>
       <Footer />
     </>
   );
 };
 
-export default SignUpPage;
+export default MyNotificationsPage;

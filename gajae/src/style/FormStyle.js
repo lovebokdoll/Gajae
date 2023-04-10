@@ -17,10 +17,10 @@ export const LoginForm = styled.form`
 `;
 
 export const SignupForm = styled(LoginForm)`
-  padding: 80px 40px 80px 40px;
-  max-width: 1000px;
+  padding: 50px 40px 80px 40px;
+  max-width: 800px;
   min-width: 300px;
-  width: 90%;
+  width: 100%;
 `;
 
 export const MyH1 = styled.h1`
@@ -114,7 +114,7 @@ export const GoogleButton = styled(SubmitButton)`
 
 export const MyButton = styled.button`
   margin-top: 10px;
-  margin-bottom: 40px;
+  margin-bottom: 10px;
   background-color: white;
   color: black;
   border-radius: 15px;
@@ -220,4 +220,31 @@ export const SpanA = styled.span`
   &:hover {
     color: rgb(58, 129, 200);
   }
+`;
+
+export const LoginButton = styled.button`
+  width: 100%;
+  height: 2em;
+  font-size: 1.2rem;
+  border-radius: 1.2rem;
+  background-color: transparent;
+  cursor: pointer;
+  border: 0.2rem solid #9e7676;
+  outline: 0;
+  &:hover {
+    background-color: #b0daff;
+  }
+`;
+
+export const Preview = styled.div`
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: 350px;
+  border: dotted lightgray;
+`;
+
+export const Img = styled.img`
+  width: 300px;
+  height: 300px;
 `;

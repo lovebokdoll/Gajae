@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom';
 import BoardFooter from '../../components/board/BoardFooter';
 import BoardHeader from '../../components/board/BoardHeader';
 import BoardList from '../../components/board/BoardList';
-import BoardRow from '../../components/board/BoardRow';
 import BoardSearch from '../../components/board/BoardSearch';
 import HeaderNav1 from '../../components/header/HeaderNav1';
 

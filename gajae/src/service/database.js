@@ -7,8 +7,8 @@ export const propertyListDB = (property) => {
   return new Promise((resolve, reject) => {
     try {
       const response = axios({
-        method: "get",
-        url: process.env.REACT_APP_SPRING_GAJAE_IP + "property/list",
+        method: 'get',
+        url: process.env.REACT_APP_SPRING_GAJAE_IP + 'property/list',
         params: property,
       });
       resolve(response);
