@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import React, { useEffect, useState } from 'react';
 import { Button, Container, Nav, Navbar } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
@@ -6,11 +5,6 @@ import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import MyPageDropDown from '../mypage/MyPageDropDown';
 import './headerNav1.css';
-=======
-import React from "react";
-import { Container, Nav, Navbar } from "react-bootstrap";
-import { Link } from "react-router-dom";
->>>>>>> origin/dahee_mac
 
 const HeaderButton = styled.button`
   background-color: transparent;
@@ -54,10 +48,9 @@ const HeaderNav1 = () => {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
-              <Link to="/" style={{ color: "white" }} className="nav-link">
+              <Link to="/" style={{ color: 'white' }} className="nav-link">
                 GAJAE.COM
               </Link>
-<<<<<<< HEAD
               <HeaderButton>
                 <span>KRW</span>
               </HeaderButton>
@@ -65,32 +58,12 @@ const HeaderNav1 = () => {
                 <img src="images/korea.svg.png"></img>
               </HeaderButton>
               <Link to="/signup" style={{ color: 'white' }} className="nav-link">
-=======
-              <Link
-                to="/mypage"
-                style={{ color: "white" }}
-                className="nav-link"
-              >
-                마이페이지
-              </Link>
-              <Link
-                to="/signup"
-                style={{ color: "white" }}
-                className="nav-link"
-              >
->>>>>>> origin/dahee_mac
                 가입하기
               </Link>
-              <Link to="/login" style={{ color: "white" }} className="nav-link">
+              <Link to="/login" style={{ color: 'white' }} className="nav-link">
                 로그인
               </Link>
-<<<<<<< HEAD
               {userId && <MyPageDropDown />}
-=======
-              <Link to="/board" style={{ color: "white" }} className="nav-link">
-                게시판
-              </Link>
->>>>>>> origin/dahee_mac
             </Nav>
           </Navbar.Collapse>
         </Container>
