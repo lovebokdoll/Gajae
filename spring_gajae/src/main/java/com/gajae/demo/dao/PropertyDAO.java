@@ -20,12 +20,16 @@ public class PropertyDAO {
     
     public List<PropertyVO> propertyList( Map<String, Object> pMap ) {
         
-        List<PropertyVO> propertyList = sqlSessionTemplate.selectList( "property.list", pMap );
+        List<PropertyVO> propertyList = sqlSessionTemplate.selectList("property.list", pMap );
         
         log.info( "propertyList = {}", propertyList );
         
         return propertyList;
     }
+     
+  
+    
+    
     
     public int propertyInsert( Map<String, Object> pMap ) {
         

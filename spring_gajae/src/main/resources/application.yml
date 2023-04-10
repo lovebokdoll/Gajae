@@ -12,7 +12,11 @@ spring:
       prefix: /WEB-INF/views/
       suffix: .jsp
   datasource:
+<<<<<<< HEAD
     url: jdbc:oracle:thin:@192.168.0.2:1521/orcl11
+=======
+    url: jdbc:oracle:thin:@focusrite.iptime.org:54300/orcl11
+>>>>>>> origin/dahee_mac
     username: gajae
     password: gajae
     driver-class-name: oracle.jdbc.OracleDriver

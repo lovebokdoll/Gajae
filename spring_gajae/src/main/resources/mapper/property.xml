@@ -13,6 +13,13 @@
 		P_ADDRESS,
 		P_OVERVIEW,
 		P_SCALE,
+<<<<<<< HEAD
+=======
+		P_MAXPEOPLE,
+		P_ROOMCOUNT,
+		P_PARKING,
+		P_KITCHEN,
+>>>>>>> origin/dahee_mac
 		P_CHECKIN,
 		P_CHECKOUT,
 		P_GUIDE,
