@@ -8,6 +8,7 @@ import lombok.ToString;
 @Setter
 @ToString
 public class Pro_FacilitiesDTO {
+    
     private int    P_ID;
     private String FAC_ROOM;
     private String FAC_RESTARUANT;

@@ -6,8 +6,9 @@ import KakaoRedirectHandler from './api/kakao/KakaoRedirectHandler';
 import NaverPay from './api/naver/NaverPay';
 import './App.css';
 import SignUpTest from './components/login/SignUpTest';
+import InicisPay from './components/pay/InicisPay';
+import ReservationDetail from './components/Reservate/ReservationDetail';
 import Toast from './components/toast/Toast';
-import BoardPage from './pages/board/BoardPage';
 import HotelPage from './pages/hotel/HotelPage';
 import LoginPage from './pages/login/LoginPage';
 import MainPage from './pages/main/MainPage';
@@ -18,12 +19,11 @@ import MyReservatiosPage from './pages/mypage/MyReservatiosPage';
 import MyReviewPage from './pages/mypage/MyReviewPage';
 import MySettings from './pages/mypage/MySettings';
 import MyWishListPage from './pages/mypage/MyWishListPage';
+import Payapge from './pages/pay/Payapge';
 import PropertyListPage from './pages/propertyList/PropertyListPage';
+import ImageUpload from './pages/reviewBoard/ImageUpload';
 import ReviewBoradPage from './pages/reviewBoard/ReviewBoradPage';
 import ReviewWritePage from './pages/reviewBoard/ReviewWritePage';
-import ReservationDetail from './components/Reservate/ReservationDetail';
-import Payapge from './pages/pay/Payapge';
-import InicisPay from './components/pay/InicisPay';
 
 const App = () => {
   const toastStatus = useSelector((state) => state.toastStatus);
@@ -40,7 +40,6 @@ const App = () => {
         <Route path="/hotel" element={<HotelPage />} />
         <Route path="/review" element={<ReviewBoradPage />} />
         <Route path="/review/write" element={<ReviewWritePage />} />
-        <Route path="/board" exact={true} element={<BoardPage />} />
         <Route path="/auth/kakao/callback" exact={true} element={<KakaoRedirectHandler />} />
         <Route path="/kakaoprofile" exact={true} element={<KakaoProfile />} />
         <Route path="/naverpay" exact={true} element={<NaverPay />} />
@@ -54,6 +53,8 @@ const App = () => {
         <Route path="/reservate" element={<ReservationDetail />} />
         <Route path="/pay" exact={true} element={<Payapge />} />
         <Route path="/inicis" exact={true} element={<InicisPay />} />
+        <Route path="/review/myreview" exact={true} element={<MyReviewPage />} />
+        <Route path="/review/img" exact={true} element={<ImageUpload />} />
       </Routes>
     </div>
   );

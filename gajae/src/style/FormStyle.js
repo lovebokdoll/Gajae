@@ -235,3 +235,16 @@ export const LoginButton = styled.button`
     background-color: #b0daff;
   }
 `;
+
+export const Preview = styled.div`
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: 350px;
+  border: dotted lightgray;
+`;
+
+export const Img = styled.img`
+  width: 300px;
+  height: 300px;
+`;
