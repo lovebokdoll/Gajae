@@ -1,13 +1,13 @@
-import React from 'react';
-import { Button } from 'react-bootstrap';
-import Footer from '../../components/footer/Footer';
-import HeaderNav1 from '../../components/header/HeaderNav1';
-import HeaderNav2 from '../../components/header/HeaderNav2';
-import MyPayment from './MyPayment';
-import MyReservatiosPage from './MyReservatiosPage';
-import MyReviewTimelinePage from './MyReviewTimelinePage';
-import MySettings from './MySettings';
-import MyWishListPage from './MyWishListPage';
+import React from "react";
+import { Button } from "react-bootstrap";
+import Footer from "../../components/footer/Footer";
+import HeaderNav1 from "../../components/header/HeaderNav1";
+import HeaderNav2 from "../../components/header/HeaderNav2";
+import MyPayment from "./MyPayment";
+import MyReservatiosPage from "./MyReservatiosPage";
+import MyReviewTimelinePage from "./MyReviewTimelinePage";
+import MySettings from "./MySettings";
+import MyWishListPage from "./MyWishListPage";
 
 /**
  *
@@ -23,7 +23,7 @@ const Mypage = () => {
    * 로그아웃 기능 함수
    */
   const logout = () => {
-    console.log('logout 클릭');
+    console.log("logout 클릭");
   };
 
   return (
