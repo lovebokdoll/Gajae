@@ -1,5 +1,5 @@
 import React from 'react';
-import { Nav } from 'react-bootstrap';
+import { Button, Nav } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import Footer from '../../components/footer/Footer';
 import HeaderNav1 from '../../components/header/HeaderNav1';
@@ -12,6 +12,7 @@ import {
   MySettingsFlexByRow,
   MySettingsPageTitle,
   MySettingsRow,
+  MySettingsRowLayout
 } from './styled-mypage';
 
 const MySettings = () => {
@@ -22,12 +23,12 @@ const MySettings = () => {
         <MSCLeftDIV>
           {' '}
           <Nav defaultActiveKey="/home" className="flex-column">
-            <Link>Active</Link>
-            <Link>Active</Link>
-            <Link>Active</Link>
-            <Link>Link</Link>
-            <Link>Link</Link>
-            <Link>Disabled</Link>
+            <Link to="/mypage/settings">개인 정보</Link>
+            <Link to="/mypage/reservations">예약내역</Link>
+            <Link to="/mypage/review">이용후기</Link>
+            <Link to="/mypage/payment">결제정보</Link>
+            <Link to="/mypage/wishlist">위시리스트</Link>
+            <Button>로그아웃</Button>
           </Nav>
         </MSCLeftDIV>
         <MSCRightDIV>
@@ -37,7 +38,13 @@ const MySettings = () => {
               <MSPTComment>정보를 업데이트하고 각 정보가 어떻게 활용되는지 알아보세요.</MSPTComment>
             </MySettingsPageTitle>
           </MySettingsFlexByRow>
-          <MySettingsRow>1</MySettingsRow>
+          <MySettingsRow>
+            <MySettingsRowLayout>
+              <div>
+                이름 <span>YOON HOJAE</span> <Button>수정</Button>
+              </div>
+            </MySettingsRowLayout>
+          </MySettingsRow>
           <MySettingsRow>2</MySettingsRow>
           <MySettingsRow>3</MySettingsRow>
           <MySettingsRow>4</MySettingsRow>

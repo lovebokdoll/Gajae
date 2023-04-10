@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="property">
+
 	<select id="list" parameterType="map"
-		resultType="com.gajae.demo.vo.PropertyVO">
-		SELECT 
+		resultType="com.gajae.demo.dto.PropertyDTO">
+		SELECT
 		P_ID,
 		P_TITLE,
 		P_PHOTO,
@@ -13,11 +14,6 @@
 		P_ADDRESS,
 		P_OVERVIEW,
 		P_SCALE,
-		P_MAXPEOPLE,
-		P_ROOMCOUNT,
-		P_PARKING,
-		P_KITCHEN,
->>>>>>> origin/dahee_mac
 		P_CHECKIN,
 		P_CHECKOUT,
 		P_GUIDE,

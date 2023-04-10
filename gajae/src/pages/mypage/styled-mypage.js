@@ -83,5 +83,11 @@ export const MSPTComment = styled.div`
 `;
 export const MySettingsRow = styled.div`
   width: 100%;
+  padding: 16px 0px;
   border-top: 1px solid lightgrey;
+`;
+
+export const MySettingsRowLayout = styled.div`
+  width: 100%;
+  padding: 0px 16px;
 `;

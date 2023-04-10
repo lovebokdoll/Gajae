@@ -16,24 +16,23 @@ import com.google.gson.Gson;
 import lombok.extern.log4j.Log4j2;
 
 @RestController
-@RequestMapping("/hotel/*")
+@RequestMapping( "/hotel/*" )
 @Log4j2
 public class HotelReservController {
-
-	@Autowired
-	private HotelReservLogic hotelReservLogic;
-
-	
-	@GetMapping("hotelDetail")
-	public String hotelDetail(@RequestParam Map<String, Object> pMap) {
-		
-		log.info("pMap={}", pMap);
-		
-		List<HotelDTO> hotelDetail = hotelReservLogic.hotelDetail(pMap);
-		
-		Gson g = new Gson();
-		String temp = g.toJson(hotelDetail);
-		
-		return temp;
-	}
+    
+    @Autowired
+    private HotelReservLogic hotelReservLogic;
+    
+    @GetMapping( "hotelDetail" )
+    public String hotelDetail( @RequestParam Map<String, Object> pMap ) {
+        
+        log.info( "pMap={}", pMap );
+        
+        List<HotelDTO> hotelDetail = hotelReservLogic.hotelDetail( pMap );
+        
+        Gson   g    = new Gson();
+        String temp = g.toJson( hotelDetail );
+        
+        return temp;
+    }
 }
