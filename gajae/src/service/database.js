@@ -8,7 +8,7 @@ export const propertyListDB = (property) => {
     try {
       const response = axios({
         method: 'get',
-        url: process.env.REACT_APP_SPRING_IP + 'property/list',
+        url: process.env.REACT_APP_SPRING_GAJAE_IP + 'property/list',
         params: property,
       });
       resolve(response);

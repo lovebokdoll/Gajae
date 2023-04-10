@@ -6,7 +6,6 @@ server:
       charset: UTF-8
       enabled: true
       force: true
-
 spring:
   mvc:
     view:
@@ -14,8 +13,8 @@ spring:
       suffix: .jsp
   datasource:
     url: jdbc:oracle:thin:@192.168.0.2:1521/orcl11
-    username: mblog
-    password: mblog
+    username: gajae
+    password: gajae
     driver-class-name: oracle.jdbc.OracleDriver
     hikari:
       connection-timeout: 20000
@@ -29,7 +28,7 @@ spring:
   servlet:
     multipart:
       enabled: true
-
+ 
 mybatis:
   mapper-locations: classpath:mapper/**.xml
   
