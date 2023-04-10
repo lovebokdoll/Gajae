@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React from "react";
 
 /**
@@ -21,3 +22,16 @@ const HotelPolicies = ({ row }) => {
 };
 
 export default HotelPolicies;
+=======
+import React from 'react'
+
+const HotelPolicies = () => {
+  return (
+    <>
+    <div>HotelPolicies</div>
+  </>
+  )
+}
+
+export default HotelPolicies
+>>>>>>> origin/ws

@@ -49,21 +49,23 @@ const HeaderNav1 = () => {
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
               <Link to="/" style={{ color: 'white' }} className="nav-link">
-                GAJAE.COM
+              <img src="../images/000.png" alt="대체_텍스트" />
               </Link>
+              <div style={{ display: 'flex', justifyContent: 'center' }}>
               <HeaderButton>
                 <span>KRW</span>
               </HeaderButton>
               <HeaderButton>
                 <img src="images/korea.svg.png"></img>
               </HeaderButton>
-              <Link to="/signup" style={{ color: 'white' }} className="nav-link">
+              <Link to="/signup" style={{ color: 'black', marginRight: '10px' }} className="nav-link">
                 가입하기
               </Link>
-              <Link to="/login" style={{ color: 'white' }} className="nav-link">
+              <Link to="/login" style={{ color: 'black', marginRight: '10px' }} className="nav-link">
                 로그인
               </Link>
               {userId && <MyPageDropDown />}
+              </div>
             </Nav>
           </Navbar.Collapse>
         </Container>

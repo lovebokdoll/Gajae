@@ -8,11 +8,7 @@ import MainProperty from '../../components/main/MainProperty';
 import MainRecommandLoc from '../../components/main/MainRecommandLoc';
 import MainSearchBar from '../../components/main/MainSearchBar';
 
-/**
- * 메인 페이지
- *
- * @returns
- */
+
 const MainPage = () => {
   return (
     <>

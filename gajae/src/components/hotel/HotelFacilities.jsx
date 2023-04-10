@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React from "react";
 /**
  * 사용자가 선택한 호텔에 대한 시설정보를 보여준다
@@ -27,3 +28,16 @@ const HotelFacilities = ({ row }) => {
 };
 
 export default HotelFacilities;
+=======
+import React from 'react'
+
+const HotelFacilities = () => {
+  return (
+    <>
+    <div>HotelFacilities</div>
+  </>
+  )
+}
+
+export default HotelFacilities
+>>>>>>> origin/ws

@@ -21,6 +21,9 @@ import MyWishListPage from './pages/mypage/MyWishListPage';
 import PropertyListPage from './pages/propertyList/PropertyListPage';
 import ReviewBoradPage from './pages/reviewBoard/ReviewBoradPage';
 import ReviewWritePage from './pages/reviewBoard/ReviewWritePage';
+import ReservationDetail from './components/Reservate/ReservationDetail';
+import Payapge from './pages/pay/Payapge';
+import InicisPay from './components/pay/InicisPay';
 const App = () => {
   const toastStatus = useSelector((state) => state.toastStatus);
   return (
@@ -47,9 +50,11 @@ const App = () => {
         <Route path="/mypage/review" exact={true} element={<MyReviewPage />} />
         <Route path="/mypage/payment" exact={true} element={<MyPaymentPage />} />
         <Route path="/mypage/wishlist" exact={true} element={<MyWishListPage />} />
+        <Route path="/reservate" element={<ReservationDetail />} />
+        <Route path="/pay" exact={true} element={<Payapge />} />
+        <Route path="/inicis" exact={true} element={<InicisPay />} />
       </Routes>
     </div>
   );
 };
 
-export default App;
