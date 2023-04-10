@@ -19,4 +19,14 @@ public class ReviewBoardDAO {
 		int result = sqlSessionTemplate.update("review.reviewInsert", reviewDTO);
 		return result;		
 	}
+
+	public int imageInsert(ReviewDTO reviewDTO) {
+		int result = 0;
+		try {
+			result = sqlSessionTemplate.update("review.reviewInsert", reviewDTO);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
 }

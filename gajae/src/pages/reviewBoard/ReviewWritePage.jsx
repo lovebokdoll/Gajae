@@ -27,7 +27,6 @@ const ReviewWritePage = () => {
   const [title, setTitle] = useState(""); //사용자가 입력한 제목 담기
   const [reviewgood, setReviewgood] = useState(""); //사용자가 입력한 내용 담기
   const [reviewbad, setReviewbad] = useState("");
-  const [imageUrl, setImageUrl] = useState(null);
   const [service, setService] = useState(0);
   const [facility, setFacility] = useState(0);
   const [clean, setClean] = useState(0);
@@ -52,38 +51,25 @@ const ReviewWritePage = () => {
     },
     []
   );
-
-  const handleImageUploade = async (imageFile) => {
-    try {
-      const storage = getStorage(firebaseApp);
-      const imageRef = ref(storage, `image/${imageFile.name}`);
-      console.log(imageFile.name);
-      await uploadBytes(imageRef, imageFile);
-      const downloadURL = await getDownloadURL(imageRef);
-      setImageUrl(downloadURL);
-      if (imageUrl) {
-        const review = {
-          REVIEW_NUMBER: 0,
-          R_NUMBER: 0,
-          P_ID: "3",
-          REVIEW_TITLE: title,
-          REVIEW_GOOD: reviewgood,
-          REVIEW_BAD: reviewbad,
-          REVIEW_DATE: 0,
-          USER_NICKNAME: "상수박아",
-          REVIEW_PHOTO: imageUrl ? imageUrl : null,
-          SERVICE_RATING: service,
-          FACILTY_RATING: facility,
-          CLEAN_RATING: clean,
-          COST_RATING: cost,
-          LOCATION_RATING: location,
-        };
-        const res = await reviewInsertDB(review);
-        console.log(res.data);
-      }
-    } catch (error) {
-      console.error("error uploading image :", error);
-    }
+  const reviewInsert = async () => {
+    console.log(reviewInsert);
+    const review = {
+      REVIEW_NUMBER: 0,
+      R_NUMBER: 0,
+      P_ID: "3",
+      REVIEW_TITLE: title,
+      REVIEW_GOOD: reviewgood,
+      REVIEW_BAD: reviewbad,
+      REVIEW_DATE: 0,
+      USER_NICKNAME: "상수박아",
+      SERVICE_RATING: service,
+      FACILTY_RATING: facility,
+      CLEAN_RATING: clean,
+      COST_RATING: cost,
+      LOCATION_RATING: location,
+    };
+    const res = await reviewInsertDB(review);
+    console.log(res.data);
   };
   //성공 시 페이지 이동 처리 부분
   //navigate("/review");
@@ -105,7 +91,7 @@ const ReviewWritePage = () => {
               }}
             >
               <h5>제목</h5>
-              <BButton onClick={handleImageUploade}>글쓰기</BButton>
+              <BButton onClick={reviewInsert}>글쓰기</BButton>
             </div>
             <input
               id="dataset-title"
@@ -208,10 +194,7 @@ const ReviewWritePage = () => {
                   alignItems: "center",
                 }}
               ></div>
-              <ImageUpload
-                onImageChange={handleImageUploade}
-                imageUrl={imageUrl}
-              />
+              <ImageUpload />
               <hr />
               {/*--------------------------------리뷰점수-------------------------------------  */}
               <ReviewScore
