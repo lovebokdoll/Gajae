@@ -3,11 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-<<<<<<< HEAD
     "@firebase/messaging": "^0.12.4",
-=======
     "@babel/preset-react": "^7.18.6",
->>>>>>> origin/ws
     "@fortawesome/fontawesome-free": "^6.3.0",
     "@fortawesome/fontawesome-svg-core": "^6.4.0",
     "@fortawesome/free-solid-svg-icons": "^6.4.0",
@@ -20,23 +17,16 @@
     "bootstrap-icons": "^1.10.3",
     "date-fns": "^2.29.3",
     "firebase": "^9.18.0",
-<<<<<<< HEAD
-    "http-proxy-middleware": "^2.0.6",
-=======
     "iamport": "^0.3.4",
     "iamport-react-native": "^2.0.4",
->>>>>>> origin/ws
     "qs": "^6.11.1",
     "quill-image-resize-module-react": "^3.0.0",
     "react": "^18.2.0",
     "react-bootstrap": "^2.7.2",
     "react-date-range": "^1.4.0",
     "react-dom": "^18.2.0",
-<<<<<<< HEAD
     "react-icons": "^4.8.0",
-=======
     "react-native": "^0.71.6",
->>>>>>> origin/ws
     "react-quill": "^2.0.0",
     "react-redux": "^8.0.5",
     "react-router-dom": "^6.9.0",
