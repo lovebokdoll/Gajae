@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import React, { useEffect, useState } from 'react';
 import { Form, Image } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
@@ -15,7 +14,7 @@ import {
   regexPassword,
 } from '../../service/regex';
 import { idCheck, nicknameCheck, siginupSubmitDB } from '../../service/user/user';
-import { MyButton, MyH1, MyInput, MyLabel, MyLabelAb, PwEye, SignupForm, SubmitButton } from '../../style/FormStyle';
+import { MyButton, MyInput, MyLabel, MyLabelAb, PwEye, SignupForm, SubmitButton } from '../../style/FormStyle';
 import Footer from '../footer/Footer';
 import HeaderNav1 from '../header/HeaderNav1';
 import HeaderNav2 from '../header/HeaderNav2';
@@ -23,8 +22,6 @@ import HeaderNav2 from '../header/HeaderNav2';
 const SignUpTest = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
-  const [isInputCheck, setIsInputCheck] = useState(false);
 
   const [isIdCheck, setIsIdCheck] = useState(false);
   const [isNickNameCheck, setIsNickNameCheck] = useState(false);
@@ -220,7 +217,6 @@ const SignUpTest = () => {
   };
 
   const signup = async () => {
-    console.log(userInfo.user_id == false);
     if (
       !userInfo.user_id ||
       !userInfo.user_pw ||
@@ -300,7 +296,7 @@ const SignUpTest = () => {
       <div style={{ display: 'flex', justifyContent: 'center' }}>
         <div style={{ display: 'flex', width: '100%' }}>
           <SignupForm suggested={false}>
-           <Image src='/images/1541.png' alt='회원가입'/>
+            <Image src="/images/1541.png" alt="회원가입" />
             <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
               <div style={{ padding: '30px 30px 0px 30px' }}>
                 {googleEmail ? (
@@ -498,79 +494,3 @@ const SignUpTest = () => {
 };
 
 export default SignUpTest;
-=======
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-
-const SignUpTest = ({ authLogic }) => {
-  const auth = authLogic.getUserAuth();
-  console.log('auth ===> ', auth);
-
-  const navigate = useNavigate();
-
-  const [submitButton, setSubmitButton] = useState({
-    disabled: true,
-    bgColor: 'rgb(175, 210, 244)',
-    hover: false,
-  });
-
-  const toggleHover = () => {
-    if (submitButton.hover) {
-      setSubmitButton({ ...submitButton, hover: false, bgColor: 'rgb(105, 175, 245)' });
-    } else {
-      setSubmitButton({ ...submitButton, hover: true, bgColor: 'rgb(72, 145, 218)' });
-    }
-  };
-
-  const [post, setPost] = useState({
-    zipcode: '',
-    address: '',
-    addressDetail: '',
-  });
-
-  const [userInfo, setUserInfo] = useState({
-    user_id: '',
-    user_pw: '',
-    user_name: '',
-    user_nickname: '',
-    user_email: '',
-    user_mobile: '',
-    user_birth: '',
-    user_address: '',
-    user_gender: '',
-    user_auth: '',
-  });
-
-  const [passwordType, setPasswordType] = useState([
-    {
-      type: 'password',
-      visible: false,
-    },
-    {
-      type: 'password',
-      visible: false,
-    },
-  ]);
-  
-  const passwordView = (event) => {
-    const id = event.currentTarget.id;
-
-    if (id === 'password') {
-      if (!passwordType[0].visible) {
-        setPasswordType([{ type: 'text', visible: true }, passwordType[1]]);
-      } else {
-        setPasswordType([{ type: 'password', visible: false }, passwordType[1]]);
-      }
-    } else if (id === 'password2') {
-      if (!passwordType[1].visible) {
-        setPasswordType([passwordType[0], { type: 'text', visible: true }]);
-      } else {
-        setPasswordType([passwordType[0], { type: 'password', visible: false }]);
-      }
-    }
-  };
-  return <></>;
-};
-
-export default SignUpTest;
->>>>>>> origin/ws

@@ -10,8 +10,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.gajae.demo.dto.HotelDTO;
-import com.gajae.demo.dto.P_RoomTypeDTO;
-import com.gajae.demo.dto.PropertyDTO;
 import com.gajae.demo.logic.HotelReservLogic;
 import com.google.gson.Gson;
 

@@ -24,6 +24,7 @@ import ReviewWritePage from './pages/reviewBoard/ReviewWritePage';
 import ReservationDetail from './components/Reservate/ReservationDetail';
 import Payapge from './pages/pay/Payapge';
 import InicisPay from './components/pay/InicisPay';
+
 const App = () => {
   const toastStatus = useSelector((state) => state.toastStatus);
   return (
@@ -58,3 +59,4 @@ const App = () => {
   );
 };
 
+export default App;
