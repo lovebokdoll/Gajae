@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import { propertyListDB } from '../../service/database';
+import React from 'react';
 import './propertyCard.css';
 
 const PropertyCard = ({ row }) => {
+  console.log(row);
+  
   return (
     <>
       <div className="searchItem">

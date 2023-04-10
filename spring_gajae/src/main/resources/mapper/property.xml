@@ -3,29 +3,26 @@
 <mapper namespace="property">
 	<select id="list" parameterType="map"
 		resultType="com.gajae.demo.vo.PropertyVO">
-		SELECT P_ID,
+		SELECT 
+		P_ID,
 		P_TITLE,
+		P_PHOTO,
+		P_STAR,
 		P_POSTAL,
-		P_ADDRESS,
 		P_TEL,
-		P_MAPY,
-		P_MAPX,
+		P_ADDRESS,
 		P_OVERVIEW,
 		P_SCALE,
-		P_MAXPEOPLE,
-		P_ROOMCOUNT,
-		P_ROOMTYPE,
-		P_PARKING,
-		P_KITCHEN,
 		P_CHECKIN,
 		P_CHECKOUT,
 		P_GUIDE,
-		P_HOMEPAGE,
-		P_RESTAURANT,
-		P_EXTRA,
-		P_DETAIL,
-		P_REFUND
-		FROM MBLOG.PROPERTIES
+		P_REFUND,
+		P_STATUS,
+		P_MAPY,
+		P_MAPX,
+		P_HIDERDATE,
+		P_CHANGE_DATE
+		FROM GAJAE.PROPERTIES
 		<where>
 			<if test='P_ID!=null and P_ID.length()>0'> AND P_ID = #{P_ID}
 			</if>
@@ -33,6 +30,7 @@
 				AND P_ADDRESS LIKE '%'||#{ADDRESS}||'%'
 			</if>
 		</where>
+		ORDER BY P_ID ASC
 	</select>
 
 	<insert id="propertyInsert" parameterType="map"></insert>

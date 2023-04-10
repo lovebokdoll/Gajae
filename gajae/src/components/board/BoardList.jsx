@@ -27,7 +27,7 @@ const BoardList = () => {
     qnaList();
   }, [board]);
 
-  return <>{qna && qna.map((qna, index) => <BoardRow key={index} qna={qna} />)}</>; // 리렌더링 조건을 수렴할 때마다 return()그룹이 재 호출된다.
+  return <>{qna && qna.map((row, index) => <BoardRow key={index} qna={row} />)}</>; // 리렌더링 조건을 수렴할 때마다 return()그룹이 재 호출된다.
 };
 
 export default BoardList;

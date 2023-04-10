@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.gajae.demo.dao.UserDAO;
-import com.gajae.demo.vo.UserVO;
+import com.gajae.demo.dto.UsersDTO;
 
 @Service
 public class UserLogic {
@@ -15,29 +15,52 @@ public class UserLogic {
     @Autowired
     private UserDAO userDAO;
     
-    public int userRegister( Map<String, Object> map ) {
+    public int userSignup( Map<String, Object> map ) {
         
-        int result = userDAO.userRegister( map );
+        int result = userDAO.userSignup( map );
         
         return result;
     }
     
-    public List<UserVO> getUser( Map<String, Object> map ) {
+    public List<UsersDTO> userSignIn( Map<String, Object> map ) {
         
-        List<UserVO> userList = userDAO.getUser( map );
+        List<UsersDTO> userList = userDAO.userSignIn( map );
+        
+        return userList;
+    }
+    
+    public List<UsersDTO> getUser( Map<String, Object> map ) {
+        
+        List<UsersDTO> userList = userDAO.getUser( map );
+        
+        return userList;
+    }
+    
+    public int userUpdate( Map<String, Object> map ) {
+        
+        int result = userDAO.userUpdate( map );
+        
+        return result;
+    }
+    
+    public List<UsersDTO> idCheck( Map<String, Object> map ) {
+        
+        List<UsersDTO> userList = userDAO.idCheck( map );
+        
+        return userList;
+    }
+    
+    public List<UsersDTO> nicknameCheck( Map<String, Object> map ) {
+        
+        List<UsersDTO> userList = userDAO.nicknameCheck( map );
         
         return userList;
     }
     
     public int userDeactivate( Map<String, Object> map ) {
+        
         int result = userDAO.userDeactivate( map );
         
         return result;
     }
-    
-    public int userUpdate( Map<String, Object> map ) {
-        // TODO Auto-generated method stub
-        return 0;
-    }
-    
 }

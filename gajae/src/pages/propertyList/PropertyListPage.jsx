@@ -27,6 +27,7 @@ const PropertyListPage = () => {
     propertyList();
   }, []);
   console.log(property);
+
   return (
     <>
       <HeaderNav1 />
@@ -36,7 +37,6 @@ const PropertyListPage = () => {
       {property.map((row, index) => (
         <PropertyCard key={index} row={row} />
       ))}
-
       <Footer />
     </>
   );
