@@ -17,20 +17,35 @@ const HotelInformation = ({ row }) => {
   return (
     <>
       <div>
-        <span className="hotel_title">{row.P_TITLE}</span>
-        <Button className="reserveBtn" variant="outline-info" onClick={reserve}>
-          지금 예약하세요!
-        </Button>
-        <div className="hotel_address">
-          <FontAwesomeIcon
-            icon="fa-solid fa-location-dot"
-            fade
-            size="xs"
-            style={{ color: "#1c2d4a" }}
-          />
-          {row.P_ADDRESS}
+        <div className="div1">
+          <img src="./images/소노벨 변산1.webp" className="hotelImage" />
+          <div className="div2">
+            <span className="hotel_title">{row.P_TITLE}</span>
+            <div className="hotel_address">
+              <FontAwesomeIcon
+                icon="fa-solid fa-location-dot"
+                fade
+                size="xs"
+                style={{ color: "#1c2d4a" }}
+              />
+              {row.P_ADDRESS}
+            </div>
+            <div className="hotel_overview">
+              <div
+                dangerouslySetInnerHTML={{
+                  __html: row.P_OVERVIEW?.split(".").join(".<br>"),
+                }}
+              ></div>
+              <Button
+                className="reserveBtn"
+                variant="outline-info"
+                onClick={reserve}
+              >
+                지금 예약하세요!
+              </Button>
+            </div>
+          </div>
         </div>
-        <div className="hotel_overview">{row.P_OVERVIEW}</div>
       </div>
     </>
   );

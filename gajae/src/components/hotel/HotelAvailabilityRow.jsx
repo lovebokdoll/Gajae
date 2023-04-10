@@ -10,9 +10,9 @@ const HotelAvailabilityRow = ({ row }) => {
   console.log(row); // 배열객체로 받아오기
   const [selectNumber, setSelectNumber] = useState(0);
   const [hotels, setHotels] = useState([]);
-  // const selectNum = () => {
-  //   setSelectNumber(1);
-  // };
+  const selectNum = () => {
+    setSelectNumber(1);
+  };
   useEffect(() => {
     console.log(row);
     // HotelAvailabilityRow에 넘겨줄 정보 list에 담기
@@ -45,6 +45,7 @@ const HotelAvailabilityRow = ({ row }) => {
                 <th scope="col">정원</th>
                 <th scope="col">요금</th>
                 <th scope="col">선택사항</th>
+                <th scope="col">객실선택</th>
               </tr>
             </thead>
             <tbody>
@@ -58,24 +59,27 @@ const HotelAvailabilityRow = ({ row }) => {
                       <div key={index}>{option}</div>
                     ))}
                   </td>
+                  <td>
+                    {/* 금액선택 토글 */}
+                    <div className="table-wrapper-item2">
+                      <Dropdown>
+                        <Dropdown.Toggle variant="danger" id="dropdown-basic">
+                          {selectNumber}
+                        </Dropdown.Toggle>
+                        <Dropdown.Menu>
+                          <Dropdown.Item onClick={selectNum}>1</Dropdown.Item>
+                          <Dropdown.Item>2</Dropdown.Item>
+                          <Dropdown.Item>3</Dropdown.Item>
+                        </Dropdown.Menu>
+                      </Dropdown>
+                    </div>
+                  </td>
                 </tr>
               ))}
             </tbody>
           </table>
         </div>
-        {/* 금액선택 토글 */}
-        <div className="table-wrapper-item2">
-          <Dropdown>
-            <Dropdown.Toggle variant="danger" id="dropdown-basic">
-              {selectNumber}
-            </Dropdown.Toggle>
-            <Dropdown.Menu>
-              <Dropdown.Item>1</Dropdown.Item>
-              <Dropdown.Item>2</Dropdown.Item>
-              <Dropdown.Item>3</Dropdown.Item>
-            </Dropdown.Menu>
-          </Dropdown>
-        </div>
+
         {/* 예약버튼 */}
         <div className="table-wrapper-item3">
           <Button variant="outline-info" onClick={onReservation}>
