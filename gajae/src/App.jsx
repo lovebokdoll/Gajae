@@ -24,8 +24,10 @@ function App({ imageUploader }) {
         <Route path="/mypage" exact={true} element={<Mypage />} />
         <Route path="/propertylist" element={<PropertyListPage />} />
         <Route path="/hotel" element={<HotelPage />} />
+
         <Route path="/review" element={<ReviewBoradPage />} />
         <Route path="/review/write" element={<ReviewWritePage />} />
+        
         <Route path="/board" exact={true} element={<BoardPage />} />
         <Route
           path="/board/selectOne/*"

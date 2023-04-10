@@ -1,93 +1,14 @@
 import React from "react";
+import ReviewScore from "./ReviewScore";
 import {
   BButton,
   ContainerDiv,
-  DragFileWrapper,
   FormDiv,
   HeaderDiv,
-  ImageWrapper,
-  UploadBoxWrapper,
 } from "../../style/FormStyle";
 import HeaderNav1 from "../../components/header/HeaderNav1";
-import Footer from "../../components/footer/Footer";
-import { useCallback, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { reviewInsertDB } from "../../service/reviewboardLogic";
-import ReviewScore from "./ReviewScore";
-import firebaseApp from "../../service/firebase";
-import { uploadBytes, ref, getStorage, getDownloadURL } from "firebase/storage";
-import ImageUpload from "./ImageUpload";
 
-/**
- *
- * @returns  글쓰기 페이지
- */
-const ReviewWritePage = () => {
-  const navigate = useNavigate();
-  const [title, setTitle] = useState(""); //사용자가 입력한 제목 담기
-  const [reviewgood, setReviewgood] = useState(""); //사용자가 입력한 내용 담기
-  const [reviewbad, setReviewbad] = useState("");
-  const [imageUrl, setImageUrl] = useState(null);
-  const [service, setService] = useState(0);
-  const [facility, setFacility] = useState(0);
-  const [clean, setClean] = useState(0);
-  const [cost, setCost] = useState(0);
-  const [location, setLocation] = useState(0);
-
-  const handleTitle = (value) => {
-    setTitle(value);
-  };
-
-  const handleGood = (value) => {
-    setReviewgood(value);
-  };
-
-  const handleBad = (value) => {
-    setReviewbad(value);
-  };
-
-  const handleReviewScore = useCallback(
-    (setter) => (value) => {
-      setter(Number(value));
-    },
-    []
-  );
-
-  const handleImageUploade = async (imageFile) => {
-    try {
-      const storage = getStorage(firebaseApp);
-      const imageRef = ref(storage, `image/${imageFile.name}`);
-      console.log(imageFile.name);
-      await uploadBytes(imageRef, imageFile);
-      const downloadURL = await getDownloadURL(imageRef);
-      setImageUrl(downloadURL);
-      if (imageUrl) {
-        const review = {
-          REVIEW_NUMBER: 0,
-          R_NUMBER: 0,
-          P_ID: "3",
-          REVIEW_TITLE: title,
-          REVIEW_GOOD: reviewgood,
-          REVIEW_BAD: reviewbad,
-          REVIEW_DATE: 0,
-          USER_NICKNAME: "상수박아",
-          REVIEW_PHOTO: imageUrl ? imageUrl : null,
-          SERVICE_RATING: service,
-          FACILTY_RATING: facility,
-          CLEAN_RATING: clean,
-          COST_RATING: cost,
-          LOCATION_RATING: location,
-        };
-        const res = await reviewInsertDB(review);
-        console.log(res.data);
-      }
-    } catch (error) {
-      console.error("error uploading image :", error);
-    }
-  };
-  //성공 시 페이지 이동 처리 부분
-  //navigate("/review");
-
+export const ReviewUpdate = () => {
   return (
     <>
       <HeaderNav1 />
@@ -236,4 +157,4 @@ const ReviewWritePage = () => {
   );
 };
 
-export default ReviewWritePage;
+export default ReviewUpdate;

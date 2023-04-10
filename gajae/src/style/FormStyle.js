@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const LoginForm = styled.form`
   display: flex;
@@ -222,30 +222,15 @@ export const SpanA = styled.span`
   }
 `;
 
-export const UploadBoxWrapper = styled.div`
-  width: calc(50% - 15px);
-  box-sizing: border-box;
-  margin-right: 30px;
+export const Preview = styled.div`
   display: flex;
-  flex-direction: column;
   justify-content: center;
-  align-items: center;
-`;
-
-export const DragFileWrapper = styled.div`
   width: 100%;
-  height: 360px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  border: 3px dashed #dbdbdb;
-
-  &.highlight {
-    border: 3px dashed red;
-  }
+  height: 350px;
+  border: dotted lightgray;
 `;
 
-export const ImageWrapper = styled.div`
-  width: 40px;
+export const Img = styled.img`
+  width: 300px;
+  height: 300px;
 `;
