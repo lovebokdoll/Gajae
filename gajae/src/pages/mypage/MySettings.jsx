@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, Nav } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import Footer from '../../components/footer/Footer';
@@ -12,10 +12,21 @@ import {
   MySettingsFlexByRow,
   MySettingsPageTitle,
   MySettingsRow,
-  MySettingsRowLayout
+  MySettingsRowLayout,
 } from './styled-mypage';
 
 const MySettings = () => {
+  const [isNameChange, setIsNameChange] = useState(false);
+
+  useEffect(() => {}, [isNameChange]);
+
+  const handleName = () => {
+    setIsNameChange(true);
+  };
+
+  const handleSave = () => {
+    setIsNameChange(false);
+  };
   return (
     <>
       <HeaderNav1 />
@@ -41,8 +52,11 @@ const MySettings = () => {
           <MySettingsRow>
             <MySettingsRowLayout>
               <div>
-                이름 <span>YOON HOJAE</span> <Button>수정</Button>
+                이름 <span>YOON HOJAE</span> <Button onClick={handleName}>수정</Button>
               </div>
+              {isNameChange && <input id="user_name" name="user_name" placeholder="이름"></input> && (
+                <Button onClick={handleSave}>저장</Button>
+              )}
             </MySettingsRowLayout>
           </MySettingsRow>
           <MySettingsRow>2</MySettingsRow>
