@@ -2,28 +2,32 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const Profile = () => {
+const KakaoProfile = () => {
   const navigate = useNavigate();
 
-  const [user_id, setUserId] = useState();
-  const [nickname, setNickname] = useState();
-  const [profileImage, setProfileImage] = useState();
+  const [user_id, setUserId] = useState('');
+  const [nickname, setNickname] = useState('');
+  const [profileImage, setProfileImage] = useState('');
 
   const getProfile = async () => {
     try {
       let data = await window.Kakao.API.request({
         url: '/v2/user/me',
       });
+
       console.log(data.id);
       console.log(data.properties.nickname);
       console.log(data.properties.profile_image);
 
       setUserId(data.id);
+      console.log('user_id ===>', user_id);
       window.localStorage.setItem('userId', user_id);
+
       setNickname(data.properties.nickname);
+      console.log('nickname ===>', nickname);
       window.localStorage.setItem('nickname', nickname);
       setProfileImage(data.properties.profile_image);
-      navigate('/home');
+      navigate('/');
     } catch (error) {
       console.log('error = ', error);
     }
@@ -61,4 +65,4 @@ const Profile = () => {
   );
 };
 
-export default Profile;
+export default KakaoProfile;

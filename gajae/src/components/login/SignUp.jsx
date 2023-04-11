@@ -18,7 +18,6 @@ const DivSignUp = styled.div`
 `;
 
 const SignUp = () => {
-  // const { daum } = window;
   const navigate = useNavigate();
 
   const [mem_uid, setID] = useState('');
