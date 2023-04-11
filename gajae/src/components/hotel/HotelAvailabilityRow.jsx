@@ -1,5 +1,7 @@
+import { useCallback } from "react";
 import { useEffect, useState } from "react";
 import { Button, Dropdown } from "react-bootstrap";
+import { Charge_title, TotalPrice } from "../../style/HotelStyle";
 /**
  * HotelPage에서 넘어온 정보를 이용하여 갯수만큼 화면에 뿌려준다.
  *
@@ -8,11 +10,39 @@ import { Button, Dropdown } from "react-bootstrap";
 
 const HotelAvailabilityRow = ({ row }) => {
   console.log(row); // 배열객체로 받아오기
-  const [selectNumber, setSelectNumber] = useState(0);
   const [hotels, setHotels] = useState([]);
-  const selectNum = () => {
-    setSelectNumber(1);
-  };
+  //객실선택을 담는 useState선언
+  const [selectNumber, setSelectNumber] = useState([]);
+  //객실숫자 * 요금
+  const [totalPrice, setSetTotalPrice] = useState(0);
+  //[selectNumber]값이 변경될때만 함수 재생성
+  const selectNum = useCallback(
+    (index, value) => {
+      //selectNumber 상태를 복사하고 [index]: value추가한다.
+      setSelectNumber({ ...selectNumber, [index]: value });
+    },
+    [selectNumber]
+  );
+  useEffect(() => {
+    let totalPrice = 0;
+    for (let i = 0; i < hotels.length; i++) {
+      const num = selectNumber[i] || 0;
+      totalPrice += num * hotels[i].ROOM_PRICE;
+    }
+    setSetTotalPrice(totalPrice);
+  }, [hotels, selectNumber]);
+
+  /**
+     * 이 경우에 배열의 길이가 다르기때문에 undefined가 되어 오류가 발생한다.
+     * 따라서 길이가 긴 배열을 기준으로 for문 돌려야댐
+      * for (let i = 0; i < selectNumber.length; i++) {
+      *  for (let j = 0; j < hotels.length; j++) {
+      *      totalPrice += selectNumber[i] * hotels[j].ROOM_PRICE;
+      *      console.log(totalPrice);
+      *    }
+      }
+    */
+
   useEffect(() => {
     console.log(row);
     // HotelAvailabilityRow에 넘겨줄 정보 list에 담기
@@ -30,6 +60,7 @@ const HotelAvailabilityRow = ({ row }) => {
     console.log(list);
     setHotels(list);
   }, [row]);
+
   const onReservation = () => {
     console.log("지금예약버튼 클릭 -> 결제확인페이지로 이동");
   };
@@ -54,6 +85,7 @@ const HotelAvailabilityRow = ({ row }) => {
                   <td>{hotel.ROOM_TYPE}</td>
                   <td>{hotel.ROOM_CAPACITY}명</td>
                   <td>{hotel.ROOM_PRICE}원</td>
+
                   <td>
                     {hotel.ROOM_OPTION?.split(",").map((option, index) => (
                       <div key={index}>{option}</div>
@@ -64,12 +96,22 @@ const HotelAvailabilityRow = ({ row }) => {
                     <div className="table-wrapper-item2">
                       <Dropdown>
                         <Dropdown.Toggle variant="danger" id="dropdown-basic">
-                          {selectNumber}
+                          {selectNumber[index] || 0}{" "}
+                          {/* index값이 존재하지 않을 경우 0으로 보여줌 */}
                         </Dropdown.Toggle>
                         <Dropdown.Menu>
-                          <Dropdown.Item onClick={selectNum}>1</Dropdown.Item>
-                          <Dropdown.Item>2</Dropdown.Item>
-                          <Dropdown.Item>3</Dropdown.Item>
+                          <Dropdown.Item onClick={() => selectNum(index, 0)}>
+                            0
+                          </Dropdown.Item>
+                          <Dropdown.Item onClick={() => selectNum(index, 1)}>
+                            1
+                          </Dropdown.Item>
+                          <Dropdown.Item onClick={() => selectNum(index, 2)}>
+                            2
+                          </Dropdown.Item>
+                          <Dropdown.Item onClick={() => selectNum(index, 3)}>
+                            3
+                          </Dropdown.Item>
                         </Dropdown.Menu>
                       </Dropdown>
                     </div>
@@ -82,8 +124,11 @@ const HotelAvailabilityRow = ({ row }) => {
 
         {/* 예약버튼 */}
         <div className="table-wrapper-item3">
+          <Charge_title>객실요금</Charge_title>
+          <br />
+          <TotalPrice>{totalPrice}원</TotalPrice>
           <Button variant="outline-info" onClick={onReservation}>
-            지금 예약하세요!
+            지금바로 예약하세요!
           </Button>
           <div>단 2분이면 예약 완료!</div>
           <div>예약수수료, 신용카드 수수료 없음!</div>

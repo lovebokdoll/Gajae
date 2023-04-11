@@ -16,7 +16,7 @@
     "bootstrap": "^5.2.3",
     "bootstrap-icons": "^1.10.3",
     "date-fns": "^2.29.3",
-    "firebase": "^9.18.0",
+    "firebase": "^9.19.1",
     "iamport": "^0.3.4",
     "iamport-react-native": "^2.0.4",
     "qs": "^6.11.1",
