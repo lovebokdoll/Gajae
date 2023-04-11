@@ -2,6 +2,7 @@ import { useCallback } from "react";
 import { useEffect, useState } from "react";
 import { Button, Dropdown } from "react-bootstrap";
 import { Charge_title, TotalPrice } from "../../style/HotelStyle";
+import { useNavigate } from "react-router-dom";
 /**
  * HotelPage에서 넘어온 정보를 이용하여 갯수만큼 화면에 뿌려준다.
  *
@@ -9,13 +10,14 @@ import { Charge_title, TotalPrice } from "../../style/HotelStyle";
  */
 
 const HotelAvailabilityRow = ({ row }) => {
+  const navigate = useNavigate();
   console.log(row); // 배열객체로 받아오기
   const [hotels, setHotels] = useState([]);
   //객실선택을 담는 useState선언
   const [selectNumber, setSelectNumber] = useState([]);
   //객실숫자 * 요금
-  const [totalPrice, setSetTotalPrice] = useState(0);
   //[selectNumber]값이 변경될때만 함수 재생성
+  const [totalPrice, setTotalPrice] = useState(0);
   const selectNum = useCallback(
     (index, value) => {
       //selectNumber 상태를 복사하고 [index]: value추가한다.
@@ -29,7 +31,7 @@ const HotelAvailabilityRow = ({ row }) => {
       const num = selectNumber[i] || 0;
       totalPrice += num * hotels[i].ROOM_PRICE;
     }
-    setSetTotalPrice(totalPrice);
+    setTotalPrice(totalPrice);
   }, [hotels, selectNumber]);
 
   /**
@@ -60,8 +62,14 @@ const HotelAvailabilityRow = ({ row }) => {
     console.log(list);
     setHotels(list);
   }, [row]);
-
   const onReservation = () => {
+    if (totalPrice > 0) {
+      //navigate("/reservate");
+      alert("결제페이지로 이동");
+      console.log(totalPrice);
+    } else {
+      alert("객실을 선택해주세요");
+    }
     console.log("지금예약버튼 클릭 -> 결제확인페이지로 이동");
   };
   return (
@@ -82,7 +90,9 @@ const HotelAvailabilityRow = ({ row }) => {
             <tbody>
               {hotels.map((hotel, index) => (
                 <tr key={index}>
-                  <td>{hotel.ROOM_TYPE}</td>
+                  <td>
+                    <Link to={"/hoteldatail"}>{hotel.ROOM_TYPE}</Link>
+                  </td>
                   <td>{hotel.ROOM_CAPACITY}명</td>
                   <td>{hotel.ROOM_PRICE}원</td>
 
