@@ -75,4 +75,17 @@ export const siginupSubmitDB = (userRecord) => {
   });
 };
 
-
+export const userUpdateDB = (user) => {
+  return new Promise((resolve, reject) => {
+    try {
+      const response = axios({
+        method: 'post',
+        url: process.env.REACT_APP_SPRING_GAJAE_IP + 'user/update',
+        data: user,
+      });
+      resolve(response);
+    } catch (error) {
+      reject(error);
+    }
+  });
+};

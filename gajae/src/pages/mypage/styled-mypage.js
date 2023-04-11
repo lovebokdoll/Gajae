@@ -44,7 +44,7 @@ export const MyPageLink = styled(Link)`
 
 export const MSContainer = styled.div`
   width: 1140px;
-  height: 707px;
+  height: 100%;
   margin: 0px 82px;
   padding: 16px 0px;
 `;

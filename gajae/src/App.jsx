@@ -36,7 +36,8 @@ const App = () => {
         <Route path="/signup" exact={true} element={<SignUpTest />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/mypage" exact={true} element={<Mypage />} />
-        <Route path="/propertylist" element={<PropertyListPage />} />
+        {/* <Route path="/propertylist" element={<PropertyListPage />} /> */}
+        <Route path="/propertylist/:address/:checkin/:checkout/:guests/:rooms" element={<PropertyListPage />} />
         <Route path="/hotel" element={<HotelPage />} />
         <Route path="/review" element={<ReviewBoradPage />} />
         <Route path="/review/write" element={<ReviewWritePage />} />

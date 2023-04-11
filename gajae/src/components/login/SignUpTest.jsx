@@ -267,24 +267,6 @@ const SignUpTest = () => {
     }
   };
 
-  const checkboxLable = ['없음', '남자', '여자'];
-
-  const Checkbox = checkboxLable.map((item, index) => (
-    <Form.Check
-      inline
-      label={item}
-      value={item}
-      name="group1"
-      type="radio"
-      checked={userInfo.user_gender === item ? true : false}
-      readOnly
-      id={`inline-radio-${item}`}
-      key={index}
-      onClick={(e) => {
-        setUserInfo({ ...userInfo, user_gender: e.target.value });
-      }}
-    />
-  ));
 
   const handleSignup = (event) => {
     signup();
