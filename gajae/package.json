@@ -19,6 +19,7 @@
     "firebase": "^9.19.1",
     "iamport": "^0.3.4",
     "iamport-react-native": "^2.0.4",
+    "js-cookie": "^3.0.1",
     "qs": "^6.11.1",
     "quill-image-resize-module-react": "^3.0.0",
     "react": "^18.2.0",
