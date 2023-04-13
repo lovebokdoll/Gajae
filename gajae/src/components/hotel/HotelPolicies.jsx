@@ -1,4 +1,13 @@
 import React from "react";
+import {
+  CardBody,
+  CardContainer,
+  CardText,
+  CardTitle,
+  CustomCard,
+  Icon,
+} from "../../style/HotelStyle";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 /**
  * 호텔정책 , 규칙
@@ -8,14 +17,98 @@ const HotelPolicies = ({ row }) => {
   return (
     <>
       <div className="title">하우스룰</div>
-      <div className="container">
-        <div>{row.P_REFUND}</div>
-        <div>{row.P_PARKING}</div>
-        <div>{row.P_SCALE}</div>
-        <div>{row.P_MAXPEOPLE}</div>
-        <div>체크인:{row.P_CHECKIN}</div>
-        <div>체크아웃:{row.P_CHECKOUT}</div>
-      </div>
+      <CardContainer>
+        <CustomCard>
+          <CardBody>
+            <CardTitle>
+              <Icon>
+                <FontAwesomeIcon icon="fa-regular fa-credit-card" />
+              </Icon>
+              환불정책
+            </CardTitle>
+            {row.P_REFUND?.split(",").map((option, index) => (
+              <CardText key={index}>
+                <Icon>
+                  <FontAwesomeIcon icon="fa-solid fa-check" />
+                </Icon>
+                {option}
+              </CardText>
+            ))}
+          </CardBody>
+        </CustomCard>
+        <CustomCard>
+          <CardBody>
+            <CardTitle>
+              <Icon>
+                <FontAwesomeIcon icon="fa-solid fa-person" />
+              </Icon>
+              수용인원
+            </CardTitle>
+            {row.P_MAXPEOPLE?.split(",").map((option, index) => (
+              <CardText key={index}>
+                <Icon>
+                  <FontAwesomeIcon icon="fa-solid fa-check" />
+                </Icon>
+                {option}
+              </CardText>
+            ))}
+          </CardBody>
+        </CustomCard>
+        <CustomCard>
+          <CardBody>
+            <CardTitle>
+              <Icon>
+                <FontAwesomeIcon icon="fa-solid fa-house-circle-check" />
+              </Icon>
+              규모
+            </CardTitle>
+            {row.P_SCALE?.split(",").map((option, index) => (
+              <CardText key={index}>
+                <Icon>
+                  <FontAwesomeIcon icon="fa-solid fa-check" />
+                </Icon>
+                {option}
+              </CardText>
+            ))}
+          </CardBody>
+        </CustomCard>
+        <CustomCard>
+          <CardBody>
+            <CardTitle>
+              <Icon>
+                <FontAwesomeIcon icon="fa-solid fa-lightbulb" />
+              </Icon>
+              체크인
+            </CardTitle>
+            {row.P_CHECKIN?.split(",").map((option, index) => (
+              <CardText key={index}>
+                <Icon>
+                  <FontAwesomeIcon icon="fa-solid fa-check" />
+                </Icon>
+                {option}
+              </CardText>
+            ))}
+          </CardBody>
+        </CustomCard>
+        <CustomCard>
+          <CardBody>
+            <CardTitle>
+              <Icon>
+                <FontAwesomeIcon icon="fa-regular fa-lightbulb" />
+              </Icon>
+              체크아웃
+            </CardTitle>
+            {row.P_CHECKOUT?.split(",").map((option, index) => (
+              <CardText key={index}>
+                <Icon>
+                  <FontAwesomeIcon icon="fa-solid fa-check" />
+                </Icon>
+                {option}
+              </CardText>
+            ))}
+          </CardBody>
+        </CustomCard>
+      </CardContainer>
     </>
   );
 };

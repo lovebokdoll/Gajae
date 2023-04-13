@@ -35,19 +35,21 @@ hotel_title hotel_address
 /*컴포넌트 타이틀*/
 .title,
 .availabilitytitle {
-  width: 80%;
-  margin: 10px auto;
+  width: 70%;
+  margin: 15px auto 10px;
   position: relative;
-  padding: 5px;
-  font-family: "KOTRA_GOTHIC";
-  font-size: 20px;
-  font-weight: bold;
-  background-color: #003580;
-  color: white;
+  padding: 7px;
+  border-top: 1px solid rgba(0, 0, 0, 0.2);
+  /* font-family: "KOTRA_GOTHIC"; */
+  font-size: 25px;
+  /* font-weight: bold; */
+  /* background-color: white; */
+  color: black;
+  /* background-color: #F5F5F5; */
 }
 .container {
   width: 70%;
-
+  /* background-color: #f5f5f5; */
 }
 /*호텔 타이틀*/
 .hotel_title {
@@ -89,7 +91,7 @@ hotel_title hotel_address
 } */
 .table-wrapper {
   width: 70%;
-  margin: 0px auto;
+  margin: 10px auto;
   display: flex;
   position: relative;
   top: 10px;
@@ -112,6 +114,24 @@ hotel_title hotel_address
   flex-basis: 20%;
   padding: 10px;
   box-sizing: border-box;
+}
+/*모달창 디자인*/
+.modal {
+  /* margin: 0; */
+  /* box-sizing: border-box; */
+}
+.black-bg {
+  width: 100%;
+  height: 100;
+  background: rgba(0, 0, 0, 0.4);
+  position: fixed;
+  padding: 20px;
+}
+.white-bg {
+  width: 100%;
+  background: white;
+  border-radius: 8px;
+  padding: 20px;
 }
 
 /*************** hotel search bar css *************/

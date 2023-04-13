@@ -11,7 +11,6 @@ return (
 <>
 <HeaderNav1 />
 <br />
-<PropertyCard />
 <br />
 <div style={{display:'flex', justifyContent:'center'}}>
   <div className="card" style={{ width: '60rem', backgroundColor: "rgb(214,230,245)" }}>
