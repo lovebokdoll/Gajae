@@ -18,29 +18,27 @@ import './propertyList.css';
  * @returns 검색 결과 페이지 (Search Result)
  */
 const PropertyListPage = () => {
-  const [property, setProperty] = useState([]);
-
+  console.log("PropertyListPage")
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
+  console.log(location.search)
 
+  const [property, setProperty] = useState([]);
+
+  //사용자가 입력하는 값
   const params = {
-    adress: searchParams.get('address'),
-    checkin: searchParams.get('checkin'),
-    checkout: searchParams.get('checkout'),
-    guests: searchParams.get('guests'),
-    rooms: searchParams.get('rooms'),
+    P_ADDRESS: searchParams.get('P_ADDRESS'),
   };
-
-  console.log(params);
+  console.log(params.P_ADDRESS)
 
   useEffect(() => {
     const propertyList = async () => {
-      const response = await searchListDB(property);
+      const response = await searchListDB(params);
       setProperty(response.data);
     };
     propertyList();
-  }, []);
-  console.log(property);
+  }, [params]);
+  console.log(params)
 
   return (
     <>

@@ -1,6 +1,6 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useSelector } from 'react-redux';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, useNavigate } from 'react-router-dom';
 import KakaoProfile from './api/kakao/KakaoProfile';
 import KakaoRedirectHandler from './api/kakao/KakaoRedirectHandler';
 import NaverPay from './api/naver/NaverPay';
@@ -24,8 +24,22 @@ import PropertyListPage from './pages/propertyList/PropertyListPage';
 import ImageUpload from './pages/reviewBoard/ImageUpload';
 import ReviewBoradPage from './pages/reviewBoard/ReviewBoradPage';
 import ReviewWritePage from './pages/reviewBoard/ReviewWritePage';
+import { useState } from 'react';
 
 const App = () => {
+
+  const [params, setParams] = useState({
+    address: '',
+    checkin: '',
+    checkout: '',
+    guests: '',
+    rooms: ''
+  })
+
+  const navigateURL = () => {
+    return `/propertylist/${params.address}`;
+  }
+
   const toastStatus = useSelector((state) => state.toastStatus);
   return (
     <div style={{ height: '100vh' }}>
@@ -36,8 +50,7 @@ const App = () => {
         <Route path="/signup" exact={true} element={<SignUpTest />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/mypage" exact={true} element={<Mypage />} />
-        {/* <Route path="/propertylist" element={<PropertyListPage />} /> */}
-        <Route path="/propertylist/:address/:checkin/:checkout/:guests/:rooms" element={<PropertyListPage />} />
+        <Route path="/propertylist/:P_ADDRESS?" element={<PropertyListPage />} />
         <Route path="/hotel" element={<HotelPage />} />
         <Route path="/review" element={<ReviewBoradPage />} />
         <Route path="/review/write" element={<ReviewWritePage />} />

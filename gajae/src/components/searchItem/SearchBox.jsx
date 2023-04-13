@@ -13,12 +13,12 @@ const SearchBox = () => {
           <input style={{ paddingLeft: '15px', fontSize: '15px' }} value={''} onChange={(e) => e.target.value} type="text" />
         </div>
         <div style={{ marginTop: '10px' }}>
-          <label style={{ fontSize: '15px', marginBottom: '10px', fontFamily: 'BlinkMacSystemFont', color: '#333' }}>Check-in date</label>
+          <label style={{ fontSize: '15px', marginBottom: '10px', fontFamily: 'BlinkMacSystemFont', color: '#333' }}>체크인 날짜</label>
           <br />
           <input type="date" name="" id="" />
         </div>
         <div style={{ marginTop: '10px' }}>
-          <label style={{ fontSize: '15px', marginBottom: '10px', fontFamily: 'BlinkMacSystemFont', color: '#333' }}>Check-out date</label>
+          <label style={{ fontSize: '15px', marginBottom: '10px', fontFamily: 'BlinkMacSystemFont', color: '#333' }}>체크아웃 날짜</label>
           <br />
           <input type="date" />
         </div>
@@ -29,18 +29,7 @@ const SearchBox = () => {
             <option value="">2 Adults.2 Children.1 Room</option>
           </select>
         </div>
-        <div style={{ marginTop: '10px' }}>
-          <input className="checkbox" type="checkbox" />
-          <label style={{ fontSize: '15px', marginBottom: '10px', fontFamily: 'BlinkMacSystemFont', color: '#333' }}>
-            Entire Home & Apartment
-          </label>
-        </div>
-        <div style={{ marginTop: '10px' }}>
-          <input className="checkbox" type="checkbox" />
-          <label style={{ fontSize: '15px', marginBottom: '10px', fontFamily: 'BlinkMacSystemFont', color: '#333' }}>
-            I am traveling for work
-          </label>
-        </div>
+      
         <button
           onClick={''}
           style={{

@@ -22,9 +22,9 @@ export const searchListDB = (property) => {
   return new Promise((resolve, reject) => {
     try {
       const response = axios({
-        method: 'get',
+        method: 'post',
         url: process.env.REACT_APP_SPRING_IP + 'search/list',
-        params: property,
+        data: property,
       });
       resolve(response);
     } catch (error) {
