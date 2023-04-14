@@ -1,12 +1,12 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import {
   BButton,
   ContainerDiv,
-  DragFileWrapper,
+  Custom_btn,
   FormDiv,
   HeaderDiv,
-  ImageWrapper,
-  UploadBoxWrapper,
+  Hr,
+  Title,
 } from "../../style/FormStyle";
 import HeaderNav1 from "../../components/header/HeaderNav1";
 import Footer from "../../components/footer/Footer";
@@ -14,9 +14,9 @@ import { useCallback, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { reviewInsertDB } from "../../service/reviewboardLogic";
 import ReviewScore from "./ReviewScore";
-import firebaseApp from "../../service/firebase";
-import { uploadBytes, ref, getStorage, getDownloadURL } from "firebase/storage";
 import ImageUpload from "./ImageUpload";
+import styled from "styled-components";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 /**
  *
@@ -26,12 +26,20 @@ const ReviewWritePage = () => {
   const navigate = useNavigate();
   const [title, setTitle] = useState(""); //사용자가 입력한 제목 담기
   const [reviewgood, setReviewgood] = useState(""); //사용자가 입력한 내용 담기
+  const [errorMessage, setErrorMessage] = useState("");
+  const [errorMessageBad, setErrorMessageBad] = useState("");
   const [reviewbad, setReviewbad] = useState("");
   const [service, setService] = useState(0);
   const [facility, setFacility] = useState(0);
   const [clean, setClean] = useState(0);
   const [cost, setCost] = useState(0);
   const [location, setLocation] = useState(0);
+  const textareaRef = useRef(null);
+  const [url, setUrl] = useState("");
+
+  useEffect(() => {
+    textareaRef.current.focus();
+  }, []);
 
   const handleTitle = (value) => {
     setTitle(value);
@@ -51,35 +59,86 @@ const ReviewWritePage = () => {
     },
     []
   );
+
+  const getImage = (imageUrl) => {
+    setUrl(imageUrl);
+  };
+
   const reviewInsert = async () => {
-    console.log(reviewInsert);
     const review = {
       REVIEW_NUMBER: 0,
       R_NUMBER: 0,
-      P_ID: "3",
+      P_ID: 0,
       REVIEW_TITLE: title,
       REVIEW_GOOD: reviewgood,
       REVIEW_BAD: reviewbad,
       REVIEW_DATE: 0,
       USER_NICKNAME: "상수박아",
-      SERVICE_RATING: service,
-      FACILTY_RATING: facility,
-      CLEAN_RATING: clean,
-      COST_RATING: cost,
-      LOCATION_RATING: location,
+      REVIEW_POTO: url,
+      REVIEW_SERVICE: service,
+      REVIEW_FACILITY: facility,
+      REVIEW_CLEAN: clean,
+      REVIEW_COST: cost,
+      REVIEW_LOCATION: location,
     };
     const res = await reviewInsertDB(review);
     console.log(res.data);
   };
+
   //성공 시 페이지 이동 처리 부분
   //navigate("/review");
+  const handleInputBlur = () => {
+    if (reviewgood.length <= 20) {
+      setErrorMessage("20자 이상 입력하세요.");
+    } else if (reviewgood.length > 100) {
+      setErrorMessage("100자 이하로 입력하세요.");
+    } else {
+      setErrorMessage("");
+    }
+  };
+  /* 디자인 적인 요소   */
+  const handleInputBlurBad = () => {
+    if (reviewbad.length <= 20) {
+      setErrorMessageBad("20자 이상 입력하세요.");
+    } else if (reviewgood.length > 100) {
+      setErrorMessageBad("100자 이하로 입력하세요.");
+    } else {
+      setErrorMessageBad("");
+    }
+  };
 
+  const TipDiv = styled.div`
+    height: 50px;
+    display: flex;
+    flex-direction: column;
+    font-family: "KOTRA_GOTHIC";
+    justify-content: space-between;
+    align-items: center; /* 수평 중앙 정렬 */
+    width: 90%;
+    margin: 30px;
+    border: 1px solid #e7e7e7;
+  `;
   return (
     <>
       <HeaderNav1 />
       <ContainerDiv>
+        <div
+          style={{
+            textAlign: "center",
+            margin: "50px 0",
+            border: "1px solid",
+            padding: "10px",
+            backgroundColor: "white",
+          }}
+        >
+          <span style={{ margin: "10%" }}>
+            <FontAwesomeIcon icon="fa-solid fa-door-open" />
+            다녀왔던 장소에 대한 팁이 있다면? 최근 여행을 평가해주세요
+          </span>
+        </div>
         <HeaderDiv>
-          <h3 style={{ marginLeft: "10px" }}>Review</h3>
+          <Title>Review</Title>
+          <Hr />
         </HeaderDiv>
         <FormDiv>
           <div style={{ width: "100%", maxWidth: "2000px" }}>
@@ -91,9 +150,11 @@ const ReviewWritePage = () => {
               }}
             >
               <h5>제목</h5>
-              <BButton onClick={reviewInsert}>글쓰기</BButton>
+              <Custom_btn type="button" onClick={reviewInsert}>
+                글쓰기
+              </Custom_btn>
             </div>
-            <input
+            <Textarea
               id="dataset-title"
               type="text"
               maxLength="50"
@@ -112,11 +173,11 @@ const ReviewWritePage = () => {
               style={{
                 display: "flex",
                 justifyContent: "space-between",
-                marginBottom: "5px",
+                marginBottom: "10px",
               }}
             />
-            <h3>상세내용</h3>
-            <hr style={{ margin: "10px 0px 10px 0px" }} />
+            <h5>상세내용</h5>
+            <hr style={{ margin: "10px 0px 20px 0px" }} />
             <div
               style={{
                 display: "flex",
@@ -124,49 +185,74 @@ const ReviewWritePage = () => {
                 marginBottom: "5px",
               }}
             >
-              <h4>좋았던 점</h4>
-              <h6>20자 이상</h6>
+              <h6>
+                <img
+                  src={
+                    process.env.PUBLIC_URL +
+                    "/images/icon/emoji_smile_icon_185055.png"
+                  }
+                  alt="좋았던 점 아이콘"
+                  style={{ width: "1em", height: "1em" }}
+                />
+                좋았던 점
+              </h6>
+              <h6>20/100</h6>
             </div>
-            <input
-              id="dataset-pw"
-              type="text"
+            <Textarea
+              id="dataset-good"
+              ref={textareaRef}
               maxLength="50"
               placeholder="이용하신 상품의 자세한 리뷰를 남겨주세요."
               style={{
                 width: "100%",
-                height: "80px",
+                height: "100px",
                 border: "1px solid lightGray",
                 marginBottom: "5px",
               }}
               onChange={(e) => {
                 handleGood(e.target.value);
               }}
+              onBlur={handleInputBlur}
             />
+            <ErrorDiv style={{ marginTop: "5px" }}>{errorMessage}</ErrorDiv>
             <div
               style={{
                 display: "flex",
                 justifyContent: "space-between",
                 marginBottom: "5px",
+                marginTop: "10px",
               }}
             >
-              <h4>아쉬운 점</h4>
+              <h6>
+                <img
+                  src={
+                    process.env.PUBLIC_URL +
+                    "/images/icon/emoji_frown_icon_160176.png"
+                  }
+                  alt="아쉬운 점 아이콘"
+                  style={{ width: "1em", height: "1em" }}
+                />
+                아쉬운 점
+              </h6>
               <h6>20자 이상</h6>
             </div>
-            <input
-              id="dataset-pw"
-              type="text"
+            <Textarea
+              id="dataset-bad"
+              ref={textareaRef}
               maxLength="50"
               placeholder="이용하신 상품의 자세한 리뷰를 남겨주세요."
               style={{
                 width: "100%",
-                height: "80px",
+                height: "100px",
                 border: "1px solid lightGray",
-                marginBottom: "5px",
+                marginBottom: "10px",
               }}
               onChange={(e) => {
                 handleBad(e.target.value);
               }}
+              onBlur={handleInputBlurBad}
             />
+            <ErrorDiv>{errorMessageBad}</ErrorDiv>
             <hr />
             <div
               style={{
@@ -178,11 +264,12 @@ const ReviewWritePage = () => {
             <div
               style={{
                 display: "block",
-                height: "500px",
                 border: "1px solid lightGray",
                 borderRadius: "10px",
                 minHeight: "60px",
                 padding: "5px",
+                transition: "height 0.3s ease-in-out",
+                backgroundColor: "white",
               }}
             >
               {/*----------------------------------첨부파일-------------------------------------*/}
@@ -194,7 +281,7 @@ const ReviewWritePage = () => {
                   alignItems: "center",
                 }}
               ></div>
-              <ImageUpload />
+              <ImageUpload getImage={getImage} />
               <hr />
               {/*--------------------------------리뷰점수-------------------------------------  */}
               <ReviewScore
@@ -220,3 +307,17 @@ const ReviewWritePage = () => {
 };
 
 export default ReviewWritePage;
+
+const ErrorDiv = styled.div`
+  color: red;
+`;
+
+const Textarea = styled.textarea`
+  width: 100%;
+  height: 200px;
+  border: 1px solid lightGray;
+  padding: 5px;
+  &:focus {
+    outline: 5px solid #e7f1ff;
+  }
+`;

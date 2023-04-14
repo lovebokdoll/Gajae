@@ -30,19 +30,3 @@ export const reviewInsertDB = (review) => {
     }
   });
 };
-
-export const imageInsertDB = (imageUrl) => {
-  console.log(imageUrl);
-  return new Promise((resolve, reject) => {
-    try {
-      const response = axios({
-        method: "post",
-        url: process.env.REACT_APP_SPRING_IP + "review/imageInser",
-        data: imageUrl,
-      });
-      resolve(response);
-    } catch (error) {
-      reject(error);
-    }
-  });
-};
