@@ -6,6 +6,7 @@ import {
   CardBody,
   CardContainer,
   CustomCard,
+  Contents,
 } from "../../style/HotelStyle";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 /**
@@ -17,7 +18,7 @@ const HotelFacilities = ({ row }) => {
   return (
     <>
       <div className="title">시설</div>
-
+      <Contents>만족도 높은 숙소! 이용 후기 평점 8.0</Contents>
       <CardContainer>
         <CustomCard>
           <CardBody>

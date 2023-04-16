@@ -4,6 +4,7 @@ import {
   CardContainer,
   CardText,
   CardTitle,
+  Contents,
   CustomCard,
   Icon,
 } from "../../style/HotelStyle";
@@ -17,6 +18,10 @@ const HotelPolicies = ({ row }) => {
   return (
     <>
       <div className="title">하우스룰</div>
+      <Contents>
+        {" "}
+        {row.ROOM_TYPE}에 별도 요청 접수 가능 - 다음단계에서 입력하세요!
+      </Contents>
       <CardContainer>
         <CustomCard>
           <CardBody>

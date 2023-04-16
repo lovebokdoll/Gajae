@@ -1,5 +1,12 @@
 import styled from "styled-components";
 
+export const Contents = styled.div`
+  width: 70%;
+  margin: 5px auto;
+  position: relative;
+  font-size: 18px;
+  color: rgba(0, 0, 0, 0.5);
+`;
 export const Charge_title = styled.div`
   font-family: "KOTRA_GOTHIC";
   // border: 1px solid black;
@@ -50,4 +57,8 @@ export const CardText = styled.p`
 export const Icon = styled.span`
   margin: 5%;
   // padding:1em;
+`;
+
+export const WholeForm = styled.div`
+  backgroundcolor: "#F5F5F5";
 `;

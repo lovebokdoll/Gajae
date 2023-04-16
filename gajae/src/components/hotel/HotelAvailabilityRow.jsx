@@ -4,7 +4,6 @@ import { Button, Dropdown, Modal } from "react-bootstrap";
 import { Charge_title, TotalPrice } from "../../style/HotelStyle";
 import { Link, useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
-
 /**
  * HotelPage에서 넘어온 정보를 이용하여 갯수만큼 화면에 뿌려준다.
  *
@@ -119,20 +118,23 @@ const HotelAvailabilityRow = ({ row }) => {
   const onReservation = () => {
     if (totalPrice > 0) {
       for (let i = 0; i < selectRoom.length; i++) {
+        //쿠키를 언제 지울건지 알아야 함
         const roomtype = roomTypes[i];
-        Cookies.remove(roomtype);
+        //Cookies.remove(roomtype);
       }
-      // Cookies.remove(); //기존 쿠키값 왜 삭제 안됨?????????????????????????????????
+      Cookies.remove(); //기존 쿠키값 왜 삭제 안됨???????
       const roomTypes = Object.keys(selectRoom);
       const selectedNumber = Object.values(selectRoom);
       for (let i = 0; i < roomTypes.length; i++) {
         const roomtype = roomTypes[i];
         const selecteNumber = selectedNumber[i];
-        Cookies.set(roomtype, selecteNumber);
+        //Cookies.set(roomtype, selecteNumber);//한 꺼번에 두개를 담는게 아니라  하나씩 담는것 임
+
+        Cookies.set("roomtype", roomtype); //쿠키에 담음
+        Cookies.set("selectedNumber", selecteNumber); // 인원 수 쿠키에 담음
       }
-      Cookies.set("totalPrice", totalPrice);
+      Cookies.set("totalPrice", totalPrice); // 총액 쿠키에 담음
       navigate("/reservate");
-      alert("결제페이지로 이동");
       console.log(totalPrice);
     } else {
       alert("객실을 선택해주세요");
@@ -196,12 +198,12 @@ const HotelAvailabilityRow = ({ row }) => {
                   </td>
                   <td>{hotel.ROOM_CAPACITY}명</td>
                   <td>{hotel.ROOM_PRICE}원</td>
+
                   <td>
                     {hotel.ROOM_OPTION?.split(",").map((option, index) => (
                       <div key={index}>{option}</div>
                     ))}
                   </td>
-
                   <td>
                     {/* 금액선택 토글 */}
                     <div className="table-wrapper-item2">
@@ -236,10 +238,9 @@ const HotelAvailabilityRow = ({ row }) => {
           <Modal.Header>
             <Modal.Title> {selectedModal}룸을 소개합니다</Modal.Title>
           </Modal.Header>
-          {Object.keys(selectedFacModal)
-            .map((key) => (
-              <Modal.Body key={key}>{selectedFacModal[key]}</Modal.Body>
-            ))}
+          {Object.keys(selectedFacModal).map((key) => (
+            <Modal.Body key={key}>{selectedFacModal[key]}</Modal.Body>
+          ))}
           {/* {selectedFacModal &&
             selectedFacModal.facilities &&
             selectedFacModal.facilities
