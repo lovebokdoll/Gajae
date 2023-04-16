@@ -70,6 +70,7 @@ public class UserController {
     public String userUpdate( @RequestBody Map<String, Object> map ) {
         
         log.info( "map = {}", map );
+        
         int result = userLogic.userUpdate( map );
         
         return String.valueOf( result );

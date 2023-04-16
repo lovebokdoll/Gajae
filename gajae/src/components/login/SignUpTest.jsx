@@ -238,6 +238,7 @@ const SignUpTest = () => {
         if (b !== '') {
           birthday = b.slice(0, 4) + '-' + b.slice(4, 6) + '-' + b.slice(6, 8);
         }
+       
         const userRecord = {
           USER_ID: userInfo.user_id,
           USER_PW: userInfo.user_pw,
@@ -267,10 +268,10 @@ const SignUpTest = () => {
     }
   };
 
-
   const handleSignup = (event) => {
     signup();
   };
+  
   return (
     <>
       <HeaderNav1 />

@@ -29,6 +29,36 @@ export const MyPageDIV = styled.div`
   border: 1px solid lightgrey;
 `;
 
+export const MyPageLinkMove = styled(Link)`
+  text-decoration: none;
+  color: black;
+  display: flex;
+  align-items: center;
+  width: 300px;
+  height: 70px;
+  border: 1px solid lightgrey;
+  padding: 8px;
+  border-radius: 4px;
+  font-size: 16px;
+  text-align: left;
+  padding-left: 0;
+
+  span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+  }
+
+  &:focus,
+  &:hover,
+  &:visited,
+  &:link,
+  &:active {
+    text-decoration: none;
+  }
+`;
+
 export const MyPageLink = styled(Link)`
   text-decoration: none;
   color: black;
@@ -42,11 +72,29 @@ export const MyPageLink = styled(Link)`
   }
 `;
 
+export const SignOutButton = styled.button`
+  background-color: white;
+  color: black;
+  width: 300px;
+  height: 70px;
+  border: 1px solid lightgrey;
+  padding: 8px;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.1s ease;
+
+  &:hover {
+    background-color: grey;
+    color: white;
+  }
+`;
+
 export const MSContainer = styled.div`
   width: 1140px;
-  height: 100%;
-  margin: 0px 82px;
-  padding: 16px 0px;
+  height: 800px;
+  margin: 0 auto; /* 수평 중앙 정렬 */
+  padding-top: 50px;
 `;
 
 export const MSCLeftDIV = styled.div`
@@ -65,6 +113,7 @@ export const MySettingsFlexByRow = styled.div`
   display: flex;
   flex-direction: row;
   width: 100%;
+  margin-bottom: 20px;
 `;
 
 export const MySettingsPageTitle = styled.div`
@@ -78,6 +127,7 @@ export const MSPTTitle = styled.div`
   flex-direction: column;
 `;
 export const MSPTComment = styled.div`
+  margin-top: 5px;
   display: flex;
   flex-direction: column;
 `;
@@ -89,5 +139,24 @@ export const MySettingsRow = styled.div`
 
 export const MySettingsRowLayout = styled.div`
   width: 100%;
-  padding: 0px 16px;
+`;
+
+export const UserDeactivateButton = styled.button`
+  margin-left: auto;
+  background-color: transparent;
+  color: blue;
+  border-radius: 4px;
+  padding: 10px;
+  border: none;
+  cursor: pointer;
+`;
+
+export const EditButton = styled.button`
+  margin-left: auto;
+  background-color: transparent;
+  color: blue;
+  border: none;
+  border-radius: 4px;
+  font-size: 1.2em;
+  cursor: pointer;
 `;

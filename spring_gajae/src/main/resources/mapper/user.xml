@@ -83,28 +83,29 @@
 		)
 	</insert>
 
+
 	<update id="userUpdate">
 		UPDATE GAJAE.USERS
 		SET
-		<if test="USER_NAME != null">
+		<if test="USER_NAME != null and USER_NAME.length()>0">
 			USER_NAME = #{USER_NAME}
 		</if>
-		<if test="USER_NICKNAME != null">
+		<if test="USER_NICKNAME != null and USER_NICKNAME.length()>0">
 			USER_NICKNAME = #{USER_NICKNAME}
 		</if>
-		<if test="USER_EMAIL != null">
+		<if test="USER_EMAIL != null and USER_EMAIL.length()>0">
 			USER_EMAIL = #{USER_EMAIL}
 		</if>
-		<if test="USER_MOBILE != null">
+		<if test="USER_MOBILE != null and USER_MOBILE.length()>0">
 			USER_MOBILE = #{USER_MOBILE}
 		</if>
-		<if test="USER_BIRTH != null">
+		<if test="USER_BIRTH != null and USER_BIRTH.length()>0">
 			USER_BIRTH = #{USER_BIRTH}
 		</if>
-		<if test="USER_ADDRESS != null">
+		<if test="USER_ADDRESS != null and USER_ADDRESS.length()>0">
 			USER_ADDRESS = #{USER_ADDRESS}
 		</if>
-		<if test="USER_GENDER != null">
+		<if test="USER_GENDER != null and USER_GENDER.length()>0">
 			USER_GENDER = #{USER_GENDER}
 		</if>
 		WHERE

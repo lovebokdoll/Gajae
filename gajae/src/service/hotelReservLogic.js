@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from 'axios';
 
 // 룸타입가져오기
 export const hotelDetailDB = (hotel) => {
@@ -6,8 +6,8 @@ export const hotelDetailDB = (hotel) => {
   return new Promise((resolve, reject) => {
     try {
       const response = axios({
-        method: "get",
-        url: process.env.REACT_APP_SPRING_GAJAE_IP + "hotel/hotelDetail",
+        method: 'get',
+        url: process.env.REACT_APP_SPRING_IP + 'hotel/hotelDetail',
         params: hotel,
       });
       resolve(response);

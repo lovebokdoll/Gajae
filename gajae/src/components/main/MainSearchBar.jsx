@@ -7,10 +7,12 @@ import 'react-date-range/dist/styles.css'; // main css file
 import 'react-date-range/dist/theme/default.css'; // theme css file
 import { useNavigate } from 'react-router-dom';
 import './mainSearchBar.css';
+import moment from 'moment';
 
 const MainSearchBar = ({ type }) => {
   const [destination, setDestination] = useState('');
   const [openDate, setOpenDate] = useState(false);
+
   const [date, setDate] = useState([
     {
       startDate: new Date(),
@@ -18,6 +20,14 @@ const MainSearchBar = ({ type }) => {
       key: 'selection',
     },
   ]);
+
+  const formatDate = (date) => {
+    return moment(date).format('YYYY-MM-DD');
+  };
+
+  console.log(formatDate(date[0].startDate)); // "2023-04-18"
+  console.log(formatDate(date[0].endDate)); // "2023-04-27"
+
   const [openOptions, setOpenOptions] = useState(false);
   const [options, setOptions] = useState({
     adult: 1,
@@ -37,7 +47,21 @@ const MainSearchBar = ({ type }) => {
   };
 
   const handleSearch = () => {
-    navigate('/propertylist', { state: { destination, date, options } });
+    const formattedStartDate = formatDate(date[0].startDate);
+    const formattedEndDate = formatDate(date[0].endDate);
+    console.log(formattedStartDate);
+    console.log(formattedEndDate);
+
+    const searchState = {
+      destination,
+      date: {
+        startDate: formattedStartDate,
+        endDate: formattedEndDate,
+      },
+      options,
+    };
+    console.log(searchState);
+    navigate('/propertylist', { state: searchState });
   };
 
   return (
@@ -76,7 +100,7 @@ const MainSearchBar = ({ type }) => {
                 <FontAwesomeIcon icon={faBed} className="headerIcon" />
                 <input
                   type="text"
-                  placeholder="Where are you going?"
+                  placeholder="어디로 향하시나요?"
                   className="headerSearchInput"
                   onChange={(e) => setDestination(e.target.value)}
                 />
@@ -90,7 +114,10 @@ const MainSearchBar = ({ type }) => {
                 {openDate && (
                   <DateRange
                     editableDateInputs={true}
-                    onChange={(item) => setDate([item.selection])}
+                    onChange={(item) => {
+                      console.log(item.selection);
+                      setDate([item.selection]);
+                    }}
                     moveRangeOnFirstSelection={false}
                     ranges={date}
                     className="date"
@@ -151,7 +178,7 @@ const MainSearchBar = ({ type }) => {
               </div>
               <div className="headerSearchItem">
                 <button className="headerBtn" onClick={handleSearch}>
-                  Search
+                  검색
                 </button>
               </div>
             </div>

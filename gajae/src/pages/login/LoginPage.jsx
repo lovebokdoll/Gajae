@@ -1,4 +1,3 @@
-import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Form, Image } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
@@ -25,18 +24,8 @@ const LoginPage = () => {
 
   const [userId, setUserId] = useState();
 
-  const REDIRECT_URI = 'http://localhost:9999/auth/kakao/callback';
+  const REDIRECT_URI = 'http://localhost:3000/auth/kakao/callback';
   const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.REACT_APP_KAKAO_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
-
-  const kakaoLogin = () => {
-    axios
-      .get(
-        `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.REACT_APP_KAKAO_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`
-      )
-      .then((response) => {
-        console.log(response.data);
-      });
-  };
 
   const googleSignIn = async () => {
     try {
@@ -178,7 +167,6 @@ const LoginPage = () => {
         <a href={KAKAO_AUTH_URL}>
           <Image src="/images/kakao/kakao_icon.jpg" />
         </a>
-        <button onClick={kakaoLogin}>KAKAO</button>
       </div>
       <MyP style={{ marginTop: '30px' }}>
         신규 사용자이신가요?&nbsp;

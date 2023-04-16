@@ -1,32 +1,23 @@
-import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const KakaoProfile = () => {
   const navigate = useNavigate();
-
-  const [user_id, setUserId] = useState('');
-  const [nickname, setNickname] = useState('');
-  const [profileImage, setProfileImage] = useState('');
 
   const getProfile = async () => {
     try {
       let data = await window.Kakao.API.request({
         url: '/v2/user/me',
       });
-
+      console.log(data);
+      console.log(data.connected_at);
       console.log(data.id);
       console.log(data.properties.nickname);
-      console.log(data.properties.profile_image);
+      console.log(data.kakao_account.email);
 
-      setUserId(data.id);
-      console.log('user_id ===>', user_id);
-      window.localStorage.setItem('userId', user_id);
-
-      setNickname(data.properties.nickname);
-      console.log('nickname ===>', nickname);
-      window.localStorage.setItem('nickname', nickname);
-      setProfileImage(data.properties.profile_image);
+      window.localStorage.setItem('userId', data.id);
+      window.localStorage.setItem('user_nickname', data.properties.nickname);
+      window.localStorage.setItem('user_email', data.kakao_account.email);
       navigate('/');
     } catch (error) {
       console.log('error = ', error);
@@ -35,11 +26,9 @@ const KakaoProfile = () => {
 
   useEffect(() => {
     getProfile();
-  });
+  }, []);
 
-  const kakaoLogout = async () => {
-    //insert here 로그아웃 처리
-
+  /*  const kakaoLogout = async () => {
     await axios({
       method: 'get',
       url: `https://kauth.kakao.com/oauth/logout?client_id=${process.env.REACT_APP_KAKAO_API_KEY}&logout_redirect_uri=http://localhost:3000`,
@@ -52,17 +41,9 @@ const KakaoProfile = () => {
       .catch((error) => {
         console.log(error);
       });
-  };
+  }; */
 
-  return (
-    <>
-      <h3>{user_id}</h3>
-      <h3>{nickname}</h3>
-      <img src={profileImage} alt="프로필사진" />
-      <br />
-      <button onClick={kakaoLogout}>로그아웃</button>
-    </>
-  );
+  return <></>;
 };
 
 export default KakaoProfile;

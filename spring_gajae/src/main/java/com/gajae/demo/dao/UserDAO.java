@@ -79,6 +79,7 @@ public class UserDAO {
      * @param 사용자로 부터 입력받은 데이터
      * @return update 성공 1, 실패 0
      */
+    
     public int userUpdate( Map<String, Object> map ) {
         
         int result = sqlSessionTemplate.update( "user.userUpdate", map );

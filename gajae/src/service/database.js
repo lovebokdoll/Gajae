@@ -8,7 +8,7 @@ export const propertyListDB = (property) => {
     try {
       const response = axios({
         method: 'get',
-        url: process.env.REACT_APP_SPRING_GAJAE_IP + 'property/list',
+        url: process.env.REACT_APP_SPRING_IP + 'property/list',
         params: property,
       });
       resolve(response);
@@ -38,7 +38,7 @@ export const memberInsertDB = (member) => {
     try {
       const response = axios({
         method: 'post', //@RequestBody
-        url: process.env.REACT_APP_SPRING_GAJAE_IP + 'member/memberInsert',
+        url: process.env.REACT_APP_SPRING_IP + 'member/memberInsert',
         data: member,
       });
       resolve(response);
@@ -54,7 +54,7 @@ export const uploadImageDB = (file) => {
     try {
       const response = axios({
         method: 'post',
-        url: process.env.REACT_APP_SPRING_GAJAE_IP + 'reply/imageUpload',
+        url: process.env.REACT_APP_SPRING_IP + 'reply/imageUpload',
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -75,7 +75,7 @@ export const uploadFileDB = (file) => {
     try {
       const response = axios({
         method: 'post',
-        url: process.env.REACT_APP_SPRING_GAJAE_IP + 'reply/fileUpload',
+        url: process.env.REACT_APP_SPRING_IP + 'reply/fileUpload',
         headers: {
           'Content-Type': 'multipart/form-data',
         },

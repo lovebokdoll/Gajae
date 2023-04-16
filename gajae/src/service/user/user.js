@@ -5,7 +5,7 @@ export const signinDB = (params) => {
     try {
       const response = axios({
         method: 'post',
-        url: process.env.REACT_APP_SPRING_GAJAE_IP + 'user/signin',
+        url: process.env.REACT_APP_SPRING_IP + 'user/signin',
         data: params,
       });
       resolve(response);
@@ -20,7 +20,7 @@ export const getUserDB = (params) => {
     try {
       const response = axios({
         method: 'get',
-        url: process.env.REACT_APP_SPRING_GAJAE_IP + 'user/getUser',
+        url: process.env.REACT_APP_SPRING_IP + 'user/getUser',
         params: params,
       });
       resolve(response);
@@ -35,7 +35,7 @@ export const idCheck = (params) => {
     try {
       const response = axios({
         method: 'get',
-        url: process.env.REACT_APP_SPRING_GAJAE_IP + 'user/idCheck',
+        url: process.env.REACT_APP_SPRING_IP + 'user/idCheck',
         params: params,
       });
       resolve(response);
@@ -50,7 +50,7 @@ export const nicknameCheck = (params) => {
     try {
       const response = axios({
         method: 'get',
-        url: process.env.REACT_APP_SPRING_GAJAE_IP + 'user/nicknameCheck',
+        url: process.env.REACT_APP_SPRING_IP + 'user/nicknameCheck',
         params: params,
       });
       resolve(response);
@@ -65,7 +65,7 @@ export const siginupSubmitDB = (userRecord) => {
     try {
       const response = axios({
         method: 'post',
-        url: process.env.REACT_APP_SPRING_GAJAE_IP + 'user/signup',
+        url: process.env.REACT_APP_SPRING_IP + 'user/signup',
         data: userRecord,
       });
       resolve(response);
@@ -76,11 +76,12 @@ export const siginupSubmitDB = (userRecord) => {
 };
 
 export const userUpdateDB = (user) => {
+  console.log('user ===>', user);
   return new Promise((resolve, reject) => {
     try {
       const response = axios({
         method: 'post',
-        url: process.env.REACT_APP_SPRING_GAJAE_IP + 'user/update',
+        url: process.env.REACT_APP_SPRING_IP + 'user/update',
         data: user,
       });
       resolve(response);

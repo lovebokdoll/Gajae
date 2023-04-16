@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Container, Nav, Navbar } from 'react-bootstrap';
+import { Container, Nav, Navbar } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
@@ -21,25 +21,18 @@ const HeaderNav1 = () => {
   const [userEmail, setUserEmail] = useState();
 
   const signOut = async () => {
-    //logout(userAuth.auth);
     window.localStorage.clear();
     navigate('/');
     window.location.reload();
   };
 
-  useEffect(() => {
+   useEffect(() => {
     setUserId(window.localStorage.getItem('userId'));
     setUserNickname(window.localStorage.getItem('userNickname'));
     setUserBirth(window.localStorage.getItem('userBirth'));
     setUser_Auth(window.localStorage.getItem('userAuth'));
     setUserEmail(window.localStorage.getItem('userEmail'));
-    console.log(userAuth.auth);
-    console.log(userId);
-    console.log(userNickname);
-    console.log(userBirth);
-    console.log(user_auth);
-    console.log(userEmail);
-  }, [userId]);
+  }, []); 
 
   return (
     <>
@@ -49,22 +42,27 @@ const HeaderNav1 = () => {
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
               <Link to="/" style={{ color: 'white' }} className="nav-link">
-              <img src="../images/000.png" alt="대체_텍스트" />
+                <img src="../images/000.png" alt="대체_텍스트" />
               </Link>
               <div style={{ display: 'flex', justifyContent: 'center' }}>
-              <HeaderButton>
-                <span>KRW</span>
-              </HeaderButton>
-              <HeaderButton>
-                <img src="images/korea.svg.png"></img>
-              </HeaderButton>
-              <Link to="/signup" style={{ color: 'black', marginRight: '10px' }} className="nav-link">
-                가입하기
-              </Link>
-              <Link to="/login" style={{ color: 'black', marginRight: '10px' }} className="nav-link">
-                로그인
-              </Link>
-              {userId && <MyPageDropDown />}
+                <HeaderButton>
+                  <span>KRW</span>
+                </HeaderButton>
+                <HeaderButton>
+                  <img src="/images/korea.svg.png"></img>
+                </HeaderButton>
+                {userId ? (
+                  <MyPageDropDown />
+                ) : (
+                  <>
+                    <Link to="/signup" style={{ color: 'black', marginRight: '10px' }} className="nav-link">
+                      가입하기
+                    </Link>
+                    <Link to="/login" style={{ color: 'black', marginRight: '10px' }} className="nav-link">
+                      로그인
+                    </Link>
+                  </>
+                )}
               </div>
             </Nav>
           </Navbar.Collapse>
