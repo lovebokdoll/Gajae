@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { Form, Image } from "react-bootstrap";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { setToastMessage } from "../../redux/toastStatus/action";
 import {
   checkPassword,
-  regexBirthday,
   regexEmail,
   regexID,
   regexMobile,
@@ -13,11 +11,7 @@ import {
   regexNickname,
   regexPassword,
 } from "../../service/regex";
-import {
-  idCheck,
-  nicknameCheck,
-  siginupSubmitDB,
-} from "../../service/user/user";
+import { overlapCheckDB, signupDB } from "../../service/hostLogic";
 import {
   MyButton,
   MyInput,
@@ -31,23 +25,24 @@ import Footer from "../footer/Footer";
 import HeaderNav1 from "../header/HeaderNav1";
 import HeaderNav2 from "../header/HeaderNav2";
 
-const SignUpTest = () => {
+const HostSignUp = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const [isIdCheck, setIsIdCheck] = useState(false);
-  const [isNickNameCheck, setIsNickNameCheck] = useState(false);
+  const [submitButton, setSubmitButton] = useState({
+    disabled: true,
+    bgColor: "rgb(175, 210, 244)",
+    hover: false,
+  });
 
-  const [googleEmail, setGoogleEmail] = useState("");
   const [comment, setComment] = useState({
     id: "",
     email: "",
     password: "",
     password2: "",
     name: "",
-    nickname: "",
     mobile: "",
-    birthday: "",
   });
 
   const [star, setStar] = useState({
@@ -56,9 +51,7 @@ const SignUpTest = () => {
     password: "*",
     password2: "*",
     name: "*",
-    nickname: "*",
     mobile: "*",
-    birthday: "*",
   });
 
   useEffect(() => {
@@ -90,16 +83,13 @@ const SignUpTest = () => {
       result = regexPassword(event);
       console.log(result);
     } else if (key === "password2") {
-      result = checkPassword(userInfo.user_pw, event);
+      result = checkPassword(hostInfo.host_pw, event);
       console.log(result);
     } else if (key === "name") {
       result = regexName(event);
       console.log(result);
-    } else if (key === "mobile") {
+    } else if (key === "tel") {
       result = regexMobile(event);
-      console.log(result);
-    } else if (key === "birthday") {
-      result = regexBirthday(event);
       console.log(result);
     }
     setComment({ ...comment, [key]: result });
@@ -114,19 +104,15 @@ const SignUpTest = () => {
     }
   };
 
-  const type = "user";
+  const type = "host";
 
-  const [userInfo, setUserInfo] = useState({
-    user_uid: "",
-    user_id: "",
-    user_pw: "",
-    user_pw2: "",
-    user_name: "",
-    user_nickname: "",
-    user_email: "",
-    user_mobile: "",
-    user_birthday: "",
-    user_gender: "",
+  const [hostInfo, setHostInfo] = useState({
+    host_id: "",
+    host_pw: "",
+    host_pw2: "",
+    host_name: "",
+    host_email: "",
+    host_tel: "",
   });
 
   /**
@@ -139,17 +125,47 @@ const SignUpTest = () => {
    * @param {*} key
    * @returns
    */
-  const overlap = async (key) => {
+  const overlapEmail = async (key) => {
+    // debugger;
     let params;
     let response;
-    if (key === "user_id") {
-      params = { USER_ID: userInfo[key].trim(), type: "overlap" };
-
-      if (params.USER_ID === "") {
+    if (key === "host_email") {
+      params = { HOST_EMAIL: hostInfo[key].trim(), type: "overlap" };
+      if (params.HOST_EMAIL === "") {
+        dispatch(setToastMessage("이메일을 입력해주세요."));
+        return;
+      } else {
+        response = await overlapCheckDB(params);
+        console.log(response.data);
+        if (response.data === 0) {
+          dispatch(setToastMessage("사용 가능한 이메일 입니다."));
+          setIsIdCheck(true);
+        } else if (response.data === 1) {
+          dispatch(
+            setToastMessage(
+              "이미 존재하는 이메일 입니다. 로그인 페이지로 이동합니다"
+            )
+          );
+          setTimeout(() => {
+            navigate("/host/login");
+          }, 2000);
+        }
+      }
+    }
+  };
+  const overlapId = async (key) => {
+    // debugger;
+    let params;
+    let response;
+    if (key === "host_id") {
+      params = { HOST_ID: hostInfo[key].trim(), type: "overlap" };
+      // params = { HOST_ID: hostInfo[key].trim() };
+      if (params.HOST_ID === "") {
         dispatch(setToastMessage("아이디를 입력해주세요."));
         return;
       } else {
-        response = await idCheck(params);
+        response = await overlapCheckDB(params);
+        console.log(response.data);
         if (response.data === 0) {
           dispatch(setToastMessage("사용 가능한 ID 입니다."));
           setIsIdCheck(true);
@@ -158,38 +174,13 @@ const SignUpTest = () => {
         }
       }
     }
-
-    if (key === "user_nickname") {
-      params = { USER_NICKNAME: userInfo[key].trim(), type: "overlap" };
-
-      if (params.USER_NICKNAME === "") {
-        dispatch(setToastMessage("닉네임을 입력해주세요."));
-        return;
-      } else {
-        response = await nicknameCheck(params);
-        if (response.data === 0) {
-          dispatch(setToastMessage("사용 가능한 닉네임 입니다."));
-          setIsNickNameCheck(true);
-        } else if (response.data === 1) {
-          dispatch(setToastMessage("이미 사용중인 닉네임 입니다."));
-        }
-      }
-    }
-    console.log("params ===> ", params);
   };
-
-  const changeUserInfo = (event) => {
+  const changeHostInfo = (event) => {
     const id = event.currentTarget.id;
     const value = event.target.value;
     console.log(id, ", value ===>", value);
-    setUserInfo({ ...userInfo, [id]: value });
+    setHostInfo({ ...hostInfo, [id]: value });
   };
-
-  const [submitButton, setSubmitButton] = useState({
-    disabled: true,
-    bgColor: "rgb(175, 210, 244)",
-    hover: false,
-  });
 
   const toggleHover = () => {
     if (submitButton.hover) {
@@ -244,68 +235,63 @@ const SignUpTest = () => {
 
   const signup = async () => {
     if (
-      !userInfo.user_id ||
-      !userInfo.user_pw ||
-      !userInfo.user_email ||
-      !userInfo.user_pw2 ||
-      !userInfo.user_name ||
-      !userInfo.user_mobile ||
-      !userInfo.user_birthday ||
-      !userInfo.user_nickname
+      !hostInfo.host_id ||
+      !hostInfo.host_pw ||
+      !hostInfo.host_email ||
+      !hostInfo.host_pw2 ||
+      !hostInfo.host_name ||
+      !hostInfo.host_tel
     ) {
       dispatch(setToastMessage("필수정보를 모두 입력해주세요."));
       return;
     }
-
-    if (isIdCheck && isNickNameCheck) {
+    if (isIdCheck) {
       try {
-        const b = userInfo.user_birthday;
-        let birthday = "";
-        if (b !== "") {
-          birthday = b.slice(0, 4) + "-" + b.slice(4, 6) + "-" + b.slice(6, 8);
-        }
-       
-        const userRecord = {
-          USER_ID: userInfo.user_id,
-          USER_PW: userInfo.user_pw,
-          USER_NAME: userInfo.user_name,
-          USER_NICKNAME: userInfo.user_nickname,
-          USER_EMAIL: userInfo.user_email,
-          USER_MOBILE: userInfo.user_mobile,
-          USER_BIRTH: birthday,
-          USER_AUTH: type === "user" ? "user" : "staff",
+        const hostRecord = {
+          HOST_ID: hostInfo.host_id,
+          HOST_PW: hostInfo.host_pw,
+          HOST_NAME: hostInfo.host_name,
+          HOST_EMAIL: hostInfo.host_email,
+          HOST_TEL: hostInfo.host_tel,
         };
-        console.log("userRecord ===>", userRecord);
-        const response = await siginupSubmitDB(userRecord);
+        console.log("hostRecord ===>", hostRecord);
+        const response = await signupDB(hostRecord);
         console.log(response.data);
 
         if (response.data !== 1) {
           return "회원가입 실패";
         } else if (response.data == 1) {
-          navigate("/login");
+          navigate("/host");
         }
       } catch (error) {
         console.log("error ===>", error);
       }
     } else if (isIdCheck === false) {
       dispatch(setToastMessage("아이디 중복확인을 먼저 진행해주세요."));
-    } else if (isNickNameCheck === false) {
-      dispatch(setToastMessage("닉네임 중복확인을 먼저 진행해주세요."));
     }
   };
 
   const handleSignup = (event) => {
     signup();
   };
-  
   return (
     <>
       <HeaderNav1 />
-      <HeaderNav2 />
+      <div>이미 파트너로 등록하셨나요?</div>
+      <Link to="/host/login">파트너로 로그인</Link>
       <div style={{ display: "flex", justifyContent: "center" }}>
         <div style={{ display: "flex", width: "100%" }}>
           <SignupForm suggested={false}>
-            <Image src="/images/1541.png" alt="회원가입" />
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                fontSize: "20px",
+                fontWeight: "bold",
+              }}
+            >
+              파트너 계정 등록 - 숙소를 등록하고 관리하려면 계정을 만들어주세요
+            </div>
             <div
               style={{
                 display: "flex",
@@ -314,48 +300,42 @@ const SignUpTest = () => {
               }}
             >
               <div style={{ padding: "30px 30px 0px 30px" }}>
-                {googleEmail ? (
-                  <>
-                    <MyLabel>
-                      {" "}
-                      이메일
-                      <MyInput
-                        type="email"
-                        id="user_email"
-                        defaultValue={googleEmail}
-                        disabled={true}
-                      />
-                    </MyLabel>
-                  </>
-                ) : (
-                  <div style={{ display: "flex", flexWrap: "wrap" }}>
-                    <MyLabel>
-                      {" "}
-                      이메일 <span style={{ color: "red" }}>{star.email}</span>
-                      <MyInput
-                        type="email"
-                        id="user_email"
-                        placeholder="이메일를 입력해주세요."
-                        onChange={(e) => {
-                          changeUserInfo(e);
-                          regex("email", e);
-                        }}
-                      />
-                      <MyLabelAb>{comment.email}</MyLabelAb>
-                    </MyLabel>
-                  </div>
-                )}
+                <div style={{ display: "flex", flexWrap: "wrap" }}>
+                  <MyLabel>
+                    {" "}
+                    이메일 <span style={{ color: "red" }}>{star.email}</span>
+                    <MyInput
+                      type="email"
+                      id="host_email"
+                      placeholder="이메일를 입력해주세요."
+                      onChange={(e) => {
+                        changeHostInfo(e);
+                        regex("email", e);
+                      }}
+                    />
+                    <MyLabelAb>{comment.email}</MyLabelAb>
+                  </MyLabel>
+                  <MyButton
+                    type="button"
+                    onClick={() => {
+                      overlapEmail("host_email");
+                    }}
+                  >
+                    중복확인
+                  </MyButton>
+                </div>
+
                 <div style={{ display: "flex" }}>
                   <MyLabel>
                     {" "}
                     아이디 <span style={{ color: "red" }}>{star.id}</span>
                     <MyInput
                       type="text"
-                      id="user_id"
-                      defaultValue={userInfo.id}
+                      id="host_id"
+                      defaultValue={hostInfo.id}
                       placeholder="아이디을 입력해주세요."
                       onChange={(e) => {
-                        changeUserInfo(e);
+                        changeHostInfo(e);
                         regex("id", e);
                       }}
                     />
@@ -364,7 +344,7 @@ const SignUpTest = () => {
                   <MyButton
                     type="button"
                     onClick={() => {
-                      overlap("user_id");
+                      overlapId("host_id");
                     }}
                   >
                     중복확인
@@ -375,20 +355,20 @@ const SignUpTest = () => {
                   비밀번호 <span style={{ color: "red" }}>{star.password}</span>
                   <MyInput
                     type={passwordType[0].type}
-                    id="user_pw"
+                    id="host_pw"
                     autoComplete="off"
                     placeholder="비밀번호를 입력해주세요."
                     onKeyUp={(e) => {
                       setComment({
                         ...comment,
-                        user_pw: checkPassword(
+                        host_pw: checkPassword(
                           e.target.value,
-                          userInfo.user_pw
+                          hostInfo.host_pw
                         ),
                       });
                     }}
                     onChange={(e) => {
-                      changeUserInfo(e);
+                      changeHostInfo(e);
                       regex("password", e);
                     }}
                   />
@@ -413,11 +393,11 @@ const SignUpTest = () => {
                   <span style={{ color: "red" }}>{star.password2}</span>
                   <MyInput
                     type={passwordType[1].type}
-                    id="user_pw2"
+                    id="host_pw2"
                     autoComplete="off"
                     placeholder="비밀번호를 한번 더 입력해주세요."
                     onChange={(e) => {
-                      changeUserInfo(e);
+                      changeHostInfo(e);
                       regex("password2", e.target.value);
                     }}
                   />
@@ -444,70 +424,31 @@ const SignUpTest = () => {
                   이름 <span style={{ color: "red" }}>{star.name}</span>
                   <MyInput
                     type="text"
-                    id="user_name"
-                    defaultValue={userInfo.user_name}
+                    id="host_name"
+                    defaultValue={hostInfo.host_name}
                     placeholder="이름을 입력해주세요."
                     onChange={(e) => {
-                      changeUserInfo(e);
+                      changeHostInfo(e);
                       regex("name", e);
                     }}
                   />
                   <MyLabelAb>{comment.name}</MyLabelAb>
                 </MyLabel>
-                <div style={{ display: "flex" }}>
-                  <MyLabel>
-                    {" "}
-                    닉네임 <span style={{ color: "red" }}>{star.nickname}</span>
-                    <MyInput
-                      type="text"
-                      id="user_nickname"
-                      defaultValue={userInfo.user_nickname}
-                      placeholder="닉네임을 입력해주세요."
-                      onChange={(e) => {
-                        changeUserInfo(e);
-                        regex("nickname", e);
-                      }}
-                    />
-                    <MyLabelAb>{comment.nickname}</MyLabelAb>
-                  </MyLabel>
-                  <MyButton
-                    type="button"
-                    onClick={() => {
-                      overlap("user_nickname");
-                    }}
-                  >
-                    중복확인
-                  </MyButton>
-                </div>
+                <div style={{ display: "flex" }}></div>
                 <MyLabel>
                   {" "}
-                  전화번호 <span style={{ color: "red" }}>{star.mobile}</span>
+                  전화번호 <span style={{ color: "red" }}>{star.tel}</span>
                   <MyInput
                     type="text"
-                    id="user_mobile"
-                    defaultValue={userInfo.user_mobile}
+                    id="host_tel"
+                    defaultValue={hostInfo.host_tel}
                     placeholder="전화번호를 입력해주세요."
                     onChange={(e) => {
-                      changeUserInfo(e);
-                      regex("mobile", e);
+                      changeHostInfo(e);
+                      regex("tel", e);
                     }}
                   />
-                  <MyLabelAb>{comment.mobile}</MyLabelAb>
-                </MyLabel>
-                <MyLabel>
-                  {" "}
-                  생년월일 <span style={{ color: "red" }}>{star.birthday}</span>
-                  <MyInput
-                    type="text"
-                    id="user_birthday"
-                    defaultValue={userInfo.user_birthday}
-                    placeholder="생년월일을 입력해주세요."
-                    onChange={(e) => {
-                      changeUserInfo(e);
-                      regex("birthday", e);
-                    }}
-                  />
-                  <MyLabelAb>{comment.birthday}</MyLabelAb>
+                  <MyLabelAb>{comment.tel}</MyLabelAb>
                 </MyLabel>
               </div>
             </div>
@@ -527,5 +468,5 @@ const SignUpTest = () => {
     </>
   );
 };
-
-export default SignUpTest;
+//};
+export default HostSignUp;

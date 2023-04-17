@@ -6,9 +6,13 @@ import KakaoProfile from "./api/kakao/KakaoProfile";
 import KakaoRedirectHandler from "./api/kakao/KakaoRedirectHandler";
 import NaverPay from "./api/naver/NaverPay";
 import ReservationDetail from "./components/Reservate/ReservationDetail";
+import HostLogin from "./components/host/HostLogin";
+import HostSignUp from "./components/host/HostSignUp";
+import RegisterHouse from "./components/host/RegisterHouse";
 import SignUpTest from "./components/login/SignUpTest";
 import InicisPay from "./components/pay/InicisPay";
 import Toast from "./components/toast/Toast";
+import HostPage from "./pages/host/HostPage";
 import HotelPage from "./pages/hotel/HotelPage";
 import LoginPage from "./pages/login/LoginPage";
 import MainPage from "./pages/main/MainPage";
@@ -21,10 +25,12 @@ import MyWishListPage from "./pages/mypage/MyWishListPage";
 import Mypage from "./pages/mypage/Mypage";
 import Payapge from "./pages/pay/Payapge";
 import PropertyListPage from "./pages/propertyList/PropertyListPage";
+import ImageUpload from "./pages/reviewBoard/ImageUpload";
 import ReviewWritePage from "./pages/reviewBoard/ReviewWritePage";
 
 const App = () => {
   const toastStatus = useSelector((state) => state.toastStatus);
+  
   return (
     <div style={{ height: "100vh" }}>
       {toastStatus.status && <Toast />}{" "}
@@ -43,10 +49,25 @@ const App = () => {
           exact={true}
           element={<KakaoRedirectHandler />}
         />
+        <Route
+          path="/auth/kakao/callback"
+          exact={true}
+          element={<KakaoRedirectHandler />}
+        />
         <Route path="/kakaoprofile" exact={true} element={<KakaoProfile />} />
         <Route path="/naverpay" exact={true} element={<NaverPay />} />
         <Route path="/mypage" exact={true} element={<Mypage />} />
         <Route path="/mypage/settings" exact={true} element={<MySettings />} />
+        <Route
+          path="/mypage/notifications"
+          exact={true}
+          element={<MyNotificationsPage />}
+        />
+        <Route
+          path="/mypage/reservations"
+          exact={true}
+          element={<MyReservatiosPage />}
+        />
         <Route
           path="/mypage/notifications"
           exact={true}
@@ -68,9 +89,33 @@ const App = () => {
           exact={true}
           element={<MyWishListPage />}
         />
+        <Route
+          path="/mypage/payment"
+          exact={true}
+          element={<MyPaymentPage />}
+        />
+        <Route
+          path="/mypage/wishlist"
+          exact={true}
+          element={<MyWishListPage />}
+        />
         <Route path="/reservate" element={<ReservationDetail />} />
         <Route path="/pay" exact={true} element={<Payapge />} />
         <Route path="/inicis" exact={true} element={<InicisPay />} />
+        <Route
+          path="/review/myreview"
+          exact={true}
+          element={<MyReviewPage />}
+        />
+        <Route path="/review/img" exact={true} element={<ImageUpload />} />
+        <Route path="/host" exact={true} element={<HostPage />} />
+        <Route path="/host/signup" exact={true} element={<HostSignUp />} />
+        <Route path="/host/login" exact={true} element={<HostLogin />} />
+        <Route
+          path="/host/registerHouse"
+          exact={true}
+          element={<RegisterHouse />}
+        />
       </Routes>
     </div>
   );

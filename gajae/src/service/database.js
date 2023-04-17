@@ -8,22 +8,7 @@ export const propertyListDB = (property) => {
     try {
       const response = axios({
         method: 'get',
-        url: process.env.REACT_APP_SPRING_IP + 'property/list',
-        params: property,
-      });
-      resolve(response);
-    } catch (error) {
-      reject(error);
-    }
-  });
-};
-
-export const searchListDB = (property) => {
-  return new Promise((resolve, reject) => {
-    try {
-      const response = axios({
-        method: 'get',
-        url: process.env.REACT_APP_SPRING_IP + 'search/list',
+        url: process.env.REACT_APP_SPRING_GAJAE_IP + 'property/list',
         params: property,
       });
       resolve(response);
@@ -37,8 +22,8 @@ export const memberInsertDB = (member) => {
   return new Promise((resolve, reject) => {
     try {
       const response = axios({
-        method: 'post', //@RequestBody
-        url: process.env.REACT_APP_SPRING_IP + 'member/memberInsert',
+        method: "post", //@RequestBody
+        url: process.env.REACT_APP_SPRING_GAJAE_IP + "member/memberInsert",
         data: member,
       });
       resolve(response);
@@ -53,8 +38,8 @@ export const uploadImageDB = (file) => {
   return new Promise((resolve, reject) => {
     try {
       const response = axios({
-        method: 'post',
-        url: process.env.REACT_APP_SPRING_IP + 'reply/imageUpload',
+        method: "post",
+        url: process.env.REACT_APP_SPRING_GAJAE_IP + "reply/imageUpload",
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -74,8 +59,8 @@ export const uploadFileDB = (file) => {
   return new Promise((resolve, reject) => {
     try {
       const response = axios({
-        method: 'post',
-        url: process.env.REACT_APP_SPRING_IP + 'reply/fileUpload',
+        method: "post",
+        url: process.env.REACT_APP_SPRING_GAJAE_IP + "reply/fileUpload",
         headers: {
           'Content-Type': 'multipart/form-data',
         },

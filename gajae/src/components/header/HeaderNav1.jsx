@@ -63,6 +63,9 @@ const HeaderNav1 = () => {
                     </Link>
                   </>
                 )}
+                <Link to="/host" style={{ color: 'black', marginRight: '10px' }} className="nav-link">
+                  숙소등록
+                </Link>
               </div>
             </Nav>
           </Navbar.Collapse>

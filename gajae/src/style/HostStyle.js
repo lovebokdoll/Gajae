@@ -1,5 +1,37 @@
 import styled from "styled-components";
 
+export const Background = styled.div`
+  background-color: #003580;
+  width: 100%;
+  height: 1000px;
+  position: relative;
+`;
+export const Title = styled.div`
+  font-family: "TheJamsil5Bold";
+  color: white;
+  font-size: 70px;
+  position: absolute; /* Title 컴포넌트는 position: absolute */
+  top: 20%; /* 원하는 위치로 top, left, right, bottom 값을 조정 */
+  left: 10%;
+  //   transform: translate(-50%, -50%); /* 가운데 정렬을 위한 transform 속성 */
+`;
+export const Content = styled.div`
+  font-family: "Pretendard-Regular";
+  width: 100%;
+  color: white;
+  font-size: 20px;
+  top: 100%; /* 원하는 위치로 top, left, right, bottom 값을 조정 */
+  left: 10%;
+  //   transform: translate(-50%, -50%); /* 가운데 정렬을 위한 transform 속성 */
+`;
+export const R_CardGroup = styled.div`
+  font-family: "Pretendard-Regular";
+  width: 100%;
+  color: black;
+  top: 100%; /* 원하는 위치로 top, left, right, bottom 값을 조정 */
+  transform: translate(60%, 65%); /* 가운데 정렬을 위한 transform 속성 */
+`;
+//hostZipCode
 export const LoginForm = styled.form`
   display: flex;
   flex-direction: column;
@@ -15,30 +47,22 @@ export const LoginForm = styled.form`
   margin: 150px 0px 150px 0px;
   border: 2px solid lightgrey;
 `;
-
 export const SignupForm = styled(LoginForm)`
-  padding: 50px 40px 80px 40px;
-  max-width: 800px;
+  padding: 80px 40px 80px 40px;
+  max-width: 1000px;
   min-width: 300px;
-  width: 100%;
-  height: 100vh;
+  width: 90%;
 `;
-
 export const MyH1 = styled.h1`
-  padding-top: 50px;
   font-size: 38px;
   margin-bottom: 60px;
-  margin-top: 15px;
   font-weight: 20px;
   text-align: center;
 `;
-
 /* 3번의 하위태그에 대한 설정 */
 export const MyP = styled.p`
   font-size: 13px;
-  text-align: center;
 `;
-
 export const PwEye = styled.i`
   position: absolute;
   margin-left: 240px;
@@ -48,21 +72,17 @@ export const PwEye = styled.i`
     color: #808080;
   }
 `;
-
 export const MyLabel = styled.label`
-  align-items: center;
   font-size: 14px;
   color: #414149;
   display: block;
   margin-bottom: 40px;
 `;
-
 export const MyLabelAb = styled(MyLabel)`
   position: absolute;
   color: #85858b;
   font-size: 11px;
 `;
-
 export const MyInput = styled.input`
   width: 275px;
   display: block;
@@ -84,7 +104,6 @@ export const MyInput = styled.input`
     font-size: 13px;
   }
 `;
-
 export const SubmitButton = styled.button`
   margin-top: 20px;
   width: 275px;
@@ -96,7 +115,6 @@ export const SubmitButton = styled.button`
   border: 1.5px solid rgb(105, 175, 245);
   color: white;
 `;
-
 export const WarningButton = styled(SubmitButton)`
   border: none;
   background-color: rgb(241, 80, 42);
@@ -105,7 +123,6 @@ export const WarningButton = styled(SubmitButton)`
     background-color: rgb(200, 34, 18);
   }
 `;
-
 export const GoogleButton = styled(SubmitButton)`
   margin-top: 0px;
   background-color: white;
@@ -116,10 +133,9 @@ export const GoogleButton = styled(SubmitButton)`
     background-color: lightgray;
   }
 `;
-
 export const MyButton = styled.button`
   margin-top: 10px;
-  margin-bottom: 10px;
+  margin-bottom: 40px;
   background-color: white;
   color: black;
   border-radius: 15px;
@@ -130,25 +146,21 @@ export const MyButton = styled.button`
     background-color: lightgray;
   }
 `;
-
 /* submit버튼에 float를 주면 밀리는데 clear:both로 해결 */
 export const DividerDiv = styled.div`
-  position: relative;
+  position: relative; /* hr선이 화면 안으로 들어옴 */
   clear: both;
-  text-align: center;
+  text-align: center; /* 문자또는 문자열을 가운데 정렬 */
+  width: 100%;
   margin-bottom: 20px;
 `;
-
 export const DividerHr = styled.hr`
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 500px;
+  position: absolute; /* hr선이 밀려나는데 부모인 divider에 relative를 줌 */
+  width: 100%;
   height: 1px;
   border: none;
   background-color: #535353;
 `;
-
 export const DividerSpan = styled.span`
   position: relative;
   display: inline-block;
@@ -157,7 +169,6 @@ export const DividerSpan = styled.span`
   color: #4b4b4b;
   background-color: white;
 `;
-
 export const BButton = styled.button`
   border-radius: 10px;
   border: 1px solid white;
@@ -170,37 +181,30 @@ export const BButton = styled.button`
     background-color: rgb(58, 129, 200);
   }
 `;
-
 export const ContainerDiv = styled.div`
   display: flex;
   flex-direction: column;
-  font-family: "KOTRA_GOTHIC";
   width: 100%;
-  margin-bottom: 50px;
   align-items: center;
-  background-color: #f5f5f5;
+  margin: 50px 0px 50px 0px;
 `;
-
 export const FormDiv = styled.div`
   display: flex;
   flex-direction: column;
   width: 90%;
+  border: 2px solid lightGray;
   border-radius: 20px;
   padding: 10px;
-  max-width: 1200px;
-  min-height: 650px;
-  justify-content: space-between;
+  max-width: 300px;
+  min-height: 300px;
 `;
-
 export const HeaderDiv = styled.div`
   display: flex;
   width: 90%;
   max-width: 1200px;
-  margin-top: 25px;
-  justify-content: center;
+  justify-content: space-between;
   margin-bottom: 10px;
 `;
-
 export const QnACommentArea = styled.textarea`
   width: 100%;
   height: 200px;
@@ -209,7 +213,6 @@ export const QnACommentArea = styled.textarea`
   border-radius: 10px;
   padding: 5px;
 `;
-
 export const PayForm = styled.div`
   display: flex;
   flex-direction: column;
@@ -221,7 +224,6 @@ export const PayForm = styled.div`
   border: 1px solid lightgray;
   border-radius: 30px;
 `;
-
 export const SpanA = styled.span`
   cursor: pointer;
   font-weight: bold;
@@ -229,68 +231,4 @@ export const SpanA = styled.span`
   &:hover {
     color: rgb(58, 129, 200);
   }
-`;
-
-export const LoginButton = styled.button`
-  width: 100%;
-  height: 2em;
-  font-size: 1.2rem;
-  border-radius: 1.2rem;
-  background-color: transparent;
-  cursor: pointer;
-  border: 0.2rem solid #9e7676;
-  outline: 0;
-  &:hover {
-    background-color: #b0daff;
-  }
-`;
-
-export const Preview = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center; /* 추가 */
-  width: 100%;
-  height: 350px;
-  border: dotted lightgray;
-  margin-bottom: 10px;
-`;
-
-export const Img = styled.img`
-  width: 300px;
-  height: 300px;
-  display: flex;
-  margins: 5px 5px 5px 5px;
-  box-shadow: 2px 2px 5px grey;
-`;
-
-/* 게시판 버튼 */
-export const Custom_btn = styled.button`
-background-color: #fff;
-color: #0d6efd;
-height: 30px;
-border: 1px solid #0d6efd;
-border-radius: 5px;
-padding: 5px 10px;
-font-size: 16px;
-cursor: pointer;
-display: inline-flex; /* 수정된 부분 */
-align-items: center; /* 수정된 부분 */
-&:hover {
-  background-color: #007bff;
-  color: #fff;
-`;
-
-export const Hr = styled.hr`
-  border-top: 1px solid black;
-  height: 1px;
-  background-color: black;
-`;
-export const Title = styled.h1`
-  font-size: 40px;
-  font-weight: bold;
-  marginleft: "10px";
-`;
-
-export const WholeForm = styled.div`
-  background-color: #f5f5f5;
 `;
