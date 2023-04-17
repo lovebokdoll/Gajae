@@ -132,6 +132,7 @@ const MySettings = () => {
         console.log(data);
         console.log(searchedAddress);
         document.querySelector('#user_address').value = searchedAddress;
+       
         setUser({ ...user, USER_ADDRESS: searchedAddress });
       },
     }).open();

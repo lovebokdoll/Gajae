@@ -64,7 +64,9 @@ const MyReviewPage = () => {
             </SignOutButton>
           </Nav>
         </MSCLeftDIV>
-        <MSCRightDIV></MSCRightDIV>
+        <MSCRightDIV>
+         
+        </MSCRightDIV>
       </MSContainer>
       <Footer />
     </>

@@ -21,9 +21,11 @@ export const SignupForm = styled(LoginForm)`
   max-width: 800px;
   min-width: 300px;
   width: 100%;
+  height: 100vh;
 `;
 
 export const MyH1 = styled.h1`
+  padding-top: 50px;
   font-size: 38px;
   margin-bottom: 60px;
   font-weight: 20px;
@@ -128,16 +130,17 @@ export const MyButton = styled.button`
 
 /* submit버튼에 float를 주면 밀리는데 clear:both로 해결 */
 export const DividerDiv = styled.div`
-  position: relative; /* hr선이 화면 안으로 들어옴 */
+  position: relative;
   clear: both;
-  text-align: center; /* 문자또는 문자열을 가운데 정렬 */
-  width: 100%;
+  text-align: center;
   margin-bottom: 20px;
 `;
 
 export const DividerHr = styled.hr`
-  position: absolute; /* hr선이 밀려나는데 부모인 divider에 relative를 줌 */
-  width: 100%;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 500px;
   height: 1px;
   border: none;
   background-color: #535353;
@@ -151,6 +154,7 @@ export const DividerSpan = styled.span`
   color: #4b4b4b;
   background-color: white;
 `;
+
 export const BButton = styled.button`
   border-radius: 10px;
   border: 1px solid white;

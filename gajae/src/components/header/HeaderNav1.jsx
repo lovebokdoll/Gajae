@@ -26,13 +26,13 @@ const HeaderNav1 = () => {
     window.location.reload();
   };
 
-   useEffect(() => {
+  useEffect(() => {
     setUserId(window.localStorage.getItem('userId'));
     setUserNickname(window.localStorage.getItem('userNickname'));
     setUserBirth(window.localStorage.getItem('userBirth'));
     setUser_Auth(window.localStorage.getItem('userAuth'));
     setUserEmail(window.localStorage.getItem('userEmail'));
-  }, []); 
+  }, []);
 
   return (
     <>
