@@ -1,9 +1,11 @@
 import React from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import './propertyCard.css';
 
 const PropertyCard = ({ row }) => {
   console.log(row);
 
+  const navigate = useNavigate();
   return (
     <>
       <div className="searchItem">
@@ -13,17 +15,19 @@ const PropertyCard = ({ row }) => {
           className="siImg"
         />
         <div className="siDesc">
-          <h1 className="siTitle"> {row.P_TITLE}</h1>
+          <Link to="./hotel">
+            <h1 className="siTitle"> {row.P_TITLE}</h1>
+          </Link>
           <span className="siCheck">
             {' '}
             CHECKIN: {row.P_CHECKIN} CKECKOUT: {row.P_CHECKOUT}
           </span>
-          <span className="siDistance">500m from center</span>
+          <span className="siDistance">{row.P_ADDRESS}</span>
           <span className="siTaxiOp">Free airport taxi</span>
           <span className="siSubtitle">Studio Apartment with Air conditioning</span>
-          <span className="siFeatures">Entire studio • 1 bathroom • 21m² 1 full bed</span>
-          <span className="siCancelOp">{row.p_refund} </span>
-          <span className="siCancelOpSubtitle">You can cancel later, so lock in this great price today!</span>
+          <span className="siFeatures">{row.ROOM_TYPE}</span>
+          <span className="siCancelOpSubtitle">{row.ROOM_OPTION}</span>
+          <span className="siCancelOp">{row.P_REFUND}</span>
         </div>
         <div className="siDetails">
           <div className="siRating">
@@ -31,14 +35,20 @@ const PropertyCard = ({ row }) => {
             <button>8.9</button>
           </div>
           <div className="siDetailTexts">
-            <span className="siPrice">$112</span>
+            <span className="siPrice">{Number(row.ROOM_PRICE).toLocaleString() + '원'}</span>
             <span className="siTaxOp">Includes taxes and fees</span>
-            <button className="siCheckButton">See availability</button>
+            <button
+              className="siCheckButton"
+              onClick={() => {
+                navigate('/hotel');
+              }}
+            >
+              See availability
+            </button>
           </div>
         </div>
       </div>
     </>
   );
 };
-
 export default PropertyCard;

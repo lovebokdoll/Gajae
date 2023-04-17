@@ -43,13 +43,13 @@ const HeaderNav1 = () => {
 
   return (
     <>
-      <Navbar id="aaa" expand="lg">
+      <Navbar id="headercontainer" expand="lg">
         <Container fluid>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
               <Link to="/" style={{ color: 'white' }} className="nav-link">
-              <img src="../images/000.png" alt="대체_텍스트" />
+              <img src="../images/ex3.png" alt="대체_텍스트" />
               </Link>
               <div style={{ display: 'flex', justifyContent: 'center' }}>
               <HeaderButton>

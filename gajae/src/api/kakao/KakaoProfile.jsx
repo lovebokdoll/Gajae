@@ -1,45 +1,36 @@
-import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const KakaoProfile = () => {
   const navigate = useNavigate();
-
-  const [user_id, setUserId] = useState('');
-  const [nickname, setNickname] = useState('');
-  const [profileImage, setProfileImage] = useState('');
 
   const getProfile = async () => {
     try {
       let data = await window.Kakao.API.request({
         url: '/v2/user/me',
       });
-
+      console.log(data);
+      console.log(data.connected_at);
       console.log(data.id);
       console.log(data.properties.nickname);
-      console.log(data.properties.profile_image);
+      console.log(data.kakao_account.email);
 
-      setUserId(data.id);
-      console.log('user_id ===>', user_id);
-      window.localStorage.setItem('userId', user_id);
+      window.localStorage.setItem('userId', data.id);//localStorage에 userId를 담음
+      window.localStorage.setItem('user_nickname', data.properties.nickname);//localStorage에 user_nickname를 담음
+      window.localStorage.setItem('user_email', data.kakao_account.email);////localStorage에 user_email 담음
+      navigate('/');//로그인 처리되면 메인페이지로 네비게이트 처리
 
-      setNickname(data.properties.nickname);
-      console.log('nickname ===>', nickname);
-      window.localStorage.setItem('nickname', nickname);
-      setProfileImage(data.properties.profile_image);
-      navigate('/');
     } catch (error) {
       console.log('error = ', error);
+      alert('로그인이 실패하였습니다.')
     }
   };
 
   useEffect(() => {
     getProfile();
-  });
+  }, []);
 
-  const kakaoLogout = async () => {
-    //insert here 로그아웃 처리
-
+  /*  const kakaoLogout = async () => {
     await axios({
       method: 'get',
       url: `https://kauth.kakao.com/oauth/logout?client_id=${process.env.REACT_APP_KAKAO_API_KEY}&logout_redirect_uri=http://localhost:3000`,
@@ -52,17 +43,9 @@ const KakaoProfile = () => {
       .catch((error) => {
         console.log(error);
       });
-  };
+  }; */
 
-  return (
-    <>
-      <h3>{user_id}</h3>
-      <h3>{nickname}</h3>
-      <img src={profileImage} alt="프로필사진" />
-      <br />
-      <button onClick={kakaoLogout}>로그아웃</button>
-    </>
-  );
+  return <></>;
 };
 
 export default KakaoProfile;

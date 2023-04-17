@@ -3,6 +3,19 @@ import React, { useEffect, useState } from 'react';
 const InicisPay = () => {
   const [isLoaded, setIsLoaded] = useState(false);
 
+  const bookerName = localStorage.getItem('bookerName');
+const userEmail = localStorage.getItem('userEmail');
+const tel = localStorage.getItem('tel');
+
+function getCookie(name) {
+  const value = `; ${document.cookie}`;
+  const parts = value.split(`; ${name}=`);
+  if (parts.length === 2) {
+    return decodeURIComponent(parts.pop().split(';').shift());
+  }
+}
+const totalPrice = getCookie('totalPrice');//쿠키에서 가격호출
+const roomType = decodeURIComponent(getCookie('roomtype'));
   useEffect(() => {
     const jquery = document.createElement("script");
     jquery.src = "https://code.jquery.com/jquery-1.12.4.min.js";
@@ -37,15 +50,14 @@ const InicisPay = () => {
     const data = {
       pg: 'html5_inicis', // PG사 (필수항목)
       pay_method: 'card', // 결제수단 (필수항목)
-      merchant_uid: `mid_${new Date().getTime()}`, // 결제금액 (필수항목)
-      name: '결제 테스트', // 주문명 (필수항목)
-      amount: '1000', // 금액 (필수항목)
+      merchant_uid: `mid_${new Date().getTime()}`, 
+      name: roomType, // 주문명 (필수항목) //쿠키 에서꺼내오기 
+      amount: totalPrice, // 금액 (필수항목)
       custom_data: { name: '부가정보', desc: '세부 부가정보' },
-      buyer_name: '남웅식', // 구매자 이름
-      buyer_tel: '010-5452-3984', // 구매자 전화번호 (필수항목)
-      buyer_email: 'thanksn2002@gmail.com', // 구매자 이메일
-      buyer_addr: '경기도 고양시',
-      buyer_postalcode: '10416'
+      buyer_name: 'bookerName', // 구매자 이름// localstorage
+      buyer_tel: 'tel', // 구매자 전화번호 (필수항목)
+      buyer_email: 'userEmail', // 구매자 이메일 /localstorage
+     
     };
     IMP.request_pay(data, callback);
   }
