@@ -25,6 +25,6 @@ public class PropertyDTO {
     private String P_STATUS;
     private String P_MAPY;
     private String P_MAPX;
-    private String P_HIDERDATE;
+    private String P_HIERDATE;
     private String P_CHANGE_DATE;
 }
