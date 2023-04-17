@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const LoginForm = styled.form`
   display: flex;
@@ -171,16 +171,17 @@ export const BButton = styled.button`
 export const ContainerDiv = styled.div`
   display: flex;
   flex-direction: column;
+  font-family: "KOTRA_GOTHIC";
   width: 100%;
+  margin-bottom: 50px;
   align-items: center;
-  margin: 50px 0px 50px 0px;
+  background-color: #f5f5f5;
 `;
 
 export const FormDiv = styled.div`
   display: flex;
   flex-direction: column;
   width: 90%;
-  border: 2px solid lightGray;
   border-radius: 20px;
   padding: 10px;
   max-width: 1200px;
@@ -192,7 +193,8 @@ export const HeaderDiv = styled.div`
   display: flex;
   width: 90%;
   max-width: 1200px;
-  justify-content: space-between;
+  margin-top: 25px;
+  justify-content: center;
   margin-bottom: 10px;
 `;
 
@@ -243,12 +245,45 @@ export const LoginButton = styled.button`
 export const Preview = styled.div`
   display: flex;
   justify-content: center;
+  align-items: center; /* 추가 */
   width: 100%;
   height: 350px;
   border: dotted lightgray;
+  margin-bottom: 10px;
 `;
 
 export const Img = styled.img`
   width: 300px;
   height: 300px;
+  display: flex;
+  margins: 5px 5px 5px 5px;
+  box-shadow: 2px 2px 5px grey;
+`;
+
+/* 게시판 버튼 */
+export const Custom_btn = styled.button`
+background-color: #fff;
+color: #0d6efd;
+height: 30px;
+border: 1px solid #0d6efd;
+border-radius: 5px;
+padding: 5px 10px;
+font-size: 16px;
+cursor: pointer;
+display: inline-flex; /* 수정된 부분 */
+align-items: center; /* 수정된 부분 */
+&:hover {
+  background-color: #007bff;
+  color: #fff;
+`;
+
+export const Hr = styled.hr`
+  border-top: 1px solid black;
+  height: 1px;
+  background-color: black;
+`;
+export const Title = styled.h1`
+  font-size: 40px;
+  font-weight: bold;
+  marginleft: "10px";
 `;
