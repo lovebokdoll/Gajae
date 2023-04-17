@@ -57,7 +57,7 @@
 		)
 	</insert>
 
-	<insert id="hostInsert">
+	<insert id="hostInsert" parameterType="map">
 		INSERT INTO GAJAE.PROPERTIES
 		(
 		P_ID,
@@ -67,19 +67,19 @@
 		P_ADDRESS,
 		P_STATUS,
 		P_MAPY,
-		p_MAPX,
+		P_MAPX,
 		P_HIREDATE
 		)
 		VALUES
 		(
 		SEQ_PROPERTY_NUMBER.nextval,
-		' ',
-		#{P_POSTAL},
-		' ',
-		#{P_ADDRESS},
-		' ',
-		' ',
-		' ',
+		'123',
+		#{p_postal},
+		'123',
+		#{p_address},
+		'123',
+		'123',
+		'123',
 		TO_DATE(
 		SYSDATE, 'YYYY-MM-DD HH24:MI:SS')
 		)

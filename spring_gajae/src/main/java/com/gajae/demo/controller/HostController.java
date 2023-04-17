@@ -51,23 +51,19 @@ public class HostController {
 	        
 	        return temp;
 	        }
-	    //숙소등
+	    //숙소등록 
 	    @PostMapping( "hostInsert" )
-	    public String hostInsert( @RequestBody Map<String, Object> map ) {
+	    public int hostInsert( @RequestBody Map<String, Object> pMap ) {
 	    	
-	    	log.info( "map = {}", map );
+	    	log.info( "map = {}", pMap );
 	    	
-	    	List<Map<String,Object>>hostRegisterList = hostLogic.hostInsert( map );
-	    	String         temp     = null;
-	    	
-	    	if ( hostRegisterList != null && hostRegisterList.size() > 0 ) {
-	    		Gson gson = new Gson();
-	    		temp = gson.toJson( hostRegisterList );
-	    		log.info( "temp ={}", temp );
-	    	}
-	    	
-	    	return temp;
+	    	int result = hostLogic.hostInsert( pMap );
+
+	        return  result ;
 	    }
+	    
+	  
+
 
 	// 아이디 중복체크
 	

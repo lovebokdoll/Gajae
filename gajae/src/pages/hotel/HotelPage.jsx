@@ -55,7 +55,7 @@ const HotelPage = () => {
   useEffect(() => {
     const getHotelList = async () => {
       const hotel = {
-        P_ID: 1000,
+        P_ID: 500,
       };
       const response = await hotelDetailDB(hotel);
       setProperty(response.data);

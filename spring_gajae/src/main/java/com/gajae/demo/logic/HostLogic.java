@@ -40,11 +40,10 @@ public class HostLogic {
 		        return hostList;
 	}
 
-	public List<Map<String, Object>> hostInsert(Map<String, Object> map) {
+	public int hostInsert(Map<String, Object> map) {
 		log.info("map = {}", map);
-		 List<Map<String,Object>> hostRegisterList = hostDAO.hostInsert( map );
-		        
-		        return hostRegisterList;
+		int result = hostDAO.hostInsert(map);
+		return result;
 	}
 	    
 //	public int qnaDelete(Map<String, Object> pMap) {

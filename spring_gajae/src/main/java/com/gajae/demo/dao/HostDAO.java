@@ -42,10 +42,12 @@ public class HostDAO {
 		
 	}
 
-	public List<Map<String, Object>> hostInsert(Map<String, Object> map) {
+	public int hostInsert(Map<String, Object> map) {
 		log.info("map = {}", map);
-		 List<Map<String,Object>> hostRegisterList = sqlSessionTemplate.selectList( "host.hostInsert",map );
+		int result = sqlSessionTemplate.insert( "host.hostInsert",map );
 	        
-	        return hostRegisterList;
+	        return result;
 	}
+	
+	
 }

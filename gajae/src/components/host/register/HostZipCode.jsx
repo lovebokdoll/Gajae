@@ -2,7 +2,7 @@
 import { useCallback, useState } from "react";
 import { Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import { ContainerDiv, FormDiv } from "../../style/HostStyle";
+import { ContainerDiv, FormDiv } from "../../../style/HostStyle";
 
 const HostZipCode = ({
   onZipcodeChange,
@@ -36,7 +36,7 @@ const HostZipCode = ({
         setPost({ ...post, zipcode: data.zonecode, addr: addr });
         document.querySelector("#host_zipcode").value = data.zonecode; //화면에 자동으로 입력처리
         document.querySelector("#host_addr").value = addr;
-        document.querySelector("#host_addr_dtl").focus(); //addr이 입력되었을때
+        //document.querySelector("#host_addr_dtl").focus(); //addr이 입력되었을때
         handleZipcode(document.querySelector("#host_zipcode").value);
         handleAddr(document.querySelector("#host_addr").value);
 
