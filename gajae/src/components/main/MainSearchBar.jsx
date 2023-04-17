@@ -7,6 +7,7 @@ import 'react-date-range/dist/styles.css'; // main css file
 import 'react-date-range/dist/theme/default.css'; // theme css file
 import { useNavigate } from 'react-router-dom';
 import './mainSearchBar.css';
+import axios from 'axios';
 
 const MainSearchBar = ({ type }) => {
   const navigate = useNavigate();
@@ -24,6 +25,7 @@ const MainSearchBar = ({ type }) => {
       key: 'selection',
     },
   ]);
+
   const [openOptions, setOpenOptions] = useState(false);
   const [options, setOptions] = useState({
     adult: 1,
@@ -40,8 +42,20 @@ const MainSearchBar = ({ type }) => {
     });
   };
 
-  const handleSearch = () => {
-    navigate('/propertylist', { state: { destination, date, options } });
+  const handleSearch = (e) => {
+    navigate(`/propertylist/?P_ADDRESS=${P_ADDRESS}`, { state: { P_ADDRESS, date, options } });
+
+    e.preventDefault(); // 페이지 리로딩 방지
+    axios.post('http://localhost:9999/search/list', { P_ADDRESS })
+      .then(response => {
+        console.log(P_ADDRESS)
+        console.log(response.data);
+        // 검색 결과를 처리할 코드
+      })
+      .catch(error => {
+        console.error(error);
+        // 에러 처리 코드
+      });
   };
 
   return (

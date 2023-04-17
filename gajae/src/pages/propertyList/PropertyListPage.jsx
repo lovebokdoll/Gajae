@@ -11,6 +11,8 @@ import SearchBox from '../../components/searchItem/SearchBox';
 import { searchListDB } from '../../service/database';
 import { BButton } from '../../style/FormStyle';
 import './propertyList.css';
+import axios from 'axios';
+import Cookies from 'js-cookie';
 
 /**
  * 사용자가 마이페이지에서 여행지, 체크인&체크아웃 날짜, 인원 수&객실 수를 선택한 데이터를 기준하여 화면을 렌더링한다.
@@ -18,31 +20,68 @@ import './propertyList.css';
  * @returns 검색 결과 페이지 (Search Result)
  */
 const PropertyListPage = () => {
-  console.log("PropertyListPage")
+  //URL 검색어 잘라서 가져오기
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   console.log(location.search)
 
+  // 정렬 순서
+  const [orderBy, setOrderBy] = useState('');
+  const [address, setAddress] = useState('');
+
+  // 검색 결과
   const [property, setProperty] = useState([]);
+  console.log(property)
 
+  //사용자가 입력하는 값
   const params = {
-    adress: searchParams.get('address'),
-    checkin: searchParams.get('checkin'),
-    checkout: searchParams.get('checkout'),
-    guests: searchParams.get('guests'),
-    rooms: searchParams.get('rooms'),
+    P_ADDRESS: searchParams.get('P_ADDRESS'),
   };
+  console.log(params.P_ADDRESS)
 
-  console.log(params);
-
+  //사용자가 검색한 결과에 대한 배열
   useEffect(() => {
     const propertyList = async () => {
-      const response = await searchListDB(property);
+      const response = await searchListDB(params);
       setProperty(response.data);
     };
     propertyList();
-  }, [params]);
+  }, []);
   console.log(params)
+
+  //쿠키에 지역정보 저장
+  Cookies.set('P_ADDRESS',params.P_ADDRESS)
+
+  //정렬조건
+  const handleOrder = (orderBy) => {
+    setOrderBy(orderBy);
+  };
+
+  //쿠키 값 빼서 스프링으로 같이 넘겨주기
+  const P_ADDRESS = Cookies.get('P_ADDRESS')
+
+  //사용자가 정렬조건 선택 시 스프링으로 요청
+  useEffect(() => {
+    if (orderBy === '가격 낮은순') {
+      axios.post('http://localhost:9999/search/list', { orderBy: 'priceLow', P_ADDRESS})
+        .then(response => {
+          setProperty(response.data);
+        }) 
+        .catch(error => {
+          console.error(error);
+        });
+    } else if (orderBy === '가격 높은순'){
+      axios.post('http://localhost:9999/search/list', { orderBy: 'priceHigh', P_ADDRESS })
+      .then(response => {
+        setProperty(response.data);
+      }) 
+      .catch(error => {
+        console.error(error);
+      });
+    }
+  }, [orderBy]);
+  console.log(orderBy)
+
 
   return (
     <>
@@ -61,14 +100,13 @@ const PropertyListPage = () => {
                   <h3 className="search-hotel">검색된 숙소 {property.length}개</h3>
                 </div>
                 <div className="col-md-6 text-right">
-                  <BButton type="mapbotton" style={{ height: '50px', width: '80px', float: '' }} onClick={{}}>
-                    지도에서 보기
-                  </BButton>
-                  <DropdownButton title="정렬순서" style={{ width: '400px' }}>
-                    <Dropdown.Item>추천순</Dropdown.Item>
-                    <Dropdown.Item>리뷰많은순</Dropdown.Item>
-                    <Dropdown.Item>평점높은순</Dropdown.Item>
-                  </DropdownButton>
+                <BButton className='btn' type="mapbotton" style={{ height: '60px', width: '100px', float: '' }} onClick={() => {}}>
+                  지도에서 보기
+                </BButton>
+                <DropdownButton className='dropdown-btn' title={orderBy ? orderBy : '정렬 순서'} style={{ width: '400px' }}>
+                  <Dropdown.Item onClick={() => handleOrder('가격 낮은순')}>가격 낮은순</Dropdown.Item>
+                  <Dropdown.Item onClick={() => handleOrder('가격 높은순')}>가격 높은순</Dropdown.Item>
+                </DropdownButton>
                 </div>
               </div>
               <div style={{ display: 'flex', flexWrap: 'wrap' }}>

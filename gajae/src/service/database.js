@@ -21,8 +21,8 @@ export const searchListDB = (property) => {
   return new Promise((resolve, reject) => {
     try {
       const response = axios({
-        method: "post",
-        url: process.env.REACT_APP_SPRING_IP + "search/list",
+        method: 'post',
+        url: process.env.REACT_APP_SPRING_IP + 'search/list',
         data: property,
       });
       resolve(response);

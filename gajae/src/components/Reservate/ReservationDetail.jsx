@@ -1,11 +1,10 @@
-import React, { useCallback, useEffect, useState } from 'react';
-import HeaderNav1 from '../header/HeaderNav1';
-import Footer from '../footer/Footer';
-import { Button } from 'react-bootstrap';
-import { Link, useNavigate } from 'react-router-dom';
-import HeaderNav2 from '../header/HeaderNav2';
 import Cookies from "js-cookie";
-import { propertyListDB } from '../../service/database';// 어떻게 가지고 오냐
+import React, { useState } from 'react';
+import { Button } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
+import Footer from '../footer/Footer';
+import HeaderNav1 from '../header/HeaderNav1';
+import HeaderNav2 from '../header/HeaderNav2';
 /*
 DB에서넘어온 정보와, lOGIN에서 넘어온 정보,
 HotelAvailabilityRow 에서 선택한, 

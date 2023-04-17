@@ -3,8 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import './propertyCard.css';
 
 const PropertyCard = ({ row }) => {
-  console.log(row);
-
+  
   const navigate = useNavigate();
   return (
     <>
