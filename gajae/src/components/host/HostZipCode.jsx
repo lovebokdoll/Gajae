@@ -39,6 +39,10 @@ const HostZipCode = ({
         document.querySelector("#host_addr_dtl").focus(); //addr이 입력되었을때
         handleZipcode(document.querySelector("#host_zipcode").value);
         handleAddr(document.querySelector("#host_addr").value);
+
+        /**
+         * 위도경도 받아오기
+         */
       },
     }).open();
   };
@@ -46,12 +50,12 @@ const HostZipCode = ({
     <>
       <ContainerDiv>
         <FormDiv>
-          <div style={{ width: "200px", maxWidth: "2000px" }}>
+          <div style={{ width: "200px", maxWidth: "200px" }}>
             <div
               style={{
                 display: "flex",
                 justifyContent: "space-between",
-                marginBottom: "5px",
+                marginBottom: "10px",
               }}
             >
               <span>우편번호</span>
@@ -96,7 +100,7 @@ const HostZipCode = ({
                 handleAddr(e.target.value);
               }}
             />
-            <div
+            {/* <div
               style={{
                 display: "flex",
                 justifyContent: "space-between",
@@ -120,7 +124,7 @@ const HostZipCode = ({
               onChange={(e) => {
                 handleAddrdtl(e.target.value);
               }}
-            />
+            /> */}
             <Button onClick={clickAddr}>주소검색</Button>
           </div>
         </FormDiv>

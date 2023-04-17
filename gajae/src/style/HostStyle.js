@@ -1,5 +1,30 @@
 import styled from "styled-components";
 
+//숙소등록시 객실선택에 대한 css
+export const HostTable = styled.div`
+  width: 90%;
+  margin: 20px auto;
+  display: flex;
+  position: relative;
+  top: 10px;
+  flex-wrap: wrap;
+`;
+export const HostTableItem1 = styled.div`
+  flex-basis: 30%;
+  padding: 15px;
+  box-sizing: border-box;
+`;
+export const HostTableItem2 = styled.div`
+  flex-basis: 30%;
+  padding: 10px;
+  box-sizing: border-box;
+`;
+export const HostTableItem3 = styled.div`
+  flex-basis: 30%;
+  padding: 15px;
+  box-sizing: border-box;
+`;
+
 export const Background = styled.div`
   background-color: #003580;
   width: 100%;
