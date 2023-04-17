@@ -6,7 +6,6 @@ import { Link, useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 /**
  * HotelPage에서 넘어온 정보를 이용하여 갯수만큼 화면에 뿌려준다.
- *
  * 옵션정보&요금 - 숙소정보
  */
 
@@ -35,13 +34,7 @@ const HotelAvailabilityRow = ({ row }) => {
     },
     [selectNumber]
   );
-  //사용자가 선택한 룸타입 금액 저장
-  /**
-   * 사용자가 선택한 룸타입은 setSelectNumber 배열에 저장되어 있다.
-   * setSelectNumber배열의 인덱스는 hotel배열의 요소와 매칭된다.
-   * selectNumber[0]은 hotels[0]에 해당하는 룸타입의 선택갯수 나타낸다
-   * 사영자가 선택한 룸타입 구분하려면 selectNumber 배열 참조하면 된다.
-   */
+
   useEffect(() => {
     let totalPrice = 0;
     //쿠키에 객체로 담아준다.
@@ -56,13 +49,7 @@ const HotelAvailabilityRow = ({ row }) => {
     console.log(temp);
     const rooms = JSON.parse(temp);
     console.log(rooms);
-    /**
-     *  Object.keys(rooms) 모든 키값을 배열로 반환한다.
-     * 그리고 filter한수를 사용하여 배열을 필터링한다.
-     * rooms[room] 여기서 room은 각 배열 요소의 값을 의미한다.
-     * room매개변수는 rooms객체의 키값을 비교하면서 값이 0이 아닌것만 남겨준다.
-     */
-    //선택된 객실만 보여주는 새로운 키-값 배열 생성
+
     const selectedRoomTypes = Object.keys(rooms)
       .filter((room) => rooms[room] !== 0)
       .reduce((obj, key) => {
@@ -73,20 +60,8 @@ const HotelAvailabilityRow = ({ row }) => {
     setSelectRoom(selectedRoomTypes);
   }, [hotels, selectNumber]);
 
-  /**
-     * 이 경우에 배열의 길이가 다르기때문에 undefined가 되어 오류가 발생한다.
-     * 따라서 길이가 긴 배열을 기준으로 for문 돌려야댐
-      * for (let i = 0; i < selectNumber.length; i++) {
-      *  for (let j = 0; j < hotels.length; j++) {
-      *      totalPrice += selectNumber[i] * hotels[j].ROOM_PRICE;
-      *      console.log(totalPrice);
-      *    }
-      }
-    */
-
   useEffect(() => {
-    // HotelAvailabilityRow에 넘겨줄 정보 list에 담기
-    // 빈배열 생성
+   
     const list = [];
     row.forEach((item) => {
       const obj = {
@@ -116,26 +91,28 @@ const HotelAvailabilityRow = ({ row }) => {
 
   //지금예약버튼
   const onReservation = () => {
+
     if (totalPrice > 0) {
-      for (let i = 0; i < selectRoom.length; i++) {
-        //쿠키를 언제 지울건지 알아야 함
+      for (let i = 0; i < selectRoom.length; i++) { //쿠키를 언제 지울건지 알아야 함
         const roomtype = roomTypes[i];
+      
         //Cookies.remove(roomtype);
       }
-      Cookies.remove(); //기존 쿠키값 왜 삭제 안됨???????
+     //Cookies.remove(); //기존 쿠키값 왜 삭제 안됨???????
       const roomTypes = Object.keys(selectRoom);
       const selectedNumber = Object.values(selectRoom);
       for (let i = 0; i < roomTypes.length; i++) {
         const roomtype = roomTypes[i];
         const selecteNumber = selectedNumber[i];
         //Cookies.set(roomtype, selecteNumber);//한 꺼번에 두개를 담는게 아니라  하나씩 담는것 임
-
-        Cookies.set("roomtype", roomtype); //쿠키에 담음
-        Cookies.set("selectedNumber", selecteNumber); // 인원 수 쿠키에 담음
+        Cookies.set("roomtype", roomTypes);//한 꺼번에 두개를 담는게 아니라  하나씩 담는것 임
+        Cookies.set("selectedNumber", selecteNumber);// 인원 수 쿠키에 담음
+        console.log("가용인원"+selectedNumber)
+        console.log("룸타입 "+roomTypes)
       }
-      Cookies.set("totalPrice", totalPrice); // 총액 쿠키에 담음
-      navigate("/reservate");
-      console.log(totalPrice);
+      Cookies.set("totalPrice", totalPrice);// 총액 쿠키에 담음 
+      navigate("/reservate"); 
+      console.log(" totalPrice"+totalPrice)// 총액 콘솔에 출력
     } else {
       alert("객실을 선택해주세요");
     }
@@ -266,9 +243,9 @@ const HotelAvailabilityRow = ({ row }) => {
         </Modal>
         {/* 예약버튼 */}
         <div className="table-wrapper-item3">
-          <Charge_title>객실요금</Charge_title>
+          <Charge_title style={{fontSize:20}}>객실요금</Charge_title>
           <br />
-          <TotalPrice>{totalPrice}원</TotalPrice>
+          <TotalPrice>{totalPrice }원<br/></TotalPrice>
           <Button variant="outline-info" onClick={onReservation}>
             지금바로 예약하세요!
           </Button>

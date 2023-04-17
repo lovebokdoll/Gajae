@@ -18,10 +18,12 @@ import './propertyList.css';
  * @returns 검색 결과 페이지 (Search Result)
  */
 const PropertyListPage = () => {
-  const [property, setProperty] = useState([]);
-
+  console.log("PropertyListPage")
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
+  console.log(location.search)
+
+  const [property, setProperty] = useState([]);
 
   const params = {
     adress: searchParams.get('address'),
@@ -39,8 +41,8 @@ const PropertyListPage = () => {
       setProperty(response.data);
     };
     propertyList();
-  }, []);
-  console.log(property);
+  }, [params]);
+  console.log(params)
 
   return (
     <>

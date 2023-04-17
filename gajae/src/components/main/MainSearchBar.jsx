@@ -1,16 +1,20 @@
 import { faBed, faCalendarDays, faCar, faPerson, faPlane, faTaxi } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { format } from 'date-fns';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { DateRange } from 'react-date-range';
 import 'react-date-range/dist/styles.css'; // main css file
 import 'react-date-range/dist/theme/default.css'; // theme css file
 import { useNavigate } from 'react-router-dom';
 import './mainSearchBar.css';
-import moment from 'moment';
 
 const MainSearchBar = ({ type }) => {
-  const [destination, setDestination] = useState('');
+  const navigate = useNavigate();
+
+  //지역 입력
+  const [P_ADDRESS, setP_Address] = useState('');
+  console.log(P_ADDRESS)
+
   const [openDate, setOpenDate] = useState(false);
 
   const [date, setDate] = useState([
@@ -20,22 +24,12 @@ const MainSearchBar = ({ type }) => {
       key: 'selection',
     },
   ]);
-
-  const formatDate = (date) => {
-    return moment(date).format('YYYY-MM-DD');
-  };
-
-  console.log(formatDate(date[0].startDate)); // "2023-04-18"
-  console.log(formatDate(date[0].endDate)); // "2023-04-27"
-
   const [openOptions, setOpenOptions] = useState(false);
   const [options, setOptions] = useState({
     adult: 1,
     children: 0,
     room: 1,
   });
-
-  const navigate = useNavigate();
 
   const handleOption = (name, operation) => {
     setOptions((prev) => {
@@ -47,21 +41,7 @@ const MainSearchBar = ({ type }) => {
   };
 
   const handleSearch = () => {
-    const formattedStartDate = formatDate(date[0].startDate);
-    const formattedEndDate = formatDate(date[0].endDate);
-    console.log(formattedStartDate);
-    console.log(formattedEndDate);
-
-    const searchState = {
-      destination,
-      date: {
-        startDate: formattedStartDate,
-        endDate: formattedEndDate,
-      },
-      options,
-    };
-    console.log(searchState);
-    navigate('/propertylist', { state: searchState });
+    navigate('/propertylist', { state: { destination, date, options } });
   };
 
   return (
@@ -102,7 +82,7 @@ const MainSearchBar = ({ type }) => {
                   type="text"
                   placeholder="어디로 향하시나요?"
                   className="headerSearchInput"
-                  onChange={(e) => setDestination(e.target.value)}
+                  onChange={(e) => setP_Address(e.target.value)}
                 />
               </div>
               <div className="headerSearchItem">

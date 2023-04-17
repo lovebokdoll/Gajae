@@ -21,6 +21,7 @@ const KakaoProfile = () => {
       navigate('/');
     } catch (error) {
       console.log('error = ', error);
+      alert('로그인이 실패하였습니다.')
     }
   };
 

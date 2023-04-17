@@ -4,6 +4,7 @@ import './propertyCard.css';
 
 const PropertyCard = ({ row }) => {
   console.log(row);
+
   const navigate = useNavigate();
   return (
     <>
@@ -50,5 +51,4 @@ const PropertyCard = ({ row }) => {
     </>
   );
 };
-
 export default PropertyCard;

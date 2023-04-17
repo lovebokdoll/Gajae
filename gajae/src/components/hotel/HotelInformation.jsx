@@ -27,12 +27,12 @@ const HotelInformation = ({ row }) => {
                   size="xs"
                   style={{ color: "#1c2d4a" }}
                 />
-                {row.P_ADDRESS}
+                {row.P_ADDRESS} 
               </div>
               <div className="hotel_overview">
                 <div
                   dangerouslySetInnerHTML={{
-                    __html: row.P_OVERVIEW?.split(".").join(".<br>"),
+                    __html: row.P_OVERVIEW?.split(".").join(".<br>"), 
                   }}
                 ></div>
               </div>
