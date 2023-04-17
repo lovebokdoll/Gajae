@@ -186,14 +186,7 @@ const ReviewWritePage = () => {
               }}
             >
               <h6>
-                <img
-                  src={
-                    process.env.PUBLIC_URL +
-                    "/images/icon/emoji_smile_icon_185055.png"
-                  }
-                  alt="좋았던 점 아이콘"
-                  style={{ width: "1em", height: "1em" }}
-                />
+                <i class="fa-regular fa-face-smile"></i>
                 좋았던 점
               </h6>
               <h6>20/100</h6>
@@ -224,14 +217,7 @@ const ReviewWritePage = () => {
               }}
             >
               <h6>
-                <img
-                  src={
-                    process.env.PUBLIC_URL +
-                    "/images/icon/emoji_frown_icon_160176.png"
-                  }
-                  alt="아쉬운 점 아이콘"
-                  style={{ width: "1em", height: "1em" }}
-                />
+                <i class="fa-regular fa-face-frown"></i>
                 아쉬운 점
               </h6>
               <h6>20자 이상</h6>

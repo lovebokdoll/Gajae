@@ -1,5 +1,6 @@
 package com.gajae.demo.dao;
 
+import java.util.List;
 import java.util.Map;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,5 +24,19 @@ public class ReviewBoardDAO {
 		log.info("ReviewBoardDAO reviewUpdate 호출", pMap);
 		int result = sqlSessionTemplate.update("review.reviewUpdate", pMap);
 		return result;		
+	}
+
+	public List<Map<String, Object>> reviewList(Map<String, Object> pMap) {
+		log.info("reviewDetail 호출");
+		List<Map<String, Object>> qList = null;
+		qList = sqlSessionTemplate.selectList("review.reviewList", pMap);
+		return qList;
+	}
+
+	public int reviewDelete(Map<String, Object> pMap) {
+		log.info("reviewDelete 호출");
+		int result = 0;
+		result = sqlSessionTemplate.delete("reviewDelete", pMap);
+		return result;
 	}
 }

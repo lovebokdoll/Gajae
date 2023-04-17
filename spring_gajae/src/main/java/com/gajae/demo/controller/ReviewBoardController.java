@@ -40,5 +40,23 @@ public class ReviewBoardController {
 		result = reviewBoardLoigic.reviewUpdate(pMap);
 		return String.valueOf(result);
 	}
+	@GetMapping("reviewList")
+	public String reviewList(@RequestParam Map<String,Object> pMap) {
+		log.info("reviewList 호출");
+		log.info(pMap);
+		List<Map<String,Object>> bList = null;
+		bList = reviewBoardLoigic.reviewList(pMap);
+		Gson g = new Gson();
+		String temp = g.toJson(bList);
+	    return temp;
+	}	
+	
+	@GetMapping("reviewDelete")
+	public String reviewDelete(@RequestBody Map<String, Object> pMap) {
+		log.info("reviewDelete 호출 성공");	
+		int result = 0;
+		result = reviewBoardLoigic.reviewDelete(pMap);
+		return String.valueOf(result);
+	}
 
 }

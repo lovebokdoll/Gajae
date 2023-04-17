@@ -34,4 +34,14 @@
 			#{REVIEW_COST}
 			)
 	 </insert>
+	 
+	 <select id="reviewList" parameterType="java.util.HashMap" resultType="map">
+	 	SELECT REVIEW_TITLE, REVIEW_GOOD, REVIEW_BAD, REVIEW_DATE
+	 	FROM GAJAE.REVIEW
+	 </select>
+	 
+	 <delete id="reviewDelete" parameterType="map">
+	 	DELETE FROM REVIEW
+	 	WHERE REVIEW_NUMBER = #{REVIEW_NUMBER}
+	 </delete>
 	</mapper>

@@ -23,8 +23,6 @@ import Payapge from "./pages/pay/Payapge";
 import PropertyListPage from "./pages/propertyList/PropertyListPage";
 import ReviewBoradPage from "./pages/reviewBoard/ReviewBoradPage";
 import ReviewWritePage from "./pages/reviewBoard/ReviewWritePage";
-import MyReviewPage2 from "./pages/reviewBoard/MyReviewPage2";
-import ReviewUpdate from "./pages/reviewBoard/ReviewUpdate";
 
 const App = () => {
   const toastStatus = useSelector((state) => state.toastStatus);
@@ -60,7 +58,7 @@ const App = () => {
           exact={true}
           element={<MyReservatiosPage />}
         />
-        <Route path="/mypage/review" exact={true} element={<MyReviewPage2 />} />
+        <Route path="/mypage/review" exact={true} element={<MyReviewPage />} />
         <Route
           path="/mypage/payment"
           exact={true}
@@ -74,11 +72,6 @@ const App = () => {
         <Route path="/reservate" element={<ReservationDetail />} />
         <Route path="/pay" exact={true} element={<Payapge />} />
         <Route path="/inicis" exact={true} element={<InicisPay />} />
-        <Route
-          path="/review/myreview"
-          exact={true}
-          element={<MyReviewPage />}
-        />
       </Routes>
     </div>
   );
