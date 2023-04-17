@@ -21,48 +21,52 @@ import lombok.extern.log4j.Log4j2;
 @RestController
 @RequestMapping( "/property/*" )
 public class PropertyController {
-    
+
     @Autowired
     private PropertyLogic propertyLogic;
-    
-    @GetMapping( "list" )
-    public String propertyList( @RequestParam Map<String, Object> pMap ) {
-        
-        log.info( "pMap = {}", pMap );
-        
-        List<PropertyVO> propertyList = propertyLogic.propertyList( pMap );
-        
-        Gson   gson = new Gson();
-        String temp = gson.toJson( propertyList );
-        
-        return temp;
+
+    @GetMapping("list")
+    public String propertyList(@RequestParam Map<String, Object> pMap) {
+        log.info("pMap = {}", pMap);
+        List<PropertyVO> propertyList = propertyLogic.propertyList(pMap);
+
+        Gson gson = new Gson();
+        String json;
+        if(propertyList != null) {
+            json = gson.toJson(propertyList);
+        } else {
+            json = "[]"; // 빈 배열 반환
+        }
+        return json;
     }
-    
+
+
     @PostMapping( "insert" )
     public String propertyInsert( @RequestBody Map<String, Object> pMap ) {
         log.info( "pMap = {}", pMap );
-        
+
         int result = propertyLogic.propertyInsert( pMap );
-        
+
         return String.valueOf( result );
     }
-    
+
     @PostMapping( "update" )
     public String propertyUpdate( @RequestBody Map<String, Object> pMap ) {
         log.info( "pMap = {}", pMap );
-        
+
         int result = propertyLogic.propertyUpdate( pMap );
-        
+
         return String.valueOf( result );
     }
-    
+
     @GetMapping( "delete" )
     public String propertyDelete( @RequestParam Map<String, Object> pMap ) {
         log.info( "pMap = {}", pMap );
-        
+
         int result = propertyLogic.propertyDelete( pMap );
-        
+
         return String.valueOf( result );
     }
-    
+
+
 }

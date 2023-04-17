@@ -21,10 +21,12 @@ export const SignupForm = styled(LoginForm)`
   max-width: 800px;
   min-width: 300px;
   width: 100%;
+  height: 100vh;
 `;
 
 export const MyH1 = styled.h1`
-  font-size: 30px;
+  padding-top: 50px;
+  font-size: 38px;
   margin-bottom: 60px;
   margin-top: 15px;
   font-weight: 20px;
@@ -131,16 +133,17 @@ export const MyButton = styled.button`
 
 /* submit버튼에 float를 주면 밀리는데 clear:both로 해결 */
 export const DividerDiv = styled.div`
-  position: relative; /* hr선이 화면 안으로 들어옴 */
+  position: relative;
   clear: both;
-  text-align: center; /* 문자또는 문자열을 가운데 정렬 */
-  width: 100%;
+  text-align: center;
   margin-bottom: 20px;
 `;
 
 export const DividerHr = styled.hr`
-  position: absolute; /* hr선이 밀려나는데 부모인 divider에 relative를 줌 */
-  width: 100%;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 500px;
   height: 1px;
   border: none;
   background-color: #535353;
@@ -154,6 +157,7 @@ export const DividerSpan = styled.span`
   color: #4b4b4b;
   background-color: white;
 `;
+
 export const BButton = styled.button`
   border-radius: 10px;
   border: 1px solid white;
@@ -170,16 +174,17 @@ export const BButton = styled.button`
 export const ContainerDiv = styled.div`
   display: flex;
   flex-direction: column;
+  font-family: "KOTRA_GOTHIC";
   width: 100%;
+  margin-bottom: 50px;
   align-items: center;
-  margin: 50px 0px 50px 0px;
+  background-color: #f5f5f5;
 `;
 
 export const FormDiv = styled.div`
   display: flex;
   flex-direction: column;
   width: 90%;
-  border: 2px solid lightGray;
   border-radius: 20px;
   padding: 10px;
   max-width: 1200px;
@@ -191,7 +196,8 @@ export const HeaderDiv = styled.div`
   display: flex;
   width: 90%;
   max-width: 1200px;
-  justify-content: space-between;
+  margin-top: 25px;
+  justify-content: center;
   margin-bottom: 10px;
 `;
 
@@ -242,14 +248,47 @@ export const LoginButton = styled.button`
 export const Preview = styled.div`
   display: flex;
   justify-content: center;
+  align-items: center; /* 추가 */
   width: 100%;
   height: 350px;
   border: dotted lightgray;
+  margin-bottom: 10px;
 `;
 
 export const Img = styled.img`
   width: 300px;
   height: 300px;
+  display: flex;
+  margins: 5px 5px 5px 5px;
+  box-shadow: 2px 2px 5px grey;
+`;
+
+/* 게시판 버튼 */
+export const Custom_btn = styled.button`
+background-color: #fff;
+color: #0d6efd;
+height: 30px;
+border: 1px solid #0d6efd;
+border-radius: 5px;
+padding: 5px 10px;
+font-size: 16px;
+cursor: pointer;
+display: inline-flex; /* 수정된 부분 */
+align-items: center; /* 수정된 부분 */
+&:hover {
+  background-color: #007bff;
+  color: #fff;
+`;
+
+export const Hr = styled.hr`
+  border-top: 1px solid black;
+  height: 1px;
+  background-color: black;
+`;
+export const Title = styled.h1`
+  font-size: 40px;
+  font-weight: bold;
+  marginleft: "10px";
 `;
 
 export const WholeForm = styled.div`

@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from 'axios';
 
 // 룸타입가져오기
 export const hotelDetailDB = (hotel) => {
@@ -16,3 +16,4 @@ export const hotelDetailDB = (hotel) => {
     }
   });
 };
+

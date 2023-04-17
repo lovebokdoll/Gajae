@@ -36,8 +36,8 @@ const HotelReview = () => {
     <>
       <div className="title">이용후기</div>
       <div className="container">
-        <GradeBtn>8.9</GradeBtn>
-        <RateDiv>항목별 점수</RateDiv>
+        <GradeBtn style={{width: 50,height:50,fontWeight: 'bold',fontSize:25}}>8.9</GradeBtn>
+        <RateDiv style={{fontWeight: 'bold'}}>항목별 점수</RateDiv>
       </div>
       {/* <div className="title">이용후기</div> */}
     </>

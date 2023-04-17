@@ -1,16 +1,23 @@
 import { faBed, faCalendarDays, faCar, faPerson, faPlane, faTaxi } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { format } from 'date-fns';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { DateRange } from 'react-date-range';
 import 'react-date-range/dist/styles.css'; // main css file
 import 'react-date-range/dist/theme/default.css'; // theme css file
 import { useNavigate } from 'react-router-dom';
 import './mainSearchBar.css';
+import axios from 'axios';
 
 const MainSearchBar = ({ type }) => {
-  const [destination, setDestination] = useState('');
+  const navigate = useNavigate();
+
+  //지역 입력
+  const [P_ADDRESS, setP_Address] = useState('');
+  console.log(P_ADDRESS)
+
   const [openDate, setOpenDate] = useState(false);
+
   const [date, setDate] = useState([
     {
       startDate: new Date(),
@@ -18,14 +25,13 @@ const MainSearchBar = ({ type }) => {
       key: 'selection',
     },
   ]);
+
   const [openOptions, setOpenOptions] = useState(false);
   const [options, setOptions] = useState({
     adult: 1,
     children: 0,
     room: 1,
   });
-
-  const navigate = useNavigate();
 
   const handleOption = (name, operation) => {
     setOptions((prev) => {
@@ -36,8 +42,20 @@ const MainSearchBar = ({ type }) => {
     });
   };
 
-  const handleSearch = () => {
-    navigate('/propertylist', { state: { destination, date, options } });
+  const handleSearch = (e) => {
+    navigate(`/propertylist/?P_ADDRESS=${P_ADDRESS}`, { state: { P_ADDRESS, date, options } });
+
+    e.preventDefault(); // 페이지 리로딩 방지
+    axios.post('http://localhost:9999/search/list', { P_ADDRESS })
+      .then(response => {
+        console.log(P_ADDRESS)
+        console.log(response.data);
+        // 검색 결과를 처리할 코드
+      })
+      .catch(error => {
+        console.error(error);
+        // 에러 처리 코드
+      });
   };
 
   return (
@@ -76,9 +94,9 @@ const MainSearchBar = ({ type }) => {
                 <FontAwesomeIcon icon={faBed} className="headerIcon" />
                 <input
                   type="text"
-                  placeholder="Where are you going?"
+                  placeholder="어디로 향하시나요?"
                   className="headerSearchInput"
-                  onChange={(e) => setDestination(e.target.value)}
+                  onChange={(e) => setP_Address(e.target.value)}
                 />
               </div>
               <div className="headerSearchItem">
@@ -90,7 +108,10 @@ const MainSearchBar = ({ type }) => {
                 {openDate && (
                   <DateRange
                     editableDateInputs={true}
-                    onChange={(item) => setDate([item.selection])}
+                    onChange={(item) => {
+                      console.log(item.selection);
+                      setDate([item.selection]);
+                    }}
                     moveRangeOnFirstSelection={false}
                     ranges={date}
                     className="date"
@@ -151,7 +172,7 @@ const MainSearchBar = ({ type }) => {
               </div>
               <div className="headerSearchItem">
                 <button className="headerBtn" onClick={handleSearch}>
-                  Search
+                  검색
                 </button>
               </div>
             </div>

@@ -23,7 +23,7 @@ const Mypage = () => {
             <h1>계정 설정</h1>
           </div>
           <div>GAJAE.COM을 더욱 편리하게 이용해보세요!</div>
-          <MyPageUL>
+          <MyPageUL >
             <MyPageDIV>
               <MyPageLink to="/mypage/settings">
                 <MyPageH2>개인 정보</MyPageH2>
@@ -78,11 +78,6 @@ const Mypage = () => {
                 </MyPageLinkDIV>
                 <MyPageLinkSPAN>알림 관리</MyPageLinkSPAN>
               </MyPageLink>
-            </MyPageDIV>
-            <MyPageDIV>
-              <Button>
-                <MyPageH2>로그아웃</MyPageH2>
-              </Button>
             </MyPageDIV>
           </MyPageUL>
         </div>

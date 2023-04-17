@@ -3,6 +3,12 @@ import { Dropdown } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 const MyPageDropDown = () => {
+  const signOut = () => {
+    console.log('signOut');
+    window.localStorage.clear();
+    window.location.reload();
+  };
+
   return (
     <Dropdown>
       <Dropdown.Toggle variant="success" id="dropdown-basic">
@@ -15,11 +21,11 @@ const MyPageDropDown = () => {
         <br />
         <Link to="/mypage/payment">결제정보</Link>
         <br />
-        <Link to="/mypage/review">이용후기</Link>
+        <Link to="/mypage/myreview">이용후기</Link>
         <br />
         <Link to="/mypage/wishlist">위시리스트</Link>
         <br />
-        <button>LOGOUT</button>
+        <button onClick={signOut}>LOGOUT</button>
       </Dropdown.Menu>
     </Dropdown>
   );

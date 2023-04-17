@@ -264,6 +264,7 @@ const SignUpTest = () => {
         if (b !== "") {
           birthday = b.slice(0, 4) + "-" + b.slice(4, 6) + "-" + b.slice(6, 8);
         }
+       
         const userRecord = {
           USER_ID: userInfo.user_id,
           USER_PW: userInfo.user_pw,
@@ -293,28 +294,10 @@ const SignUpTest = () => {
     }
   };
 
-  const checkboxLable = ["없음", "남자", "여자"];
-
-  const Checkbox = checkboxLable.map((item, index) => (
-    <Form.Check
-      inline
-      label={item}
-      value={item}
-      name="group1"
-      type="radio"
-      checked={userInfo.user_gender === item ? true : false}
-      readOnly
-      id={`inline-radio-${item}`}
-      key={index}
-      onClick={(e) => {
-        setUserInfo({ ...userInfo, user_gender: e.target.value });
-      }}
-    />
-  ));
-
   const handleSignup = (event) => {
     signup();
   };
+  
   return (
     <>
       <HeaderNav1 />

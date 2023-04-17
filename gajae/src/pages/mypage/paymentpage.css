@@ -1,0 +1,55 @@
+.payment-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .payment-title {
+    flex-basis: 100%;
+    margin-bottom: 10px;
+  }
+  
+  .card-info {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 300%;
+  }
+  
+  .card-number {
+    margin-right: 10%;
+    width: 20%;
+  }
+  
+  .expiration-date {
+    width: 40%;
+  }
+  
+  .delete-btn {
+    width: 30%;
+    text-align: right;
+  }
+  
+  .delete-btn button {
+    width: 100%;
+  }
+  
+  @media screen and (max-width: 768px) {
+    .card-info {
+      width: 70%;
+    }
+  
+    .card-number {
+      margin-right: 5%;
+      width: 50%;
+    }
+  
+    .expiration-date {
+      width: 50%;
+    }
+  
+    .delete-btn {
+      width: 30%;
+    }
+  }
+  

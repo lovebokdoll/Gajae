@@ -9,11 +9,12 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -25,12 +26,12 @@ import com.gajae.demo.kakao.OAuthToken;
 import lombok.extern.log4j.Log4j2;
 
 @Log4j2
-@RestController
+@Controller
 @RequestMapping( "/auth/*" )
 public class KakaoController {
     
     @GetMapping( "kakao/callback" )
-    public String kakaoCallback( HttpSession session, String code, HttpServletResponse res ) throws IOException {
+    public @ResponseBody void kakaoCallback( HttpSession session, String code, HttpServletResponse res ) throws IOException {
         
         log.info( "kakao callback" );
         
@@ -117,7 +118,7 @@ public class KakaoController {
         session.setAttribute( "kakao_nickname", nickname );
         log.info( session.getAttribute( "kakao_id" ) );
         log.info( session.getAttribute( "kakao_nickname" ) );
-        // res.sendRedirect( "http://localhost:3000/login" );
-        return nickname;
+        res.sendRedirect( "http://localhost:3000/" + nickname );
+        // return nickname;
     }
 }

@@ -126,3 +126,25 @@
 .optionCounterButton:disabled {
   cursor: not-allowed;
 }
+
+.search-options {
+  padding: 4px 8px;
+  background-color: white;
+
+}
+
+.headerSearchItem {
+  position: relative;
+  margin-top: 10px;
+}
+
+.options {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 9999;
+  background-color: white;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
