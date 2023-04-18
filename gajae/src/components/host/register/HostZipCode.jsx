@@ -7,7 +7,7 @@ import { ContainerDiv, FormDiv } from "../../../style/HostStyle";
 const HostZipCode = ({
   onZipcodeChange,
   onAddrChange,
-  onAddrDtlChange,
+  //onAddrDtlChange,
   post,
   setPost,
 }) => {
@@ -18,9 +18,9 @@ const HostZipCode = ({
   const handleAddr = useCallback((e) => {
     onAddrChange(e);
   }, []);
-  const handleAddrdtl = useCallback((e) => {
-    onAddrDtlChange(e);
-  }, []);
+  // const handleAddrdtl = useCallback((e) => {
+  //   onAddrDtlChange(e);
+  // }, []);
   const clickAddr = (e) => {
     e.preventDefault();
     new daum.Postcode({

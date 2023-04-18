@@ -7,54 +7,29 @@ import {
   HostTableItem3,
 } from "../../../style/HostStyle";
 import { useCallback } from "react";
+import { useEffect } from "react";
 
-const HostRoom = () => {
-  const [selectedRooms, setSelectedRooms] = useState({
-    FAC_ROOM: [],
-    FAC_RESTARUANT: [],
-    FAC_SECURITY: [],
-    FAC_BATHROOM: [],
-    FAC_PARKING: [],
-    FAC_BED: [],
-    FAC_LIVING: [],
-    FAC_MEDIA: [],
-    FAC_INTERNET: [],
-    FAC_SERVICE: [],
-    FAC_GENERAL: [],
-    FAC_LANGUAGE: [],
-    FAC_KITCHEN: [],
-    FAC_RECEPTION: [],
-  });
-  /**
- 
-
-const handleFacRoom = (e) => {
-  const value = e.target.id;
-  const checked = e.target.checked;
-  setSelectedFacilities(prevState => ({
-    ...prevState,
-    room: checked ? [...prevState.room, value] : prevState.room.filter((val) => val !== value)
-  }));
-};
- */
+const HostRoom = ({
+  selectedRooms,
+  setSelectedRooms,
+  onScaleChange,
+  onCheckinChange,
+  onCheckoutChange,
+  onStarChange,
+}) => {
   const handleFacRoom = (e) => {
     const value = e.target.id;
     const checked = e.target.checked;
     console.log(e.target.checked);
-    setSelectedRooms(prevState=>({
-      ...prevState,FAC_ROOM:checked?[...prevState.FAC_ROOM]:prevState.FAC_ROOM.filter((val)=>val!==value)
+    setSelectedRooms((selectedRooms) => ({
+      FAC_ROOM: checked
+        ? [...selectedRooms.FAC_ROOM, value]
+        : //value에 해당하는 효소를 제외하고 남은 요소들로 새로운 배열을 만든다.
+          selectedRooms.FAC_ROOM.filter((val) => val !== value),
     }));
-  //   if (e.target.checked) {
-  //     setSelectedFacilities([...selectedFacilities, value]);
-  //   } else {
-  //     //value에 해당하는 효소를 제외하고 남은 요소들로 새로운 배열을 만든다.
-  //     setSelectedFacilities(selectedFacilities.filter((val) => val !== value));
-  //   }
-  // };
-  console.log("선택된 체크박스:" + selectedFacilities);
+  };
   const handleFacRestaruant = useCallback((e) => {
     const value = e.target.id;
-   
   }, []);
   const handleFacSecurity = useCallback((e) => {
     const value = e.target.id;
@@ -108,26 +83,30 @@ const handleFacRoom = (e) => {
     const value = e.target.id;
     console.log(value);
   }, []);
+  const handleScale = useCallback((e) => {
+    onScaleChange(e);
+  }, []);
+  const handleCheckin = useCallback((e) => {
+    onCheckinChange(e);
+  }, []);
+  const handleCheckOut = useCallback((e) => {
+    onCheckoutChange(e);
+  }, []);
+  const handleStar = useCallback((e) => {
+    onStarChange(e);
+  }, []);
+  useEffect(() => {
+    console.log("선택된 체크박스:" + selectedRooms.FAC_ROOM);
+  }, [selectedRooms]);
 
   return (
     <div>
-      <Accordion.Item eventKey="1">
+      <Accordion.Item eventKey="4">
         <Accordion.Header>객실</Accordion.Header>
         첫번째 객실에 대한 정보를 입력해주세요 이후에 다른 객실도 추가 등록하실
         수 있습니다.
         <Accordion.Body>
           <Card style={{ width: "55rem", margin: "5% auto" }}>
-            <Card.Body>
-              <Card.Title>호텔이름을 입력해 주세요</Card.Title>
-              <Form>
-                <Form.Group className="mb-3" controlId="formBasicEmail">
-                  <Form.Control
-                    type="text"
-                    placeholder="호텔이름입력하기-p_title"
-                  />
-                </Form.Group>
-              </Form>
-            </Card.Body>
             <Card.Body>
               <Card.Title>객실유형을 입력해 주세요</Card.Title>
               <Form>
@@ -146,6 +125,62 @@ const handleFacRoom = (e) => {
                   <Form.Control
                     type="text"
                     placeholder="수용인원 입력하기-Room Capacity"
+                  />
+                </Form.Group>
+              </Form>
+            </Card.Body>
+            <Card.Body>
+              <Card.Title>이 객실의 크기는 어떻게 되나요?</Card.Title>
+              <Form>
+                <Form.Group className="mb-3" controlId="formBasicEmail">
+                  <Form.Control
+                    type="text"
+                    placeholder="면적 입력하기-Room Capacity"
+                    onChange={(e) => {
+                      handleScale(e.target.value);
+                    }}
+                  />
+                </Form.Group>
+              </Form>
+            </Card.Body>
+            <Card.Body>
+              <Card.Title>이 객실의 성급은 무엇인가요?</Card.Title>
+              <Form>
+                <Form.Group className="mb-3" controlId="formBasicEmail">
+                  <Form.Control
+                    type="text"
+                    placeholder="성급 입력하기-Room Capacity"
+                    onChange={(e) => {
+                      handleStar(e.target.value);
+                    }}
+                  />
+                </Form.Group>
+              </Form>
+            </Card.Body>
+            <Card.Body>
+              <Card.Title>체크인시간을 입력해주세요</Card.Title>
+              <Form>
+                <Form.Group className="mb-3" controlId="formBasicEmail">
+                  <Form.Control
+                    type="text"
+                    placeholder="체크인시간 입력하기"
+                    onChange={(e) => {
+                      handleCheckin(e.target.value);
+                    }}
+                  />
+                </Form.Group>
+              </Form>
+            </Card.Body>
+            <Card.Body>
+              <Card.Title>체크아웃시간을 입력해주세요</Card.Title>
+              <Form>
+                <Form.Group className="mb-3" controlId="formBasicEmail">
+                  <Form.Control
+                    type="text"
+                    placeholder="체크아웃시간 입력하기"
+                    onChange={(e) => {
+                      handleCheckOut(e.target.value);
+                    }}
                   />
                 </Form.Group>
               </Form>
