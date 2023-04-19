@@ -81,7 +81,7 @@
 		VALUES
 		(
 		SEQ_PROPERTY_NUMBER.nextval,
-	#{room_id},
+		#{room_id},
 		#{p_title},
 		#{p_star},
 		#{p_postal},
@@ -97,6 +97,7 @@
 		#{host_business_num}
 		)
 	</insert>
+
 	<!-- 시설등록 -->
 	<insert id="hostfacInsert" parameterType="map">
 		INSERT INTO

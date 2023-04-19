@@ -41,7 +41,7 @@ public class HostDAO {
 	        return hostList;
 		
 	}
-
+//호텔 등록 
 	public int propertyInsert(Map<String, Object> map) {
 		int result =0;//입력이 성공했는지 유무를 담는 변수 선언
 		int p_id=0; // insert시에 시퀀스로 채번된 속성을 담을 변수 선언 - 시퀀스로 채번되는 p_id
@@ -60,6 +60,13 @@ public class HostDAO {
 	        //p_id 리턴
 	        return p_id;
 	}
+//	//룸타입 등록 
+//	public void roomInsert(Map<String, Object> map) {
+//		log.info("map = {}", map);
+//		int result = sqlSessionTemplate.insert("host.roomInsert",map);
+//		
+//	}
+	
 
 	public int hostfacInsert(Map<String, Object> map) {
 		int result =0;
@@ -67,6 +74,7 @@ public class HostDAO {
 		 result = sqlSessionTemplate.insert( "host.hostfacInsert",map );
 		return result;
 	}
+
 
 
 
