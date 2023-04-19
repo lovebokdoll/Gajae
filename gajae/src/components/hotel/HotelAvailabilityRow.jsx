@@ -59,9 +59,7 @@ const HotelAvailabilityRow = ({ row }) => {
     console.log(selectedRoomTypes);
     setSelectRoom(selectedRoomTypes);
   }, [hotels, selectNumber]);
-
   useEffect(() => {
-   
     const list = [];
     row.forEach((item) => {
       const obj = {
@@ -91,28 +89,27 @@ const HotelAvailabilityRow = ({ row }) => {
 
   //지금예약버튼
   const onReservation = () => {
-
     if (totalPrice > 0) {
-      for (let i = 0; i < selectRoom.length; i++) { //쿠키를 언제 지울건지 알아야 함
+      for (let i = 0; i < selectRoom.length; i++) {
+        //쿠키를 언제 지울건지 알아야 함
         const roomtype = roomTypes[i];
-      
         //Cookies.remove(roomtype);
       }
-     //Cookies.remove(); //기존 쿠키값 왜 삭제 안됨???????
+      //Cookies.remove(); //기존 쿠키값 왜 삭제 안됨???????
       const roomTypes = Object.keys(selectRoom);
       const selectedNumber = Object.values(selectRoom);
       for (let i = 0; i < roomTypes.length; i++) {
         const roomtype = roomTypes[i];
         const selecteNumber = selectedNumber[i];
         //Cookies.set(roomtype, selecteNumber);//한 꺼번에 두개를 담는게 아니라  하나씩 담는것 임
-        Cookies.set("roomtype", roomTypes);//한 꺼번에 두개를 담는게 아니라  하나씩 담는것 임
-        Cookies.set("selectedNumber", selecteNumber);// 인원 수 쿠키에 담음
-        console.log("가용인원"+selectedNumber)
-        console.log("룸타입 "+roomTypes)
+        Cookies.set("roomtype", roomTypes); //한 꺼번에 두개를 담는게 아니라  하나씩 담는것 임
+        Cookies.set("selectedNumber", selecteNumber); // 인원 수 쿠키에 담음 Cookies.set("P_TITLE", row.P_TITLE);
+        console.log("가용인원" + selectedNumber);
+        console.log("룸타입 " + roomTypes);
       }
-      Cookies.set("totalPrice", totalPrice);// 총액 쿠키에 담음 
-      navigate("/reservate"); 
-      console.log(" totalPrice"+totalPrice)// 총액 콘솔에 출력
+      Cookies.set("totalPrice", totalPrice); // 총액 쿠키에 담음
+      navigate("/reservate");
+      console.log(" totalPrice" + totalPrice); // 총액 콘솔에 출력
     } else {
       alert("객실을 선택해주세요");
     }
@@ -243,9 +240,16 @@ const HotelAvailabilityRow = ({ row }) => {
         </Modal>
         {/* 예약버튼 */}
         <div className="table-wrapper-item3">
-          <Charge_title style={{fontSize:20}}>객실요금</Charge_title>
+          <Charge_title style={{ fontSize: 20 }}>객실유형 및 요금</Charge_title>
           <br />
-          <TotalPrice>{totalPrice }원<br/></TotalPrice>
+          <TotalPrice>
+            {Object.keys(selectRoom).map((key) => (
+              <div key={key}>
+                선택한 룸타입 : {key} {selectRoom[key]}개
+              </div>
+            ))}
+            {totalPrice}원<br />
+          </TotalPrice>
           <Button variant="outline-info" onClick={onReservation}>
             지금바로 예약하세요!
           </Button>

@@ -51,7 +51,7 @@ const HostLogin = () => {
         "hostCompanyName",
         jsonDoc[0].HOST_COMPANY_NAME
       );
-      navigate("/host/registerHouse");
+      navigate("/host/registerHotel");
       console.log("로그인 성공");
     } else {
       dispatch(setToastMessage("아이디 또는 비밀번호가 일치하지 않습니다."));

@@ -8,7 +8,6 @@ import NaverPay from "./api/naver/NaverPay";
 import ReservationDetail from "./components/Reservate/ReservationDetail";
 import HostLogin from "./components/host/HostLogin";
 import HostSignUp from "./components/host/HostSignUp";
-import RegisterHouse from "./components/host/register/RegisterHouse";
 import SignUpTest from "./components/login/SignUpTest";
 import InicisPay from "./components/pay/InicisPay";
 import Toast from "./components/toast/Toast";
@@ -28,6 +27,8 @@ import PropertyListPage from "./pages/propertyList/PropertyListPage";
 import ImageUpload from "./pages/reviewBoard/ImageUpload";
 import ReviewWritePage from "./pages/reviewBoard/ReviewWritePage";
 import { useState } from "react";
+import RegisterHotel from "./components/host/register/RegisterHotel";
+import RegisterRoom from "./components/host/register/RegisterRoom";
 
 const App = () => {
   const [params, setParams] = useState({
@@ -127,9 +128,14 @@ const App = () => {
         <Route path="/host/signup" exact={true} element={<HostSignUp />} />
         <Route path="/host/login" exact={true} element={<HostLogin />} />
         <Route
-          path="/host/registerHouse"
+          path="/host/registerHotel"
           exact={true}
-          element={<RegisterHouse />}
+          element={<RegisterHotel />}
+        />
+        <Route
+          path="/host/registerRoom"
+          exact={true}
+          element={<RegisterRoom />}
         />
       </Routes>
     </div>

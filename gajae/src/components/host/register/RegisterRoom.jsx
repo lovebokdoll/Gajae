@@ -12,7 +12,7 @@ import { useCallback } from "react";
 import { useDispatch } from "react-redux";
 import { setToastMessage } from "../../../redux/toastStatus/action";
 
-const RegisterHouse = () => {
+const RegisterRoom = () => {
   const dispatch = useDispatch();
   //시퀀스로 받아온 p_id
   const [tempid, setTempid] = useState("");
@@ -34,17 +34,7 @@ const RegisterHouse = () => {
     // FAC_KITCHEN: [],
     // FAC_RECEPTION: [],
   });
-  const [host_business_num, setHostBusinessNum] = useState("");
-  const [p_postal, setHostzipcode] = useState("");
-  const [p_address, setHostAddr] = useState("");
-  const [p_title, setHostHotelTitle] = useState("");
-  const [p_overview, setHostHotelOverview] = useState("");
-  const [p_tel, setHostHotelTel] = useState("");
-  const [p_refund, setHostHotelRefund] = useState("");
-  const [p_scale, setHostHotelScale] = useState("");
-  const [p_star, setHostHotelStar] = useState("");
-  const [p_checkin, setHostHotelCheckin] = useState("");
-  const [p_checkout, setHostHotelCheckout] = useState("");
+ 
   const [host_addr_dtl, setHostAddrDtl] = useState("");
   const [post, setPost] = useState({
     zipcode: "",
@@ -55,16 +45,12 @@ const RegisterHouse = () => {
   const hostInsert = async () => {
     const properties = {
       p_postal,
-      p_title,
       p_address,
-      p_overview,
-      p_tel,
       p_refund,
       p_scale,
       p_star,
       p_checkin,
       p_checkout,
-      host_business_num,
       // host_addr_dtl,
     };
     console.log(properties);
@@ -99,23 +85,6 @@ const RegisterHouse = () => {
     insertFacilities();
   }, [tempidUpdate]);
 
-  //사업자번호 입력받기
-  const handleBusinessNum = useCallback((e) => {
-    setHostBusinessNum(e);
-    console.log(e);
-  }, []);
-  const handleTitle = useCallback((e) => {
-    setHostHotelTitle(e);
-    console.log(e);
-  }, []);
-  const handleOverview = useCallback((e) => {
-    setHostHotelOverview(e);
-    console.log(e);
-  }, []);
-  const handleTel = useCallback((e) => {
-    setHostHotelTel(e);
-    console.log(e);
-  }, []);
   const handleRefund = useCallback((e) => {
     setHostHotelRefund(e);
     console.log(e);
@@ -125,71 +94,6 @@ const RegisterHouse = () => {
       <HeaderNav1 />
       <div style={{ width: "70%", margin: "10% auto" }}>
         <Accordion>
-          <Accordion.Item eventKey="0">
-            <Accordion.Header>호텔정보</Accordion.Header>
-            호텔 정보를 간략하게 알려주세요
-            <Accordion.Body>
-              <Card style={{ width: "55rem", margin: "5% auto" }}>
-                <Card.Body>
-                  <Card.Title>사업자번호를 입력해주세요</Card.Title>
-                  <Form>
-                    <Form.Group className="mb-4" controlId="formBasicEmail">
-                      <Form.Control
-                        type="text"
-                        placeholder="사업자번호입력하기"
-                        onChange={(e) => {
-                          handleBusinessNum(e.target.value);
-                        }}
-                      />
-                    </Form.Group>
-                  </Form>
-                </Card.Body>
-                <Card.Body>
-                  <Card.Title>호텔의 이름을 알려주세요</Card.Title>
-                  <Form>
-                    <Form.Group className="mb-3" controlId="formBasicEmail">
-                      <Form.Control
-                        type="text"
-                        placeholder="호텔이름 입력하기-p_title"
-                        onChange={(e) => {
-                          handleTitle(e.target.value);
-                        }}
-                      />
-                    </Form.Group>
-                  </Form>
-                </Card.Body>
-                <Card.Body>
-                  <Card.Title>호텔의 전화번호을 알려주세요</Card.Title>
-                  <Form>
-                    <Form.Group className="mb-3" controlId="formBasicEmail">
-                      <Form.Control
-                        type="text"
-                        placeholder="호텔전화번호 입력하기"
-                        onChange={(e) => {
-                          handleTel(e.target.value);
-                        }}
-                      />
-                    </Form.Group>
-                  </Form>
-                </Card.Body>
-                <Card.Body>
-                  <Card.Title>호텔에 대해 설명해주세요</Card.Title>
-                  <Form>
-                    <Form.Group className="mb-3" controlId="formBasicEmail">
-                      <Form.Control
-                        type="text"
-                        placeholder="호텔설명하기"
-                        onChange={(e) => {
-                          handleOverview(e.target.value);
-                        }}
-                      />
-                    </Form.Group>
-                  </Form>
-                </Card.Body>
-              </Card>
-            </Accordion.Body>
-          </Accordion.Item>
-
           <Accordion.Item eventKey="1">
             <Accordion.Header>등록하실 숙소는 어디에 있나요?</Accordion.Header>
             숙소정보 숙소명,주소,시설등 기본정보를 등록해주세요
@@ -269,4 +173,4 @@ const RegisterHouse = () => {
   );
 };
 
-export default RegisterHouse;
+export default RegisterRoom;
