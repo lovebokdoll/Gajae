@@ -42,13 +42,13 @@ public class HostDAO {
 		
 	}
 
-	public int hostpropertyInsert(Map<String, Object> map) {
+	public int propertyInsert(Map<String, Object> map) {
 		int result =0;//입력이 성공했는지 유무를 담는 변수 선언
 		int p_id=0; // insert시에 시퀀스로 채번된 속성을 담을 변수 선언 - 시퀀스로 채번되는 p_id
 		log.info("map = {}", map);
 		
 	
-		 result = sqlSessionTemplate.insert( "host.hostpropertyInsert",map );
+		 result = sqlSessionTemplate.insert( "host.propertyInsert",map );
 		 //result가 1인경우 p_id가 null이 아니면 
 	        if(result ==1) {
 	        	if(map.get("p_id")!=null) {
@@ -67,6 +67,8 @@ public class HostDAO {
 		 result = sqlSessionTemplate.insert( "host.hostfacInsert",map );
 		return result;
 	}
-	
+
+
+
 	
 }

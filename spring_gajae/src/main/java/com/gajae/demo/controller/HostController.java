@@ -54,9 +54,10 @@ public class HostController {
 		return temp;
 	}
 
+	
 	// 숙소정보등록
-	@PostMapping("hostpropertyInsert")
-	public String hostpropertyInsert(@RequestBody Map<String, Object> map) {
+	@PostMapping("propertyInsert")
+	public String propertyInsert(@RequestBody Map<String, Object> map) {
 
 		log.info("map = {}", map);
 		// 유효성검사
@@ -67,7 +68,7 @@ public class HostController {
 			}
 		}
 
-		int result = hostLogic.hostpropertyInsert(map);
+		int result = hostLogic.propertyInsert(map);
 		log.info("result = {}", result);
 		return String.valueOf(result);
 	}

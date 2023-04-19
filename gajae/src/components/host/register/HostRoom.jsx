@@ -9,14 +9,7 @@ import {
 import { useCallback } from "react";
 import { useEffect } from "react";
 
-const HostRoom = ({
-  selectedRooms,
-  setSelectedRooms,
-  onScaleChange,
-  onCheckinChange,
-  onCheckoutChange,
-  onStarChange,
-}) => {
+const HostRoom = ({ selectedRooms, setSelectedRooms, onScaleChange }) => {
   const handleFacRoom = (e) => {
     const value = e.target.id;
     const checked = e.target.checked;
@@ -83,18 +76,7 @@ const HostRoom = ({
     const value = e.target.id;
     console.log(value);
   }, []);
-  const handleScale = useCallback((e) => {
-    onScaleChange(e);
-  }, []);
-  const handleCheckin = useCallback((e) => {
-    onCheckinChange(e);
-  }, []);
-  const handleCheckOut = useCallback((e) => {
-    onCheckoutChange(e);
-  }, []);
-  const handleStar = useCallback((e) => {
-    onStarChange(e);
-  }, []);
+
   useEffect(() => {
     console.log("선택된 체크박스:" + selectedRooms.FAC_ROOM);
   }, [selectedRooms]);
@@ -125,62 +107,6 @@ const HostRoom = ({
                   <Form.Control
                     type="text"
                     placeholder="수용인원 입력하기-Room Capacity"
-                  />
-                </Form.Group>
-              </Form>
-            </Card.Body>
-            <Card.Body>
-              <Card.Title>이 객실의 크기는 어떻게 되나요?</Card.Title>
-              <Form>
-                <Form.Group className="mb-3" controlId="formBasicEmail">
-                  <Form.Control
-                    type="text"
-                    placeholder="면적 입력하기-Room Capacity"
-                    onChange={(e) => {
-                      handleScale(e.target.value);
-                    }}
-                  />
-                </Form.Group>
-              </Form>
-            </Card.Body>
-            <Card.Body>
-              <Card.Title>이 객실의 성급은 무엇인가요?</Card.Title>
-              <Form>
-                <Form.Group className="mb-3" controlId="formBasicEmail">
-                  <Form.Control
-                    type="text"
-                    placeholder="성급 입력하기-Room Capacity"
-                    onChange={(e) => {
-                      handleStar(e.target.value);
-                    }}
-                  />
-                </Form.Group>
-              </Form>
-            </Card.Body>
-            <Card.Body>
-              <Card.Title>체크인시간을 입력해주세요</Card.Title>
-              <Form>
-                <Form.Group className="mb-3" controlId="formBasicEmail">
-                  <Form.Control
-                    type="text"
-                    placeholder="체크인시간 입력하기"
-                    onChange={(e) => {
-                      handleCheckin(e.target.value);
-                    }}
-                  />
-                </Form.Group>
-              </Form>
-            </Card.Body>
-            <Card.Body>
-              <Card.Title>체크아웃시간을 입력해주세요</Card.Title>
-              <Form>
-                <Form.Group className="mb-3" controlId="formBasicEmail">
-                  <Form.Control
-                    type="text"
-                    placeholder="체크아웃시간 입력하기"
-                    onChange={(e) => {
-                      handleCheckOut(e.target.value);
-                    }}
                   />
                 </Form.Group>
               </Form>

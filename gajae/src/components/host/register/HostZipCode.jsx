@@ -7,7 +7,6 @@ import { ContainerDiv, FormDiv } from "../../../style/HostStyle";
 const HostZipCode = ({
   onZipcodeChange,
   onAddrChange,
-  //onAddrDtlChange,
   post,
   setPost,
 }) => {
@@ -100,31 +99,6 @@ const HostZipCode = ({
                 handleAddr(e.target.value);
               }}
             />
-            {/* <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                marginBottom: "5px",
-              }}
-            >
-              <span>상세주소</span>
-            </div>
-            <input
-              id="host_addr_dtl"
-              type="text"
-              maxLength="50"
-              placeholder="상세주소를 입력하세요."
-              readOnly={post.addr ? false : true}
-              style={{
-                width: "200px",
-                height: "40px",
-                border: "1px solid lightGray",
-                marginBottom: "5px",
-              }}
-              onChange={(e) => {
-                handleAddrdtl(e.target.value);
-              }}
-            /> */}
             <Button onClick={clickAddr}>주소검색</Button>
           </div>
         </FormDiv>
