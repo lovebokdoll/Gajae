@@ -56,13 +56,26 @@
 		HH24:MI:SS')
 		)
 	</insert>
-	
+	<!-- properties에서 최대값을 찾아서 1을 더해서 채번하는 쿼리문 -->
+	<select id="getPid" parameterType="int" resultType="int">
+		SELECT max(p_id)+1 FROM properties	
+	</select>
 	<!-- 호텔등록 -->
-	<insert id="propertyInsert" parameterType="map"
+	<update id="propertyInsert" parameterType="list">
+		INSERT ALL 
+		<foreach collection="list" item="item" index="index" separator=" ">
+			INTO GAJAE.PROPERTIES(P_ID,ROOM_ID,P_TITLE,P_STAR,P_POSTAL,P_TEL,P_ADDRESS,P_OVERVIEW,
+		                          P_SCALE,P_CHECKIN,P_CHECKOUT,P_REFUND,P_HIREDATE,HOST_BUSINESS_NUM)
+		                   VALUES(#{item.p_id},#{item.r_id},#{item.p_title},#{item.p_star},#{item.p_postal},#{item.p_tel},#{item.p_address},
+		                          #{item.p_overview},#{item.p_scale},#{item.p_checkin},#{item.p_checkout},#{item.p_refund},
+		                          TO_DATE(SYSDATE, 'YYYY-MM-DDHH24:MI:SS'),#{item.host_business_num}		                   
+		                         )
+		</foreach>
+		SELECT * FROM dual
+	</update>
+	<insert id="propertyInsert2" parameterType="map"
 		useGeneratedKeys="true" keyColumn="p_id" keyProperty="p_id">
-		INSERT INTO
-		GAJAE.PROPERTIES
-		(
+		INSERT INTO GAJAE.PROPERTIES (
 		P_ID,
 		ROOM_ID,
 		P_TITLE,
@@ -71,17 +84,18 @@
 		P_TEL,
 		P_ADDRESS,
 		P_OVERVIEW,
-		P_SCALE ,
+		P_SCALE,
 		P_CHECKIN,
 		P_CHECKOUT,
 		P_REFUND,
 		P_HIREDATE,
 		HOST_BUSINESS_NUM
 		)
-		VALUES
-		(
+		VALUES (
 		SEQ_PROPERTY_NUMBER.nextval,
-	#{room_id},
+		<foreach collection="room_id" item="item" separator="),("
+			open="(" close=")"> #{item} </foreach>
+		,
 		#{p_title},
 		#{p_star},
 		#{p_postal},
@@ -92,11 +106,20 @@
 		#{p_checkin},
 		#{p_checkout},
 		#{p_refund},
-		TO_DATE(
-		SYSDATE, 'YYYY-MM-DD HH24:MI:SS'),
+		TO_DATE(SYSDATE, 'YYYY-MM-DDHH24:MI:SS'),
 		#{host_business_num}
 		)
 	</insert>
+
+	<!-- <insert id="propertyInsert" parameterType="map" useGeneratedKeys="true" 
+		keyColumn="p_id" keyProperty="p_id"> INSERT INTO GAJAE.PROPERTIES ( P_ID, 
+		ROOM_ID, P_TITLE, P_STAR, P_POSTAL, P_TEL, P_ADDRESS, P_OVERVIEW, P_SCALE 
+		, P_CHECKIN, P_CHECKOUT, P_REFUND, P_HIREDATE, HOST_BUSINESS_NUM ) VALUES 
+		( SEQ_PROPERTY_NUMBER.nextval, #{room_id}, #{p_title}, #{p_star}, #{p_postal}, 
+		#{p_tel}, #{p_address}, #{p_overview}, #{p_scale}, #{p_checkin}, #{p_checkout}, 
+		#{p_refund}, TO_DATE( SYSDATE, 'YYYY-MM-DD HH24:MI:SS'), #{host_business_num} 
+		) </insert> -->
+
 	<!-- 시설등록 -->
 	<insert id="hostfacInsert" parameterType="map">
 		INSERT INTO

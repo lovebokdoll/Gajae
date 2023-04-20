@@ -2,16 +2,23 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gajae.demo">
 
+
 	<!-- 검색 -->
 	<select id="searchlist" parameterType="map" resultType="map">
-		SELECT DISTINCT P.P_ID, P.P_TITLE, P.P_ADDRESS, P.P_CHECKOUT,
-		P.P_CHECKIN, P.P_REFUND, A.ROOM_PRICE, A.ROOM_TYPE, A.ROOM_OPTION
-		FROM
-		PROPERTIES P, P_ROOMTYPE A, P_EXTRA B
-		WHERE P.P_ID = A.P_ID AND P.P_ID = B.P_ID
+		SELECT P.P_ID, P.P_TITLE, P.P_ADDRESS, P.P_CHECKOUT, P.P_CHECKIN,
+		P.P_REFUND, P.P_STAR, P.P_MAPY, P.P_MAPX, MAX(A.ROOM_PRICE) AS
+		ROOM_PRICE, WM_CONCAT(A.ROOM_TYPE) AS ROOM_TYPE, MAX(A.ROOM_OPTION) AS
+		ROOM_OPTION
+		FROM PROPERTIES P
+		INNER JOIN P_ROOMTYPE A ON P.ROOM_ID = A.ROOM_ID
 		<if test="P_ADDRESS != null">
 			AND P_ADDRESS LIKE '%${P_ADDRESS}%'
 		</if>
+		<if test="ROOM_CAPACITY != null">
+			AND A.ROOM_CAPACITY >= '${ROOM_CAPACITY}'
+		</if>
+		GROUP BY P.P_ID, P.P_TITLE, P.P_ADDRESS, P.P_CHECKOUT, P.P_CHECKIN,
+		P.P_REFUND, P.P_MAPY, P.P_MAPX, P.P_STAR
 	</select>
 
 	<!-- 정렬조건 -->
