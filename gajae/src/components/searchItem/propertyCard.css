@@ -1,5 +1,6 @@
 .searchItem {
   border: 1px solid lightgray;
+  width: 832px;
   padding: 10px;
   border-radius: 5px;
   display: flex;
@@ -7,6 +8,13 @@
   gap: 20px;
   margin-bottom: 20px;
 }
+
+@media only screen and (max-width: 767px) {
+  .searchItem {
+    width: 100%;
+  }
+}
+
 
 .siImg {
   width: 200px;

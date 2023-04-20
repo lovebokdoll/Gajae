@@ -6,6 +6,7 @@ server:
       charset: UTF-8
       enabled: true
       force: true
+
 spring:
   mvc:
     view:
@@ -28,7 +29,20 @@ spring:
   servlet:
     multipart:
       enabled: true
- 
+  mail:
+    host: smtp.naver.com
+    port: 465
+    username: loveseesee@naver.com
+    password: ghwodbs984!
+    protocol: smtps
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
+          ssl:
+            trust: smtp.naver.com
 mybatis:
   mapper-locations: classpath:mapper/**.xml
-  insertReview:

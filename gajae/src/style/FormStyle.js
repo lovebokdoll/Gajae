@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const LoginForm = styled.form`
   display: flex;
@@ -25,7 +25,6 @@ export const SignupForm = styled(LoginForm)`
 `;
 
 export const MyH1 = styled.h1`
-  padding-top: 50px;
   font-size: 38px;
   margin-bottom: 60px;
   margin-top: 15px;
@@ -86,8 +85,7 @@ export const MyInput = styled.input`
 `;
 
 export const SubmitButton = styled.button`
-  margin-top: 20px;
-  width: 275px;
+  width: 250px;
   height: 40px;
   font-size: 16px;
   font-weight: bold;
@@ -95,6 +93,8 @@ export const SubmitButton = styled.button`
   margin-bottom: 20px;
   border: 1.5px solid rgb(105, 175, 245);
   color: white;
+  background-color: ${(props) => props.bgColor};
+  cursor: pointer;
 `;
 
 export const WarningButton = styled(SubmitButton)`
@@ -118,16 +118,16 @@ export const GoogleButton = styled(SubmitButton)`
 `;
 
 export const MyButton = styled.button`
-  margin-top: 10px;
-  margin-bottom: 10px;
+  margin-bottom: 42px;
   background-color: white;
+  margin-left: 10px;
   color: black;
-  border-radius: 15px;
+  border-radius: 10px;
   font-size: 14px;
   border: 1px solid lightgray;
   width: 75px;
   &:hover {
-    background-color: lightgray;
+    background-color: violet;
   }
 `;
 
@@ -137,6 +137,13 @@ export const DividerDiv = styled.div`
   clear: both;
   text-align: center;
   margin-bottom: 20px;
+`;
+
+export const DividerDiv2 = styled.div`
+  position: relative;
+  clear: both;
+  text-align: center;
+  margin-bottom: 50px;
 `;
 
 export const DividerHr = styled.hr`
@@ -174,7 +181,7 @@ export const BButton = styled.button`
 export const ContainerDiv = styled.div`
   display: flex;
   flex-direction: column;
-  font-family: "KOTRA_GOTHIC";
+  font-family: 'KOTRA_GOTHIC';
   width: 100%;
   margin-bottom: 50px;
   align-items: center;
@@ -288,7 +295,7 @@ export const Hr = styled.hr`
 export const Title = styled.h1`
   font-size: 40px;
   font-weight: bold;
-  marginleft: "10px";
+  marginleft: '10px';
 `;
 
 export const WholeForm = styled.div`

@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import Footer from '../../components/footer/Footer';
 import HeaderNav1 from '../../components/header/HeaderNav1';
 import { setToastMessage } from '../../redux/toastStatus/action';
-import { userUpdateDB } from '../../service/user/user';
+import { deactivate, nicknameCheck, userUpdateDB } from '../../service/user/user';
 import {
   MSCLeftDIV,
   MSCRightDIV,
@@ -24,6 +24,22 @@ import {
 } from './styled-mypage';
 
 const MySettings = () => {
+  const [isNickNameCheck, setIsNickNameCheck] = useState(false);
+  const checkNickname = async () => {
+    if (user.USER_NICKNAME === '') {
+      dispatch(setToastMessage('닉네임을 입력해주세요.'));
+      return;
+    } else {
+      const response = await nicknameCheck(user);
+      if (response.data === 0) {
+        dispatch(setToastMessage('사용 가능한 닉네임 입니다.'));
+        setIsNickNameCheck(true);
+      } else if (response.data === 1) {
+        dispatch(setToastMessage('이미 사용중인 닉네임 입니다.'));
+      }
+    }
+  };
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -41,6 +57,7 @@ const MySettings = () => {
     USER_ADDRESS: '',
     USER_GENDER: '',
   });
+
   const [isNameChange, setIsNameChange] = useState(false);
   const [isNickNameChange, setIsNickNameChange] = useState(false);
   const [isEmailChange, setIsEmailChange] = useState(false);
@@ -107,16 +124,13 @@ const MySettings = () => {
 
   useEffect(() => {
     const tempID = window.localStorage.getItem('userId');
+    if (tempID === null) {
+      navigate('/');
+    }
     setUser({ USER_ID: tempID });
     console.log(window.localStorage.getItem.user_email);
     setUser_email(window.localStorage.getItem.user_email);
   }, []);
-  console.log(user);
-  console.log(user_email);
-
-  const userDeactivate = () => {
-    console.log('userDeactivate');
-  };
 
   const searchAddress = (event) => {
     console.log(user);
@@ -132,7 +146,7 @@ const MySettings = () => {
         console.log(data);
         console.log(searchedAddress);
         document.querySelector('#user_address').value = searchedAddress;
-       
+
         setUser({ ...user, USER_ADDRESS: searchedAddress });
       },
     }).open();
@@ -155,6 +169,15 @@ const MySettings = () => {
 
   const handleEmail = (event) => {
     setUser({ ...user, USER_EMAIL: event });
+  };
+
+  const userDeactivate = async () => {
+    const sendUser = {
+      USER_ID: user.USER_ID,
+    };
+    console.log(sendUser);
+    const response = await deactivate(sendUser);
+    console.log(response.data);
   };
 
   const handleBirth = (event) => {
@@ -228,14 +251,19 @@ const MySettings = () => {
   };
 
   const updateNickname = async () => {
-    const response = await userUpdateDB(user);
+    if (isNickNameCheck) {
+      const response = await userUpdateDB(user);
 
-    console.log(response.data);
-    if (response.data === 1) {
-      dispatch(setToastMessage('닉네임 수정 성공~'));
-      window.location.reload();
+      console.log(response.data);
+      if (response.data === 1) {
+        dispatch(setToastMessage('닉네임 수정 성공~'));
+        window.location.reload();
+      } else {
+        dispatch(setToastMessage('닉네임 수정 실패~'));
+      }
     } else {
-      dispatch(setToastMessage('닉네임 수정 실패~'));
+      setIsChange('isNickNameChange', true);
+      dispatch(setToastMessage('닉네임 중복체크를 해주세요.'));
     }
   };
 
@@ -288,37 +316,37 @@ const MySettings = () => {
           {' '}
           <Nav defaultActiveKey="/home" className="flex-column">
             <MyPageLinkMove to="/mypage/settings">
-              <span style={{ paddingRight: '5px' }}>
+              <span>
                 <FontAwesomeIcon icon={faUser} />
               </span>
               개인 정보
             </MyPageLinkMove>
             <MyPageLinkMove to="/mypage/reservations">
-              <span style={{ paddingRight: '5px' }}>
+              <span>
                 <FontAwesomeIcon icon={faHistory} />
               </span>
               예약내역
             </MyPageLinkMove>
             <MyPageLinkMove to="/mypage/review">
-              <span style={{ paddingRight: '5px' }}>
+              <span>
                 <FontAwesomeIcon icon={faComment} />
               </span>
               이용후기
             </MyPageLinkMove>
             <MyPageLinkMove to="/mypage/payment">
-              <span style={{ paddingRight: '5px' }}>
+              <span>
                 <FontAwesomeIcon icon={faCreditCard} />
               </span>
               결제정보
             </MyPageLinkMove>
             <MyPageLinkMove to="/mypage/wishlist">
-              <span style={{ paddingRight: '5px' }}>
+              <span>
                 <FontAwesomeIcon icon={faHeart} />
               </span>
               위시리스트
             </MyPageLinkMove>
             <SignOutButton>
-              <span style={{ paddingRight: '5px' }}>
+              <span>
                 <FontAwesomeIcon icon={faSignOutAlt} />
               </span>
               로그아웃
@@ -381,6 +409,14 @@ const MySettings = () => {
                 {renderInput('user_nickname', 'user_nickname', '다른 사람에게 공개할 닉네임을 입력해주세요', (event) =>
                   handleNickname(event.target.value)
                 )}
+                <Button
+                  style={{ marginLeft: '15px' }}
+                  onClick={() => {
+                    checkNickname();
+                  }}
+                >
+                  중복확인
+                </Button>
                 <Button
                   style={{ marginLeft: '15px' }}
                   onClick={() => {
@@ -578,7 +614,13 @@ const MySettings = () => {
           <MySettingsRow>
             <div style={{ display: 'flex', alignItems: 'center', height: '20px' }}>
               <span>회원탈퇴</span>
-              <Button style={{ marginLeft: 'auto' }} onClick={userDeactivate}>
+              <Button
+                style={{ marginLeft: 'auto' }}
+                onClick={(event) => {
+                  event.preventDefault();
+                  userDeactivate();
+                }}
+              >
                 회원탈퇴
               </Button>
             </div>

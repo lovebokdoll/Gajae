@@ -7,8 +7,13 @@ import MyPageDropDown from '../mypage/MyPageDropDown';
 import './headerNav1.css';
 
 const HeaderButton = styled.button`
-  background-color: transparent;
+  color: white;
+  background-color: #003580;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
 `;
+
 const HeaderNav1 = () => {
   const navigate = useNavigate();
 
@@ -42,9 +47,9 @@ const HeaderNav1 = () => {
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
               <Link to="/" style={{ color: 'white' }} className="nav-link">
-              <img src="../images/ex3.png" alt="대체_텍스트" />
+                <img id="main_logo" src="../images/ex3.png" alt="대체_텍스트" />
               </Link>
-              <div style={{ display: 'flex', justifyContent: 'center' }}>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                 <HeaderButton>
                   <span>KRW</span>
                 </HeaderButton>
@@ -55,15 +60,15 @@ const HeaderNav1 = () => {
                   <MyPageDropDown />
                 ) : (
                   <>
-                    <Link to="/signup" style={{ color: 'black', marginRight: '10px' }} className="nav-link">
+                    <Link to="/signup" style={{ color: 'white', marginRight: '10px' }} className="nav-link">
                       가입하기
                     </Link>
-                    <Link to="/login" style={{ color: 'black', marginRight: '10px' }} className="nav-link">
+                    <Link to="/login" style={{ color: 'white', marginRight: '10px' }} className="nav-link">
                       로그인
                     </Link>
                   </>
                 )}
-                <Link to="/host" style={{ color: 'black', marginRight: '10px' }} className="nav-link">
+                <Link to="/host" style={{ color: 'white', marginRight: '10px' }} className="nav-link">
                   숙소등록
                 </Link>
               </div>

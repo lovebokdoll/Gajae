@@ -6,20 +6,22 @@
 		SELECT
 		USER_ID,
 		USER_UID,
+		USER_NAME,
 		USER_NICKNAME,
 		USER_EMAIL,
 		USER_BIRTH,
-		USER_AUTH
+		USER_AUTH,
+		USER_ACTIVATE
 		FROM
 		GAJAE.USERS
 		WHERE USER_ID = #{user_id}
-		AND USER_PW =
+		AND
+		USER_PW =
 		#{user_pw}
 	</select>
 
 	<select id="getUser" parameterType="map" resultType="map">
 		SELECT
-		USER_NUMBER,
 		USER_ID,
 		USER_NAME,
 		USER_NICKNAME,
@@ -28,10 +30,17 @@
 		USER_BIRTH,
 		USER_ADDRESS,
 		USER_GENDER,
-		USER_STATUS,
+		USER_ACTIVATE,
 		USER_AUTH,
 		USER_HIREDATE
 		FROM GAJAE.USERS
+		WHERE
+		<if test='USER_NAME!=null'>
+			USER_NAME =#{USER_NAME}
+		</if>
+		<if test='USER_EMAIL!=null'>
+			AND USER_EMAIL = #{USER_EMAIL}
+		</if>
 	</select>
 
 	<select id="idCheck" parameterType="map" resultType="map">
@@ -49,13 +58,18 @@
 		#{USER_NICKNAME}
 	</select>
 
-	<update id="userDeactivate">
+	<update id="activate">
 		UPDATE GAJAE.USERS
-		SET
-		USER_STATUS = 0
-		<if test="USER_ID != null">
-			,USER_ID = #{USER_ID}
-		</if>
+		SET USER_ACTIVATE = 'Y'
+		WHERE
+		USER_ID = #{USER_ID}
+	</update>
+
+	<update id="deactivate">
+		UPDATE GAJAE.USERS
+		SET USER_ACTIVATE = 'N'
+		WHERE
+		USER_ID = #{USER_ID}
 	</update>
 
 	<insert id="signup">INSERT INTO GAJAE.USERS
@@ -111,5 +125,23 @@
 		WHERE
 		USER_ID = #{USER_ID}
 	</update>
+
+	<select id="findUserID" parameterType="map" resultType="map">
+		SELECT
+		USER_ID
+		FROM GAJAE.USERS
+		WHERE USER_NAME =#{USER_NAME}
+		AND USER_EMAIL =
+		#{USER_EMAIL}
+	</select>
+
+	<select id="findUserPW" parameterType="map" resultType="map">
+		SELECT
+		USER_PW
+		FROM GAJAE.USERS
+		WHERE USER_ID =#{USER_ID}
+		AND USER_MOBILE =
+		#{USER_MOBILE}
+	</select>
 
 </mapper>

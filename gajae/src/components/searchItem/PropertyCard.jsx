@@ -1,18 +1,41 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './propertyCard.css';
+import { FaHeart, FaRegHeart } from 'react-icons/fa';
 
 const PropertyCard = ({ row }) => {
-  
   const navigate = useNavigate();
+  const [isLiked, setIsLiked] = useState(false);
+
+  const handleLike = () => {
+    setIsLiked(!isLiked);
+    console.log(isLiked);
+  };
   return (
     <>
-      <div className="searchItem">
-        <img
-          src="https://cf.bstatic.com/xdata/images/hotel/square600/261707778.webp?k=fa6b6128468ec15e81f7d076b6f2473fa3a80c255582f155cae35f9edbffdd78&o=&s=1"
-          alt=""
-          className="siImg"
-        />
+      <div className="searchItem" >
+        <div style={{ position: 'relative' }}>
+          <img
+            src="https://cf.bstatic.com/xdata/images/hotel/square600/261707778.webp?k=fa6b6128468ec15e81f7d076b6f2473fa3a80c255582f155cae35f9edbffdd78&o=&s=1"
+            alt=""
+            className="siImg"
+          />
+          <button
+            onClick={handleLike}
+            style={{
+              position: 'absolute',
+              top: '5px',
+              right: '5px',
+              background: 'none',
+              border: 'none',
+              fontSize: '1.5rem',
+              cursor: 'pointer',
+            }}
+          >
+            {isLiked ? <FaHeart size={27} color="red" /> : <FaRegHeart size={27} color="#8c8c8c" />}
+          </button>
+        </div>
+
         <div className="siDesc">
           <Link to="./hotel">
             <h1 className="siTitle"> {row.P_TITLE}</h1>

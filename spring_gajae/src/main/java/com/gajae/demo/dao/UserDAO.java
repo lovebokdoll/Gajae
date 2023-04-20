@@ -7,8 +7,6 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.gajae.demo.dto.UsersDTO;
-
 import lombok.extern.log4j.Log4j2;
 
 @Log4j2
@@ -27,45 +25,36 @@ public class UserDAO {
         return result;
     }
     
-    public List<UsersDTO> userSignIn( Map<String, Object> map ) {
+    public List<Map<String, Object>> userSignIn( Map<String, Object> map ) {
         
-        List<UsersDTO> userList = sqlSessionTemplate.selectList( "user.signIn", map );
-        
-        log.info( "userList = {}", userList );
-        
-        return userList;
-    }
-    
-    public List<UsersDTO> getUser( Map<String, Object> map ) {
-        
-        List<UsersDTO> userList = sqlSessionTemplate.selectList( "user.getUser", map );
+        List<Map<String, Object>> userList = sqlSessionTemplate.selectList( "user.signIn", map );
         
         log.info( "userList = {}", userList );
         
         return userList;
     }
     
-    public int userDeactivate( Map<String, Object> map ) {
+    public List<Map<String, Object>> getUser( Map<String, Object> map ) {
         
-        int result = sqlSessionTemplate.update( "userDeactivate", map );
-        
-        log.info( "result = {}", result );
-        
-        return result;
-    }
-    
-    public List<UsersDTO> idCheck( Map<String, Object> map ) {
-        
-        List<UsersDTO> userList = sqlSessionTemplate.selectList( "user.idCheck", map );
+        List<Map<String, Object>> userList = sqlSessionTemplate.selectList( "user.getUser", map );
         
         log.info( "userList = {}", userList );
         
         return userList;
     }
     
-    public List<UsersDTO> nicknameCheck( Map<String, Object> map ) {
+    public List<Map<String, Object>> idCheck( Map<String, Object> map ) {
         
-        List<UsersDTO> userList = sqlSessionTemplate.selectList( "user.nicknameCheck", map );
+        List<Map<String, Object>> userList = sqlSessionTemplate.selectList( "user.idCheck", map );
+        
+        log.info( "userList = {}", userList );
+        
+        return userList;
+    }
+    
+    public List<Map<String, Object>> nicknameCheck( Map<String, Object> map ) {
+        
+        List<Map<String, Object>> userList = sqlSessionTemplate.selectList( "user.nicknameCheck", map );
         
         log.info( "userList = {}", userList );
         
@@ -83,6 +72,41 @@ public class UserDAO {
     public int userUpdate( Map<String, Object> map ) {
         
         int result = sqlSessionTemplate.update( "user.userUpdate", map );
+        
+        log.info( "result = {}", result );
+        
+        return result;
+    }
+    
+    public List<Map<String, Object>> findUserID( Map<String, Object> map ) {
+        
+        List<Map<String, Object>> userList = sqlSessionTemplate.selectList( "user.findUserID", map );
+        
+        log.info( "userList = {}", userList );
+        
+        return userList;
+    }
+    
+    public List<Map<String, Object>> findUserPW( Map<String, Object> map ) {
+        
+        List<Map<String, Object>> userList = sqlSessionTemplate.selectList( "user.findUserPW", map );
+        
+        log.info( "userList = {}", userList );
+        
+        return userList;
+    }
+    
+    public int deactivate( Map<String, Object> map ) {
+        
+        int result = sqlSessionTemplate.update( "user.deactivate", map );
+        
+        log.info( "result = {}", result );
+        
+        return result;
+    }
+    
+    public int activate( Map<String, Object> map ) {
+        int result = sqlSessionTemplate.update( "user.activate", map );
         
         log.info( "result = {}", result );
         

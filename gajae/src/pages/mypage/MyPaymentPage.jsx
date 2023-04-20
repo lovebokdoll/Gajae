@@ -1,8 +1,11 @@
-import React, { useState } from 'react';
-import Footer from '../../components/footer/Footer';
-import HeaderNav1 from '../../components/header/HeaderNav1';
 import { faComment, faCreditCard, faHeart, faHistory, faSignOutAlt, faUser } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import React, { useEffect, useState } from 'react';
+import { Button, Form, Nav } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
+import Footer from '../../components/footer/Footer';
+import HeaderNav1 from '../../components/header/HeaderNav1';
+import './paymentpage.css';
 import {
   MSCLeftDIV,
   MSCRightDIV,
@@ -16,11 +19,22 @@ import {
   MySettingsRowLayout,
   SignOutButton,
 } from './styled-mypage';
-import { Button, Form, Nav } from 'react-bootstrap';
-import './paymentpage.css';
 
 const MyPaymentPage = () => {
   const [isCardAdd, setIsCardAdd] = useState(false);
+  const [localID, setLocalID] = useState('');
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const tempID = window.localStorage.getItem('userId');
+    if (tempID === null) {
+      navigate('/');
+    } else if (tempID != null) {
+      setLocalID(tempID);
+    }
+  }, []);
+  console.log(localID);
+
   return (
     <>
       <HeaderNav1 />

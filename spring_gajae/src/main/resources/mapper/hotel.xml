@@ -2,44 +2,43 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="hotel">
 
-
 	<select id="hotelDetaillist" parameterType="map"
 		resultType="com.gajae.demo.dto.HotelDTO">
 		SELECT
-			F.P_ID,
-			P.P_TITLE,
-			P.P_STAR,
-			P.P_ADDRESS,
-			P.P_OVERVIEW,
-			NVL(P.P_SCALE, ' ') ,
-			P.P_CHECKIN,
-			P.P_CHECKOUT,
-			P.P_REFUND,
-			R.ROOM_TYPE,
-			R.ROOM_PRICE,
-			R.ROOM_CAPACITY,
-			R.ROOM_OPTION,
-			F.FAC_ROOM,
-			F.FAC_RESTARUANT,
-			F.FAC_SECURITY,
-			F.FAC_BATHROOM,
-			F.FAC_PARKING,
-			F.FAC_BED,
-			NVL(F.FAC_LIVING, ' ') ,
-			F.FAC_MEDIA,
-			F.FAC_INTERNET,
-			F.FAC_SERVICE,
-			F.FAC_GENERAL,
-			F.FAC_LANGUAGE,
-			F.FAC_KITCHEN,
-			F.FAC_RECEPTION
+		F.P_ID,
+		P.P_TITLE,
+		P.P_STAR,
+		P.P_ADDRESS,
+		P.P_OVERVIEW,
+		NVL(P.P_SCALE, ' ') ,
+		P.P_CHECKIN,
+		P.P_CHECKOUT,
+		P.P_REFUND,
+		R.ROOM_TYPE,
+		R.ROOM_PRICE,
+		R.ROOM_CAPACITY,
+		R.ROOM_OPTION,
+		F.FAC_ROOM,
+		F.FAC_RESTARUANT,
+		F.FAC_SECURITY,
+		F.FAC_BATHROOM,
+		F.FAC_PARKING,
+		F.FAC_BED,
+		NVL(F.FAC_LIVING, ' ') ,
+		F.FAC_MEDIA,
+		F.FAC_INTERNET,
+		F.FAC_SERVICE,
+		F.FAC_GENERAL,
+		F.FAC_LANGUAGE,
+		F.FAC_KITCHEN,
+		F.FAC_RECEPTION
 		FROM
-			PROPERTIES P
-			INNER JOIN P_ROOMTYPE R ON
-			P.P_ID =
-			R.P_ID
-			INNER JOIN PRO_FACILITIES F ON
-			P.P_ID = F.P_ID
+		PROPERTIES P
+		INNER JOIN P_ROOMTYPE R ON
+		P.P_ID =
+		R.P_ID
+		INNER JOIN PRO_FACILITIES F ON
+		P.P_ID = F.P_ID
 		<if test='P_ID!=null and P_ID.length()>0'>
 			WHERE P.P_ID = #{P_ID}
 		</if>

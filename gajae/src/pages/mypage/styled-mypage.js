@@ -34,20 +34,21 @@ export const MyPageLinkMove = styled(Link)`
   color: black;
   display: flex;
   align-items: center;
-  width: 300px;
+  justify-content: center;
+  width: 250px;
   height: 70px;
   border: 1px solid lightgrey;
   padding: 8px;
   border-radius: 4px;
   font-size: 16px;
-  text-align: left;
+  text-align: center;
   padding-left: 0;
 
   span {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 50px;
+    width: 30px;
   }
 
   &:focus,
@@ -75,7 +76,7 @@ export const MyPageLink = styled(Link)`
 export const SignOutButton = styled.button`
   background-color: white;
   color: black;
-  width: 300px;
+  width: 250px;
   height: 70px;
   border: 1px solid lightgrey;
   padding: 8px;
@@ -101,6 +102,8 @@ export const MSCLeftDIV = styled.div`
   width: 310px;
   height: 100%;
   float: left;
+  display: flex; /* add display: flex */
+  justify-content: center; /* add justify-content: center */
 `;
 
 export const MSCRightDIV = styled.div`

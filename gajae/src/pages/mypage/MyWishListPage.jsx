@@ -1,23 +1,35 @@
-import React from 'react';
-import Footer from '../../components/footer/Footer';
-import HeaderNav1 from '../../components/header/HeaderNav1';
 import { faComment, faCreditCard, faHeart, faHistory, faSignOutAlt, faUser } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import React, { useEffect } from 'react';
+import { Nav } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
+import Footer from '../../components/footer/Footer';
+import HeaderNav1 from '../../components/header/HeaderNav1';
 import {
   MSCLeftDIV,
   MSCRightDIV,
   MSContainer,
-  MSPTComment,
   MSPTTitle,
   MyPageLinkMove,
   MySettingsFlexByRow,
   MySettingsPageTitle,
-  MySettingsRow,
-  MySettingsRowLayout,
   SignOutButton,
 } from './styled-mypage';
-import { Nav } from 'react-bootstrap';
+import { useState } from 'react';
 const MyWishListPage = () => {
+  const [localID, setLocalID] = useState('');
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const tempID = window.localStorage.getItem('userId');
+    if (tempID === null) {
+      navigate('/');
+    } else if (tempID != null) {
+      setLocalID(tempID);
+    }
+  }, []);
+  console.log(localID);
+
   return (
     <>
       <HeaderNav1 />
@@ -63,7 +75,14 @@ const MyWishListPage = () => {
             </SignOutButton>
           </Nav>
         </MSCLeftDIV>
-        <MSCRightDIV></MSCRightDIV>
+        <MSCRightDIV>
+          {' '}
+          <MySettingsFlexByRow>
+            <MySettingsPageTitle>
+              <MSPTTitle>위시리스트</MSPTTitle>
+            </MySettingsPageTitle>
+          </MySettingsFlexByRow>
+        </MSCRightDIV>
       </MSContainer>
       <Footer />
     </>

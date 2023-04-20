@@ -54,7 +54,7 @@ const SearchBox = () => {
 
   return (
     <>
-      <div id="left" style={{ backgroundColor: '#C4DEFF', marginTop: '20px', padding: '20px 10px', width: '200px' }}>
+      <div id="left" style={{ backgroundColor: '#C4DEFF', marginTop: '20px', padding: '20px 10px', width: '250px' }}>
         <h2 style={{ height: '28px', color: '#333' }}>Search</h2>
         <div style={{ marginTop: '10px' }}>
           <label style={{ fontSize: '15px', marginBottom: '10px', fontFamily: 'BlinkMacSystemFont', color: '#333' }}>

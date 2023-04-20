@@ -44,7 +44,5 @@
 		<Logger name="kakao" level="DEBUG" additivity="false">
 			<AppenderRef ref="consoleAppender" />
 		</Logger>
-
-
 	</Loggers>
 </Configuration>

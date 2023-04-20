@@ -17,7 +17,23 @@ import {
   SignOutButton,
 } from './styled-mypage';
 import { Nav } from 'react-bootstrap';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useEffect } from 'react';
+import { useState } from 'react';
 const MyReservatiosPage = () => {
+  const [localID, setLocalID] = useState('');
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const tempID = window.localStorage.getItem('userId');
+    if (tempID === null) {
+      navigate('/');
+    } else if (tempID != null) {
+      setLocalID(tempID);
+    }
+  }, []);
+  console.log(localID);
+
   return (
     <>
       <HeaderNav1 />

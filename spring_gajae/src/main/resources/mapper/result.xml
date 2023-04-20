@@ -3,33 +3,37 @@
 <mapper namespace="com.gajae.demo">
 
 	<!-- 검색 -->
-<select id="searchlist" parameterType="map" resultType="map">
-		SELECT DISTINCT P.P_ID, P.P_TITLE, P.P_ADDRESS, P.P_CHECKOUT, P.P_CHECKIN, P.P_REFUND, A.ROOM_PRICE, A.ROOM_TYPE, A.ROOM_OPTION
-		FROM PROPERTIES P, P_ROOMTYPE A, P_EXTRA B
-    	WHERE P.P_ID = A.P_ID AND P.P_ID = B.P_ID
-	<if test="P_ADDRESS != null">
-		AND P_ADDRESS LIKE '%${P_ADDRESS}%'
-	</if>
-</select>
+	<select id="searchlist" parameterType="map" resultType="map">
+		SELECT DISTINCT P.P_ID, P.P_TITLE, P.P_ADDRESS, P.P_CHECKOUT,
+		P.P_CHECKIN, P.P_REFUND, A.ROOM_PRICE, A.ROOM_TYPE, A.ROOM_OPTION
+		FROM
+		PROPERTIES P, P_ROOMTYPE A, P_EXTRA B
+		WHERE P.P_ID = A.P_ID AND P.P_ID = B.P_ID
+		<if test="P_ADDRESS != null">
+			AND P_ADDRESS LIKE '%${P_ADDRESS}%'
+		</if>
+	</select>
 
 	<!-- 정렬조건 -->
-<select id="priceLow" parameterType="map" resultType="map">
-	    SELECT DISTINCT P.P_ID, P.P_TITLE, P.P_ADDRESS, P.P_CHECKOUT, P.P_CHECKIN, P.P_REFUND, A.ROOM_PRICE, A.ROOM_TYPE, A.ROOM_OPTION
-	    FROM PROPERTIES P, P_ROOMTYPE A
-	    WHERE P.P_ID = A.P_ID
-    <if test="P_ADDRESS != null">
-        AND P_ADDRESS LIKE '%${P_ADDRESS}%'
-    </if>
-    	ORDER BY A.ROOM_PRICE ASC
-</select>
+	<select id="priceLow" parameterType="map" resultType="map">
+		SELECT DISTINCT P.P_ID, P.P_TITLE, P.P_ADDRESS, P.P_CHECKOUT,
+		P.P_CHECKIN, P.P_REFUND, A.ROOM_PRICE, A.ROOM_TYPE, A.ROOM_OPTION
+		FROM PROPERTIES P, P_ROOMTYPE A
+		WHERE P.P_ID = A.P_ID
+		<if test="P_ADDRESS != null">
+			AND P_ADDRESS LIKE '%${P_ADDRESS}%'
+		</if>
+		ORDER BY A.ROOM_PRICE ASC
+	</select>
 
-<select id="priceHigh" parameterType="map" resultType="map">
-	    SELECT DISTINCT P.P_ID, P.P_TITLE, P.P_ADDRESS, P.P_CHECKOUT, P.P_CHECKIN, P.P_REFUND, A.ROOM_PRICE, A.ROOM_TYPE, A.ROOM_OPTION
-	    FROM PROPERTIES P, P_ROOMTYPE A
-	    WHERE P.P_ID = A.P_ID
-    <if test="P_ADDRESS != null">
-        AND P_ADDRESS LIKE '%${P_ADDRESS}%'
-    </if>
-    	ORDER BY A.ROOM_PRICE DESC
-</select>
+	<select id="priceHigh" parameterType="map" resultType="map">
+		SELECT DISTINCT P.P_ID, P.P_TITLE, P.P_ADDRESS, P.P_CHECKOUT,
+		P.P_CHECKIN, P.P_REFUND, A.ROOM_PRICE, A.ROOM_TYPE, A.ROOM_OPTION
+		FROM PROPERTIES P, P_ROOMTYPE A
+		WHERE P.P_ID = A.P_ID
+		<if test="P_ADDRESS != null">
+			AND P_ADDRESS LIKE '%${P_ADDRESS}%'
+		</if>
+		ORDER BY A.ROOM_PRICE DESC
+	</select>
 </mapper>

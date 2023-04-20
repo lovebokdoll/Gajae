@@ -16,6 +16,7 @@ export const signinDB = (params) => {
 };
 
 export const getUserDB = (params) => {
+  console.log(params);
   return new Promise((resolve, reject) => {
     try {
       const response = axios({
@@ -46,6 +47,7 @@ export const idCheck = (params) => {
 };
 
 export const nicknameCheck = (params) => {
+  console.log(params);
   return new Promise((resolve, reject) => {
     try {
       const response = axios({
@@ -83,6 +85,86 @@ export const userUpdateDB = (user) => {
         method: 'post',
         url: process.env.REACT_APP_SPRING_IP + 'user/update',
         data: user,
+      });
+      resolve(response);
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+
+export const findUserID = (user) => {
+  console.log('user ===>', user);
+  return new Promise((resolve, reject) => {
+    try {
+      const response = axios({
+        method: 'post',
+        url: process.env.REACT_APP_SPRING_IP + 'user/findUserID',
+        data: user,
+      });
+      resolve(response);
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+
+export const findUserPW = (user) => {
+  console.log('user ===>', user);
+  return new Promise((resolve, reject) => {
+    try {
+      const response = axios({
+        method: 'post',
+        url: process.env.REACT_APP_SPRING_IP + 'user/findUserPW',
+        data: user,
+      });
+      resolve(response);
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+
+export const deactivate = (user) => {
+  console.log('user ===>', user);
+  return new Promise((resolve, reject) => {
+    try {
+      const response = axios({
+        method: 'post',
+        url: process.env.REACT_APP_SPRING_IP + 'user/deactivate',
+        data: user,
+      });
+      resolve(response);
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+
+export const activate = (user) => {
+  console.log('user ===>', user);
+  return new Promise((resolve, reject) => {
+    try {
+      const response = axios({
+        method: 'post',
+        url: process.env.REACT_APP_SPRING_IP + 'user/activate',
+        data: user,
+      });
+      resolve(response);
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+
+export const sendVerificationCode = (email) => {
+  console.log(email);
+  return new Promise((resolve, reject) => {
+    try {
+      const response = axios({
+        method: 'get',
+        url: process.env.REACT_APP_SPRING_IP + 'email/sendVerificationCode',
+        params: email,
       });
       resolve(response);
     } catch (error) {
