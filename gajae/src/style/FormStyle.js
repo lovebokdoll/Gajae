@@ -302,7 +302,3 @@ export const Title = styled.h1`
 export const WholeForm = styled.div`
   background-color: #f5f5f5;
 `;
-
-export const WholeForm = styled.div`
-  background-color: #f5f5f5;
-`;

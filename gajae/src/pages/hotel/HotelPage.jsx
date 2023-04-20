@@ -11,6 +11,7 @@ import HotelAvailabilityRow from "../../components/hotel/HotelAvailabilityRow";
 import HotelAvailabilityHeader from "../../components/hotel/HotelAvailabilityHeader";
 import Cookies from "js-cookie";
 import styled from "styled-components";
+import HeaderNav2 from "../../components/header/HeaderNav2";
 
 /**
  * 사용자가 선택한 호텔의 정보를 보여준다.
