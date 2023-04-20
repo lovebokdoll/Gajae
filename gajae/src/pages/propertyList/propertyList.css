@@ -2,9 +2,61 @@
     text-align: center;
   }
 
-.dropdown-toggle{
+#dropdown-btn{
   margin-top: 10px;
-  background-color: #8EA8DB;
-  color: white;
-  border: none;
+  background-color:  transparent;
+  color: black;
+  width: 200px;;
+  border: 2px solid black;
+}
+
+#dropdownItem-btn{
+  width: 200px;;
+}
+
+#dropdown-btn:hover,
+#dropdown-btn:active{
+  background-color: transparent;
+  color: black;
+  border: 2px solid black;
+}
+
+#mapbtn{
+  background-color: transparent;
+  border: 2px solid black;
+  margin-top: 10px;
+  color: black;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.pagination li.active a {
+  color: black;
+  border-radius: 4px;
+  padding: 4px 8px;
+}
+
+
+.pagination-link {
+  margin: 0 10px;
+  text-decoration: none;
+}
+
+.pagination-break {
+  margin: 0 5px;
+}
+
+.rounded-box {
+  height: 50px;
+  background-color: transparent;
+  border: 1px solid lightgray;
+  display: flex;
+  width: 750px;
+  justify-content: center;
+  align-items: center;
+  
 }

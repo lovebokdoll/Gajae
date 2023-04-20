@@ -1,5 +1,4 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Route, Routes } from 'react-router-dom';
 import './App.css';
@@ -35,7 +34,6 @@ import ImageUpload from './pages/reviewBoard/ImageUpload';
 import ReviewWritePage from './pages/reviewBoard/ReviewWritePage';
 
 const App = () => {
-  
   const toastStatus = useSelector((state) => state.toastStatus);
 
   return (
