@@ -8,29 +8,37 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
  * @returns
  */
 const HotelInformation = ({ row }) => {
-  const reserve = () => {
-    console.log("지금예약버튼");
-
-    //navigate("/");
-  };
 
   return (
     <>
       <div>
-        <span className="hotel_title">{row.P_TITLE}</span>
-        <Button className="reserveBtn" variant="outline-info" onClick={reserve}>
-          지금 예약하세요!
-        </Button>
-        <div className="hotel_address">
-          <FontAwesomeIcon
-            icon="fa-solid fa-location-dot"
-            fade
-            size="xs"
-            style={{ color: "#1c2d4a" }}
-          />
-          {row.P_ADDRESS}
+        <div className="hotel-container">
+          <div className="images-container">
+            <img src="./images/소노벨 변산1.webp" className="hotelImage" />
+          </div>
+          <div className="hotel-informations">
+            {" "}
+            <div className="hotel_title">{row.P_TITLE}</div>{" "}
+            <div className="hotel_addr_">
+              <div className="hotel_address">
+                <FontAwesomeIcon
+                  icon="fa-solid fa-location-dot"
+                  fade
+                  size="xs"
+                  style={{ color: "#1c2d4a" }}
+                />
+                {row.P_ADDRESS} 
+              </div>
+              <div className="hotel_overview">
+                <div
+                  dangerouslySetInnerHTML={{
+                    __html: row.P_OVERVIEW?.split(".").join(".<br>"), 
+                  }}
+                ></div>
+              </div>
+            </div>
+          </div>
         </div>
-        <div className="hotel_overview">{row.P_OVERVIEW}</div>
       </div>
     </>
   );

@@ -7,7 +7,7 @@ export const hotelDetailDB = (hotel) => {
     try {
       const response = axios({
         method: "get",
-        url: process.env.REACT_APP_SPRING_GAJAE_IP + "hotel/hotelDetail",
+        url: process.env.REACT_APP_SPRING_IP + "hotel/hotelDetail",
         params: hotel,
       });
       resolve(response);

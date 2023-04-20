@@ -1,6 +1,5 @@
-import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { Form, Image } from 'react-bootstrap';
+import { Image } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import HeaderNav1 from '../../components/header/HeaderNav1';
@@ -9,6 +8,9 @@ import { setToastMessage } from '../../redux/toastStatus/action';
 import { googleLogin } from '../../service/authLogic';
 import { signinDB } from '../../service/user/user';
 import { DividerDiv, DividerHr, DividerSpan, MyH1, MyInput, MyLabel, MyP, PwEye, SubmitButton } from '../../style/FormStyle';
+import './loginPage.css';
+import { AuthContainer, SignInForm } from './styled-login';
+
 /**
  *
  * @returns 로그인 페이지
@@ -25,18 +27,8 @@ const LoginPage = () => {
 
   const [userId, setUserId] = useState();
 
-  const REDIRECT_URI = 'http://localhost:9999/auth/kakao/callback';
+  const REDIRECT_URI = 'http://localhost:3000/auth/kakao/callback';
   const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.REACT_APP_KAKAO_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
-
-  const kakaoLogin = () => {
-    axios
-      .get(
-        `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.REACT_APP_KAKAO_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`
-      )
-      .then((response) => {
-        console.log(response.data);
-      });
-  };
 
   const googleSignIn = async () => {
     try {
@@ -66,6 +58,7 @@ const LoginPage = () => {
     console.log(jsonDoc[0]);
     if (response.data) {
       window.localStorage.setItem('userId', jsonDoc[0].USER_ID);
+      window.localStorage.setItem('userName', jsonDoc[0].USER_NAME);
       window.localStorage.setItem('userNickname', jsonDoc[0].USER_NICKNAME);
       window.localStorage.setItem('userAuth', jsonDoc[0].USER_AUTH);
       window.localStorage.setItem('userEmail', jsonDoc[0].USER_EMAIL);
@@ -124,7 +117,7 @@ const LoginPage = () => {
     <>
       <HeaderNav1 />
       <HeaderNav2 />
-      <Form className="container">
+      <SignInForm>
         <MyH1>로그인</MyH1>
         <MyLabel htmlFor="email">
           {' '}
@@ -163,41 +156,42 @@ const LoginPage = () => {
         >
           로그인
         </SubmitButton>
-      </Form>
+      </SignInForm>{' '}
       <DividerDiv>
         <DividerHr />
         <DividerSpan>또는 다음 중 하나로 계속</DividerSpan>
       </DividerDiv>
-      <div>
-        <a>
-          <Image src="/images/btnW_icon_square.png" />
-        </a>
-        <button onClick={googleSignIn}>
-          <Image src="/images/google_icon.png" />
-        </button>
-        <a href={KAKAO_AUTH_URL}>
-          <Image src="/images/kakao/kakao_icon.jpg" />
-        </a>
-        <button onClick={kakaoLogin}>KAKAO</button>
-      </div>
-      <MyP style={{ marginTop: '30px' }}>
-        신규 사용자이신가요?&nbsp;
-        <Link to="/auth/signup" className="text-decoration-none" style={{ color: 'blue' }}>
-          계정 만들기
-        </Link>
-      </MyP>
-      <MyP>
-        아이디를 잊으셨나요?&nbsp;
-        <Link to="/auth/findEmail" className="text-decoration-none" style={{ color: 'blue' }}>
-          아이디 찾기
-        </Link>
-      </MyP>
-      <MyP>
-        비밀번호를 잊으셨나요?&nbsp;
-        <Link to="/auth/resetPwd" className="text-decoration-none" style={{ color: 'blue' }}>
-          비밀번호 찾기
-        </Link>
-      </MyP>
+      <AuthContainer>
+        <div>
+          <a style={{ marginRight: '10px' }}>
+            <Image src="/images/icons8-닌텐도-75.png" />
+          </a>
+          <button onClick={googleSignIn} style={{ marginRight: '10px', border: 'none', backgroundColor: 'transparent' }}>
+            <Image src="/images/google_logo.png" />
+          </button>
+          <a href={KAKAO_AUTH_URL} style={{ marginRight: '10px' }}>
+            <Image src="/images/icons8-kakao-talk-75.png" />
+          </a>
+        </div>
+        <MyP style={{ marginTop: '20px' }}>
+          신규 사용자이신가요?&nbsp;
+          <Link to="/signup" className="text-decoration-none" style={{ color: 'blue' }}>
+            계정 만들기
+          </Link>
+        </MyP>
+        <MyP>
+          아이디를 잊으셨나요?&nbsp;
+          <Link to="/login/findid" className="text-decoration-none" style={{ color: 'blue' }}>
+            아이디 찾기
+          </Link>
+        </MyP>
+        <MyP>
+          비밀번호를 잊으셨나요?&nbsp;
+          <Link to="/login/findpw" className="text-decoration-none" style={{ color: 'blue' }}>
+            비밀번호 찾기
+          </Link>
+        </MyP>
+      </AuthContainer>
     </>
   );
 };

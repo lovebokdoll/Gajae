@@ -21,8 +21,8 @@ import MySettings from "./pages/mypage/MySettings";
 import MyWishListPage from "./pages/mypage/MyWishListPage";
 import Payapge from "./pages/pay/Payapge";
 import PropertyListPage from "./pages/propertyList/PropertyListPage";
-import ReviewBoradPage from "./pages/reviewBoard/ReviewBoradPage";
 import ReviewWritePage from "./pages/reviewBoard/ReviewWritePage";
+import ReviewUpdate from "./pages/reviewBoard/ReviewUpdate";
 
 const App = () => {
   const toastStatus = useSelector((state) => state.toastStatus);
@@ -37,7 +37,6 @@ const App = () => {
         <Route path="/mypage" exact={true} element={<Mypage />} />
         <Route path="/propertylist" element={<PropertyListPage />} />
         <Route path="/hotel" element={<HotelPage />} />
-        <Route path="/review" element={<ReviewBoradPage />} />
         <Route path="/review/write" element={<ReviewWritePage />} />
         <Route
           path="/auth/kakao/callback"
@@ -72,6 +71,7 @@ const App = () => {
         <Route path="/reservate" element={<ReservationDetail />} />
         <Route path="/pay" exact={true} element={<Payapge />} />
         <Route path="/inicis" exact={true} element={<InicisPay />} />
+        <Route path="/review/update" exact={true} element={<ReviewUpdate />} />
       </Routes>
     </div>
   );

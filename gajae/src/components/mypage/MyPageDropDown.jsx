@@ -15,7 +15,7 @@ const MyPageDropDown = () => {
         <br />
         <Link to="/mypage/payment">결제정보</Link>
         <br />
-        <Link to="/mypage/myreview">이용후기</Link>
+        <Link to="/mypage/review">이용후기</Link>
         <br />
         <Link to="/mypage/wishlist">위시리스트</Link>
         <br />

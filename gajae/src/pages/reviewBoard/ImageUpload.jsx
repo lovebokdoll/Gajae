@@ -1,39 +1,39 @@
 import React, { useState } from "react";
 import { Custom_btn, Img, Preview } from "../../style/FormStyle";
-import { storage } from "../../service/firebase";
-import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { Accordion } from "react-bootstrap";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import { storage } from "../../service/firebase";
+import { useEffect } from "react";
 
-const ImageUpload = ({ getImage }) => {
-  const [attachment, setAttachment] = useState(null);
+const ImageUpload = ({ getImage, imageUrl }) => {
+  const [attachment, setAttachment] = useState(imageUrl);
 
   const imageChange = (event) => {
-    const image = event.target.files;
-    const theImage = image;
+    event.preventDefault();
+    const image = event.target.files[0];
     console.log(image);
-    console.log(theImage);
     const reader = new FileReader();
-
     reader.onloadend = (finishedEvent) => {
       const result = finishedEvent.currentTarget.result;
       setAttachment(result);
     };
-    if (image) {
-      reader.readAsDataURL(image[0]);
+    if (image === null) {
+      reader.readAsDataURL(image);
       handleImageUpload(image);
     } else {
       setAttachment(null);
     }
   };
-
+  console.log(attachment);
   /* Firebase Storage 이미지 업로드 함수 */
-  const handleImageUpload = async (image, callback) => {
+  const handleImageUpload = async (image) => {
     try {
-      const imageRef = ref(storage, `images/${image[0].name}`);
-      console.log(image[0].name);
+      console.log(image);
+      const imageRef = ref(storage, `images/${image.name}`);
       await uploadBytes(imageRef, image);
       const downloadURL = await getDownloadURL(imageRef);
       console.log("image uploaded successfully, Download URL:", downloadURL);
+      console.log(downloadURL);
       getImage(downloadURL);
     } catch (error) {
       console.log("error uploading image", error);
@@ -43,6 +43,12 @@ const ImageUpload = ({ getImage }) => {
   const onClearAttachment = () => {
     setAttachment(null);
   };
+
+  useEffect(() => {
+    if (imageUrl) {
+      setAttachment(imageUrl);
+    }
+  }, [imageUrl]);
 
   return (
     <>
@@ -64,7 +70,7 @@ const ImageUpload = ({ getImage }) => {
             </div>
             <Preview>
               <div id="file">
-                <img
+                <Img
                   src={
                     attachment
                       ? attachment
@@ -72,8 +78,8 @@ const ImageUpload = ({ getImage }) => {
                   }
                   alt="파일 아이콘"
                   style={{
-                    width: "300px",
-                    height: "300px",
+                    /* width: "300px",
+                    height: "300px", */
                     display: "flex",
                     margin: "5px",
                     boxShadow: "2px 2px 5px grey",

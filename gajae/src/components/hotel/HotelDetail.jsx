@@ -1,7 +1,9 @@
-const HotelDetail = () => {
+const HotelDetail = ({ _handleModal }) => {
   return (
     <>
-      <div>호텔 디테일 페이지</div>
+      <ModalFrame _handleModal={_handleModal}>
+        <h1>프로젝트 내용</h1>
+      </ModalFrame>
     </>
   );
 };

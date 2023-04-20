@@ -1,6 +1,5 @@
 import React, { useEffect, useRef } from "react";
 import {
-  BButton,
   ContainerDiv,
   Custom_btn,
   FormDiv,
@@ -35,7 +34,7 @@ const ReviewWritePage = () => {
   const [cost, setCost] = useState(0);
   const [location, setLocation] = useState(0);
   const textareaRef = useRef(null);
-  const [url, setUrl] = useState("");
+  const [imageUrl, setImageUrl] = useState("");
 
   useEffect(() => {
     textareaRef.current.focus();
@@ -59,22 +58,20 @@ const ReviewWritePage = () => {
     },
     []
   );
-
   const getImage = (imageUrl) => {
-    setUrl(imageUrl);
+    setImageUrl(imageUrl);
+    console.log(imageUrl);
   };
 
   const reviewInsert = async () => {
     const review = {
       REVIEW_NUMBER: 0,
       R_NUMBER: 0,
-      P_ID: 0,
       REVIEW_TITLE: title,
       REVIEW_GOOD: reviewgood,
       REVIEW_BAD: reviewbad,
       REVIEW_DATE: 0,
-      USER_NICKNAME: "상수박아",
-      REVIEW_POTO: url,
+      REVIEW_PHOTO: imageUrl,
       REVIEW_SERVICE: service,
       REVIEW_FACILITY: facility,
       REVIEW_CLEAN: clean,
@@ -83,10 +80,9 @@ const ReviewWritePage = () => {
     };
     const res = await reviewInsertDB(review);
     console.log(res.data);
+    navigate("/mypage/review");
   };
 
-  //성공 시 페이지 이동 처리 부분
-  //navigate("/review");
   const handleInputBlur = () => {
     if (reviewgood.length <= 20) {
       setErrorMessage("20자 이상 입력하세요.");
@@ -107,17 +103,6 @@ const ReviewWritePage = () => {
     }
   };
 
-  const TipDiv = styled.div`
-    height: 50px;
-    display: flex;
-    flex-direction: column;
-    font-family: "KOTRA_GOTHIC";
-    justify-content: space-between;
-    align-items: center; /* 수평 중앙 정렬 */
-    width: 90%;
-    margin: 30px;
-    border: 1px solid #e7e7e7;
-  `;
   return (
     <>
       <HeaderNav1 />
@@ -186,7 +171,7 @@ const ReviewWritePage = () => {
               }}
             >
               <h6>
-                <i class="fa-regular fa-face-smile"></i>
+                <i className="fa-regular fa-face-smile"></i>
                 좋았던 점
               </h6>
               <h6>20/100</h6>
@@ -217,7 +202,7 @@ const ReviewWritePage = () => {
               }}
             >
               <h6>
-                <i class="fa-regular fa-face-frown"></i>
+                <i className="fa-regular fa-face-frown"></i>
                 아쉬운 점
               </h6>
               <h6>20자 이상</h6>
@@ -306,4 +291,16 @@ const Textarea = styled.textarea`
   &:focus {
     outline: 5px solid #e7f1ff;
   }
+`;
+
+const TipDiv = styled.div`
+  height: 50px;
+  display: flex;
+  flex-direction: column;
+  font-family: "KOTRA_GOTHIC";
+  justify-content: space-between;
+  align-items: center; /* 수평 중앙 정렬 */
+  width: 90%;
+  margin: 30px;
+  border: 1px solid #e7e7e7;
 `;
