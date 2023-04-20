@@ -50,6 +50,7 @@ const onClickPayment = () => {
     const {success, error_msg, imp_uid, merchant_uid, pay_method, paid_amount, status} = response;
     if (success) {
       alert('결제 성공');
+      window.location.href = '/pay/complete'; // 결제 성공 시 /pay/complete 페이지로 이동
     } else {
       alert(`결제 실패 : ${error_msg}`);
     }

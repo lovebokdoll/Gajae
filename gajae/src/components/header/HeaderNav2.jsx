@@ -1,12 +1,7 @@
-import React from "react";
-import {
-  faBed,
-  faCar,
-  faPlane,
-  faTaxi,
-} from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import "../main/mainSearchBar.css";
+import React from 'react';
+import { faBed, faCar, faPlane, faTaxi } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import '../main/mainSearchBar.css';
 
 const HeaderNav2 = () => {
   return (

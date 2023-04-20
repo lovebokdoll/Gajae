@@ -22,11 +22,12 @@ const ReservationDetail = () => {
  
      ////////////////////////////////////////////////정보 localstorage에 담기  ////////////////////////////////////
   
- //const checkin = Cookies.get("checkin");
-  //const checkout = Cookies.get("checkout");// 다빈이 넘겨주면 쿠키값호출 
+ 
+  const P_TITLE = Cookies.get("P_TITLE");
   const roomTypes = Cookies.get("roomtype");
   const selectedNumber = Cookies.get("selectedNumber");
   const totalPrice = Cookies.get("totalPrice");
+  const  P_ADDRESS = Cookies.get("P_ADDRESS");
   console.log(roomTypes); // roomtype 쿠키의 값 콘솔창에 출력
   console.log(selectedNumber); // selectedNumber 쿠키의 값 콘솔창에 출력
   console.log(totalPrice); // totalPrice 쿠키의 값 콘솔창에 출력->안찍히는듯 왜? 안 찍힐까  
@@ -81,8 +82,8 @@ return (
     <div style={{fontSize: 20}}>
       <div>날짜: {/* 사용자가 선택한 날짜 */}</div>
       <div>
-        <div>숙소명: {roomTypes}</div>
-        <div>주소: </div>
+        <div>숙소명: {P_TITLE} {roomTypes}</div>
+        <div>주소: {P_ADDRESS} </div>
         <div>체크인: </div>
         <div>체크아웃: </div>
         <div>투숙객 수: 총 {selectedNumber} 명</div>{/* 쿠키에서 꺼내오기*/ }
@@ -106,10 +107,13 @@ return (
 </textarea>
       </div>
     </div>
+    <br/>
     <div className="d-flex justify-content-between align-items-center">
-    <span style={{fontSize:35, fontWeight:'bold'}}>결제금액:  {totalPrice} 원</span>{/* 결제 쿠키에서 꺼내기 */}
+    <span style={{fontSize:50, fontWeight:'bold'}}>결제금액:  {totalPrice} 원</span>{/* 결제 쿠키에서 꺼내기 */}
     <Button variant="info" style={{ textDecoration: 'none', borderBottom: 'none' }}>
-        <Link to="/pay">결제하기</Link>
+    <Link to="/pay">
+  <img src="../images/inicis.png" alt="결제하기" />
+</Link>
       </Button>
     </div>
   </div>

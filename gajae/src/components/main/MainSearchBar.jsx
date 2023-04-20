@@ -16,12 +16,6 @@ const MainSearchBar = ({ type }) => {
   const [P_ADDRESS, setP_Address] = useState('');
   console.log(P_ADDRESS)
 
-  //인원수, 객실수 입력
-  const [ROOM_CAPACITY, setRoom_Capacity] = useState({
-    adult: 1,
-  });
-  console.log(ROOM_CAPACITY)
-
   const [openDate, setOpenDate] = useState(false);
 
   const [date, setDate] = useState([
@@ -33,21 +27,26 @@ const MainSearchBar = ({ type }) => {
   ]);
 
   const [openOptions, setOpenOptions] = useState(false);
+  const [options, setOptions] = useState({
+    adult: 1,
+    children: 0,
+    room: 1,
+  });
+
   const handleOption = (name, operation) => {
-    setRoom_Capacity((prev) => {
+    setOptions((prev) => {
       return {
         ...prev,
-        [name]: operation === 'i' ? ROOM_CAPACITY[name] + 1 : ROOM_CAPACITY[name] - 1,
+        [name]: operation === 'i' ? options[name] + 1 : options[name] - 1,
       };
     });
   };
 
   const handleSearch = (e) => {
-    const roomCapacity = parseInt(ROOM_CAPACITY.adult); // ROOM_CAPACITY를 숫자형태로 변환
-    navigate(`/propertylist/?P_ADDRESS=${P_ADDRESS}&ROOM_CAPACITY=${roomCapacity}`, { state: { P_ADDRESS, date, ROOM_CAPACITY } });
-  
-    e.preventDefault();
-    axios.post('http://localhost:9999/search/list', { P_ADDRESS, ROOM_CAPACITY: roomCapacity }) // 변환된 ROOM_CAPACITY를 전달
+    navigate(`/propertylist/?P_ADDRESS=${P_ADDRESS}`, { state: { P_ADDRESS, date, options } });
+
+    e.preventDefault(); // 페이지 리로딩 방지
+    axios.post('http://localhost:9999/search/list', { P_ADDRESS })
       .then(response => {
         console.log(P_ADDRESS)
         console.log(response.data);
@@ -58,7 +57,6 @@ const MainSearchBar = ({ type }) => {
         // 에러 처리 코드
       });
   };
-  
 
   return (
     <div className="header">
@@ -92,18 +90,16 @@ const MainSearchBar = ({ type }) => {
               Get rewarded for your travels – unlock instant savings of 10% or more with a free Lamabooking account
             </p>
             <div className="headerSearch">
-              <div className="headerSearchText">
-                <form onSubmit={handleSearch}>
+              <div className="headerSearchItem">
                 <FontAwesomeIcon icon={faBed} className="headerIcon" />
                 <input
-                type="text"
-                placeholder="어디로 향하시나요?"
-                className="headerSearchInput"
-                onChange={(e) => setP_Address(e.target.value)}
-              />
-              </form>
+                  type="text"
+                  placeholder="어디로 향하시나요?"
+                  className="headerSearchInput"
+                  onChange={(e) => setP_Address(e.target.value)}
+                />
               </div>
-              <div className="headerSearchDate">
+              <div className="headerSearchItem">
                 <FontAwesomeIcon icon={faCalendarDays} className="headerIcon" />
                 <span onClick={() => setOpenDate(!openDate)} className="headerSearchText">{`${format(
                   date[0].startDate,
@@ -123,22 +119,50 @@ const MainSearchBar = ({ type }) => {
                   />
                 )}
               </div>
-              <div className="headerSearchAdult">
+              <div className="headerSearchItem">
                 <FontAwesomeIcon icon={faPerson} className="headerIcon" />
                 <span
                   onClick={() => setOpenOptions(!openOptions)}
                   className="headerSearchText"
-                >{`${ROOM_CAPACITY.adult} 명`}</span>
+                >{`${options.adult} adult · ${options.children} children · ${options.room} room`}</span>
                 {openOptions && (
                   <div className="options">
                     <div className="optionItem">
-                      <span className="optionText">인원 수</span>
+                      <span className="optionText">Adult</span>
                       <div className="optionCounter">
-                        <button disabled={ROOM_CAPACITY.adult <= 1} className="optionCounterButton" onClick={() => handleOption('adult', 'd')}>
+                        <button disabled={options.adult <= 1} className="optionCounterButton" onClick={() => handleOption('adult', 'd')}>
                           -
                         </button>
-                        <span className="optionCounterNumber">{ROOM_CAPACITY.adult}</span>
+                        <span className="optionCounterNumber">{options.adult}</span>
                         <button className="optionCounterButton" onClick={() => handleOption('adult', 'i')}>
+                          +
+                        </button>
+                      </div>
+                    </div>
+                    <div className="optionItem">
+                      <span className="optionText">Children</span>
+                      <div className="optionCounter">
+                        <button
+                          disabled={options.children <= 0}
+                          className="optionCounterButton"
+                          onClick={() => handleOption('children', 'd')}
+                        >
+                          -
+                        </button>
+                        <span className="optionCounterNumber">{options.children}</span>
+                        <button className="optionCounterButton" onClick={() => handleOption('children', 'i')}>
+                          +
+                        </button>
+                      </div>
+                    </div>
+                    <div className="optionItem">
+                      <span className="optionText">Room</span>
+                      <div className="optionCounter">
+                        <button disabled={options.room <= 1} className="optionCounterButton" onClick={() => handleOption('room', 'd')}>
+                          -
+                        </button>
+                        <span className="optionCounterNumber">{options.room}</span>
+                        <button className="optionCounterButton" onClick={() => handleOption('room', 'i')}>
                           +
                         </button>
                       </div>
@@ -146,8 +170,8 @@ const MainSearchBar = ({ type }) => {
                   </div>
                 )}
               </div>
-              <div className="SearchBtn">
-                <button className="headerBtn" type="submit" onClick={handleSearch}>
+              <div className="headerSearchItem">
+                <button className="headerBtn" onClick={handleSearch}>
                   검색
                 </button>
               </div>

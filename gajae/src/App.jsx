@@ -10,6 +10,7 @@ import HostLogin from './components/host/HostLogin';
 import HostSignUp from './components/host/HostSignUp';
 import RegisterHotel from './components/host/register/RegisterHotel';
 import RegisterRoom from './components/host/register/RegisterRoom';
+import ReservateComplete from './components/Reservate/ReservateComplete';
 import SignUpTest from './components/login/SignUpTest';
 import WelcomePage from './components/login/WelcomePage';
 import InicisPay from './components/pay/InicisPay';
@@ -31,7 +32,7 @@ import Mypage from './pages/mypage/Mypage';
 import Payapge from './pages/pay/Payapge';
 import PropertyListPage from './pages/propertyList/PropertyListPage';
 import ImageUpload from './pages/reviewBoard/ImageUpload';
-import ReviewUpdate from "./pages/reviewBoard/ReviewUpdate";
+import ReviewUpdate from './pages/reviewBoard/ReviewUpdate';
 import ReviewWritePage from './pages/reviewBoard/ReviewWritePage';
 
 const App = () => {
@@ -65,6 +66,7 @@ const App = () => {
         <Route path="/mypage/wishlist" exact={true} element={<MyWishListPage />} />
         <Route path="/reservate" element={<ReservationDetail />} />
         <Route path="/pay" exact={true} element={<Payapge />} />
+        <Route path="/pay/complete" exact={true} element={<ReservateComplete />} />
         <Route path="/inicis" exact={true} element={<InicisPay />} />
         <Route path="/review/img" exact={true} element={<ImageUpload />} />
         <Route path="/host" exact={true} element={<HostPage />} />

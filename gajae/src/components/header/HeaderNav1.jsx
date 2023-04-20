@@ -20,23 +20,10 @@ const HeaderNav1 = () => {
   const { userAuth } = useSelector((state) => state);
 
   const [userId, setUserId] = useState();
-  const [userNickname, setUserNickname] = useState();
-  const [userBirth, setUserBirth] = useState();
-  const [user_auth, setUser_Auth] = useState();
-  const [userEmail, setUserEmail] = useState();
 
-  const signOut = async () => {
-    window.localStorage.clear();
-    navigate('/');
-    window.location.reload();
-  };
 
   useEffect(() => {
     setUserId(window.localStorage.getItem('userId'));
-    setUserNickname(window.localStorage.getItem('userNickname'));
-    setUserBirth(window.localStorage.getItem('userBirth'));
-    setUser_Auth(window.localStorage.getItem('userAuth'));
-    setUserEmail(window.localStorage.getItem('userEmail'));
   }, []);
 
   return (
