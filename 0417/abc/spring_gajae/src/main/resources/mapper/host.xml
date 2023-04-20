@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="host">
+
+	<select id="overlapCheck" parameterType="map" resultType="map">
+		SELECT
+		HOST_ID,
+		HOST_EMAIL
+		FROM
+		GAJAE.HOST
+		<if test='HOST_ID!=null and HOST_ID.length()>0'>
+			WHERE HOST_ID = #{HOST_ID}
+		</if>
+		<if test='HOST_EMAIL!=null and HOST_EMAIL.length()>0'>
+			WHERE HOST_EMAIL = #{HOST_EMAIL}
+		</if>
+	</select>
+
+	<select id="login" parameterType="map" resultType="map">
+		SELECT
+		HOST_ID,
+		HOST_PW,
+		HOST_NAME,
+		HOST_BUSINESS_NUM,
+		HOST_COMPANY_NAME
+
+		FROM
+		GAJAE.HOST
+		WHERE
+		HOST_ID = #{HOST_ID}
+		AND
+		HOST_PW =#{HOST_PW}
+	</select>
+
+
+
+	<insert id="signup">
+		INSERT INTO GAJAE.HOST
+		(
+		HOST_ID,
+		HOST_NAME,
+		HOST_PW,
+		HOST_EMAIL,
+		HOST_TEL,
+		HOST_HIREDATE
+		)
+		VALUES
+		(
+		#{HOST_ID},
+		#{HOST_NAME},
+		#{HOST_PW},
+		#{HOST_EMAIL},
+		#{HOST_TEL},
+		TO_CHAR(
+		SYSDATE, 'YYYY-MM-DD
+		HH24:MI:SS')
+		)
+	</insert>
+	
+	<!-- 호텔등록 -->
+	<insert id="propertyInsert" parameterType="map"
+		useGeneratedKeys="true" keyColumn="p_id" keyProperty="p_id">
+		INSERT INTO
+		GAJAE.PROPERTIES
+		(
+		P_ID,
+		ROOM_ID,
+		P_TITLE,
+		P_STAR,
+		P_POSTAL,
+		P_TEL,
+		P_ADDRESS,
+		P_OVERVIEW,
+		P_SCALE ,
+		P_CHECKIN,
+		P_CHECKOUT,
+		P_REFUND,
+		P_HIREDATE,
+		HOST_BUSINESS_NUM
+		)
+		VALUES
+		(
+		SEQ_PROPERTY_NUMBER.nextval,
+	#{room_id},
+		#{p_title},
+		#{p_star},
+		#{p_postal},
+		#{p_tel},
+		#{p_address},
+		#{p_overview},
+		#{p_scale},
+		#{p_checkin},
+		#{p_checkout},
+		#{p_refund},
+		TO_DATE(
+		SYSDATE, 'YYYY-MM-DD HH24:MI:SS'),
+		#{host_business_num}
+		)
+	</insert>
+	<!-- 시설등록 -->
+	<insert id="hostfacInsert" parameterType="map">
+		INSERT INTO
+		GAJAE.PRO_FACILITIES
+		(
+		P_ID,
+		FAC_ROOM
+		)
+		VALUES
+		(
+		#{P_ID},
+		#{FAC_ROOM}
+		)
+	</insert>
+
+</mapper>

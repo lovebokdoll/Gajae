@@ -1,0 +1,89 @@
+.featuredContainer {
+  width: 100%;
+  max-width: 90%;
+  margin: 0 auto;
+  overflow: hidden;
+  cursor: pointer; /* 마우스 커서가 올라갔을 때 pointer로 설정 */
+}
+
+.featured {
+  display: flex;
+  justify-content: flex-start;
+  gap: 20px;
+  width: 300%;
+  /* 변경된 코드 */
+  animation: slide 15s linear infinite alternate-reverse;
+}
+
+.featured::-webkit-scrollbar {
+  display: none;
+}
+
+.featured:hover .featuredItem {
+  animation-play-state: paused;
+}
+
+.featuredItem {
+  position: relative;
+  color: white;
+  border-radius: 10px;
+  overflow: hidden;
+  height: 400px;
+  flex: 1;
+  /* 변경된 코드 */
+  animation: slide 15s linear infinite alternate-reverse;
+  z-index: auto;
+}
+
+.featuredImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.featuredTitles {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+}
+
+@keyframes slide {
+  0% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(calc(-100% + (100% / 3)));
+  }
+  100% {
+    transform: translateX(calc(-200% + (100% / 3)));
+  }
+}
+
+.featuredItem:nth-child(3n) {
+  animation-delay: 5s;
+}
+
+.featuredItem:nth-child(3n-1) {
+  animation-delay: 2.5s;
+}
+
+.featuredItem:last-child {
+  animation-fill-mode: forwards;
+  animation-duration: 7.5s;
+}
+
+/* 추가된 CSS */
+@media (hover: hover) {
+  .featured:hover {
+    animation: none;
+    transition: transform 0.5s ease-in-out;
+  }
+
+  .featured:hover .featuredItem {
+    animation-play-state: paused;
+  }
+
+  .featured:hover .featuredItem:hover {
+    animation-play-state: running;
+  }
+}

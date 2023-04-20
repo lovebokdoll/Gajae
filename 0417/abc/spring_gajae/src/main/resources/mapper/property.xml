@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="property">
+
+	<select id="list" parameterType="map"
+		resultType="com.gajae.demo.dto.PropertyDTO">
+		SELECT
+		P_ID,
+		P_TITLE,
+		P_PHOTO,
+		P_STAR,
+		P_POSTAL,
+		P_TEL,
+		P_ADDRESS,
+		P_OVERVIEW,
+		P_SCALE,
+		P_CHECKIN,
+		P_CHECKOUT,
+		P_GUIDE,
+		P_REFUND,
+		P_STATUS,
+		P_MAPY,
+		P_MAPX,
+		P_HIREDATE,
+		P_CHANGE_DATE
+		FROM GAJAE.PROPERTIES
+		<where>
+			<if test='P_ID!=null and P_ID.length()>0'> AND P_ID = #{P_ID}
+			</if>
+			<if test='ADDRESS!=null and ADDRESS.length()>0'>
+				AND P_ADDRESS LIKE '%'||#{ADDRESS}||'%'
+			</if>
+		</where>
+		ORDER BY P_ID ASC
+	</select>
+
+	<insert id="propertyInsert" parameterType="map"></insert>
+</mapper>
