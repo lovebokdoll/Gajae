@@ -193,12 +193,12 @@ const HotelAvailabilityRow = ({ row }) => {
                           <Dropdown.Item onClick={() => selectNum(index, 1)}>
                             1
                           </Dropdown.Item>
-                          <Dropdown.Item onClick={() => selectNum(index, 2)}>
+                          {/* <Dropdown.Item onClick={() => selectNum(index, 2)}>
                             2
                           </Dropdown.Item>
                           <Dropdown.Item onClick={() => selectNum(index, 3)}>
                             3
-                          </Dropdown.Item>
+                          </Dropdown.Item> */}
                         </Dropdown.Menu>
                       </Dropdown>
                     </div>

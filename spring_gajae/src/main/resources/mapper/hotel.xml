@@ -36,8 +36,8 @@
 		FROM
 			PROPERTIES P
 			INNER JOIN P_ROOMTYPE R ON
-			P.P_ID =
-			R.P_ID
+			P.ROOM_ID =
+			R.ROOM_ID
 			INNER JOIN PRO_FACILITIES F ON
 			P.P_ID = F.P_ID
 		<if test='P_ID!=null and P_ID.length()>0'>

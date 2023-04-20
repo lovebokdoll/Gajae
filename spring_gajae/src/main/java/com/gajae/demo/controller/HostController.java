@@ -72,6 +72,22 @@ public class HostController {
 		log.info("result = {}", result);
 		return String.valueOf(result);
 	}
+	@PostMapping("propertyInsert2")
+	public String propertyInsert2(@RequestBody Map<String, Object> map) {
+		
+		log.info("map = {}", map);
+		// 유효성검사
+		for (String key : map.keySet()) {
+			Object value = map.get(key);
+			if (value == null || value.toString().trim().isEmpty()) {
+				return String.valueOf(-10);
+			}
+		}
+		
+		int result = hostLogic.propertyInsert(map);
+		log.info("result = {}", result);
+		return String.valueOf(result);
+	}
 
 //	    @PostMapping( "hostpropertyInsert" )
 //	    public ResponseEntity<String> hostpropertyInsert( @RequestBody Map<String, Object> map ) {
