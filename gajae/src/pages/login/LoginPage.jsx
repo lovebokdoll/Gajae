@@ -2,27 +2,15 @@ import React, { useEffect, useState } from 'react';
 import { Image } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
+import Footer from '../../components/footer/Footer';
 import HeaderNav1 from '../../components/header/HeaderNav1';
 import HeaderNav2 from '../../components/header/HeaderNav2';
 import { setToastMessage } from '../../redux/toastStatus/action';
 import { googleLogin } from '../../service/authLogic';
 import { signinDB } from '../../service/user/user';
-import {
-  DividerDiv,
-  DividerDiv2,
-  DividerHr,
-  DividerSpan,
-  Img,
-  MyH1,
-  MyInput,
-  MyLabel,
-  MyP,
-  PwEye,
-  SubmitButton,
-} from '../../style/FormStyle';
+import { DividerDiv, DividerDiv2, DividerHr, DividerSpan, MyInput, MyLabel, MyP, PwEye, SubmitButton } from '../../style/FormStyle';
 import './loginPage.css';
-import { AuthContainer, MyH2, MyInput2, MyLabel2, SignInForm } from './styled-login';
-import Footer from '../../components/footer/Footer';
+import { AuthContainer, SignInForm } from './styled-login';
 
 /**
  *
@@ -42,6 +30,10 @@ const LoginPage = () => {
 
   const REDIRECT_URI = 'http://localhost:3000/auth/kakao/callback';
   const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.REACT_APP_KAKAO_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
+
+  const kakaoLogin = () => {
+    window.location.href = KAKAO_AUTH_URL;
+  };
 
   const googleSignIn = async () => {
     try {
@@ -187,7 +179,7 @@ const LoginPage = () => {
           <button onClick={googleSignIn} style={{ marginRight: '15px', border: 'none', backgroundColor: 'transparent' }}>
             <Image src="/images/login/구글로그인.png" />
           </button>
-          <a href={KAKAO_AUTH_URL} style={{ marginRight: '15px' }}>
+          <a href="#" style={{ marginRight: '15px' }} onClick={kakaoLogin}>
             <Image src="/images/login/카카오로그인.png" />
           </a>
         </div>
