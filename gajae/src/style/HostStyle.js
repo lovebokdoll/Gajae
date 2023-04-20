@@ -1,9 +1,34 @@
 import styled from "styled-components";
 
+//숙소등록시 객실선택에 대한 css
+export const HostTable = styled.div`
+  width: 90%;
+  margin: 20px auto;
+  display: flex;
+  position: relative;
+  top: 10px;
+  flex-wrap: wrap;
+`;
+export const HostTableItem1 = styled.div`
+  flex-basis: 30%;
+  padding: 15px;
+  box-sizing: border-box;
+`;
+export const HostTableItem2 = styled.div`
+  flex-basis: 30%;
+  padding: 10px;
+  box-sizing: border-box;
+`;
+export const HostTableItem3 = styled.div`
+  flex-basis: 30%;
+  padding: 15px;
+  box-sizing: border-box;
+`;
+
 export const Background = styled.div`
   background-color: #003580;
   width: 100%;
-  height: 1000px;
+  height: 3000px;
   position: relative;
 `;
 export const Title = styled.div`
@@ -13,6 +38,24 @@ export const Title = styled.div`
   position: absolute; /* Title 컴포넌트는 position: absolute */
   top: 20%; /* 원하는 위치로 top, left, right, bottom 값을 조정 */
   left: 10%;
+  //   transform: translate(-50%, -50%); /* 가운데 정렬을 위한 transform 속성 */
+`;
+export const Titlehotel_content = styled.div`
+  font-family: "TheJamsil5Bold";
+  color: white;
+  font-size: 20px;
+  position: absolute; /* Title 컴포넌트는 position: absolute */
+  top: 15%; /* 원하는 위치로 top, left, right, bottom 값을 조정 */
+  left: 15%;
+  //   transform: translate(-50%, -50%); /* 가운데 정렬을 위한 transform 속성 */
+`;
+export const Titlehotel = styled.div`
+  font-family: "TheJamsil5Bold";
+  color: white;
+  font-size: 50px;
+  position: absolute; /* Title 컴포넌트는 position: absolute */
+  top: 5%; /* 원하는 위치로 top, left, right, bottom 값을 조정 */
+  left: 15%;
   //   transform: translate(-50%, -50%); /* 가운데 정렬을 위한 transform 속성 */
 `;
 export const Content = styled.div`
@@ -30,6 +73,13 @@ export const R_CardGroup = styled.div`
   color: black;
   top: 100%; /* 원하는 위치로 top, left, right, bottom 값을 조정 */
   transform: translate(60%, 65%); /* 가운데 정렬을 위한 transform 속성 */
+`;
+export const R_CardGroup_hotel = styled.div`
+  // background-color: #003580;
+  font-family: "Pretendard-Regular";
+  width: 100%;
+  top: 20%; /* 원하는 위치로 top, left, right, bottom 값을 조정 */
+  transform: translate(15%, 10%); /* 가운데 정렬을 위한 transform 속성 */
 `;
 //hostZipCode
 export const LoginForm = styled.form`

@@ -1,7 +1,6 @@
 import React from "react";
 import Footer from "../../components/footer/Footer";
 import HeaderNav1 from "../../components/header/HeaderNav1";
-import HeaderNav2 from "../../components/header/HeaderNav2";
 import HostMainPage from "../../components/host/HostMainPage";
 /**
  * 호스트가 숙소를 등록한다.

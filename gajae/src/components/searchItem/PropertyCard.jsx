@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './propertyCard.css';
 import { FaHeart, FaRegHeart } from 'react-icons/fa';
+import Cookies from 'js-cookie';
 
 const PropertyCard = ({ row }) => {
   const navigate = useNavigate();
@@ -11,10 +12,18 @@ const PropertyCard = ({ row }) => {
     setIsLiked(!isLiked);
     console.log(isLiked);
   };
+  //예약하기를 눌렀을 때 해당 숙소 타이틀명 쿠키에 넣어서 넘겨주기
+  const handleHotel = () => {
+    Cookies.set('P_TITLE', row.P_TITLE);
+    Cookies.set('P_ID', row.P_ID);
+    navigate('/hotel');
+  };
+
   return (
     <>
-      <div className="searchItem" >
-        <div style={{ position: 'relative' }}>
+      <div style={{ position: 'relative' }}></div>
+      <div className="searchItem">
+        <div class="image-container">
           <img
             src="https://cf.bstatic.com/xdata/images/hotel/square600/261707778.webp?k=fa6b6128468ec15e81f7d076b6f2473fa3a80c255582f155cae35f9edbffdd78&o=&s=1"
             alt=""
@@ -37,35 +46,28 @@ const PropertyCard = ({ row }) => {
         </div>
 
         <div className="siDesc">
-          <Link to="./hotel">
+          <Link to="./hotel" style={{ textDecoration: 'none' }}>
             <h1 className="siTitle"> {row.P_TITLE}</h1>
           </Link>
           <span className="siCheck">
             {' '}
             CHECKIN: {row.P_CHECKIN} CKECKOUT: {row.P_CHECKOUT}
           </span>
-          <span className="siDistance">{row.P_ADDRESS}</span>
-          <span className="siTaxiOp">Free airport taxi</span>
-          <span className="siSubtitle">Studio Apartment with Air conditioning</span>
-          <span className="siFeatures">{row.ROOM_TYPE}</span>
-          <span className="siCancelOpSubtitle">{row.ROOM_OPTION}</span>
-          <span className="siCancelOp">{row.P_REFUND}</span>
+          <span className="siP_ADDRESS">{row.P_ADDRESS}</span>
+          <span className="siTaxiOp">Free taxi</span>
+          <span className="siROOM_TYPE">{row.ROOM_TYPE}</span>
+          <span className="siROOM_OPTION">{row.ROOM_OPTION}</span>
+          <span className="siP_REFUND">{row.P_REFUND}</span>
         </div>
         <div className="siDetails">
-          <div className="siRating">
-            <span>Excellent</span>
-            <button>8.9</button>
+          <div className="siRanking">
+            <button className="rankigbtn">8.9</button>
           </div>
           <div className="siDetailTexts">
             <span className="siPrice">{Number(row.ROOM_PRICE).toLocaleString() + '원'}</span>
-            <span className="siTaxOp">Includes taxes and fees</span>
-            <button
-              className="siCheckButton"
-              onClick={() => {
-                navigate('/hotel');
-              }}
-            >
-              See availability
+            <span className="siTaxes ">세금 및 수수료 포함</span>
+            <button className="siCheckButton" onClick={handleHotel}>
+              예약하기
             </button>
           </div>
         </div>

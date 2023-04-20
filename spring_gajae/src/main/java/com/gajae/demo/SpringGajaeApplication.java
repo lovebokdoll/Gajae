@@ -20,15 +20,15 @@ public class SpringGajaeApplication {
         return new WebMvcConfigurer() {
             @Override
             public void addCorsMappings( CorsRegistry registry ) {
-                registry.addMapping( "/**" ).allowedOrigins( "http://localhost:3000" );
+                registry.addMapping( "/**" ).allowedOrigins( "http://localhost:3000","http://localhost:3001" );
             }
         };
     }
-    @Bean
-    public CommonsMultipartResolver multipartResolver() {
-        CommonsMultipartResolver resolver = new CommonsMultipartResolver();
-        resolver.setMaxUploadSize(5242880);
-        return resolver;
-    }
-    
+//    @Bean
+//    public CommonsMultipartResolver multipartResolver() {
+//        CommonsMultipartResolver resolver = new CommonsMultipartResolver();
+//        resolver.setMaxUploadSize(5242880);
+//        return resolver;
+//    }
+//    
 }

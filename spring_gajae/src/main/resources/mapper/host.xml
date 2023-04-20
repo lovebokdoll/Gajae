@@ -56,32 +56,60 @@
 		HH24:MI:SS')
 		)
 	</insert>
-
-	<insert id="hostInsert">
-		INSERT INTO GAJAE.PROPERTIES
+	
+	<!-- 호텔등록 -->
+	<insert id="propertyInsert" parameterType="map"
+		useGeneratedKeys="true" keyColumn="p_id" keyProperty="p_id">
+		INSERT INTO
+		GAJAE.PROPERTIES
 		(
 		P_ID,
+		ROOM_ID,
 		P_TITLE,
-		P_POSTAL,
 		P_STAR,
+		P_POSTAL,
+		P_TEL,
 		P_ADDRESS,
-		P_STATUS,
-		P_MAPY,
-		p_MAPX,
-		P_HIREDATE
+		P_OVERVIEW,
+		P_SCALE ,
+		P_CHECKIN,
+		P_CHECKOUT,
+		P_REFUND,
+		P_HIREDATE,
+		HOST_BUSINESS_NUM
 		)
 		VALUES
 		(
 		SEQ_PROPERTY_NUMBER.nextval,
-		' ',
-		#{P_POSTAL},
-		' ',
-		#{P_ADDRESS},
-		' ',
-		' ',
-		' ',
+	#{room_id},
+		#{p_title},
+		#{p_star},
+		#{p_postal},
+		#{p_tel},
+		#{p_address},
+		#{p_overview},
+		#{p_scale},
+		#{p_checkin},
+		#{p_checkout},
+		#{p_refund},
 		TO_DATE(
-		SYSDATE, 'YYYY-MM-DD HH24:MI:SS')
+		SYSDATE, 'YYYY-MM-DD HH24:MI:SS'),
+		#{host_business_num}
 		)
 	</insert>
+	<!-- 시설등록 -->
+	<insert id="hostfacInsert" parameterType="map">
+		INSERT INTO
+		GAJAE.PRO_FACILITIES
+		(
+		P_ID,
+		FAC_ROOM
+		)
+		VALUES
+		(
+		#{P_ID},
+		#{FAC_ROOM}
+		)
+	</insert>
+
 </mapper>

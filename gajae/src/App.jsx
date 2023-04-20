@@ -9,8 +9,10 @@ import NaverPay from './api/naver/NaverPay';
 import ReservationDetail from './components/Reservate/ReservationDetail';
 import HostLogin from './components/host/HostLogin';
 import HostSignUp from './components/host/HostSignUp';
-import RegisterHouse from './components/host/RegisterHouse';
+import RegisterHotel from './components/host/register/RegisterHotel';
+import RegisterRoom from './components/host/register/RegisterRoom';
 import SignUpTest from './components/login/SignUpTest';
+import WelcomePage from './components/login/WelcomePage';
 import InicisPay from './components/pay/InicisPay';
 import Toast from './components/toast/Toast';
 import HostPage from './pages/host/HostPage';
@@ -18,6 +20,7 @@ import HotelPage from './pages/hotel/HotelPage';
 import IDFindPage from './pages/login/IDFindPage';
 import LoginPage from './pages/login/LoginPage';
 import PWFindPage from './pages/login/PWFindPage';
+import UserActivatePage from './pages/login/UserActivatePage';
 import MainPage from './pages/main/MainPage';
 import MyNotificationsPage from './pages/mypage/MyNotificationsPage';
 import MyPaymentPage from './pages/mypage/MyPaymentPage';
@@ -30,22 +33,9 @@ import Payapge from './pages/pay/Payapge';
 import PropertyListPage from './pages/propertyList/PropertyListPage';
 import ImageUpload from './pages/reviewBoard/ImageUpload';
 import ReviewWritePage from './pages/reviewBoard/ReviewWritePage';
-import UserActivatePage from './pages/login/UserActivatePage';
-import WelcomePage from './components/login/WelcomePage';
 
 const App = () => {
-  const [params, setParams] = useState({
-    address: '',
-    checkin: '',
-    checkout: '',
-    guests: '',
-    rooms: '',
-  });
-
-  const navigateURL = () => {
-    return `/propertylist/${params.address}`;
-  };
-
+  
   const toastStatus = useSelector((state) => state.toastStatus);
 
   return (
@@ -81,7 +71,8 @@ const App = () => {
         <Route path="/host" exact={true} element={<HostPage />} />
         <Route path="/host/signup" exact={true} element={<HostSignUp />} />
         <Route path="/host/login" exact={true} element={<HostLogin />} />
-        <Route path="/host/registerHouse" exact={true} element={<RegisterHouse />} />
+        <Route path="/host/registerHotel" exact={true} element={<RegisterHotel />} />
+        <Route path="/host/registerRoom" exact={true} element={<RegisterRoom />} />
       </Routes>
     </div>
   );

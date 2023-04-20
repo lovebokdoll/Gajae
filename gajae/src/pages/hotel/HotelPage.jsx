@@ -10,6 +10,7 @@ import HotelReview from "../../components/hotel/HotelReview";
 import { hotelDetailDB } from "../../service/hotelReservLogic";
 import HotelAvailabilityRow from "../../components/hotel/HotelAvailabilityRow";
 import HotelAvailabilityHeader from "../../components/hotel/HotelAvailabilityHeader";
+import Cookies from "js-cookie";
 
 /**
  * 사용자가 선택한 호텔의 정보를 보여준다.
@@ -52,10 +53,12 @@ const HotelPage = () => {
   const [property, setProperty] = useState([{}]);
   //HotelAvailabilityRow 컴포넌트에 넘겨줄 정보 - 함수의 인자로 전달하기
   //의존성 배열 위치 아이디 받아오는걸로 수정하기 - 현재는 상수로 설정해놓고 테스트
+  const hotelTitle = Cookies.get("P_ID");
+  Cookies.set("OVERVIEW", property[0].P_OVERVIEW);
   useEffect(() => {
     const getHotelList = async () => {
       const hotel = {
-        P_ID: 1000,
+        P_ID: hotelTitle,
       };
       const response = await hotelDetailDB(hotel);
       setProperty(response.data);
