@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="user">
+
+	<select id="signIn" parameterType="map" resultType="map">
+		SELECT
+		USER_ID,
+		USER_UID,
+		USER_NICKNAME,
+		USER_EMAIL,
+		USER_BIRTH,
+		USER_AUTH
+		FROM
+		GAJAE.USERS
+		WHERE USER_ID = #{user_id}
+		AND USER_PW =
+		#{user_pw}
+	</select>
+
+	<select id="getUser" parameterType="map" resultType="map">
+		SELECT
+		USER_NUMBER,
+		USER_ID,
+		USER_NAME,
+		USER_NICKNAME,
+		USER_EMAIL,
+		USER_MOBILE,
+		USER_BIRTH,
+		USER_ADDRESS,
+		USER_GENDER,
+		USER_STATUS,
+		USER_AUTH,
+		USER_HIREDATE
+		FROM GAJAE.USERS
+	</select>
+
+	<select id="idCheck" parameterType="map" resultType="map">
+		SELECT
+		USER_ID
+		FROM GAJAE.USERS
+		WHERE USER_ID = #{USER_ID}
+	</select>
+
+	<select id="nicknameCheck" parameterType="map" resultType="map">
+		SELECT
+		USER_NICKNAME
+		FROM GAJAE.USERS
+		WHERE USER_NICKNAME =
+		#{USER_NICKNAME}
+	</select>
+
+	<update id="userDeactivate">
+		UPDATE GAJAE.USERS
+		SET
+		USER_STATUS = 0
+		<if test="USER_ID != null">
+			,USER_ID = #{USER_ID}
+		</if>
+	</update>
+
+	<insert id="signup">INSERT INTO GAJAE.USERS
+		(
+		USER_ID ,
+		USER_PW ,
+		USER_NAME ,
+		USER_NICKNAME ,
+		USER_EMAIL ,
+		USER_MOBILE ,
+		USER_BIRTH ,
+		USER_AUTH,
+		USER_HIREDATE
+		)
+		VALUES(
+		#{USER_ID},
+		#{USER_PW},
+		#{USER_NAME},
+		#{USER_NICKNAME},
+		#{USER_EMAIL},
+		#{USER_MOBILE},
+		#{USER_BIRTH},
+		#{USER_AUTH},
+		TO_CHAR( SYSDATE, 'YYYY-MM-DD HH24:MI:SS')
+		)
+	</insert>
+
+
+	<update id="userUpdate">
+		UPDATE GAJAE.USERS
+		SET
+		<if test="USER_NAME != null and USER_NAME.length()>0">
+			USER_NAME = #{USER_NAME}
+		</if>
+		<if test="USER_NICKNAME != null and USER_NICKNAME.length()>0">
+			USER_NICKNAME = #{USER_NICKNAME}
+		</if>
+		<if test="USER_EMAIL != null and USER_EMAIL.length()>0">
+			USER_EMAIL = #{USER_EMAIL}
+		</if>
+		<if test="USER_MOBILE != null and USER_MOBILE.length()>0">
+			USER_MOBILE = #{USER_MOBILE}
+		</if>
+		<if test="USER_BIRTH != null and USER_BIRTH.length()>0">
+			USER_BIRTH = #{USER_BIRTH}
+		</if>
+		<if test="USER_ADDRESS != null and USER_ADDRESS.length()>0">
+			USER_ADDRESS = #{USER_ADDRESS}
+		</if>
+		<if test="USER_GENDER != null and USER_GENDER.length()>0">
+			USER_GENDER = #{USER_GENDER}
+		</if>
+		WHERE
+		USER_ID = #{USER_ID}
+	</update>
+
+</mapper>

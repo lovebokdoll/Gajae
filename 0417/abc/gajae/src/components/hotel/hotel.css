@@ -1,0 +1,225 @@
+/*
+hotel_title hotel_address 
+*/
+
+.hotel-container {
+  margin: 35px auto 10px;
+  /* border: 1px solid rgb(202, 26, 26); */
+  width: 70%;
+  /* display: inline-block; */
+  display: flex;
+  flex-wrap: wrap;
+}
+/*호텔 이미지*/
+.images-container {
+  /* border: 2px solid rgb(50, 227, 19); */
+  flex-basis: 40%;
+}
+.hotel-informations {
+  /* border: 2px solid rgb(14, 14, 235); */
+  flex-basis: 60%;
+  margin-top: 10px;
+}
+
+.hotel_addr_overview {
+  /* border: 2px solid rgb(9, 232, 248); */
+}
+.hotelImage {
+  /* border: 1px solid black; */
+  /* flex: 1; */
+  /* margin: 10px 200px; */
+  max-width: 100%;
+  max-height: 300px;
+  object-fit: cover;
+}
+/*컴포넌트 타이틀*/
+.title,
+.availabilitytitle {
+  width: 70%;
+  margin: 15px auto 10px;
+  position: relative;
+  padding: 7px;
+  border-top: 1px solid rgba(0, 0, 0, 0.2);
+  /* font-family: "KOTRA_GOTHIC"; */
+  font-size: 25px;
+  /* font-weight: bold; */
+  /* background-color: white; */
+  color: black;
+  /* background-color: #F5F5F5; */
+}
+.container {
+  width: 70%;
+  /* background-color: #f5f5f5; */
+}
+/*호텔 타이틀*/
+.hotel_title {
+  /* border: 1px solid black; */
+  flex: 2;
+  /* display: inline-block; span 요소를 블록 요소처럼 처리 */
+  margin: 0 5%; /* 좌우 여백을 10%로 설정 */
+  /* text-align: center; 가운데 정렬 */
+  width: 80%; /* 가로 폭을 80%로 설정 */
+  font-family: "TheJamsil5Bold";
+  font-size: 40px;
+  font-weight: bold;
+}
+.hotel_address,
+.hotel_overview {
+  /* border: 1px solid black; */
+  width: 90%;
+  margin: 2px auto;
+  font-family: "KOTRA_GOTHIC";
+}
+.hotel_address {
+  font-size: 22px;
+}
+.hotel_overview {
+  font-size: 18px;
+}
+.refBtn {
+  width: 80%;
+  margin: 5px auto;
+}
+.reserveBtn {
+  float: right;
+  margin: 40px 10%;
+}
+/* .contents {
+  font-family: "KOTRA_GOTHIC";
+  background-color: rgb(255, 183, 0);
+  font-size: 60px;
+} */
+.table-wrapper {
+  width: 70%;
+  margin: 10px auto;
+  display: flex;
+  position: relative;
+  top: 10px;
+  flex-wrap: wrap;
+}
+
+.table-wrapper-item1 {
+  flex-basis: 70%;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.table-wrapper-item2 {
+  flex-basis: 10%;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.table-wrapper-item3 {
+  flex-basis: 20%;
+  padding: 10px;
+  box-sizing: border-box;
+}
+/*모달창 디자인*/
+.modal {
+  /* margin: 0; */
+  /* box-sizing: border-box; */
+}
+.black-bg {
+  width: 100%;
+  height: 100;
+  background: rgba(0, 0, 0, 0.4);
+  position: fixed;
+  padding: 20px;
+}
+.white-bg {
+  width: 100%;
+  background: white;
+  border-radius: 8px;
+  padding: 20px;
+}
+
+/*************** hotel search bar css *************/
+.headerBtn {
+  background-color: #003580;
+  color: white;
+  font-weight: 500;
+  border: none;
+  border-radius: 10%;
+  padding: 5px;
+  cursor: pointer;
+}
+
+.headerSearch {
+  margin: 0px 10%;
+  position: relative;
+  top: 3px;
+  height: 60px;
+  background-color: white;
+  border: 5px solid #febb02;
+  justify-content: space-around;
+  padding: 5px 0px;
+  border-radius: 5px;
+  width: 100%;
+  max-width: 1500px;
+}
+
+.headerIcon {
+  color: lightgray;
+}
+
+.headerSearchItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.headerSearchInput {
+  border: none;
+  outline: none;
+}
+
+.headerSearchText {
+  color: lightgray;
+  cursor: pointer;
+}
+
+.date {
+  position: absolute;
+  top: 50px;
+  z-index: 2;
+}
+
+.options {
+  z-index: 2;
+  position: absolute;
+  top: 50px;
+  background-color: white;
+  color: gray;
+  border-radius: 5px;
+  -webkit-box-shadow: 0px 0px 10px -5px rgba(0, 0, 0, 0.4);
+  box-shadow: 0px 0px 10px -5px rgba(0, 0, 0, 0.4);
+}
+
+.optionItem {
+  width: 200px;
+  display: flex;
+  justify-content: space-between;
+  margin: 10px;
+}
+
+.optionCounter {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 12px;
+  color: black;
+}
+
+.optionCounterButton {
+  width: 30px;
+  height: 30px;
+  border: 1px solid #0071c2;
+  color: #0071c2;
+  cursor: pointer;
+  background-color: white;
+}
+
+.optionCounterButton:disabled {
+  cursor: not-allowed;
+}
