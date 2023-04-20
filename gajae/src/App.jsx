@@ -27,20 +27,8 @@ import Payapge from './pages/pay/Payapge';
 import PropertyListPage from './pages/propertyList/PropertyListPage';
 import ImageUpload from './pages/reviewBoard/ImageUpload';
 import ReviewWritePage from './pages/reviewBoard/ReviewWritePage';
-import { useState } from 'react';
 
 const App = () => {
-  const [params, setParams] = useState({
-    address: '',
-    checkin: '',
-    checkout: '',
-    guests: '',
-    rooms: '',
-  });
-
-  const navigateURL = () => {
-    return `/propertylist/${params.address}`;
-  };
 
   const toastStatus = useSelector((state) => state.toastStatus);
 
@@ -53,7 +41,7 @@ const App = () => {
         <Route path="/signup" exact={true} element={<SignUpTest />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/mypage" exact={true} element={<Mypage />} />
-        <Route path="/propertylist/:P_ADDRESS?" element={<PropertyListPage />} />
+        <Route path="/propertylist/:P_ADDRESS?" element={<PropertyListPage />}/>
         <Route path="/hotel" element={<HotelPage />} />
         <Route path="/review/write" element={<ReviewWritePage />} />
         <Route path="/auth/kakao/callback" exact={true} element={<KakaoRedirectHandler />} />

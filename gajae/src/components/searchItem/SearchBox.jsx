@@ -1,24 +1,27 @@
 import React, { useState } from 'react';
-
 import '../main/mainSearchBar.css';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import Cookies from 'js-cookie';
 
 const SearchBox = () => {
   const navigate = useNavigate();
   
+  //쿠키에 저장되어있는 지역이름
+  const ADDRESS = Cookies.get('P_ADDRESS')
+
   //지역 입력
   const [P_ADDRESS, setP_Address] = useState('');
   console.log(P_ADDRESS)
 
   const [openOptions, setOpenOptions] = useState(false);
-  const [options, setOptions] = useState({
-    adult: 1,
-    children: 0,
-    room: 1,
-  });
 
-  const [openDate, setOpenDate] = useState(false);
+  //인원수, 객실수 입력
+  const [ROOM_CAPACITY, setRoom_Capacity] = useState({
+    adult: 1,
+  });
+  console.log(ROOM_CAPACITY)
+
   const [date, setDate] = useState([
     {
       startDate: new Date(),
@@ -28,23 +31,24 @@ const SearchBox = () => {
   ]);
 
   const handleOption = (name, operation) => {
-    setOptions((prev) => {
+    setRoom_Capacity((prev) => {
       return {
         ...prev,
-        [name]: operation === 'i' ? options[name] + 1 : options[name] - 1,
+        [name]: operation === 'i' ? ROOM_CAPACITY[name] + 1 : ROOM_CAPACITY[name] - 1,
       };
     });
   };
-
-  const handleSearch = (e) => {
-    navigate(`/propertylist/?P_ADDRESS=${P_ADDRESS}`, { state: { P_ADDRESS, date, options } });
-
-    e.preventDefault(); // 페이지 리로딩 방지
-    axios.post('http://localhost:9999/search/list', { P_ADDRESS })
+  const handleSearh = (e) => {
+    const roomCapacity = parseInt(ROOM_CAPACITY.adult); // ROOM_CAPACITY를 숫자형태로 변환
+    navigate(`/propertylist/?P_ADDRESS=${P_ADDRESS}&ROOM_CAPACITY=${roomCapacity}`, { state: { P_ADDRESS, date, ROOM_CAPACITY } });
+  
+    e.preventDefault();
+    axios.post('http://localhost:9999/search/list', { P_ADDRESS, ROOM_CAPACITY: roomCapacity }) // 변환된 ROOM_CAPACITY를 전달
       .then(response => {
         console.log(P_ADDRESS)
         console.log(response.data);
         // 검색 결과를 처리할 코드
+        window.location.reload();
       })
       .catch(error => {
         console.error(error);
@@ -54,91 +58,66 @@ const SearchBox = () => {
 
   return (
     <>
-      <div id="left" style={{ backgroundColor: '#C4DEFF', marginTop: '20px', padding: '20px 10px', width: '200px' }}>
-        <h2 style={{ height: '28px', color: '#333' }}>Search</h2>
+      <div id="leftbox" style={{ backgroundColor: '#FFFFFF', border: 'px solid #000000', marginTop: '10px', padding: '20px 10px', width: '200px' }}>
+
         <div style={{ marginTop: '10px' }}>
           <label style={{ fontSize: '15px', marginBottom: '10px', fontFamily: 'BlinkMacSystemFont', color: '#333' }}>
             여행지/숙소 이름
           </label>
-
           <br />
-          <input style={{ paddingLeft: '15px', fontSize: '15px' }} onChange={(e) => e.target.value} type="text" />
-        </div>
+          <input
+            className='addressbox'
+            style={{ paddingLeft: '15px', fontSize: '15px' }}
+            defaultValue={ADDRESS}
+            onChange={(e) => setP_Address(e.target.value)}
+            type="text"
+          />
+          </div>
+
         <div style={{ marginTop: '10px' }}>
           <label style={{ fontSize: '15px', marginBottom: '10px', fontFamily: 'BlinkMacSystemFont', color: '#333' }}>체크인 날짜</label>
-          
           <br />
-          <input type="date" name="" id="" />
+          <input className='databox' type="date" name="" id="" />
         </div>
         <div style={{ marginTop: '10px' }}>
           <label style={{ fontSize: '15px', marginBottom: '10px', fontFamily: 'BlinkMacSystemFont', color: '#333' }}>체크아웃 날짜</label>
           <br />
-          <input type="date" />
+          <input className='databox' type="date" />
         </div>
-        <div className="headerSearchItem">
 
+        <div className="headerSearchItem">
                 <span
                   onClick={() => setOpenOptions(!openOptions)}
-                  className="headerSearchText search-options"
-                >
-                  {`${options.adult} adult · ${options.children} children · ${options.room} room`}
-                </span>
+                  className="headerSearchText"
+                >{`${ROOM_CAPACITY.adult} 명`}</span>
                 {openOptions && (
-                  <div className="options">
-                    <div className="optionItem">
-                      <span className="optionText">Adult</span>
+                  <div id='option-adult'>
+                    <div className="optionItem-adult">
+                      <span className="optionText">인원 수</span>
                       <div className="optionCounter">
-                        <button disabled={options.adult <= 1} className="optionCounterButton" onClick={() => handleOption('adult', 'd')}>
+                        <button disabled={ROOM_CAPACITY.adult <= 1} className="optionCounterButton" onClick={() => handleOption('adult', 'd')}>
                           -
                         </button>
-                        <span className="optionCounterNumber">{options.adult}</span>
+                        <span className="optionCounterNumber">{ROOM_CAPACITY.adult}</span>
                         <button className="optionCounterButton" onClick={() => handleOption('adult', 'i')}>
                           +
                         </button>
                       </div>
                     </div>
-                    <div className="optionItem">
-                      <span className="optionText">Children</span>
-                      <div className="optionCounter">
-                        <button
-                          disabled={options.children <= 0}
-                          className="optionCounterButton"
-                          onClick={() => handleOption('children', 'd')}
-                        >
-                          -
-                        </button>
-                        <span className="optionCounterNumber">{options.children}</span>
-                        <button className="optionCounterButton" onClick={() => handleOption('children', 'i')}>
-                          +
-                        </button>
-                      </div>
-                    </div>
-                    <div className="optionItem">
-                      <span className="optionText">Room</span>
-                      <div className="optionCounter">
-                        <button disabled={options.room <= 1} className="optionCounterButton" onClick={() => handleOption('room', 'd')}>
-                          -
-                        </button>
-                        <span className="optionCounterNumber">{options.room}</span>
-                        <button className="optionCounterButton" onClick={() => handleOption('room', 'i')}>
-                          +
-                        </button>
-                      </div>
-                    </div>
-                  </div>
+                </div>
                 )}
               </div>
                     
 
         <button
-          onClick={handleSearch}
+          onClick={handleSearh}
           style={{
             cursor: 'pointer',
             width: '100%',
             height: '40px',
             marginTop: '20px',
             border: '0px',
-            backgroundColor: '#8EA8DB',
+            backgroundColor: '#000000',
             padding: '8px',
             color: 'white',
           }}
