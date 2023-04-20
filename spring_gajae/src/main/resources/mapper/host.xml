@@ -106,7 +106,7 @@
 		#{p_checkin},
 		#{p_checkout},
 		#{p_refund},
-		TO_DATE(SYSDATE, 'YYYY-MM-DDHH24:MI:SS'),
+		TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI:SS'),
 		#{host_business_num}
 		)
 	</insert>

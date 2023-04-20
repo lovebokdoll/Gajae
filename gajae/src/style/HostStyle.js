@@ -28,7 +28,7 @@ export const HostTableItem3 = styled.div`
 export const Background = styled.div`
   background-color: #003580;
   width: 100%;
-  height: 3000px;
+  height: 1000px;
   position: relative;
 `;
 export const Title = styled.div`

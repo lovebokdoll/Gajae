@@ -21,7 +21,7 @@ import lombok.extern.log4j.Log4j2;
 @RestController
 @RequestMapping( "/property/*" )
 public class PropertyController {
-    
+
     @Autowired
     private PropertyLogic propertyLogic;
     
@@ -41,32 +41,34 @@ public class PropertyController {
         }
         return json;
     }
-    
+
+
     @PostMapping( "insert" )
     public String propertyInsert( @RequestBody Map<String, Object> pMap ) {
         log.info( "pMap = {}", pMap );
-        
+
         int result = propertyLogic.propertyInsert( pMap );
-        
+
         return String.valueOf( result );
     }
-    
+
     @PostMapping( "update" )
     public String propertyUpdate( @RequestBody Map<String, Object> pMap ) {
         log.info( "pMap = {}", pMap );
-        
+
         int result = propertyLogic.propertyUpdate( pMap );
-        
+
         return String.valueOf( result );
     }
-    
+
     @GetMapping( "delete" )
     public String propertyDelete( @RequestParam Map<String, Object> pMap ) {
         log.info( "pMap = {}", pMap );
-        
+
         int result = propertyLogic.propertyDelete( pMap );
-        
+
         return String.valueOf( result );
     }
-    
+
+
 }

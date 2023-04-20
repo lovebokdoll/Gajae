@@ -1,8 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Button } from "react-bootstrap";
+import { Button, Offcanvas, OffcanvasBody } from "react-bootstrap";
 import Footer from "../../components/footer/Footer";
 import HeaderNav1 from "../../components/header/HeaderNav1";
-import HeaderNav2 from "../../components/header/HeaderNav2";
 import HotelFacilities from "../../components/hotel/HotelFacilities";
 import HotelInformation from "../../components/hotel/HotelInformation";
 import HotelPolicies from "../../components/hotel/HotelPolicies";
@@ -11,12 +10,16 @@ import { hotelDetailDB } from "../../service/hotelReservLogic";
 import HotelAvailabilityRow from "../../components/hotel/HotelAvailabilityRow";
 import HotelAvailabilityHeader from "../../components/hotel/HotelAvailabilityHeader";
 import Cookies from "js-cookie";
+import styled from "styled-components";
 
 /**
  * 사용자가 선택한 호텔의 정보를 보여준다.
  * @returns 예약 가능 옵션보기 페이지
  */
 const HotelPage = () => {
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
   //스크롤기능구현 배열 ref생성
   const availabilityRef = useRef(null);
   const reviewRef = useRef(null);
@@ -30,12 +33,12 @@ const HotelPage = () => {
     });
   };
 
-  const onMoveToReview = () => {
+  /* const onMoveToReview = () => {
     reviewRef?.current?.scrollIntoView({
       behavior: "smooth",
       block: "start",
     });
-  };
+  }; */
   const onMoveToFacilities = () => {
     facilitiesRef?.current?.scrollIntoView({
       behavior: "smooth",
@@ -75,17 +78,28 @@ const HotelPage = () => {
       <div className="refBtn">
         <Button variant="outline-success" onClick={onMoveToAvailability}>
           옵션정보
-        </Button>{" "}
+        </Button>
         <Button variant="outline-success" onClick={onMoveToFacilities}>
           시설
         </Button>{" "}
         <Button variant="outline-success" onClick={onMoveToPolicies}>
           정책
         </Button>{" "}
-        <Button variant="outline-info" onClick={onMoveToReview}>
+        <Button variant="outline-info" onClick={handleShow}>
           고객후기를 확인하세요!
-        </Button>{" "}
+        </Button>
+        <Offcanvas
+          show={show}
+          onHide={handleClose}
+          style={{ width: "70%" }}
+          placement="end"
+        >
+          <OffcanvasBody>
+            <HotelReview property={property} />
+          </OffcanvasBody>
+        </Offcanvas>
       </div>
+
       <HotelInformation row={property[0]} />
 
       {/* 이동할 컴포넌트에 ref로 넘겨준다 */}
@@ -94,9 +108,7 @@ const HotelPage = () => {
       </div>
 
       <HotelAvailabilityRow row={property} />
-      <div ref={reviewRef}>
-        <HotelReview />
-      </div>
+      <div ref={reviewRef}></div>
       <div ref={facilitiesRef}>
         <HotelFacilities row={property[0]} />
       </div>
@@ -109,3 +121,17 @@ const HotelPage = () => {
 };
 
 export default HotelPage;
+
+const Rating = styled.button`
+  background-color: #003580;
+  margin-left: 30px;
+  color: white;
+  padding: 5px;
+
+  font-weight: bold;
+  border: none;
+`;
+
+const StyledOffcanvasTitle = styled(Offcanvas.Title)`
+  margin-left: 10px;
+`;

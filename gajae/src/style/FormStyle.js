@@ -25,6 +25,7 @@ export const SignupForm = styled(LoginForm)`
 `;
 
 export const MyH1 = styled.h1`
+  padding-top: 50px;
   font-size: 38px;
   margin-bottom: 60px;
   margin-top: 15px;
@@ -296,6 +297,10 @@ export const Title = styled.h1`
   font-size: 40px;
   font-weight: bold;
   marginleft: '10px';
+`;
+
+export const WholeForm = styled.div`
+  background-color: #f5f5f5;
 `;
 
 export const WholeForm = styled.div`

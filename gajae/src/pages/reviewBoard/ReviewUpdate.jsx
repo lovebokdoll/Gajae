@@ -1,21 +1,17 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import ReviewScore from "./ReviewScore";
-import {
-  BButton,
-  ContainerDiv,
-  FormDiv,
-  HeaderDiv,
-} from "../../style/FormStyle";
+import { ContainerDiv, FormDiv, HeaderDiv } from "../../style/FormStyle";
 import HeaderNav1 from "../../components/header/HeaderNav1";
 import ImageUpload from "./ImageUpload";
 import Footer from "../../components/footer/Footer";
-import { useParams } from "react-router-dom";
-import { reviewListDB, reviewUpdateDB } from "../../service/reviewboardLogic";
+import { useLocation } from "react-router-dom";
+import { myReviewDB, reviewUpdateDB } from "../../service/reviewboardLogic";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export const ReviewUpdate = () => {
-  const { USER_NAME } = useParams();
+  const param = useLocation();
+  const reviewNumber = new URLSearchParams(param.search).get("review_number");
 
   const [title, setTitle] = useState("");
   const [reviewgood, setReviewgood] = useState("");
@@ -25,31 +21,36 @@ export const ReviewUpdate = () => {
   const [clean, setClean] = useState(0);
   const [cost, setCost] = useState(0);
   const [location, setLocation] = useState(0);
+  const [imageUrl, setImageUrl] = useState("");
 
   const [errorMessage, setErrorMessage] = useState("");
   const [errorMessageBad, setErrorMessageBad] = useState("");
 
   const textareaRef = useRef(null);
-  const [url, setUrl] = useState("");
 
   useEffect(() => {
-    const reviewList = async () => {
+    const myReview = async () => {
+      const review = {
+        REVIEW_NUMBER: reviewNumber,
+      };
+      const res = await myReviewDB(review);
       console.log(res.data);
-      const res = await reviewListDB();
       const temp = JSON.stringify(res.data); // 문자열 전화
       const jsonDoc = JSON.parse(temp); // 배열 접근 처리
-      setTitle(jsonDoc[0].QNA_TITLE);
+      console.log(jsonDoc);
+      setTitle(jsonDoc[0].REVIEW_TITLE);
       setReviewgood(jsonDoc[0].REVIEW_GOOD);
       setReviewbad(jsonDoc[0].REVIEW_BAD);
-      setService(jsonDoc[0].SERVICE_RATING);
-      setFacility(jsonDoc[0].FACILTY_RATING);
-      setClean(jsonDoc[0].CLEAN_RATING);
-      setCost(jsonDoc[0].COST_RATING);
-      setLocation(jsonDoc[0].LOCATION_RATING);
+      setImageUrl(jsonDoc[0].REVIEW_PHOTO);
+      setService(jsonDoc[0].REVIEW_SERVICE);
+      setFacility(jsonDoc[0].REVIEW_FACILITY);
+      setClean(jsonDoc[0].REVIEW_CLEAN);
+      setCost(jsonDoc[0].REVIEW_LOCATION);
+      setLocation(jsonDoc[0].REVIEW_COST);
     };
-    reviewList();
+    myReview();
   }, []);
-
+  console.log(imageUrl);
   const handleTitle = useCallback((value) => {
     setTitle(value);
   }, []);
@@ -72,11 +73,12 @@ export const ReviewUpdate = () => {
   const reviewUpdate = async () => {
     if (title.trim === "||content.trim()===")
       return alert("게시글 수정에 실패했습니다. ");
-
     const review = {
+      REVIEW_NUMBER: reviewNumber,
       REVIEW_TITLE: title,
       REVIEW_GOOD: reviewgood,
       REVIEW_BAD: reviewbad,
+      REVIEW_PHOTO: imageUrl,
       REVIEW_SERVICE: service,
       REVIEW_FACILITY: facility,
       REVIEW_CLEAN: clean,
@@ -85,11 +87,11 @@ export const ReviewUpdate = () => {
     };
     const res = await reviewUpdateDB(review);
     if (!res.data) return alert("게시글 수정에 실패하였습니다.");
-    navigator("/mypage/review");
+    window.location.href = "/mypage/review";
   };
 
-  const getImage = (imageUrl) => {
-    setUrl(imageUrl);
+  const getImage = (image) => {
+    setImageUrl(image);
   };
 
   const handleInputBlur = () => {
@@ -112,17 +114,6 @@ export const ReviewUpdate = () => {
     }
   };
 
-  const TipDiv = styled.div`
-    height: 50px;
-    display: flex;
-    flex-direction: column;
-    font-family: "KOTRA_GOTHIC";
-    justify-content: space-between;
-    align-items: center; /* 수평 중앙 정렬 */
-    width: 90%;
-    margin: 30px;
-    border: 1px solid #e7e7e7;
-  `;
   return (
     <>
       <HeaderNav1 />
@@ -162,6 +153,7 @@ export const ReviewUpdate = () => {
             <Textarea
               id="dataset-title"
               type="text"
+              value={title}
               maxLength="50"
               placeholder="제목을 입력하세요."
               style={{
@@ -191,7 +183,7 @@ export const ReviewUpdate = () => {
               }}
             >
               <h6>
-                <i class="fa-regular fa-face-smile"></i>
+                <i className="fa-regular fa-face-smile"></i>
                 좋았던 점
               </h6>
               <h6>20/100</h6>
@@ -199,6 +191,7 @@ export const ReviewUpdate = () => {
             <Textarea
               id="dataset-good"
               ref={textareaRef}
+              value={reviewgood}
               maxLength="50"
               placeholder="이용하신 상품의 자세한 리뷰를 남겨주세요."
               style={{
@@ -222,7 +215,7 @@ export const ReviewUpdate = () => {
               }}
             >
               <h6>
-                <i class="fa-regular fa-face-frown"></i>
+                <i className="fa-regular fa-face-frown"></i>
                 아쉬운 점
               </h6>
               <h6>20자 이상</h6>
@@ -230,6 +223,7 @@ export const ReviewUpdate = () => {
             <Textarea
               id="dataset-bad"
               ref={textareaRef}
+              value={reviewbad}
               maxLength="50"
               placeholder="이용하신 상품의 자세한 리뷰를 남겨주세요."
               style={{
@@ -272,7 +266,7 @@ export const ReviewUpdate = () => {
                   alignItems: "center",
                 }}
               ></div>
-              <ImageUpload getImage={getImage} />
+              <ImageUpload imageUrl={imageUrl} getImage={getImage} />
               <hr />
               {/*--------------------------------리뷰점수-------------------------------------  */}
               <ReviewScore
@@ -337,5 +331,17 @@ display: inline-flex; /* 수정된 부분 */
 align-items: center; /* 수정된 부분 */
 &:hover {
   background-color: #007bff;
-color: #fff;
+  color: #fff;
+  `;
+
+const TipDiv = styled.div`
+  height: 50px;
+  display: flex;
+  flex-direction: column;
+  font-family: "KOTRA_GOTHIC";
+  justify-content: space-between;
+  align-items: center; /* 수평 중앙 정렬 */
+  width: 90%;
+  margin: 30px;
+  border: 1px solid #e7e7e7;
 `;

@@ -31,6 +31,7 @@ import Mypage from './pages/mypage/Mypage';
 import Payapge from './pages/pay/Payapge';
 import PropertyListPage from './pages/propertyList/PropertyListPage';
 import ImageUpload from './pages/reviewBoard/ImageUpload';
+import ReviewUpdate from "./pages/reviewBoard/ReviewUpdate";
 import ReviewWritePage from './pages/reviewBoard/ReviewWritePage';
 
 const App = () => {
@@ -71,6 +72,7 @@ const App = () => {
         <Route path="/host/login" exact={true} element={<HostLogin />} />
         <Route path="/host/registerHotel" exact={true} element={<RegisterHotel />} />
         <Route path="/host/registerRoom" exact={true} element={<RegisterRoom />} />
+        <Route path="/review/update" exact={true} element={<ReviewUpdate />} />
       </Routes>
     </div>
   );

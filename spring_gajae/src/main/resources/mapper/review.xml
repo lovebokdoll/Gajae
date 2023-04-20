@@ -5,41 +5,77 @@
 	 	INSERT INTO REVIEW(
 	 		REVIEW_NUMBER, 
 			R_NUMBER, 
-			P_ID, 
 			REVIEW_TITLE, 
 			REVIEW_GOOD, 
 			REVIEW_BAD, 
-			REVIEW_DATE, 
-			USER_NICKNAME, 
+			REVIEW_DATE,
 			REVIEW_PHOTO, 
 			REVIEW_SERVICE, 
 			REVIEW_FACILITY, 
 			REVIEW_CLEAN, 
 			REVIEW_LOCATION,
-			REVIEW_COST 
+			REVIEW_COST,
+			REVIEW_AVERAGE
 			) VALUES (
 			SEQ_REVIEW_NUMBER.NEXTVAL, 
 			SEQ_R_NUMBER.NEXTVAL,
-			SEQ_PROPERTY_NUMBER.NEXTVAL, 
 			#{REVIEW_TITLE}, 
 			#{REVIEW_GOOD}, 
 			#{REVIEW_BAD}, 
-			#{REVIEW_DATE}, 
-			#{USER_NICKNAME}, 
-			#{REVIEW_POTO}, 
+			TO_CHAR( SYSDATE, 'YYYY-MM-DD'), 
+			#{REVIEW_PHOTO},
 			#{REVIEW_SERVICE}, 
 			#{REVIEW_FACILITY}, 
 			#{REVIEW_CLEAN}, 
 			#{REVIEW_LOCATION}, 
-			#{REVIEW_COST}
+			#{REVIEW_COST},
+			#{REVIEW_AVERAGE}
 			)
 	 </insert>
 	 
-	 <select id="reviewList" parameterType="java.util.HashMap" resultType="map">
-	 	SELECT REVIEW_TITLE, REVIEW_GOOD, REVIEW_BAD, REVIEW_DATE
-	 	FROM GAJAE.REVIEW
+	 <select id="propertyList" parameterType="java.util.HashMap" resultType="map">
+		SELECT R.SEQ_R_NUMBER,
+		       R.USER_ID,
+		       RV.REVIEW_AVERAGE, 
+		       TO_DATE(R.R_START_DATE, 'YYYY-MM-DD') AS CHECKIN_DATE,
+		       TO_DATE(R.R_END_DATE, 'YYYY-MM-DD') AS CHECKOUT_DATE,
+		       TO_DATE(R.R_END_DATE, 'YYYY-MM-DD') - TO_DATE(R.R_START_DATE, 'YYYY-MM-DD') AS NUM_NIGHTS,
+		       RV.REVIEW_TITLE, RV.REVIEW_DATE, RV.REVIEW_GOOD, RV.REVIEW_BAD
+		  FROM RESERVATIONS R
+		  JOIN REVIEW RV
+		    ON R.SEQ_R_NUMBER = RV.R_NUMBER
+		 WHERE R.P_ID = #{P_ID}  
 	 </select>
 	 
+	 <!-- 나의 리뷰 리스트  -->
+	 <select id="myReviewList" parameterType="java.util.HashMap" resultType="map">
+	 	SELECT REVIEW_NUMBER, REVIEW_TITLE, REVIEW_GOOD, REVIEW_BAD, REVIEW_DATE
+	 	FROM REVIEW
+	 	ORDER BY REVIEW_NUMBER DESC
+	 </select>
+	 
+	 <!--나의 리뷰 Detail -->
+	 <select id="myReviewDetail" parameterType="java.util.HashMap" resultType="map">
+	 	SELECT REVIEW_NUMBER, REVIEW_TITLE, REVIEW_GOOD, REVIEW_BAD, REVIEW_DATE, REVIEW_PHOTO,
+	 		   REVIEW_SERVICE, REVIEW_FACILITY, REVIEW_CLEAN, REVIEW_LOCATION, REVIEW_COST
+	 	  FROM REVIEW
+	  	 WHERE REVIEW_NUMBER = #{REVIEW_NUMBER}
+	 </select>
+	 
+	 <update id="reviewUpdate" parameterType="map">
+	 	UPDATE REVIEW
+	 	   SET
+	 	   	REVIEW_TITLE = #{REVIEW_TITLE}, 
+			REVIEW_GOOD = #{REVIEW_GOOD}, 
+			REVIEW_BAD = #{REVIEW_BAD}, 
+			REVIEW_DATE = TO_CHAR( SYSDATE, 'YYYY-MM-DD'), 
+			REVIEW_SERVICE = #{REVIEW_SERVICE}, 
+			REVIEW_FACILITY =#{REVIEW_FACILITY}, 
+			REVIEW_CLEAN = #{REVIEW_CLEAN}, 
+			REVIEW_LOCATION = #{REVIEW_LOCATION},
+			REVIEW_COST = #{REVIEW_COST}
+	  WHERE REVIEW_NUMBER = #{REVIEW_NUMBER} 	
+	 </update>
 	 <delete id="reviewDelete" parameterType="map">
 	 	DELETE FROM REVIEW
 	 	WHERE REVIEW_NUMBER = #{REVIEW_NUMBER}

@@ -43,14 +43,12 @@ export const MyPageLinkMove = styled(Link)`
   font-size: 16px;
   text-align: center;
   padding-left: 0;
-
   span {
     display: flex;
     align-items: center;
     justify-content: center;
     width: 30px;
   }
-
   &:focus,
   &:hover,
   &:visited,
@@ -63,7 +61,6 @@ export const MyPageLinkMove = styled(Link)`
 export const MyPageLink = styled(Link)`
   text-decoration: none;
   color: black;
-
   &:focus,
   &:hover,
   &:visited,
@@ -84,7 +81,6 @@ export const SignOutButton = styled.button`
   font-size: 16px;
   cursor: pointer;
   transition: all 0.1s ease;
-
   &:hover {
     background-color: grey;
     color: white;

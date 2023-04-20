@@ -1,9 +1,8 @@
-import { useCallback } from "react";
-import { useEffect, useState } from "react";
-import { Button, Dropdown, Modal } from "react-bootstrap";
-import { Charge_title, TotalPrice } from "../../style/HotelStyle";
-import { Link, useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
+import { useCallback, useEffect, useState } from "react";
+import { Button, Dropdown, Modal } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
+import { Charge_title, TotalPrice } from "../../style/HotelStyle";
 /**
  * HotelPage에서 넘어온 정보를 이용하여 갯수만큼 화면에 뿌려준다.
  * 옵션정보&요금 - 숙소정보
@@ -59,6 +58,7 @@ const HotelAvailabilityRow = ({ row }) => {
     console.log(selectedRoomTypes);
     setSelectRoom(selectedRoomTypes);
   }, [hotels, selectNumber]);
+
   useEffect(() => {
     const list = [];
     row.forEach((item) => {
@@ -93,6 +93,7 @@ const HotelAvailabilityRow = ({ row }) => {
       for (let i = 0; i < selectRoom.length; i++) {
         //쿠키를 언제 지울건지 알아야 함
         const roomtype = roomTypes[i];
+
         //Cookies.remove(roomtype);
       }
       //Cookies.remove(); //기존 쿠키값 왜 삭제 안됨???????
