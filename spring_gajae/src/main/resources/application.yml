@@ -33,7 +33,7 @@ spring:
     host: smtp.naver.com
     port: 465
     username: loveseesee@naver.com
-    password: ghwodbs984!
+    password: 
     protocol: smtps
     properties:
       mail:
