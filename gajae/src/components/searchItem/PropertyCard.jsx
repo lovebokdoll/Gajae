@@ -12,9 +12,10 @@ const PropertyCard = ({ row }) => {
     setIsLiked(!isLiked);
     console.log(isLiked);
   };
-  //예약하기를 눌렀을 때 해당 숙소 타이틀명 쿠키에 넣어서 넘겨주기
+  //예약하기를 눌렀을 때 해당 숙소 이름, 인원 수, 주소, 체크인아웃, 가격, ID 담아서 이동
   const handleHotel = () => {
     Cookies.set('P_TITLE', row.P_TITLE);
+    Cookies.set('ROOM_CAPACITY', row.ROOM_CAPACITY);
     Cookies.set('P_ADDRESS', row.P_ADDRESS);
     Cookies.set('P_CHECKIN', row.P_CHECKIN);
     Cookies.set('P_CHECKOUT', row.P_CHECKOUT);
@@ -50,8 +51,7 @@ const PropertyCard = ({ row }) => {
         </div>
         <div className="siDesc">
           <Link to="./hotel" style={{ textDecoration: 'none' }} />
-        </div>
-        <div className="siDesc">
+
           <Link to="./hotel" style={{ textDecoration: 'none' }}>
             <h1 className="siTitle"> {row.P_TITLE}</h1>
           </Link>
@@ -67,7 +67,7 @@ const PropertyCard = ({ row }) => {
         </div>
         <div className="siDetails">
           <div className="siRanking">
-            <button className="rankigbtn">8.9</button>
+            <button className="rankigbtn">{row.REVIEW_AVERAGE}</button>
           </div>
           <div className="siDetailTexts">
             <span className="siPrice">{Number(row.ROOM_PRICE).toLocaleString() + '원'}</span>

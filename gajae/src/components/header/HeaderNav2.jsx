@@ -11,7 +11,7 @@ const HeaderNav2 = () => {
           <div className="headerList">
             <div className="headerListItem active">
               <FontAwesomeIcon icon={faBed} />
-              <span>숙소</span>
+              <span className='textspan'>숙소</span>
             </div>
             <div className="headerListItem">
               <FontAwesomeIcon icon={faPlane} />

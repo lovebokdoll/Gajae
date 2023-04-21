@@ -22,6 +22,7 @@ import ReactPaginate from 'react-paginate';
 const PropertyListPage = () => {
   const navigate = useNavigate();
   const [ranksList, setRanksList] = useState([]);
+  const [filterList, setFilterList] = useState([]);
 
   //URL 검색어 잘라서 가져오기
   const location = useLocation();
@@ -91,19 +92,13 @@ const PropertyListPage = () => {
     }
   }, [orderBy]);
   console.log(orderBy);
-
-  const ranks = (P_STAR, value) => {
-    if ('1' === P_STAR) {
-      axios
-        .post('http://localhost:9999/search/list', { P_ADDRESS, ROOM_CAPACITY, P_STAR })
-        .then((response) => {
-          setRanksList(response.data);
-          console.log(response.data);
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-    } else if ('2' === P_STAR) {
+  
+  //성급 필터
+  const ranks = (selectRanks) => {
+    const selectedStars = selectRanks.split(','); // 선택한 모든 별점을 ',' 기준으로 분리하여 배열로 만듦
+    
+    // 별점 선택에 따라 요청 보내기
+    selectedStars.forEach((P_STAR) => {
       axios
         .post('http://localhost:9999/search/list', { P_ADDRESS, ROOM_CAPACITY, P_STAR })
         .then((response) => {
@@ -112,37 +107,30 @@ const PropertyListPage = () => {
         .catch((error) => {
           console.error(error);
         });
-    } else if ('3' === P_STAR) {
-      axios
-        .post('http://localhost:9999/search/list', { P_ADDRESS, ROOM_CAPACITY, P_STAR })
-        .then((response) => {
-          setProperty(response.data);
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-    } else if ('4' === P_STAR) {
-      axios
-        .post('http://localhost:9999/search/list', { P_ADDRESS, ROOM_CAPACITY, P_STAR })
-        .then((response) => {
-          setProperty(response.data);
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-    } else if ('5' === P_STAR) {
-      axios
-        .post('http://localhost:9999/search/list', { P_ADDRESS, ROOM_CAPACITY, P_STAR })
-        .then((response) => {
-          setProperty(response.data);
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-    }
+    });
   };
 
   useEffect(() => {}, [setRanksList]);
+
+  //부대시설 필터
+  const filters = (selectFilter) => {
+    const selectedFilter = selectFilter.split(','); // ',' 기준으로 분리하여 배열로 만듦
+    
+    // 별점 선택에 따라 요청 보내기
+    selectedFilter.forEach((P_EXTRA) => {
+      axios
+        .post('http://localhost:9999/search/list', { P_ADDRESS, ROOM_CAPACITY, P_EXTRA })
+        .then((response) => {
+          setProperty(response.data);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    });
+  };
+
+  useEffect(() => {}, [setFilterList]);
+
 
   const handleMap = () => {
     navigate('/kakaomap');
@@ -175,7 +163,7 @@ const PropertyListPage = () => {
                 <BButton id="mapbtn" type="mapbotton" style={{ height: '60px', width: '200px' }} onClick={() => handleMap}>
                   지도에서 보기
                 </BButton>
-                <FilterSidebar ranks={ranks} />
+                <FilterSidebar ranks={ranks} filters={filters} />
               </div>
             </div>
             <div className="col-lg-9 col-md-12">
