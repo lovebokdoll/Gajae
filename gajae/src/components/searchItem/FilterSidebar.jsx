@@ -111,7 +111,7 @@ const fiveRanking = () => {
 
   return (
     <> 
-    <div className='filter-group' style={{marginTop : "20px"}}>
+    <div className='filter-group' style={{marginTop : "20px", width: '200px'}}>
     <label><div className='filter'>필터</div> </label>
       <hr/>
 

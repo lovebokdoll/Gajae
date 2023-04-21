@@ -129,7 +129,9 @@ const PropertyListPage = () => {
     });
   };
 
-  useEffect(() => {}, [setFilterList]);
+  useEffect(() => {
+
+  }, [setFilterList]);
 
 
   const handleMap = () => {

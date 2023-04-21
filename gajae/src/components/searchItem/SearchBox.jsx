@@ -67,13 +67,13 @@ const SearchBox = () => {
       >
         <div style={{ marginTop: '10px' }}>
         <FontAwesomeIcon icon={faBed} />
-          <label style={{ fontSize: '15px', marginBottom: '10px', fontFamily: 'BlinkMacSystemFont', color: '#333' }}>
+          <label style={{ fontSize: '15px', marginBottom: '10px', fontFamily: 'BlinkMacSystemFont', color: '#333'}}>
             여행지/숙소 이름
           </label>
           <br />
           <input
             className="addressbox"
-            style={{ paddingLeft: '15px', fontSize: '15px' }}
+            style={{ paddingLeft: '15px', fontSize: '15px'}}
             defaultValue={ADDRESS}
             onChange={(e) => setP_Address(e.target.value)}
             type="text"
@@ -92,9 +92,9 @@ const SearchBox = () => {
         </div>
 
         <div className="headerSearchItem">
-          <span onClick={() => setOpenOptions(!openOptions)} className="headerSearchText">{`${ROOM_CAPACITY.adult} 명`}</span>
+          <span onClick={() => setOpenOptions(!openOptions)} className="headerSearchText" >{`${ROOM_CAPACITY.adult} 명`}</span>
           {openOptions && (
-                  <div className="optionsBar">
+                  <div className="optionsBar" style={{marginLeft:'50px'}}>
                   <div className="optionItem">
                     <span className="optionText">adult</span>
                     <div className="optionCounter">
