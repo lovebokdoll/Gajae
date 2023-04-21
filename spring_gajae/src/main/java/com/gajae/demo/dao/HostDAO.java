@@ -44,7 +44,7 @@ public class HostDAO {
 	//숙소 pid 채번하기
 	public int getPid() {
 		int pid = 0;
-		pid = sqlSessionTemplate.selectOne( "host.getPid");
+		pid = sqlSessionTemplate.selectOne("host.getPid");
 		return pid;
 		
 	}
@@ -80,6 +80,13 @@ public class HostDAO {
 		int result =0;
 		log.info("map = {}", map);
 		 result = sqlSessionTemplate.insert( "host.hostfacInsert",map );
+		return result;
+	}
+
+	public int hostextraInsert(List<Map<String, Object>> list) {
+		int result =0;
+		log.info("map = {}", list);
+		 result = sqlSessionTemplate.update( "host.hostextraInsert",list );
 		return result;
 	}
 

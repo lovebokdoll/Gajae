@@ -2,3 +2,16 @@
   background-color: #003580;
   height: 120px;
 }
+.navContainer {
+  background-color: #003580;
+  height: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.nav-link {
+  position: relative;
+}
+#main_logo {
+  left: 100;
+}

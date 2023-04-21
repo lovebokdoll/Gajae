@@ -32,8 +32,6 @@
 		HOST_PW =#{HOST_PW}
 	</select>
 
-
-
 	<insert id="signup">
 		INSERT INTO GAJAE.HOST
 		(
@@ -42,7 +40,8 @@
 		HOST_PW,
 		HOST_EMAIL,
 		HOST_TEL,
-		HOST_HIREDATE
+		HOST_HIREDATE,
+		HOST_BUSINESS_NUM
 		)
 		VALUES
 		(
@@ -53,23 +52,29 @@
 		#{HOST_TEL},
 		TO_CHAR(
 		SYSDATE, 'YYYY-MM-DD
-		HH24:MI:SS')
+		HH24:MI:SS'),
+		#{HOST_BUSINESS_NUM}
 		)
 	</insert>
+
 	<!-- properties에서 최대값을 찾아서 1을 더해서 채번하는 쿼리문 -->
 	<select id="getPid" parameterType="int" resultType="int">
-		SELECT max(p_id)+1 FROM properties	
+		SELECT
+		max(p_id)+1 FROM properties
 	</select>
+
 	<!-- 호텔등록 -->
 	<update id="propertyInsert" parameterType="list">
-		INSERT ALL 
-		<foreach collection="list" item="item" index="index" separator=" ">
-			INTO GAJAE.PROPERTIES(P_ID,ROOM_ID,P_TITLE,P_STAR,P_POSTAL,P_TEL,P_ADDRESS,P_OVERVIEW,
-		                          P_SCALE,P_CHECKIN,P_CHECKOUT,P_REFUND,P_HIREDATE,HOST_BUSINESS_NUM)
-		                   VALUES(#{item.p_id},#{item.r_id},#{item.p_title},#{item.p_star},#{item.p_postal},#{item.p_tel},#{item.p_address},
-		                          #{item.p_overview},#{item.p_scale},#{item.p_checkin},#{item.p_checkout},#{item.p_refund},
-		                          TO_DATE(SYSDATE, 'YYYY-MM-DDHH24:MI:SS'),#{item.host_business_num}		                   
-		                         )
+		INSERT ALL
+		<foreach collection="list" item="item" index="index"
+			separator=" ">
+			INTO
+			GAJAE.PROPERTIES(P_ID,ROOM_ID,P_TITLE,P_STAR,P_POSTAL,P_TEL,P_ADDRESS,P_OVERVIEW,
+			P_SCALE,P_CHECKIN,P_CHECKOUT,P_REFUND,P_HIREDATE,P_PHOTO,HOST_BUSINESS_NUM)
+			VALUES(#{item.p_id},#{item.r_id},#{item.p_title},#{item.p_star},#{item.p_postal},#{item.p_tel},#{item.p_address},
+			#{item.p_overview},#{item.p_scale},#{item.p_checkin},#{item.p_checkout},#{item.p_refund},
+			TO_DATE(SYSDATE, 'YYYY-MM-DDHH24:MI:SS'),#{item.p_photo},#{item.host_business_num}
+			)
 		</foreach>
 		SELECT * FROM dual
 	</update>
@@ -126,13 +131,57 @@
 		GAJAE.PRO_FACILITIES
 		(
 		P_ID,
-		FAC_ROOM
+		FAC_ROOM ,
+		FAC_RESTARUANT ,
+		FAC_SECURITY ,
+		FAC_BATHROOM ,
+		FAC_PARKING ,
+		FAC_BED ,
+		FAC_LIVING ,
+		FAC_MEDIA ,
+		FAC_INTERNET ,
+		FAC_SERVICE ,
+		FAC_GENERAL ,
+		FAC_LANGUAGE ,
+		FAC_KITCHEN ,
+		FAC_RECEPTION
 		)
 		VALUES
 		(
 		#{P_ID},
-		#{FAC_ROOM}
+		#{FAC_ROOM},
+		#{FAC_RESTARUANT},
+		#{FAC_SECURITY},
+		#{FAC_BATHROOM},
+		#{FAC_PARKING},
+		#{FAC_BED},
+		#{FAC_LIVING},
+		#{FAC_MEDIA},
+		#{FAC_INTERNET},
+		#{FAC_SERVICE},
+		#{FAC_GENERAL},
+		#{FAC_LANGUAGE},
+		#{FAC_KITCHEN},
+		#{FAC_RECEPTION}
 		)
 	</insert>
-
+	
+		<update id="hostextraInsert" parameterType="list">
+		INSERT ALL 
+		<foreach collection="list" item="item" index="index"  separator=" ">
+		INTO
+		GAJAE.P_EXTRAS (
+		P_ID,
+		P_EXTRA_SEQ,
+		P_EXTRA
+		)
+		VALUES
+		(
+		#{item.P_ID},
+		#{item.P_EXTRA_SEQ},
+		#{item.P_EXTRA}
+		)
+		</foreach>
+		SELECT * FROM dual
+		</update>
 </mapper>

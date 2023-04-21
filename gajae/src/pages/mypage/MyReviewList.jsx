@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { reviewListDB } from "../../service/reviewboardLogic";
-import Dropdowntoggle from "../reviewBoard/Dropdowntoggle";
+import Dropdowntoggle from "../../components/review/Dropdowntoggle";
 
 const MyReviewList = ({ userId }) => {
   const [myreview, setMyreview] = useState([]);

@@ -122,6 +122,20 @@ public class HostController {
 		log.info("result = {}", result);
 		return String.valueOf(result);
 	}
+	@PostMapping("hostextraInsert")
+	public String hostextraInsert(@RequestBody Map<String, Object> map) {
+		
+		log.info("map = {}", map);
+		// 유효성검사
+		for (String key : map.keySet()) {
+			Object value = map.get(key);
+			if (value == null || value.toString().trim().isEmpty()) {
+			}
+		}
+		int result = hostLogic.hostextraInsert(map);
+		log.info("result = {}", result);
+		return String.valueOf(result);
+	}
 
 	// 아이디 중복체크
 

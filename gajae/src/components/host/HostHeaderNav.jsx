@@ -2,10 +2,9 @@ import React, { useEffect, useState } from "react";
 import { Container, Nav, Navbar } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import styled from "styled-components";
 import MyPageDropDown from "../mypage/MyPageDropDown";
-import "./headerNav1.css";
-
+import styled from "styled-components";
+import "./hostheaderNav.css";
 const HeaderButton = styled.button`
   color: white;
   background-color: #003580;
@@ -14,15 +13,15 @@ const HeaderButton = styled.button`
   border-radius: 5px;
 `;
 
-const HeaderNav1 = () => {
+const HostHeaderNav = () => {
   const navigate = useNavigate();
 
   const { userAuth } = useSelector((state) => state);
 
-  const [userId, setUserId] = useState();
+  const [hostId, setHostId] = useState();
 
   useEffect(() => {
-    setUserId(window.localStorage.getItem("userId"));
+    setHostId(window.localStorage.getItem("hostId"));
   }, []);
 
   return (
@@ -43,37 +42,14 @@ const HeaderNav1 = () => {
                 }}
               >
                 <HeaderButton>
-                  <span>KRW</span>
-                </HeaderButton>
-                <HeaderButton>
                   <img src="/images/korea.svg.png"></img>
                 </HeaderButton>
-                {userId ? (
-                  <MyPageDropDown />
-                ) : (
-                  <>
-                    <Link
-                      to="/signup"
-                      style={{ color: "white", marginRight: "10px" }}
-                      className="nav-link"
-                    >
-                      가입하기
-                    </Link>
-                    <Link
-                      to="/login"
-                      style={{ color: "white", marginRight: "10px" }}
-                      className="nav-link"
-                    >
-                      로그인
-                    </Link>
-                  </>
-                )}
+                {hostId ? <MyPageDropDown /> : <></>}
                 <Link
                   to="/host"
                   style={{ color: "white", marginRight: "10px" }}
                   className="nav-link"
                 >
-                  
                   숙소등록
                 </Link>
               </div>
@@ -85,4 +61,4 @@ const HeaderNav1 = () => {
   );
 };
 
-export default HeaderNav1;
+export default HostHeaderNav;

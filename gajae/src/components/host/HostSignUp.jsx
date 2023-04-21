@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { setToastMessage } from "../../redux/toastStatus/action";
 import {
   checkPassword,
+  regexBusinessNum,
   regexEmail,
   regexID,
   regexMobile,
@@ -22,8 +23,7 @@ import {
   SubmitButton,
 } from "../../style/FormStyle";
 import Footer from "../footer/Footer";
-import HeaderNav1 from "../header/HeaderNav1";
-import HeaderNav2 from "../header/HeaderNav2";
+import HostHeaderNav from "./HostHeaderNav";
 
 const HostSignUp = () => {
   const navigate = useNavigate();
@@ -43,6 +43,7 @@ const HostSignUp = () => {
     password2: "",
     name: "",
     mobile: "",
+    host_business_num: "",
   });
 
   const [star, setStar] = useState({
@@ -52,6 +53,7 @@ const HostSignUp = () => {
     password2: "*",
     name: "*",
     mobile: "*",
+    host_business_num: "",
   });
 
   useEffect(() => {
@@ -91,6 +93,9 @@ const HostSignUp = () => {
     } else if (key === "tel") {
       result = regexMobile(event);
       console.log(result);
+    } else if (key === "businessNum ") {
+      result = regexBusinessNum(event);
+      console.log(result);
     }
     setComment({ ...comment, [key]: result });
     if (result) {
@@ -113,6 +118,7 @@ const HostSignUp = () => {
     host_name: "",
     host_email: "",
     host_tel: "",
+    host_business_num: "",
   });
 
   /**
@@ -240,7 +246,8 @@ const HostSignUp = () => {
       !hostInfo.host_email ||
       !hostInfo.host_pw2 ||
       !hostInfo.host_name ||
-      !hostInfo.host_tel
+      !hostInfo.host_tel ||
+      !hostInfo.host_business_num
     ) {
       dispatch(setToastMessage("필수정보를 모두 입력해주세요."));
       return;
@@ -253,6 +260,7 @@ const HostSignUp = () => {
           HOST_NAME: hostInfo.host_name,
           HOST_EMAIL: hostInfo.host_email,
           HOST_TEL: hostInfo.host_tel,
+          HOST_BUSINESS_NUM: hostInfo.host_business_num,
         };
         console.log("hostRecord ===>", hostRecord);
         const response = await signupDB(hostRecord);
@@ -261,7 +269,7 @@ const HostSignUp = () => {
         if (response.data !== 1) {
           return "회원가입 실패";
         } else if (response.data == 1) {
-          navigate("/host");
+          navigate("/host/registerHotel");
         }
       } catch (error) {
         console.log("error ===>", error);
@@ -271,12 +279,12 @@ const HostSignUp = () => {
     }
   };
 
-  const handleSignup = (event) => {
+  const handleSignup = () => {
     signup();
   };
   return (
     <>
-      <HeaderNav1 />
+      <HostHeaderNav />
       <div>이미 파트너로 등록하셨나요?</div>
       <Link to="/host/login">파트너로 로그인</Link>
       <div style={{ display: "flex", justifyContent: "center" }}>
@@ -416,9 +424,22 @@ const HostSignUp = () => {
                   </div>
                   <MyLabelAb>{comment.password2}</MyLabelAb>
                 </MyLabel>
-              </div>
-
-              <div style={{ padding: "30px 30px 0px 30px" }}>
+                <MyLabel>
+                  {" "}
+                  사업자번호{" "}
+                  <span style={{ color: "red" }}>{star.host_business_num}</span>
+                  <MyInput
+                    type="text"
+                    id="host_business_num"
+                    defaultValue={hostInfo.host_business_num}
+                    placeholder="사업자번호를 입력해주세요."
+                    onChange={(e) => {
+                      changeHostInfo(e);
+                      regex("businessNum", e);
+                    }}
+                  />
+                  <MyLabelAb>{comment.host_business_num}</MyLabelAb>
+                </MyLabel>
                 <MyLabel>
                   {" "}
                   이름 <span style={{ color: "red" }}>{star.name}</span>
@@ -434,7 +455,6 @@ const HostSignUp = () => {
                   />
                   <MyLabelAb>{comment.name}</MyLabelAb>
                 </MyLabel>
-                <div style={{ display: "flex" }}></div>
                 <MyLabel>
                   {" "}
                   전화번호 <span style={{ color: "red" }}>{star.tel}</span>

@@ -73,3 +73,17 @@ export const hostfacInsertDB = (information) => {
     }
   });
 };
+export const hostextraInsertDB = (information) => {
+  return new Promise((resolve, reject) => {
+    try {
+      const response = axios({
+        method: "post", //@RequestBody
+        url: process.env.REACT_APP_SPRING_IP + "host/hostextraInsert",
+        data: information, //post방식으로 전송시 반드시 data속성으로 파라미터 줄 것
+      });
+      resolve(response);
+    } catch (error) {
+      reject(error);
+    }
+  });
+};

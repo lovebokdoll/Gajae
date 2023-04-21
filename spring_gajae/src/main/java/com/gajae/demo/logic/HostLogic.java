@@ -77,6 +77,7 @@ public class HostLogic {
 			pMap.put("p_checkin", map.get("p_checkin"));
 			pMap.put("p_checkout", map.get("p_checkout"));
 			pMap.put("p_star", map.get("p_star"));
+			pMap.put("p_photo", map.get("p_photo"));
 			pMap.put("host_business_num", map.get("host_business_num"));
 			log.info(rids[i]);
 			//log.info("before : ", map);
@@ -98,7 +99,7 @@ public class HostLogic {
 		// result는 성공유무를 나타내는 숫자가 아니라 호텔등록시에 채번된 시퀀스를 돌려받는 값이여야 한다.
 		int result = 0;
 		result = hostDAO.propertyInsert(list);
-		log.info("등록되었는지 : ",result);
+		log.info("result={}",result+"건 등록되었습니다.");
 		// for문 돌려서 1건만 가지고 insert하기
 		//List<Map<String, Object>> rList = new ArrayList<>();
 		//ArrayList<String> arrayList = (ArrayList<String>) map.get("room_id");
@@ -144,7 +145,7 @@ public class HostLogic {
 //			}
 
 		// }
-		return result;
+		return p_id;
 
 	}
 
@@ -177,6 +178,30 @@ public class HostLogic {
 	public int hostfacInsert(Map<String, Object> map) {
 		int result = 0;
 		result = hostDAO.hostfacInsert(map);
+		return result;
+	}
+
+
+	public int hostextraInsert(Map<String, Object> map) {
+		log.info("map={}", map);
+		int result = 0;
+		//ArrayList<String> arrayList = (ArrayList<String>) map.get("P_EXTRA");
+		//String[] extratypes = new String[] { (String) map.get("P_EXTRA") };
+		  String[] extratypes = ((String) map.get("P_EXTRA")).split(",");
+		log.info("P_EXTRA={}", extratypes);
+		
+		ArrayList<Map<String,Object>> list = new ArrayList<>();
+		Map<String,Object> pMap = null;
+		for(int i=0;i<extratypes.length;i++) {
+			pMap = new HashMap<>();
+			pMap.put("P_ID", map.get("P_ID"));
+			pMap.put("P_EXTRA_SEQ", String.valueOf(i+1));
+			pMap.put("P_EXTRA", extratypes[i].trim());
+			log.info(extratypes[i]);
+			list.add(pMap);
+		}
+		log.info("rList={}", list);
+		result = hostDAO.hostextraInsert(list);
 		return result;
 	}
 

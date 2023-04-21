@@ -12,10 +12,10 @@ import Footer from "../../components/footer/Footer";
 import { useCallback, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { reviewInsertDB } from "../../service/reviewboardLogic";
-import ReviewScore from "./ReviewScore";
-import ImageUpload from "./ImageUpload";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import ImageUpload from "../../components/review/ImageUpload";
+import ReviewScore from "../../components/review/ReviewScore";
 
 /**
  *

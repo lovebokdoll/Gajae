@@ -1,15 +1,12 @@
-import { CardGroup } from "react-bootstrap";
-import {
-  Background,
-  Content,
-  R_CardGroup,
-  RegisterContainer,
-  RegisterContainerContent,
-  RegisterContainerTitle,
-  Title,
-} from "../../style/HostStyle";
+import { Background, Content, R_CardGroup, Title } from "../../style/HostStyle";
+import { useState } from "react";
+import { useEffect } from "react";
 
 const HostMainPage = () => {
+  const [hostId, setHostId] = useState();
+  useEffect(() => {
+    setHostId(window.localStorage.getItem("hostId"));
+  }, []);
   return (
     <>
       <Background>
@@ -33,10 +30,23 @@ const HostMainPage = () => {
               >
                 숙소 새로 등록하기
               </h5>
-              <p class="card-text" style={{ fontSize: "16px", padding: "5%" }}>
-                등록을 시작하려면 파트너로
-                <br /> 로그인을 해주세요.
-              </p>
+              {hostId ? (
+                <p
+                  class="card-text"
+                  style={{ fontSize: "16px", padding: "5%" }}
+                >
+                  호텔 등록을 시작하세요!
+                </p>
+              ) : (
+                <p
+                  class="card-text"
+                  style={{ fontSize: "16px", padding: "5%" }}
+                >
+                  등록을 시작하려면 파트너로
+                  <br /> 로그인을 해주세요.
+                </p>
+              )}
+
               <a
                 href="/host/signup"
                 class="btn btn-warning"
