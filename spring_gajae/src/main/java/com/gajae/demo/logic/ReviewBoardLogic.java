@@ -37,16 +37,7 @@ public class ReviewBoardLogic {
 	public List<Map<String, Object>> myReviewList(Map<String, Object> pMap) {
 		log.info("myReviewList호출 성공");
 		List<Map<String, Object>> rList = null;
-		int REVIEW_NUMBER = 0;
-		if (pMap.get("REVIEW_NUMBER") != null) {
-			REVIEW_NUMBER = Integer.parseInt(pMap.get("REVIEW_NUMBER").toString());
-			pMap.put("REVIEW_NUMBER", REVIEW_NUMBER);
-		}
 		rList = reviewBoardDao.myReviewList(pMap);		
-		Map<String, Object> review = rList.get(0);
-		String imageUrl = (String) review.get("REVIEW_POTO");
-		/* byte[] imageBytes = imageHandler.imagehandle(imageUrl); */
-		/* review.put("REVIEW_POTO", imageBytes); */
 	    return rList;
 	}
 

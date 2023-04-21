@@ -1,13 +1,13 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import ReviewScore from "./ReviewScore";
 import { ContainerDiv, FormDiv, HeaderDiv } from "../../style/FormStyle";
 import HeaderNav1 from "../../components/header/HeaderNav1";
-import ImageUpload from "./ImageUpload";
 import Footer from "../../components/footer/Footer";
 import { useLocation } from "react-router-dom";
 import { myReviewDB, reviewUpdateDB } from "../../service/reviewboardLogic";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import ImageUpload from "../../components/review/ImageUpload";
+import ReviewScore from "../../components/review/ReviewScore";
 
 export const ReviewUpdate = () => {
   const param = useLocation();

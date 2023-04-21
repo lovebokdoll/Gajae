@@ -24,7 +24,7 @@ const HotelReview = ({ property }) => {
     };
     p_reviewList();
   }, [property]);
-
+  console.log(review);
   useEffect(() => {
     if (review) {
       const scores = review.map((review) => review.REVIEW_AVERAGE);
@@ -64,6 +64,7 @@ const HotelReview = ({ property }) => {
                       </p>
                       <p>
                         <i className="fa-solid fa-people-group"></i>
+                        {review.R_PEOPLE}명
                       </p>
                     </PropertyDescription>
                   </PropertyContainer>

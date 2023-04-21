@@ -4,9 +4,11 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.gajae.demo.logic.ResultLogic;
@@ -51,4 +53,13 @@ public class ResultController {
         String result = gson.toJson( resultList );
         return result;
     }
+    //위도, 경도 가져오기
+    @GetMapping("markList") 
+	public List<Map<String, Object>>markList(){
+		log.info("propertyList 호출 ");
+		List<Map<String, Object>> mList = null;
+		mList = searchLogic.markList();
+		log.info(mList);
+		return mList;
+	}
 }

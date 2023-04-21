@@ -33,6 +33,8 @@ local.properties
 .factorypath
 
 프로젝트관련문서_to_ignore/
+/application.yml
+/config/application.yml
 
 # PDT-specific (PHP Development Tools)
 .buildpath

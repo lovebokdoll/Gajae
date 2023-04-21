@@ -17,6 +17,7 @@ import {
 
 const MyReviewPage = () => {
   const userId = localStorage.getItem('userId');
+  
   return (
     <>
       <HeaderNav1 />

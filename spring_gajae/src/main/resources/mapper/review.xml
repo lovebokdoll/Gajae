@@ -36,6 +36,7 @@
 	 <select id="propertyList" parameterType="java.util.HashMap" resultType="map">
 		SELECT R.SEQ_R_NUMBER,
 		       R.USER_ID,
+		       R.R_PEOPLE,
 		       RV.REVIEW_AVERAGE, 
 		       TO_DATE(R.R_START_DATE, 'YYYY-MM-DD') AS CHECKIN_DATE,
 		       TO_DATE(R.R_END_DATE, 'YYYY-MM-DD') AS CHECKOUT_DATE,
@@ -49,9 +50,12 @@
 	 
 	 <!-- 나의 리뷰 리스트  -->
 	 <select id="myReviewList" parameterType="java.util.HashMap" resultType="map">
-	 	SELECT REVIEW_NUMBER, REVIEW_TITLE, REVIEW_GOOD, REVIEW_BAD, REVIEW_DATE
-	 	FROM REVIEW
-	 	ORDER BY REVIEW_NUMBER DESC
+		SELECT R.REVIEW_NUMBER, R.REVIEW_TITLE, R.REVIEW_DATE, R.REVIEW_GOOD, 
+		       R.REVIEW_BAD, R.REVIEW_PHOTO, R.REVIEW_SERVICE, R.REVIEW_FACILITY, 
+		       R.REVIEW_CLEAN, R.REVIEW_COST, R.REVIEW_LOCATION, R.REVIEW_AVERAGE
+		FROM REVIEW R JOIN RESERVATIONS RV ON R.REVIEW_NUMBER = RV.REVIEW_NUMBER
+		WHERE RV.USER_ID = #{USER_ID}
+		ORDER BY R.REVIEW_NUMBER DESC
 	 </select>
 	 
 	 <!--나의 리뷰 Detail -->
