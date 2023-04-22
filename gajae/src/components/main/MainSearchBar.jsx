@@ -1,4 +1,4 @@
-import { faBed, faCalendarDays, faCar, faPerson, faPlane, faTaxi } from '@fortawesome/free-solid-svg-icons';
+import { faBed, faCalendarDays, faCar, faHotel, faPerson, faPlane, faSuitcaseRolling, faTaxi } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { format } from 'date-fns';
 import { useState } from 'react';
@@ -8,13 +8,11 @@ import 'react-date-range/dist/theme/default.css'; // theme css file
 import { useNavigate } from 'react-router-dom';
 import './mainSearchBar.css';
 import axios from 'axios';
-
+import { BButton } from '../../style/FormStyle';
 const MainSearchBar = ({ type }) => {
   const navigate = useNavigate();
-
   //유효성 검사
   const [addressError, setAddressError] = useState(false);
-
   //지역 입력
   const [P_ADDRESS, setP_Address] = useState('');
   console.log(P_ADDRESS)
@@ -31,7 +29,6 @@ const MainSearchBar = ({ type }) => {
       key: 'selection',
     },
   ]);
-
   const [openOptions, setOpenOptions] = useState(false);
   const handleOption = (name, operation) => {
     setRoom_Capacity((prev) => {
@@ -41,8 +38,6 @@ const MainSearchBar = ({ type }) => {
       };
     });
   };
-
-
   const handleSearch = (e) => {
     const roomCapacity = parseInt(ROOM_CAPACITY.adult); // ROOM_CAPACITY를 숫자형태로 변환
     navigate(`/propertylist/?P_ADDRESS=${P_ADDRESS}&ROOM_CAPACITY=${roomCapacity}`, { state: { P_ADDRESS, date, ROOM_CAPACITY } });
@@ -58,13 +53,12 @@ const MainSearchBar = ({ type }) => {
         // 에러 처리 코드
       });
   };
-
   return (
     <div className="header">
     <div className={type === 'list' ? 'headerContainer listMode' : 'headerContainer'}>
       <div className="headerList">
         <div className="headerListItem active">
-          <FontAwesomeIcon icon={faBed} />
+          <FontAwesomeIcon icon={faHotel}  />
           <span>숙소</span>
         </div>
         <div className="headerListItem">
@@ -86,14 +80,11 @@ const MainSearchBar = ({ type }) => {
       </div>
       {type !== 'list' && (
         <>
-          <h1 className="headerTitle" style={{textAlign:"center"}}>새로운 모험, 새로운 나를 만나다.</h1>
-            <p className="headerDesc">
-            여행을 계획하는 순간부터, 이미 여행은 시작된 것입니다
-            </p>
-          <div className="headerSearch">
+          <h4 className="headerTitle" style={{textAlign:"center", color : '#1D242B', marginTop: '30px'}}>새로운 모험, 새로운 경험, 그리고 새로운 나를 만나다</h4>
+          <div id="headerSearch">
             <div className="headerSearchText">
               <form onSubmit={handleSearch}>
-              <FontAwesomeIcon icon={faBed} className="headerIcon" />
+              <FontAwesomeIcon icon={faSuitcaseRolling} style={{marginRight : '10px'}} className="headerIcon" />
               <input
               type="text"
               placeholder="어디로 떠나시나요?"
@@ -109,7 +100,7 @@ const MainSearchBar = ({ type }) => {
             </form>
             </div>
             <div className="headerSearchDate">
-              <FontAwesomeIcon icon={faCalendarDays} className="headerIcon" />
+              <FontAwesomeIcon icon={faCalendarDays} style={{marginRight : '10px'}} className="headerIcon" />
               <span onClick={() => setOpenDate(!openDate)} className="headerSearchText">{`${format(
                 date[0].startDate,
                 'MM/dd/yyyy'
@@ -129,7 +120,7 @@ const MainSearchBar = ({ type }) => {
               )}
             </div>
             <div className="headerSearchAdult">
-              <FontAwesomeIcon icon={faPerson} className="headerIcon" />
+              <FontAwesomeIcon icon={faPerson} style={{marginRight : '10px'}} className="headerIcon" />
               <span
                 onClick={() => setOpenOptions(!openOptions)}
                 className="headerSearchText"
@@ -152,9 +143,9 @@ const MainSearchBar = ({ type }) => {
               )}
             </div>
             <div className="SearchBtn">
-              <button className="headerBtn" type="submit" disabled={!P_ADDRESS} onClick={handleSearch}>
+              <BButton className="headerBtn" style={{backgroundColor : '#0077C0', width : '50px'}} type="submit" disabled={!P_ADDRESS} onClick={handleSearch}>
                 검색
-              </button>
+              </BButton>
             </div>
           </div>
         </>
@@ -163,5 +154,4 @@ const MainSearchBar = ({ type }) => {
   </div>
 );
 };
-
 export default MainSearchBar;

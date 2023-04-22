@@ -28,6 +28,10 @@
   color: black;
 }
 
+#mapbtn:hover{
+  transform: scale(1.03);
+  }
+
 .pagination {
   display: flex;
   justify-content: center;
