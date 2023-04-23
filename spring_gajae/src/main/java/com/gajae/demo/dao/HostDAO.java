@@ -1,5 +1,6 @@
 package com.gajae.demo.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -90,9 +91,34 @@ public class HostDAO {
 		return result;
 	}
 
+	public List<Map<String, Object>> hotelList(Map<String, Object> map) {
+		log.info("map = {}", map);
+		 List<Map<String, Object>>  result = sqlSessionTemplate.selectList( "host.hotelList",map );
+			return result;
+	}
 
+	public List<Map<String, Object>> hotelDetail(Map<String, Object> map) {
+		log.info("map = {}", map);
+		 List<Map<String, Object>>  result = sqlSessionTemplate.selectList( "host.hotelDetail",map );
+			return result;
+	}
 
+	public List<Map<String, Object>> hotelUpdate(ArrayList<Map<String, Object>> list) {
+		log.info("map = {}", list);
+		 List<Map<String, Object>>  result = sqlSessionTemplate.selectList( "host.hotelUpdate",list );
+			return result;
+	}
 
+	public Map<String, Object> facPidExist(Map<String, Object> map) {
+		Map<String, Object> result =null;
+		log.info("map = {}", map);
+		 result = sqlSessionTemplate.selectOne( "host.facPidExist",map );
+		return result;
+	}
+	
+	
+	
 
+	
 	
 }

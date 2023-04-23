@@ -1,11 +1,15 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import DropdownItem from "react-bootstrap/esm/DropdownItem";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-const Dropdowntoggle = ({ review, onEdit, onDelete }) => {
+const Dropdowntoggle = ({ hotel, review, onEdit, onDelete }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
+  const [hostId, setHostId] = useState();
+  useEffect(() => {
+    setHostId(window.localStorage.getItem("hostId"));
+  }, []);
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
   };
@@ -22,9 +26,14 @@ const Dropdowntoggle = ({ review, onEdit, onDelete }) => {
         <div
           className={isDropdownOpen ? "dropdown-menu show" : "dropdown-menu"}
         >
-          <DropdownItem onClick={() => onEdit(review.REVIEW_NUMBER)}>
-            수정
-          </DropdownItem>
+          {hostId ? (
+            <DropdownItem onClick={() => onEdit(hotel.P_ID)}>수정</DropdownItem>
+          ) : (
+            <DropdownItem onClick={() => onEdit(review.REVIEW_NUMBER)}>
+              수정
+            </DropdownItem>
+          )}
+
           <DropdownItem onClick={onDelete}>삭제</DropdownItem>
         </div>
       </div>

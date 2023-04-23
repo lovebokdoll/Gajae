@@ -43,6 +43,83 @@ export const overlapCheckDB = (params) => {
     }
   });
 };
+// 호텔 불러오기
+export const hostHotelListDB = (params) => {
+  return new Promise((resolve, reject) => {
+    try {
+      const response = axios({
+        method: "get",
+        url: process.env.REACT_APP_SPRING_IP + "host/hotelList",
+        params: params,
+      });
+      resolve(response);
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+// p_id 불러오기
+export const hostfacExistDB = (params) => {
+  return new Promise((resolve, reject) => {
+    try {
+      const response = axios({
+        method: "get",
+        url: process.env.REACT_APP_SPRING_IP + "host/facPidExist",
+        params: params,
+      });
+      resolve(response);
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+export const hostextraExistDB = (params) => {
+  return new Promise((resolve, reject) => {
+    try {
+      const response = axios({
+        method: "get",
+        url: process.env.REACT_APP_SPRING_IP + "host/extraPidExist",
+        params: params,
+      });
+      resolve(response);
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+//호텔상세보기
+export const hostHotelDetailDB = (params) => {
+  return new Promise((resolve, reject) => {
+    try {
+      const response = axios({
+        method: "get",
+        url: process.env.REACT_APP_SPRING_IP + "host/hotelDetail",
+        params: params,
+      });
+      resolve(response);
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+
+//숙소수정하기
+export const hosthotelUpdateDB = (review) => {
+  console.log(review);
+  return new Promise((resolve, reject) => {
+    try {
+      const response = axios({
+        method: "post",
+        url: process.env.REACT_APP_SPRING_IP + "host/hotelUpdate",
+        data: review,
+      });
+      resolve(response);
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+
 //숙소등록하기
 export const hostpropertyInsertDB = (information) => {
   return new Promise((resolve, reject) => {
@@ -58,6 +135,7 @@ export const hostpropertyInsertDB = (information) => {
     }
   });
 };
+
 //시설등록하기
 export const hostfacInsertDB = (information) => {
   return new Promise((resolve, reject) => {

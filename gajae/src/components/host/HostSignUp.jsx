@@ -154,7 +154,7 @@ const HostSignUp = () => {
           );
           setTimeout(() => {
             navigate("/host/login");
-          }, 2000);
+          }, 1000);
         }
       }
     }
@@ -269,7 +269,7 @@ const HostSignUp = () => {
         if (response.data !== 1) {
           return "회원가입 실패";
         } else if (response.data == 1) {
-          navigate("/host/registerHotel");
+          navigate("/host/login");
         }
       } catch (error) {
         console.log("error ===>", error);

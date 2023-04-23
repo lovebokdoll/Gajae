@@ -1,7 +1,12 @@
 import React, { useEffect, useState } from "react";
 import HeaderNav1 from "../../header/HeaderNav1";
 import { Accordion } from "react-bootstrap";
-import { hostextraInsertDB, hostfacInsertDB } from "../../../service/hostLogic";
+import {
+  hostextraExistDB,
+  hostextraInsertDB,
+  hostfacExistDB,
+  hostfacInsertDB,
+} from "../../../service/hostLogic";
 import { useDispatch } from "react-redux";
 import { setToastMessage } from "../../../redux/toastStatus/action";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -61,8 +66,8 @@ const RegisterRoom = () => {
       dispatch(setToastMessage("숙소정보 등록 실패"));
       return;
     } else {
-      //  dispatch(setToastMessage("숙소정보 등록에 성공하였습니다"));
-      navigate("/host/end");
+      dispatch(setToastMessage("숙소정보 등록에 성공하였습니다"));
+      //navigate("/host/end");
     }
     setTempid(p_id);
     setTempUpdate(true);
@@ -70,7 +75,19 @@ const RegisterRoom = () => {
   //시설정보 입력하는 useEffect => tempid가 업데이트 될때마다 실행된다
   useEffect(() => {
     const insertFacilities = async () => {
+      // P_ID 동일한것 있는지 확인 후 실행
       if (tempidUpdate) {
+        console.log(tempidUpdate);
+        console.log(tempid);
+        const facExist = await hostfacExistDB(tempid);
+        console.log(facExist);
+        // const extExist = await hostextraExistDB(tempid);
+        if (facExist) {
+          console.log(
+            "Facilities and extras for tempid already exist in database."
+          );
+          return;
+        }
         const facilities = {
           P_ID: tempid,
           FAC_ROOM: selectedRooms.FAC_ROOM.toString(),
@@ -97,7 +114,7 @@ const RegisterRoom = () => {
         //숙소시설insert
         const facres = await hostfacInsertDB(facilities);
         const extres = await hostextraInsertDB(extra);
-        // console.log(facres);
+        console.log(facres);
         console.log(extres);
       }
     };

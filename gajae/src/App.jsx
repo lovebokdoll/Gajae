@@ -34,6 +34,11 @@ import PropertyListPage from "./pages/propertyList/PropertyListPage";
 import ReviewUpdate from "./pages/reviewBoard/ReviewUpdate";
 import ReviewWritePage from "./pages/reviewBoard/ReviewWritePage";
 import HostEndPage from "./components/host/HostEndPage";
+import MyHotelList from "./components/host/myhost/MyHotelList";
+import MyHostDetailPage from "./components/host/myhost/MyHotelPage";
+import MyHostpage from "./components/host/myhost/MyHostpage";
+import MyHotelPage from "./components/host/myhost/MyHotelPage";
+import HostHotelUpdate from "./components/host/myhost/HostHotelUpdate";
 
 const App = () => {
   const toastStatus = useSelector((state) => state.toastStatus);
@@ -113,6 +118,14 @@ const App = () => {
           exact={true}
           element={<RegisterRoom />}
         />
+        <Route path="/host/myhostpage" exact={true} element={<MyHostpage />} />
+        <Route
+          path="/host/myhotelpage"
+          exact={true}
+          element={<MyHotelPage />}
+        />
+        <Route path="/host/update" exact={true} element={<HostHotelUpdate />} />
+
         <Route path="/review/update" exact={true} element={<ReviewUpdate />} />
       </Routes>
     </div>

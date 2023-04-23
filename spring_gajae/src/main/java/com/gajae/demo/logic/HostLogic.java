@@ -205,4 +205,62 @@ public class HostLogic {
 		return result;
 	}
 
+	public List<Map<String, Object>> hotelList(Map<String, Object> map) {
+		log.info("map = {}", map);
+		List<Map<String, Object>> result =hostDAO.hotelList(map);
+		log.info("result = {}", result);
+		return result;
+	}
+
+	public List<Map<String, Object>> hotelDetail(Map<String, Object> map) {
+		log.info("map = {}", map);
+		List<Map<String, Object>> result =hostDAO.hotelDetail(map);
+		log.info("result = {}", result);
+		return result;
+	}
+
+	public List<Map<String, Object>> hotelUpdate(Map<String, Object> map) {
+		log.info("map={}", map);
+		ArrayList<String> arrayList = (ArrayList<String>) map.get("ROOM_ID");
+		//ArrayList의 요소를 배열로 반환한다 
+		String[] roomtypes = arrayList.toArray(new String[0]);
+		log.info("roomtypes={}", roomtypes);
+		int[] rids = new int[roomtypes.length];
+
+		for(int i=0;i<rids.length;i++) {
+			log.info(roomtypes[i]);
+			rids[i] = Integer.parseInt(roomtypes[i]);
+		}
+		ArrayList<Map<String,Object>> list = new ArrayList<>();
+		Map<String,Object> pMap = null;
+		for(int i=0;i<rids.length;i++) {
+			pMap = new HashMap<>();
+			pMap.put("P_ID", map.get("P_ID"));
+			pMap.put("P_TITLE", map.get("P_TITLE"));
+			pMap.put("P_STAR", map.get("P_STAR"));
+			pMap.put("P_POSTAL", map.get("P_POSTAL"));
+			pMap.put("P_PHOTO", map.get("P_PHOTO"));
+			pMap.put("P_ADDRESS", map.get("P_ADDRESS"));
+			pMap.put("P_TEL", map.get("P_TEL"));
+			pMap.put("P_OVERVIEW", map.get("P_OVERVIEW"));
+			pMap.put("P_SCALE", map.get("P_SCALE"));
+			pMap.put("P_CHECKIN", map.get("P_CHECKIN"));
+			pMap.put("P_CHECKOUT", map.get("P_CHECKOUT"));
+			pMap.put("P_REFUND", map.get("P_REFUND"));
+			pMap.put("ROOM_ID",rids[i]);
+			log.info("pMap={}", pMap);
+			list.add(pMap);
+		}
+		List<Map<String, Object>> result =hostDAO.hotelUpdate(list);
+		log.info("result = {}", result);
+		return result;
+	}
+
+	public Map<String, Object> facPidExist(Map<String, Object> map) {
+		Map<String, Object> result = null;
+		result = hostDAO.facPidExist(map);
+		return result;
+	}
+
+
 }

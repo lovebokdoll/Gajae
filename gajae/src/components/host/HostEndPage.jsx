@@ -1,10 +1,10 @@
 import { Background, Content, Title } from "../../style/HostStyle";
-import HeaderNav1 from "../header/HeaderNav1";
+import HostHeaderNav from "./HostHeaderNav";
 
 const HostEndPage = () => {
   return (
     <>
-      <HeaderNav1 />
+      <HostHeaderNav />
       <Background>
         <Title>
           Gajae.com에

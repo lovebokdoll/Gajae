@@ -3,7 +3,8 @@ import { useEffect } from "react";
 import styled from "styled-components";
 import { useState } from "react";
 import axios from "axios";
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import ProgressBar from "react-bootstrap/ProgressBar";
 const HotelReview = ({ property }) => {
   console.log(property);
   console.log(property[0].P_ID);
@@ -24,7 +25,7 @@ const HotelReview = ({ property }) => {
     };
     p_reviewList();
   }, [property]);
-
+  console.log(review);
   useEffect(() => {
     if (review) {
       const scores = review.map((review) => review.REVIEW_AVERAGE);
@@ -41,6 +42,44 @@ const HotelReview = ({ property }) => {
           <TRating>{totalscore}</TRating>
           <Title> 이용후기 </Title>
         </TitleContainer>
+        {/*-----------------------그래프------------------------------ */}
+        <GridContainer class="grid-container">
+          <GridItem class="grid-item item1">
+            <ItemContentWrapper>
+              <LabelWrapper style={{ flex: 1 }}>친절도</LabelWrapper>
+              <LabelWrapper style={{ textAlign: "right" }}>8.9</LabelWrapper>
+            </ItemContentWrapper>
+            <ProgressBar variant="ProgressBar" now={40} />
+          </GridItem>
+          <GridItem class="grid-item item2">
+            <ItemContentWrapper>
+              <LabelWrapper>시설</LabelWrapper>
+              <LabelWrapper style={{ textAlign: "right" }}>8.9</LabelWrapper>
+            </ItemContentWrapper>
+            <ProgressBar variant="ProgressBar" now={60} />
+          </GridItem>
+          <GridItem class="grid-item item3">
+            <ItemContentWrapper>
+              <LabelWrapper>청결도</LabelWrapper>
+              <LabelWrapper style={{ textAlign: "right" }}>8.9</LabelWrapper>
+            </ItemContentWrapper>
+            <ProgressBar variant="ProgressBar" now={40} />
+          </GridItem>
+          <GridItem class="grid-item item4">
+            <ItemContentWrapper>
+              <LabelWrapper>가성비</LabelWrapper>
+              <LabelWrapper style={{ textAlign: "right" }}>8.9</LabelWrapper>
+            </ItemContentWrapper>
+            <ProgressBar variant="ProgressBar" now={40} />
+          </GridItem>
+          <GridItem class="grid-item item5">
+            <ItemContentWrapper>
+              <LabelWrapper>위치</LabelWrapper>
+              <LabelWrapper style={{ textAlign: "right" }}>8.9</LabelWrapper>
+            </ItemContentWrapper>
+            <ProgressBar variant="warning" now={40} />
+          </GridItem>
+        </GridContainer>
         <ReviewList>
           {review &&
             review.map((review, index) => (
@@ -53,20 +92,27 @@ const HotelReview = ({ property }) => {
                         alt="placeholder image"
                       />
                     </ImageWrapper>
-                    <ImageDescription>호텔정보</ImageDescription>
-                  </ImageContainer>
-                  <PropertyContainer>
-                    <PropertyDescription>
-                      <p>{review.USER_ID}</p>
+                    <ImageDescription>
+                      {" "}
                       <p>
-                        <StyledIcon className="fa-regular fa-calendar"></StyledIcon>
+                        <FontAwesomeIcon icon="fa-solid fa-user" />
+                        &nbsp;&nbsp;
+                        {review.USER_NICKNAME}&nbsp;&nbsp;
+                        <img
+                          src="/images/korea.svg.png"
+                          style={{ border: "1px solid black" }}
+                        ></img>
+                      </p>
+                      <p>
+                        <FontAwesomeIcon className="fa-regular fa-calendar" />
                         {review.NUM_NIGHTS}박
                       </p>
                       <p>
                         <i className="fa-solid fa-people-group"></i>
+                        &nbsp;&nbsp;&nbsp;&nbsp;{review.R_PEOPLE}명
                       </p>
-                    </PropertyDescription>
-                  </PropertyContainer>
+                    </ImageDescription>
+                  </ImageContainer>
                   <ContentWrapper>
                     <ReviewTitle>{review.REVIEW_TITLE}</ReviewTitle>
                     <RText>
@@ -201,7 +247,7 @@ const ImageDescription = styled.div`
   flex: 0 0 33.333333%;
   width: 100%;
   padding: 0.5rem; /* 기존 코드: 1rem */
-  font-size: 1rem;
+  font-size: 0.8rem;
   margin-top: 0.25rem;
 `;
 
@@ -237,4 +283,25 @@ const TitleContainer = styled.div`
   align-items: center;
   justify-content: space-between;
   margin-bottom: 50px;
+`;
+
+const GridContainer = styled.div`
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); // 3개의 열, 각 열은 같은 너비
+  grid-template-rows: repeat(5, 1fr); // 5개의 행, 각 행은 같은 높이
+  gap: 10px; // 디브간의 간격
+  border: 1px solid #ccc; // 그리드에 테두리 씌우기
+`;
+
+const GridItem = styled.div`
+  background-color: whigt;
+  border: 1px solid #ccc;
+`;
+const LabelWrapper = styled.div`
+  flex: 1;
+`;
+const ItemContentWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 `;

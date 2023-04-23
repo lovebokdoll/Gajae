@@ -46,17 +46,29 @@ const HostMainPage = () => {
                   <br /> 로그인을 해주세요.
                 </p>
               )}
-
-              <a
-                href="/host/signup"
-                class="btn btn-warning"
-                style={{
-                  fontSize: "20px",
-                  margin: "15%",
-                }}
-              >
-                시작하기
-              </a>
+              {hostId ? (
+                <a
+                  href="/host/registerHotel"
+                  class="btn btn-warning"
+                  style={{
+                    fontSize: "20px",
+                    margin: "15%",
+                  }}
+                >
+                  시작하기
+                </a>
+              ) : (
+                <a
+                  href="/host/signup"
+                  class="btn btn-warning"
+                  style={{
+                    fontSize: "20px",
+                    margin: "15%",
+                  }}
+                >
+                  시작하기
+                </a>
+              )}
             </div>
           </div>
         </R_CardGroup>
