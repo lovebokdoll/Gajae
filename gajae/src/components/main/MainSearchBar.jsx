@@ -9,10 +9,13 @@ import { useNavigate } from 'react-router-dom';
 import './mainSearchBar.css';
 import axios from 'axios';
 import { BButton } from '../../style/FormStyle';
+
 const MainSearchBar = ({ type }) => {
   const navigate = useNavigate();
+
   //유효성 검사
   const [addressError, setAddressError] = useState(false);
+
   //지역 입력
   const [P_ADDRESS, setP_Address] = useState('');
   console.log(P_ADDRESS)
@@ -29,6 +32,7 @@ const MainSearchBar = ({ type }) => {
       key: 'selection',
     },
   ]);
+
   const [openOptions, setOpenOptions] = useState(false);
   const handleOption = (name, operation) => {
     setRoom_Capacity((prev) => {
@@ -38,11 +42,18 @@ const MainSearchBar = ({ type }) => {
       };
     });
   };
+
   const handleSearch = (e) => {
-    const roomCapacity = parseInt(ROOM_CAPACITY.adult); // ROOM_CAPACITY를 숫자형태로 변환
+    const roomCapacity = parseInt(ROOM_CAPACITY.adult);
+    console.log('왜 호출 안되냐?')
+    if (!P_ADDRESS) {
+      alert("지역을 입력해주세요");
+      return;
+    }
+  
     navigate(`/propertylist/?P_ADDRESS=${P_ADDRESS}&ROOM_CAPACITY=${roomCapacity}`, { state: { P_ADDRESS, date, ROOM_CAPACITY } });
-    e.preventDefault();
-    axios.post('http://localhost:9999/search/list', { P_ADDRESS, ROOM_CAPACITY: roomCapacity }) // 변환된 ROOM_CAPACITY를 전달
+  
+    axios.post('http://localhost:9999/search/list', { P_ADDRESS, ROOM_CAPACITY: roomCapacity })
       .then(response => {
         console.log(P_ADDRESS)
         console.log(response.data);
@@ -53,6 +64,7 @@ const MainSearchBar = ({ type }) => {
         // 에러 처리 코드
       });
   };
+
   return (
     <div className="header">
     <div className={type === 'list' ? 'headerContainer listMode' : 'headerContainer'}>
@@ -80,8 +92,9 @@ const MainSearchBar = ({ type }) => {
       </div>
       {type !== 'list' && (
         <>
-          <h4 className="headerTitle" style={{textAlign:"center", color : '#1D242B', marginTop: '30px'}}>새로운 모험, 새로운 경험, 그리고 새로운 나를 만나다</h4>
-          <div id="headerSearch">
+          <h4 className="headerTitle" style={{textAlign:"center", color : '#FFFFFF', marginTop: '30px'}}>새로운 모험, 새로운 경험, 그리고 새로운 나를 만나다</h4>
+        <br/>
+          <div className="headerSearch">
             <div className="headerSearchText">
               <form onSubmit={handleSearch}>
               <FontAwesomeIcon icon={faSuitcaseRolling} style={{marginRight : '10px'}} className="headerIcon" />
@@ -143,9 +156,10 @@ const MainSearchBar = ({ type }) => {
               )}
             </div>
             <div className="SearchBtn">
-              <BButton className="headerBtn" style={{backgroundColor : '#0077C0', width : '50px'}} type="submit" disabled={!P_ADDRESS} onClick={handleSearch}>
+            <BButton className="headerBtn" style={{backgroundColor : '#0077C0', width : '50px'}} type="submit" disabled={!P_ADDRESS} onClick={handleSearch}>
                 검색
-              </BButton>
+            </BButton>
+
             </div>
           </div>
         </>
@@ -154,4 +168,5 @@ const MainSearchBar = ({ type }) => {
   </div>
 );
 };
+
 export default MainSearchBar;

@@ -89,6 +89,15 @@ const PropertyListPage = () => {
         .catch((error) => {
           console.error(error);
         });
+    } else if (orderBy === '평점 높은순') {
+      axios
+        .post('http://localhost:9999/search/list', { orderBy: 'reviewHigh', P_ADDRESS, ROOM_CAPACITY })
+        .then((response) => {
+          setProperty(response.data);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
     }
   }, [orderBy]);
   console.log(orderBy);
@@ -178,6 +187,9 @@ const PropertyListPage = () => {
                 </Dropdown.Item>
                 <Dropdown.Item id="dropdownItem-btn" onClick={() => handleOrder('가격 높은순')}>
                   가격 높은순
+                </Dropdown.Item>
+                <Dropdown.Item id="dropdownItem-btn" onClick={() => handleOrder('평점 높은순')}>
+                  평점 높은순
                 </Dropdown.Item>
               </DropdownButton>
               <div className="row align-items-center mb-3"></div>

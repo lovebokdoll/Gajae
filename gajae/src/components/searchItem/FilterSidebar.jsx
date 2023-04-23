@@ -112,7 +112,7 @@ const fiveRanking = () => {
   return (
     <> 
     <div className='filter-group' style={{marginTop : "20px", width: '200px'}}>
-    <label><div className='filter'>필터</div> </label>
+    <label><div className='filter'>객실 내 시설</div> </label>
       <hr/>
 
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
@@ -176,7 +176,7 @@ const fiveRanking = () => {
       </div>
 
       <hr/>
-      <label><div className='filter'>성급</div> </label>
+      <label><div className='filter'>호텔 유형 </div> </label>
       <hr/>
 
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
