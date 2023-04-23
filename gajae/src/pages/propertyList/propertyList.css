@@ -1,27 +1,27 @@
-.search-hotel{
-    text-align: center;
-  }
+.search-hotel {
+  text-align: center;
+}
 
-#dropdown-btn{
+#dropdown-btn {
   margin-top: 10px;
-  background-color:  transparent;
+  background-color: transparent;
   color: black;
-  width: 200px;;
+  width: 200px;
   border: 2px solid black;
 }
 
-#dropdownItem-btn{
-  width: 200px;;
+#dropdownItem-btn {
+  width: 200px;
 }
 
 #dropdown-btn:hover,
-#dropdown-btn:active{
+#dropdown-btn:active {
   background-color: transparent;
   color: black;
   border: 2px solid black;
 }
 
-#mapbtn{
+#mapbtn {
   background-color: transparent;
   border: 2px solid black;
   margin-top: 10px;
@@ -40,7 +40,6 @@
   padding: 4px 8px;
 }
 
-
 .pagination-link {
   margin: 0 10px;
   text-decoration: none;
@@ -58,5 +57,4 @@
   width: 750px;
   justify-content: center;
   align-items: center;
-  
 }

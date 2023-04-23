@@ -24,14 +24,14 @@ const MainSearchBar = ({ type }) => {
       endDate: new Date(),
       key: 'selection',
     },
-  ]);
+  ]);//날짜 
 
   const [openOptions, setOpenOptions] = useState(false);
   const [options, setOptions] = useState({
     adult: 1,
     children: 0,
     room: 1,
-  });
+  });// 인원 선택창
 
   const handleOption = (name, operation) => {
     setOptions((prev) => {
@@ -58,67 +58,72 @@ const MainSearchBar = ({ type }) => {
       });
   };
 
+  
+
   return (
     <div className="header">
       <div className={type === 'list' ? 'headerContainer listMode' : 'headerContainer'}>
-        <div className="headerList">
-          <div className="headerListItem active">
-            <FontAwesomeIcon icon={faBed} />
-            <span>Stays</span>
-          </div>
-          <div className="headerListItem">
-            <FontAwesomeIcon icon={faPlane} />
-            <span>Flights</span>
-          </div>
-          <div className="headerListItem">
-            <FontAwesomeIcon icon={faCar} />
-            <span>Car rentals</span>
-          </div>
-          <div className="headerListItem">
-            <FontAwesomeIcon icon={faBed} />
-            <span>Attractions</span>
-          </div>
-          <div className="headerListItem">
-            <FontAwesomeIcon icon={faTaxi} />
-            <span>Airport taxis</span>
-          </div>
-        </div>
+      <div className="headerList">
+  <div className="headerListItem active" style={{ width: 300 }}>
+    <FontAwesomeIcon icon={faBed} />
+    <span>Stays</span>
+  </div>
+  <div className="headerListItem" style={{ width: 300 }}>
+    <FontAwesomeIcon icon={faPlane} />
+    <span>Flights</span>
+  </div>
+  <div className="headerListItem" style={{ width: 300 }}>
+    <FontAwesomeIcon icon={faCar} />
+    <span>Car rentals</span>
+  </div>
+  <div className="headerListItem" style={{ width: 300 }}>
+    <FontAwesomeIcon icon={faBed} />
+    <span>Attractions</span>
+  </div>
+  <div className="headerListItem" style={{ width: 300 }}>
+    <FontAwesomeIcon icon={faTaxi} />
+    <span>Airport taxis</span>
+  </div>
+</div>
+
         {type !== 'list' && (
           <>
-            <h1 className="headerTitle">A lifetime of discounts? It's Genius.</h1>
+            <div style={{fontSize:50}}>다음에 머무를 숙소를 찾아보세요</div>
             <p className="headerDesc">
-              Get rewarded for your travels – unlock instant savings of 10% or more with a free Lamabooking account
+            호텔부터 홈까지, 다양한 숙소가 한 곳에! 특가를 찾아보세요
             </p>
             <div className="headerSearch">
-              <div className="headerSearchItem">
-                <FontAwesomeIcon icon={faBed} className="headerIcon" />
-                <input
-                  type="text"
-                  placeholder="어디로 향하시나요?"
-                  className="headerSearchInput"
-                  onChange={(e) => setP_Address(e.target.value)}
-                />
-              </div>
-              <div className="headerSearchItem">
-                <FontAwesomeIcon icon={faCalendarDays} className="headerIcon" />
-                <span onClick={() => setOpenDate(!openDate)} className="headerSearchText">{`${format(
-                  date[0].startDate,
-                  'MM/dd/yyyy'
-                )} to ${format(date[0].endDate, 'MM/dd/yyyy')}`}</span>
-                {openDate && (
-                  <DateRange
-                    editableDateInputs={true}
-                    onChange={(item) => {
-                      console.log(item.selection);
-                      setDate([item.selection]);
-                    }}
-                    moveRangeOnFirstSelection={false}
-                    ranges={date}
-                    className="date"
-                    minDate={new Date()}
-                  />
-                )}
-              </div>
+            <div className="headerSearchItem" style={{textAlign: "center"}}>
+  <FontAwesomeIcon icon={faBed} className="headerIcon" />
+  <input
+    type="text"
+    placeholder="어디로 향하시나요?"
+    className="headerSearchInput"
+    onChange={(e) => setP_Address(e.target.value)}
+  />
+</div>
+
+              <div className="headerSearchItem" style={{ cursor: 'pointer' }}>
+  <FontAwesomeIcon icon={faCalendarDays} className="headerIcon" />
+  <span onClick={() => setOpenDate(!openDate)} className="headerSearchText">{`${format(
+    date[0].startDate,
+    'MM/dd/yyyy'
+  )} to ${format(date[0].endDate, 'MM/dd/yyyy')}`}</span>
+  {openDate && (
+    <DateRange
+      editableDateInputs={true}
+      onChange={(item) => {
+        console.log(item.selection);
+        setDate([item.selection]);
+      }}
+      moveRangeOnFirstSelection={false}
+      ranges={date}
+      className="date"
+      minDate={new Date()}
+    />
+  )}
+</div>
+
               <div className="headerSearchItem">
                 <FontAwesomeIcon icon={faPerson} className="headerIcon" />
                 <span

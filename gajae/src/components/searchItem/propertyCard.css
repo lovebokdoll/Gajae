@@ -3,7 +3,7 @@
   width: 832px;
   padding: 10px;
   border-radius: 5px;
-  width: 750px;
+  width: 1002.8px;
   display: flex;
   justify-content: center;
   gap: 20px;
@@ -16,7 +16,6 @@
   }
 }
 
-
 .siImg {
   width: 200px;
   height: 200px;
@@ -28,6 +27,7 @@
   flex-direction: column;
   gap: 10px;
   flex: 2;
+  width: 100;
 }
 
 .siCheck {

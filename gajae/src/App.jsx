@@ -14,6 +14,7 @@ import ReservateComplete from './components/Reservate/ReservateComplete';
 import SignUpTest from './components/login/SignUpTest';
 import WelcomePage from './components/login/WelcomePage';
 import InicisPay from './components/pay/InicisPay';
+import KakaoPay from './components/pay/KakaoPay';
 import Toast from './components/toast/Toast';
 import HostPage from './pages/host/HostPage';
 import HotelPage from './pages/hotel/HotelPage';
@@ -29,18 +30,25 @@ import MyReviewPage from './pages/mypage/MyReviewPage';
 import MySettings from './pages/mypage/MySettings';
 import MyWishListPage from './pages/mypage/MyWishListPage';
 import Mypage from './pages/mypage/Mypage';
-import Payapge from './pages/pay/Payapge';
+import Payapge from './pages/pay/Paypage';
 import PropertyListPage from './pages/propertyList/PropertyListPage';
 import ImageUpload from './pages/reviewBoard/ImageUpload';
 import ReviewUpdate from './pages/reviewBoard/ReviewUpdate';
 import ReviewWritePage from './pages/reviewBoard/ReviewWritePage';
+import Paypage from './pages/pay/Paypage';
+import CurrencyModal from './components/modal/CurrencyModal';
+import NationModal from './components/modal/NationModal ';
 
 const App = () => {
+  
   const toastStatus = useSelector((state) => state.toastStatus);
-
+  const modalStatus = useSelector((state) => state.modalInfo);
+  const nationStatus = useSelector((state) => state.nationModalInfo);
   return (
     <div style={{ height: '100vh' }}>
       {toastStatus.status && <Toast />}{' '}
+      {modalStatus.status && <CurrencyModal />}
+      {nationStatus.status && <NationModal />}
       <Routes>
         <Route path="/" exact="true" element={<MainPage />} />
         {/* signup & signin */}
@@ -65,7 +73,7 @@ const App = () => {
         <Route path="/mypage/payment" exact={true} element={<MyPaymentPage />} />
         <Route path="/mypage/wishlist" exact={true} element={<MyWishListPage />} />
         <Route path="/reservate" element={<ReservationDetail />} />
-        <Route path="/pay" exact={true} element={<Payapge />} />
+        <Route path="/pay" exact={true} element={<Paypage />} />
         <Route path="/pay/complete" exact={true} element={<ReservateComplete />} />
         <Route path="/inicis" exact={true} element={<InicisPay />} />
         <Route path="/review/img" exact={true} element={<ImageUpload />} />

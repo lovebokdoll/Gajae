@@ -48,8 +48,8 @@ const PropertyCard = ({ row }) => {
             {isLiked ? <FaHeart size={27} color="red" /> : <FaRegHeart size={27} color="#8c8c8c" />}
           </button>
         </div>
-        <div className="siDesc">
-          <Link to="./hotel" style={{ textDecoration: 'none' }} />
+        <div className="siDesc1">
+          <Link to="./hotel" style={{ textDecoration: 'none',width:100 }} />
         </div>
         <div className="siDesc">
           <Link to="./hotel" style={{ textDecoration: 'none' }}>
@@ -57,7 +57,8 @@ const PropertyCard = ({ row }) => {
           </Link>
           <span className="siCheck">
             {' '}
-            체크인 : {row.P_CHECKIN} 체크아웃 : {row.P_CHECKOUT}
+            체크인 : {row.P_CHECKIN} <br/>{/* 텍스트 정렬안되서 수정*/}
+            체크아웃 : {row.P_CHECKOUT}
           </span>
           <span className="siP_ADDRESS">{row.P_ADDRESS}</span>
           <span className="siTaxiOp">Free taxi</span>
@@ -67,7 +68,7 @@ const PropertyCard = ({ row }) => {
         </div>
         <div className="siDetails">
           <div className="siRanking">
-            <button className="rankigbtn">8.9</button>
+          <button className="rankigbtn" style={{ width: "50px", height: "50px" }}>8.9</button>
           </div>
           <div className="siDetailTexts">
             <span className="siPrice">{Number(row.ROOM_PRICE).toLocaleString() + '원'}</span>

@@ -7,12 +7,17 @@ import MainMailList from '../../components/main/MainMailList';
 import MainProperty from '../../components/main/MainProperty';
 import MainRecommandLoc from '../../components/main/MainRecommandLoc';
 import MainSearchBar from '../../components/main/MainSearchBar';
-import CookiePopup from './CookiePopup';
+import Popup from './Popup';
+
 
 const MainPage = () => {
   const [kakaoNickname, setKakaoNickname] = useState();
 
   const tempNick = useParams();
+
+  const handlePopupClose = () => {
+    // do something when popup is closed
+  }
 
   return (
     <>
@@ -23,7 +28,7 @@ const MainPage = () => {
       <MainProperty />
       <MainMailList />
       <Footer />
-      <CookiePopup/>
+      <Popup onClose={handlePopupClose} />
     </>
   );
 };

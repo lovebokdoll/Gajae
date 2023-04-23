@@ -24,6 +24,8 @@ const ReservationDetail = () => {
   
  
   const P_TITLE = Cookies.get("P_TITLE");
+  const P_CHECKIN = Cookies.get("P_CHECKIN");
+  const P_CHECKOUT = Cookies.get("P_CHECKOUT");
   const roomTypes = Cookies.get("roomtype");
   const selectedNumber = Cookies.get("selectedNumber");
   const totalPrice = Cookies.get("totalPrice");
@@ -46,28 +48,36 @@ return (
           <div className="card" style={{ width: '60rem', backgroundColor: "rgb(214,230,245)" }}>
             <div className="card-body">
               <span className="card-title" style={{fontSize:20}}> <strong> {userNickname} </strong>님 거의 마무리가 되었어요!</span> {/* 별명 출력 */}
-<form>
+              <form>
   <div className="booker-name">
-    <label style={{fontSize:20}}> 예약자 이름 *</label>
+    <label className="form-label" style={{fontSize:20}}> 예약자 이름 *</label>
     <input
-  type="text"
-  className="form-control"
-  name="name"
-  placeholder="실명을 입력해주세요."
-  style={{ width: "100%" }}
-  onChange={(event) =>
-    localStorage.setItem("bookerName", event.target.value)
-  }
-  defaultValue={localStorage.getItem("bookerName") || ""}
-/>
-  </div> {/* 로*스에 담겨서 결제 페이지로 뿌려줄 예정*/}
-  <label style={{fontSize:20}}> 예약자 E-MAIL *</label> {/* 로*스에 담겨서 결제 페이지로 뿌려줄 예정*/}
-  <input type="text" className="booker-email" id="email" name="email" style={{width: "100%"}} value={email} onChange={(e) => {
+      type="text"
+      className="form-control"
+      name="name"
+      placeholder="실명을 입력해주세요."
+      style={{ width: "60%" }}
+      onChange={(event) =>
+        localStorage.setItem("bookerName", event.target.value)
+      }
+      defaultValue={localStorage.getItem("bookerName") || ""}
+    />
+  </div>
+  <label className="form-label" style={{fontSize:20}}> 예약자 E-MAIL *</label><br/>
+  <input
+    type="text"
+    className="booker-email form-control"
+    id="email"
+    name="email"
+    style={{width: "60%"}}
+    value={email}
+    onChange={(e) => {
       localStorage.setItem('userEmail', e.target.value); 
       setEmail(e.target.value);
     }}
   />
 </form>
+
   </div>
  </div>
 <br/><div className="card" style={{ width: '60rem', backgroundColor: "rgb(214,230,245)" }}>
@@ -84,8 +94,8 @@ return (
       <div>
         <div>숙소명: {P_TITLE} {roomTypes}</div>
         <div>주소: {P_ADDRESS} </div>
-        <div>체크인: </div>
-        <div>체크아웃: </div>
+        <div>체크인: {P_CHECKIN} </div>
+        <div>체크아웃: {P_CHECKOUT}</div>
         <div>투숙객 수: 총 {selectedNumber} 명</div>{/* 쿠키에서 꺼내오기*/ }
       </div>
     </div>
@@ -110,11 +120,12 @@ return (
     <br/>
     <div className="d-flex justify-content-between align-items-center">
     <span style={{fontSize:50, fontWeight:'bold'}}>결제금액:  {totalPrice} 원</span>{/* 결제 쿠키에서 꺼내기 */}
-    <Button variant="info" style={{ textDecoration: 'none', borderBottom: 'none' }}>
-    <Link to="/pay">
-  <img src="../images/inicis.png" alt="결제하기" />
-</Link>
-      </Button>
+    <Button variant="info" style={{ textDecoration: 'none', borderBottom: 'none', border: 'none', backgroundColor: 'transparent' }}>
+  <Link to="/pay">
+    <img src="../images/결제페이지로.png" alt="결제하기" />
+  </Link>
+</Button>
+
     </div>
   </div>
 </div>
