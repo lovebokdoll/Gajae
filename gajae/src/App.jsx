@@ -34,6 +34,7 @@ import PropertyListPage from './pages/propertyList/PropertyListPage';
 import ImageUpload from './pages/reviewBoard/ImageUpload';
 import ReviewUpdate from './pages/reviewBoard/ReviewUpdate';
 import ReviewWritePage from './pages/reviewBoard/ReviewWritePage';
+import NoticeListPage from './components/qna/NoticeListPage';
 
 const App = () => {
   const toastStatus = useSelector((state) => state.toastStatus);
@@ -52,6 +53,7 @@ const App = () => {
         <Route path="/login/findpw" element={<PWFindPage />} />
         <Route path="/mypage" exact={true} element={<Mypage />} />
         <Route path="/propertylist/:P_ADDRESS?" element={<PropertyListPage />} />
+        <Route path="/notice" element={<NoticeListPage />} />
         <Route path="/hotel" element={<HotelPage />} />
         <Route path="/review/write" element={<ReviewWritePage />} />
         <Route path="/auth/kakao/callback" exact={true} element={<KakaoRedirectHandler />} />

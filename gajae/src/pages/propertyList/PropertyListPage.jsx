@@ -73,7 +73,7 @@ const PropertyListPage = () => {
   useEffect(() => {
     if (orderBy === '가격 낮은순') {
       axios
-        .post('http://localhost:9999/search/list', { orderBy: 'priceLow', P_ADDRESS, ROOM_CAPACITY })
+        .post('http://localhost:9999/search/list', { orderBy: 'priceLow', P_ADDRESS, ROOM_CAPACITY})
         .then((response) => {
           setProperty(response.data);
         })
@@ -82,7 +82,7 @@ const PropertyListPage = () => {
         });
     } else if (orderBy === '가격 높은순') {
       axios
-        .post('http://localhost:9999/search/list', { orderBy: 'priceHigh', P_ADDRESS, ROOM_CAPACITY })
+        .post('http://localhost:9999/search/list', { orderBy: 'priceHigh', P_ADDRESS, ROOM_CAPACITY})
         .then((response) => {
           setProperty(response.data);
         })
@@ -91,7 +91,7 @@ const PropertyListPage = () => {
         });
     } else if (orderBy === '평점 높은순') {
       axios
-        .post('http://localhost:9999/search/list', { orderBy: 'reviewHigh', P_ADDRESS, ROOM_CAPACITY })
+        .post('http://localhost:9999/search/list', { orderBy: 'reviewHigh', P_ADDRESS, ROOM_CAPACITY})
         .then((response) => {
           setProperty(response.data);
         })
@@ -108,14 +108,15 @@ const PropertyListPage = () => {
     
     // 별점 선택에 따라 요청 보내기
     selectedStars.forEach((P_STAR) => {
+      Cookies.set('P_STAR',P_STAR)
       axios
-        .post('http://localhost:9999/search/list', { P_ADDRESS, ROOM_CAPACITY, P_STAR })
-        .then((response) => {
-          setProperty(response.data);
-        })
-        .catch((error) => {
-          console.error(error);
-        });
+      .post('http://localhost:9999/search/list', {orderBy, P_ADDRESS, ROOM_CAPACITY, P_STAR })
+      .then((response) => {
+        setProperty(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
     });
   };
 
@@ -127,8 +128,9 @@ const PropertyListPage = () => {
     
     // 별점 선택에 따라 요청 보내기
     selectedFilter.forEach((P_EXTRA) => {
+      Cookies.set('P_EXTRA',P_EXTRA)
       axios
-        .post('http://localhost:9999/search/list', { P_ADDRESS, ROOM_CAPACITY, P_EXTRA })
+        .post('http://localhost:9999/search/list', { orderBy, P_ADDRESS, ROOM_CAPACITY, P_EXTRA })
         .then((response) => {
           setProperty(response.data);
         })
