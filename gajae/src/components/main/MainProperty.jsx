@@ -4,9 +4,9 @@ import "./MainProperty.css";
 const MainProperty = () => {
   return (
     <>
-    <div style={{fontSize:60}}> 당신이 원하는 숙소  바로 여기 게살몽땅</div>
+    <div style={{height:30}}> </div>
     <div className="fp" >
-    <Card style={{ width: '90rem',height:'600px'}}>
+    <Card style={{ width: '90rem'}}>
       <img src="./images/애기사진.jpg" alt="" className="fpImg" /> {/* 추가 */}
       <Card.Body>
         <div className="fpItem"> {/* 추가 */}

@@ -10,7 +10,7 @@
   display: flex;
   justify-content: flex-start;
   gap: 20px;
-  width: 300%;
+  width: 100%;
   /* 변경된 코드 */
   animation: slide 15s linear infinite alternate-reverse;
 }
@@ -72,7 +72,6 @@
   animation-duration: 7.5s;
 }
 
-/* 추가된 CSS */
 @media (hover: hover) {
   .featured:hover {
     animation: none;
