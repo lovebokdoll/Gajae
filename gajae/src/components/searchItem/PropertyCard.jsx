@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import './propertyCard.css';
 import { FaHeart, FaRegHeart } from 'react-icons/fa';
 import Cookies from 'js-cookie';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const PropertyCard = ({ row }) => {
   const navigate = useNavigate();
@@ -53,7 +54,12 @@ const PropertyCard = ({ row }) => {
           <Link to="./hotel" style={{ textDecoration: 'none' }} />
 
           <Link to="./hotel" style={{ textDecoration: 'none' }}>
-            <h1 className="siTitle"> {row.P_TITLE}</h1>
+          <h1 className="siTitle"> {row.P_TITLE}{Array.from({ length: parseInt(row.P_STAR) }, (_, i) => (
+            <span key={i} role="img" aria-label="star">
+          <FontAwesomeIcon icon="fa-solid fa-star" style={{color: "#FEBB02",}} />
+            </span>
+          ))}
+          </h1>
           </Link>
           <span className="siCheck">
             {' '}

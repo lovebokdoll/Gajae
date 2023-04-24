@@ -9,9 +9,14 @@ import 'react-date-range/dist/theme/default.css'; // theme css file
 import { useNavigate } from 'react-router-dom';
 import { BButton } from '../../style/FormStyle';
 import './mainSearchBar.css';
+import { Button, Modal } from 'react-bootstrap';
 
 const MainSearchBar = ({ type }) => {
   const navigate = useNavigate();
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
   //유효성 검사
   const [addressError, setAddressError] = useState(false);
@@ -46,12 +51,10 @@ const MainSearchBar = ({ type }) => {
 
   const handleSearch = (e) => {
     const roomCapacity = parseInt(ROOM_CAPACITY.adult);
-    console.log('왜 호출 안되냐?');
     if (!P_ADDRESS) {
-      alert('지역을 입력해주세요');
+      handleShow(); // 모달 창을 엽니다.
       return;
     }
-
     navigate(`/propertylist/?P_ADDRESS=${P_ADDRESS}&ROOM_CAPACITY=${roomCapacity}&DATE=${date}`, { state: { P_ADDRESS, date, ROOM_CAPACITY } });
 
     axios
@@ -110,7 +113,7 @@ const MainSearchBar = ({ type }) => {
                     onKeyPress={(e) => {
                       if (e.key === 'Enter' && !P_ADDRESS) {
                         e.preventDefault();
-                        alert('지역을 입력해주세요');
+                        handleShow();
                       }
                     }}
                   />
@@ -161,15 +164,26 @@ const MainSearchBar = ({ type }) => {
                 )}
               </div>
               <div className="SearchBtn">
-                <BButton
-                  className="headerBtn"
-                  style={{ backgroundColor: '#0077C0', width: '50px' }}
-                  type="submit"
-                  disabled={!P_ADDRESS}
-                  onClick={handleSearch}
-                >
-                  검색
-                </BButton>
+              <BButton
+                className="headerBtn"
+                style={{ backgroundColor: '#0077C0', width: '50px' }}
+                type="button"  // 버튼의 타입을 변경합니다
+                onClick={handleSearch}
+              >
+                검색
+              </BButton>
+
+              <Modal show={show} onHide={handleClose}>
+
+                <Modal.Body>
+                  지역을 입력해주세요.
+                </Modal.Body>
+                <Modal.Footer>
+                  <Button variant="secondary" onClick={handleClose}>
+                    닫기
+                  </Button>
+                </Modal.Footer>
+              </Modal>
               </div>
             </div>
           </>

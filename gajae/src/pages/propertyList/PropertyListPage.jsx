@@ -81,8 +81,10 @@ const PropertyListPage = () => {
   //사용자가 정렬조건 선택 시 스프링으로 요청
   useEffect(() => {
     if (orderBy === '가격 낮은순') {
+      const data = { orderBy: 'priceLow', P_ADDRESS, ROOM_CAPACITY };
+
       axios
-        .post('http://localhost:9999/search/list', { orderBy: 'priceLow', P_ADDRESS, ROOM_CAPACITY })
+        .post('http://localhost:9999/search/list', data)
         .then((response) => {
           setProperty(response.data);
         })
@@ -90,8 +92,9 @@ const PropertyListPage = () => {
           console.error(error);
         });
     } else if (orderBy === '가격 높은순') {
+      const data = { orderBy: 'priceHigh', P_ADDRESS, ROOM_CAPACITY };
       axios
-        .post('http://localhost:9999/search/list', { orderBy: 'priceHigh', P_ADDRESS, ROOM_CAPACITY })
+        .post('http://localhost:9999/search/list', data)
         .then((response) => {
           setProperty(response.data);
         })
@@ -99,8 +102,9 @@ const PropertyListPage = () => {
           console.error(error);
         });
     } else if (orderBy === '평점 높은순') {
+      const data = { orderBy: 'rivieHigh', P_ADDRESS, ROOM_CAPACITY };
       axios
-        .post('http://localhost:9999/search/list', { orderBy: 'reviewHigh', P_ADDRESS, ROOM_CAPACITY })
+        .post('http://localhost:9999/search/list', data)
         .then((response) => {
           setProperty(response.data);
         })
@@ -112,12 +116,8 @@ const PropertyListPage = () => {
   console.log(orderBy);
 
   //성급 필터
-  const ranks = (selectRanks) => {
-    const selectedStars = selectRanks.split(','); // 선택한 모든 별점을 ',' 기준으로 분리하여 배열로 만듦
-
+  const ranks = (P_STAR) => {
     // 별점 선택에 따라 요청 보내기
-    selectedStars.forEach((P_STAR) => {
-      Cookies.set('P_STAR', P_STAR);
       axios
         .post('http://localhost:9999/search/list', { orderBy, P_ADDRESS, ROOM_CAPACITY, P_STAR })
         .then((response) => {
@@ -126,18 +126,14 @@ const PropertyListPage = () => {
         .catch((error) => {
           console.error(error);
         });
-    });
-  };
+    }
+
 
   useEffect(() => {}, [setRanksList]);
 
   //부대시설 필터
-  const filters = (selectFilter) => {
-    const selectedFilter = selectFilter.split(','); // ',' 기준으로 분리하여 배열로 만듦
-
+  const filters = (P_EXTRA) => {
     // 별점 선택에 따라 요청 보내기
-    selectedFilter.forEach((P_EXTRA) => {
-      Cookies.set('P_EXTRA', P_EXTRA);
       axios
         .post('http://localhost:9999/search/list', { orderBy, P_ADDRESS, ROOM_CAPACITY, P_EXTRA })
         .then((response) => {
@@ -146,15 +142,11 @@ const PropertyListPage = () => {
         .catch((error) => {
           console.error(error);
         });
-    });
-  };
+    }
 
   useEffect(() => {}, [setFilterList]);
 
-  const handleMap = () => {
-    navigate('/kakaomap');
-  };
-
+  
   //페이징 처리
   const [currentPage, setCurrentPage] = useState(0);
 
@@ -198,7 +190,7 @@ const PropertyListPage = () => {
               </div>
               <div className="col-lg-9 col-md-12">
                 <h4 className="search-hotel" style={{ marginTop: '20px', textAlign: 'end', fontWeight: 'bold', width: 1000 }}>
-                  {params.P_ADDRESS} 검색된 숙소 {property.length}개
+                  {params.P_ADDRESS} : 검색된 숙소 {property.length}개
                 </h4>
                 <DropdownButton id="dropdown-btn" title={orderBy ? orderBy : '정렬 순서'}>
                   <Dropdown.Item id="dropdownItem-btn" onClick={() => handleOrder('가격 낮은순')}>
