@@ -21,9 +21,11 @@ import './propertyList.css';
  * @returns 검색 결과 페이지 (Search Result)
  */
 const PropertyListPage = () => {
-  const navigate = useNavigate();
+
   const [ranksList, setRanksList] = useState([]);
   const [filterList, setFilterList] = useState([]);
+  const [P_STAR, setP_STAR] = useState(null);
+  const [P_EXTRA, setP_EXTRA] = useState(null);
 
   const [showModal, setShowModal] = useState(false); //모달창
 
@@ -78,74 +80,79 @@ const PropertyListPage = () => {
   const P_ADDRESS = Cookies.get('P_ADDRESS');
   const ROOM_CAPACITY = Cookies.get('ROOM_CAPACITY');
 
-  //사용자가 정렬조건 선택 시 스프링으로 요청
-  useEffect(() => {
-    if (orderBy === '가격 낮은순') {
-      const data = { orderBy: 'priceLow', P_ADDRESS, ROOM_CAPACITY };
+////////////////////////////필터/////////////////////////////
+  const checkedFilters = (selectedFilters) => {
+    const filterParams = {
+      orderBy,
+      P_ADDRESS,
+      ROOM_CAPACITY,
+      P_EXTRA: selectedFilters,
+    };
+  
+    axios
+      .post('http://localhost:9999/search/list', filterParams)
+      .then((response) => {
+        setProperty(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
 
-      axios
-        .post('http://localhost:9999/search/list', data)
-        .then((response) => {
-          setProperty(response.data);
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-    } else if (orderBy === '가격 높은순') {
-      const data = { orderBy: 'priceHigh', P_ADDRESS, ROOM_CAPACITY };
-      axios
-        .post('http://localhost:9999/search/list', data)
-        .then((response) => {
-          setProperty(response.data);
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-    } else if (orderBy === '평점 높은순') {
-      const data = { orderBy: 'rivieHigh', P_ADDRESS, ROOM_CAPACITY };
-      axios
-        .post('http://localhost:9999/search/list', data)
-        .then((response) => {
-          setProperty(response.data);
-        })
-        .catch((error) => {
-          console.error(error);
-        });
+////////////////////////////성급/////////////////////////////
+const handleRankingClick = (event) => {
+  
+  const rank = event.target.value;
+  const checkboxes = document.getElementsByName('check');
+  for (let i = 0; i < checkboxes.length; i++) {
+    if (checkboxes[i].value !== rank) {
+      checkboxes[i].checked = true;
     }
-  }, [orderBy]);
-  console.log(orderBy);
+  }
+  ranks(rank);
+}
 
-  //성급 필터
-  const ranks = (P_STAR) => {
+  const ranks = (star) => {
     // 별점 선택에 따라 요청 보내기
-      axios
-        .post('http://localhost:9999/search/list', { orderBy, P_ADDRESS, ROOM_CAPACITY, P_STAR })
-        .then((response) => {
-          setProperty(response.data);
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-    }
-
+    axios
+      .post('http://localhost:9999/search/list', { orderBy, P_ADDRESS, ROOM_CAPACITY, P_STAR: star, P_EXTRA })
+      .then((response) => {
+        setProperty(response.data);
+        setP_STAR(star); // P_STAR 값을 업데이트
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }
+  
 
   useEffect(() => {}, [setRanksList]);
 
-  //부대시설 필터
-  const filters = (P_EXTRA) => {
-    // 별점 선택에 따라 요청 보내기
-      axios
-        .post('http://localhost:9999/search/list', { orderBy, P_ADDRESS, ROOM_CAPACITY, P_EXTRA })
-        .then((response) => {
-          setProperty(response.data);
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-    }
 
-  useEffect(() => {}, [setFilterList]);
-
+  
+  ////////////////////////////정렬조건/////////////////////////////
+  useEffect(() => {
+    
+    let data = { orderBy, P_ADDRESS, ROOM_CAPACITY, P_EXTRA, P_STAR  };
+    if (orderBy === '가격 낮은순') {
+      data.orderBy = 'priceLow';
+    } else if (orderBy === '가격 높은순') {
+      data.orderBy = 'priceHigh';
+    } else if (orderBy === '평점 높은순') {
+      data.orderBy = 'reviewwHigh';
+       data.P_EXTRA = setP_EXTRA; // 선택된 부대시설 추가
+       data.P_STAR = setP_STAR; // 선택된 부대시설 추가
+  }
+    
+    axios
+      .post('http://localhost:9999/search/list', data)
+      .then((response) => {
+        setProperty(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, [orderBy]);
   
   //페이징 처리
   const [currentPage, setCurrentPage] = useState(0);
@@ -185,7 +192,7 @@ const PropertyListPage = () => {
                     지도에서 보기
                   </BButton>
                   <MapModal show={showModal} closeModal={closeModal} />
-                  <FilterSidebar ranks={ranks} filters={filters} />
+                  <FilterSidebar ranks={ranks} checkedFilters={checkedFilters} handleRankingClick={handleRankingClick}/>
                 </div>
               </div>
               <div className="col-lg-9 col-md-12">
