@@ -24,7 +24,6 @@ const ImageUpload = ({ getImage, imageUrl }) => {
       setAttachment(null);
     }
   };
-
   /* Firebase Storage 이미지 업로드 함수 */
   const handleImageUpload = async (image) => {
     try {
@@ -35,6 +34,7 @@ const ImageUpload = ({ getImage, imageUrl }) => {
       console.log("image uploaded successfully, Download URL:", downloadURL);
       console.log(downloadURL);
       getImage(downloadURL);
+      /*호스트이미지 업로드 */
     } catch (error) {
       console.log("error uploading image", error);
     }

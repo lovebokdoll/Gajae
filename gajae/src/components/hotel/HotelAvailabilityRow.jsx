@@ -25,7 +25,10 @@ const HotelAvailabilityRow = ({ row }) => {
   const [selectedModal, setSelectedRoomModal] = useState([]);
   const [selectedPriceModal, setSelectedPriceModal] = useState([]);
   const [selectedFacModal, setSelectedFacModal] = useState({});
-
+  const [localID, setLocalID] = useState();
+  useEffect(() => {
+    setLocalID(window.localStorage.getItem("userId"));
+  }, []);
   const selectNum = useCallback(
     (index, value) => {
       //selectNumber 상태를 복사하고 [index]: value추가한다.
@@ -90,10 +93,13 @@ const HotelAvailabilityRow = ({ row }) => {
   //지금예약버튼
   const onReservation = () => {
     if (totalPrice > 0) {
+      if (localID == null) {
+        alert("로그인을 먼저 진행해주세요.");
+        return;
+      }
       for (let i = 0; i < selectRoom.length; i++) {
         //쿠키를 언제 지울건지 알아야 함
         const roomtype = roomTypes[i];
-
         //Cookies.remove(roomtype);
       }
       //Cookies.remove(); //기존 쿠키값 왜 삭제 안됨???????

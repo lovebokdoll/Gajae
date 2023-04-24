@@ -259,23 +259,3 @@ const Rating = styled.button`
   height: 40px;
 `;
 
-const GridContainer = styled.div`
-  display: grid;
-  grid-template-columns: repeat(3, 1fr); // 3개의 열, 각 열은 같은 너비
-  grid-template-rows: repeat(5, 1fr); // 5개의 행, 각 행은 같은 높이
-  gap: 10px; // 디브간의 간격
-  border: 1px solid #ccc; // 그리드에 테두리 씌우기
-`;
-
-const GridItem = styled.div`
-  background-color: whigt;
-  border: 1px solid #ccc;
-`;
-const LabelWrapper = styled.div`
-  flex: 1;
-`;
-const ItemContentWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-`;

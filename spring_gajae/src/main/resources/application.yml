@@ -32,19 +32,19 @@ spring:
     multipart:
       enabled: true
   mail:
-    host: smtp.naver.com
-    port: 465
-    username: loveseesee@naver.com
-    password: 
-    protocol: smtps
-    properties:
-      mail:
-        smtp:
-          auth: true
-          starttls:
-            enable: true
-            required: true
-          ssl:
-            trust: smtp.naver.com
+   host: smtp.naver.com
+   port: 465
+   username: dltmfekgml@naver.com
+   password: 
+   protocol: smtps
+   properties:
+     mail:
+       smtp:
+         auth: true
+         starttls:
+           enable: true
+           required: true
+         ssl:
+           trust: smtp.naver.com
 mybatis:
   mapper-locations: classpath:mapper/**.xml

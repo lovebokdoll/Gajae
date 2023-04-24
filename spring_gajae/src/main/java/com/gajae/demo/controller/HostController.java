@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.gajae.demo.dto.HostDTO;
+import com.gajae.demo.dto.HotelDTO;
 import com.gajae.demo.logic.HostLogic;
 import com.gajae.demo.vo.HostVO;
 import com.google.gson.Gson;
@@ -72,22 +73,42 @@ public class HostController {
 		log.info("result = {}", result);
 		return String.valueOf(result);
 	}
-	@PostMapping("propertyInsert2")
-	public String propertyInsert2(@RequestBody Map<String, Object> map) {
+
+	//등록된 숙소 불러오기 
+	@GetMapping("hotelList")
+	public String hotelList(@RequestParam Map<String, Object> map) {
 		
 		log.info("map = {}", map);
-		// 유효성검사
-		for (String key : map.keySet()) {
-			Object value = map.get(key);
-			if (value == null || value.toString().trim().isEmpty()) {
-				return String.valueOf(-10);
-			}
-		}
-		
-		int result = hostLogic.propertyInsert(map);
-		log.info("result = {}", result);
-		return String.valueOf(result);
+	        
+		List<Map<String, Object>> hotelList = hostLogic.hotelList( map );
+	        Gson   g    = new Gson();
+	        String temp = g.toJson( hotelList );
+	        log.info("temp = {}", temp);
+	        return temp;
 	}
+	
+	
+	//나의숙소  디테일
+	@GetMapping("hotelDetail")
+	public String hotelDetail(@RequestParam Map<String,Object> map) {
+		log.info("map = {}", map);
+		List<Map<String,Object>> bList = null;
+		bList = hostLogic.hotelDetail(map);
+		Gson g = new Gson();
+		String temp = g.toJson(bList);
+		return temp;
+	}	
+	//나의숙소수정 
+	@PostMapping("hotelUpdate")
+	public String hotelUpdate(@RequestBody Map<String,Object> map) {
+		log.info("map = {}", map);
+		List<Map<String,Object>> bList = null;
+		bList = hostLogic.hotelUpdate(map);
+		Gson g = new Gson();
+		String temp = g.toJson(bList);
+		log.info("temp = {}", temp);
+		return temp;
+	}	
 
 //	    @PostMapping( "hostpropertyInsert" )
 //	    public ResponseEntity<String> hostpropertyInsert( @RequestBody Map<String, Object> map ) {
@@ -122,6 +143,20 @@ public class HostController {
 		log.info("result = {}", result);
 		return String.valueOf(result);
 	}
+	@PostMapping("hostextraInsert")
+	public String hostextraInsert(@RequestBody Map<String, Object> map) {
+		
+		log.info("map = {}", map);
+		// 유효성검사
+		for (String key : map.keySet()) {
+			Object value = map.get(key);
+			if (value == null || value.toString().trim().isEmpty()) {
+			}
+		}
+		int result = hostLogic.hostextraInsert(map);
+		log.info("result = {}", result);
+		return String.valueOf(result);
+	}
 
 	// 아이디 중복체크
 
@@ -135,6 +170,13 @@ public class HostController {
 			result = 1;
 		}
 		return result;
-
+	}
+	
+//시설 P_ID불러오기
+	@GetMapping("facPidExist")
+	public Map<String, Object> facPidExist(@RequestParam Map<String, Object> map) {
+		Map<String, Object> result = null;
+		result = hostLogic.facPidExist(map);
+		return result;
 	}
 }

@@ -21,7 +21,7 @@ const HeaderNav1 = () => {
   };
 
   useEffect(() => {
-    setUserId(window.localStorage.getItem('userId'));
+    setUserId(window.localStorage.getItem("userId"));
   }, []);
 
   return (

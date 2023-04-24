@@ -15,6 +15,7 @@ import {
   WholeForm,
 } from "../../style/FormStyle";
 import { loginDB } from "../../service/hostLogic";
+import HostHeaderNav from "./HostHeaderNav";
 /**
  *
  * @returns 로그인 페이지
@@ -40,6 +41,7 @@ const HostLogin = () => {
     const jsonDoc = JSON.parse(temp);
     console.log(jsonDoc[0]);
     if (response.data) {
+      window.localStorage.clear();
       // 로컬에 뭐가 담겨야 할지 생각하기!! 일단은 아이디, 이름, 사업자번호, 회사이름 담음
       window.localStorage.setItem("hostId", jsonDoc[0].HOST_ID);
       window.localStorage.setItem("hostName", jsonDoc[0].HOST_NAME);
@@ -112,7 +114,7 @@ const HostLogin = () => {
 
   return (
     <>
-      <HeaderNav1 />
+      <HostHeaderNav />
       <WholeForm>
         <Form className="container">
           <MyH1>반갑습니다! 파트너로 로그인 해주세요</MyH1>

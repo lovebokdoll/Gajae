@@ -9,12 +9,13 @@ import {
 import { useCallback } from "react";
 import { useEffect } from "react";
 
-const HostRoom = ({ selectedRooms, setSelectedRooms, onScaleChange }) => {
+const HostFac = ({ selectedRooms, setSelectedRooms, onScaleChange }) => {
   const handleFacRoom = (e) => {
     const value = e.target.id;
     const checked = e.target.checked;
     console.log(e.target.checked);
     setSelectedRooms((selectedRooms) => ({
+      ...selectedRooms,
       FAC_ROOM: checked
         ? [...selectedRooms.FAC_ROOM, value]
         : //value에 해당하는 효소를 제외하고 남은 요소들로 새로운 배열을 만든다.
@@ -23,94 +24,186 @@ const HostRoom = ({ selectedRooms, setSelectedRooms, onScaleChange }) => {
   };
   const handleFacRestaruant = useCallback((e) => {
     const value = e.target.id;
+    const checked = e.target.checked;
+    console.log(e.target.checked);
+    setSelectedRooms((selectedRooms) => ({
+      ...selectedRooms,
+      FAC_RESTARUANT: checked
+        ? [...selectedRooms.FAC_RESTARUANT, value]
+        : //value에 해당하는 효소를 제외하고 남은 요소들로 새로운 배열을 만든다.
+          selectedRooms.FAC_RESTARUANT.filter((val) => val !== value),
+    }));
   }, []);
   const handleFacSecurity = useCallback((e) => {
     const value = e.target.id;
-    console.log(value);
+    const checked = e.target.checked;
+    console.log(e.target.checked);
+    setSelectedRooms((selectedRooms) => ({
+      ...selectedRooms,
+      FAC_SECURITY: checked
+        ? [...selectedRooms.FAC_SECURITY, value]
+        : //value에 해당하는 효소를 제외하고 남은 요소들로 새로운 배열을 만든다.
+          selectedRooms.FAC_SECURITY.filter((val) => val !== value),
+    }));
   }, []);
   const handleFacBathroom = useCallback((e) => {
     const value = e.target.id;
-    console.log(value);
+    const checked = e.target.checked;
+    console.log(e.target.checked);
+    setSelectedRooms((selectedRooms) => ({
+      ...selectedRooms,
+      FAC_BATHROOM: checked
+        ? [...selectedRooms.FAC_BATHROOM, value]
+        : //value에 해당하는 효소를 제외하고 남은 요소들로 새로운 배열을 만든다.
+          selectedRooms.FAC_BATHROOM.filter((val) => val !== value),
+    }));
   }, []);
   const handleFacParking = useCallback((e) => {
     const value = e.target.id;
-    console.log(value);
+    const checked = e.target.checked;
+    console.log(e.target.checked);
+    setSelectedRooms((selectedRooms) => ({
+      ...selectedRooms,
+      FAC_PARKING: checked
+        ? [...selectedRooms.FAC_PARKING, value]
+        : //value에 해당하는 효소를 제외하고 남은 요소들로 새로운 배열을 만든다.
+          selectedRooms.FAC_PARKING.filter((val) => val !== value),
+    }));
   }, []);
   const handleFacBed = useCallback((e) => {
     const value = e.target.id;
-    console.log(value);
+    const checked = e.target.checked;
+    console.log(e.target.checked);
+    setSelectedRooms((selectedRooms) => ({
+      ...selectedRooms,
+      FAC_BED: checked
+        ? [...selectedRooms.FAC_BED, value]
+        : //value에 해당하는 효소를 제외하고 남은 요소들로 새로운 배열을 만든다.
+          selectedRooms.FAC_BED.filter((val) => val !== value),
+    }));
   }, []);
   const handleFacLiving = useCallback((e) => {
     const value = e.target.id;
-    console.log(value);
+    const checked = e.target.checked;
+    console.log(e.target.checked);
+    setSelectedRooms((selectedRooms) => ({
+      ...selectedRooms,
+      FAC_LIVING: checked
+        ? [...selectedRooms.FAC_LIVING, value]
+        : //value에 해당하는 효소를 제외하고 남은 요소들로 새로운 배열을 만든다.
+          selectedRooms.FAC_LIVING.filter((val) => val !== value),
+    }));
   }, []);
   const handleFacMedia = useCallback((e) => {
     const value = e.target.id;
-    console.log(value);
+    const checked = e.target.checked;
+    console.log(e.target.checked);
+    setSelectedRooms((selectedRooms) => ({
+      ...selectedRooms,
+      FAC_MEDIA: checked
+        ? [...selectedRooms.FAC_MEDIA, value]
+        : //value에 해당하는 효소를 제외하고 남은 요소들로 새로운 배열을 만든다.
+          selectedRooms.FAC_MEDIA.filter((val) => val !== value),
+    }));
   }, []);
   const handleFacInternet = useCallback((e) => {
     const value = e.target.id;
-    console.log(value);
+    const checked = e.target.checked;
+    console.log(e.target.checked);
+    setSelectedRooms((selectedRooms) => ({
+      ...selectedRooms,
+      FAC_INTERNET: checked
+        ? [...selectedRooms.FAC_INTERNET, value]
+        : //value에 해당하는 효소를 제외하고 남은 요소들로 새로운 배열을 만든다.
+          selectedRooms.FAC_INTERNET.filter((val) => val !== value),
+    }));
   }, []);
   const handleFacService = useCallback((e) => {
     const value = e.target.id;
-    console.log(value);
+    const checked = e.target.checked;
+    console.log(e.target.checked);
+    setSelectedRooms((selectedRooms) => ({
+      ...selectedRooms,
+      FAC_SERVICE: checked
+        ? [...selectedRooms.FAC_SERVICE, value]
+        : //value에 해당하는 효소를 제외하고 남은 요소들로 새로운 배열을 만든다.
+          selectedRooms.FAC_SERVICE.filter((val) => val !== value),
+    }));
   }, []);
   const handleFacGeneral = useCallback((e) => {
     const value = e.target.id;
-    console.log(value);
+    const checked = e.target.checked;
+    console.log(e.target.checked);
+    setSelectedRooms((selectedRooms) => ({
+      ...selectedRooms,
+      FAC_GENERAL: checked
+        ? [...selectedRooms.FAC_GENERAL, value]
+        : //value에 해당하는 효소를 제외하고 남은 요소들로 새로운 배열을 만든다.
+          selectedRooms.FAC_GENERAL.filter((val) => val !== value),
+    }));
   }, []);
   const handleFacLanguage = useCallback((e) => {
     const value = e.target.id;
-    console.log(value);
+    const checked = e.target.checked;
+    console.log(e.target.checked);
+    setSelectedRooms((selectedRooms) => ({
+      ...selectedRooms,
+      FAC_LANGUAGE: checked
+        ? [...selectedRooms.FAC_LANGUAGE, value]
+        : //value에 해당하는 효소를 제외하고 남은 요소들로 새로운 배열을 만든다.
+          selectedRooms.FAC_LANGUAGE.filter((val) => val !== value),
+    }));
   }, []);
   const handleFacKitchen = useCallback((e) => {
     const value = e.target.id;
-    console.log(value);
+    const checked = e.target.checked;
+    console.log(e.target.checked);
+    setSelectedRooms((selectedRooms) => ({
+      ...selectedRooms,
+      FAC_KITCHEN: checked
+        ? [...selectedRooms.FAC_KITCHEN, value]
+        : //value에 해당하는 효소를 제외하고 남은 요소들로 새로운 배열을 만든다.
+          selectedRooms.FAC_KITCHEN.filter((val) => val !== value),
+    }));
   }, []);
   const handleFacReception = useCallback((e) => {
     const value = e.target.id;
-    console.log(value);
+    const checked = e.target.checked;
+    console.log(e.target.checked);
+    setSelectedRooms((selectedRooms) => ({
+      ...selectedRooms,
+      FAC_RECEPTION: checked
+        ? [...selectedRooms.FAC_RECEPTION, value]
+        : //value에 해당하는 효소를 제외하고 남은 요소들로 새로운 배열을 만든다.
+          selectedRooms.FAC_RECEPTION.filter((val) => val !== value),
+    }));
   }, []);
   const handleFacExtras = useCallback((e) => {
     const value = e.target.id;
-    console.log(value);
+    const checked = e.target.checked;
+    console.log(e.target.checked);
+    setSelectedRooms((selectedRooms) => ({
+      ...selectedRooms,
+      P_EXTRA: checked
+        ? [...selectedRooms.P_EXTRA, value]
+        : //value에 해당하는 효소를 제외하고 남은 요소들로 새로운 배열을 만든다.
+          selectedRooms.P_EXTRA.filter((val) => val !== value),
+    }));
   }, []);
 
   useEffect(() => {
     console.log("선택된 체크박스:" + selectedRooms.FAC_ROOM);
+    console.log("선택된 체크박스:" + selectedRooms.FAC_RESTARUANT);
+    console.log("선택된 체크박스:" + selectedRooms.P_EXTRA);
   }, [selectedRooms]);
 
   return (
     <div>
       <Accordion.Item eventKey="4">
-        <Accordion.Header>객실</Accordion.Header>
-        첫번째 객실에 대한 정보를 입력해주세요 이후에 다른 객실도 추가 등록하실
-        수 있습니다.
+        <Accordion.Header>시설</Accordion.Header>
+        호텔의 시설에 대하여 선택해주세요
         <Accordion.Body>
           <Card style={{ width: "55rem", margin: "5% auto" }}>
-            <Card.Body>
-              <Card.Title>객실유형을 입력해 주세요</Card.Title>
-              <Form>
-                <Form.Group className="mb-3" controlId="formBasicEmail">
-                  <Form.Control
-                    type="text"
-                    placeholder="객실유형 입력하기-Room Type"
-                  />
-                </Form.Group>
-              </Form>
-            </Card.Body>
-            <Card.Body>
-              <Card.Title>이 객실의 수용인원은 몇명인가요?</Card.Title>
-              <Form>
-                <Form.Group className="mb-3" controlId="formBasicEmail">
-                  <Form.Control
-                    type="text"
-                    placeholder="수용인원 입력하기-Room Capacity"
-                  />
-                </Form.Group>
-              </Form>
-            </Card.Body>
             <Card.Body>
               <Card.Title>
                 이 객실에는 어떤 시설/용품이 구비되어 있나요?
@@ -460,15 +553,6 @@ const HostRoom = ({ selectedRooms, setSelectedRooms, onScaleChange }) => {
                 ))}
               </Form>
             </Card.Body>
-            <Card.Body>
-              <Card.Title>이 객실의 1박 요금을 설정하세요.</Card.Title>
-              <Form>
-                <Form.Control
-                  type="text"
-                  placeholder="객실요금 입력하기-Room Price"
-                />
-              </Form>
-            </Card.Body>
           </Card>
         </Accordion.Body>
       </Accordion.Item>
@@ -476,4 +560,4 @@ const HostRoom = ({ selectedRooms, setSelectedRooms, onScaleChange }) => {
   );
 };
 
-export default HostRoom;
+export default HostFac;

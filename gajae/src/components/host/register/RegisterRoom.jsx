@@ -1,68 +1,121 @@
 import React, { useEffect, useState } from "react";
 import HeaderNav1 from "../../header/HeaderNav1";
-import { Accordion, Card, Form } from "react-bootstrap";
-import HostZipCode from "./HostZipCode";
+import { Accordion } from "react-bootstrap";
 import {
+  hostextraExistDB,
+  hostextraInsertDB,
+  hostfacExistDB,
   hostfacInsertDB,
-  hostpropertyInsertDB,
 } from "../../../service/hostLogic";
-import HostRoom from "./HostRoom";
-import HostPhoto from "./HostPhoto";
-import { useCallback } from "react";
 import { useDispatch } from "react-redux";
 import { setToastMessage } from "../../../redux/toastStatus/action";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import HostFac from "./HostFac";
+import HostHeaderNav from "../HostHeaderNav";
 
-const RegisterRoom = ({ tempid }) => {
-  const location = useLocation();
+const RegisterRoom = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
-  //시퀀스로 받아온 p_id
-  const temphotelid = location.state.value;
+  const location = useLocation();
+  const params = new URLSearchParams(location.search);
+  const p_id = params.get("p_id");
+  console.log(p_id);
+  //URL로 받아온 p_id담기
+  const [tempid, setTempid] = useState();
   //어떤 값 담기는지 확인하기 이전 hotel이랑 같은 p_id찍혀야 한다.
-  console.log(temphotelid);
-  //const [tempid, setTempid] = useState("");
-  //setTempid(temphotelid);
-  const [tempidUpdate, setTempUpdate] = useState("");
+  const [tempidUpdate, setTempUpdate] = useState(false);
   //숙소등록 - 체크박스 처리
   const [selectedRooms, setSelectedRooms] = useState({
     FAC_ROOM: "",
-    // FAC_RESTARUANT: [],
-    // FAC_SECURITY: [],
-    // FAC_BATHROOM: [],
-    // FAC_PARKING: [],
-    // FAC_LIVING: [],
-    // FAC_MEDIA: [],
-    // FAC_INTERNET: [],
-    // FAC_SERVICE: [],
-    // FAC_GENERAL: [],
-    // FAC_LANGUAGE: [],
-    // FAC_BED: [],
-    // FAC_KITCHEN: [],
-    // FAC_RECEPTION: [],
+    FAC_RESTARUANT: "",
+    FAC_SECURITY: "",
+    FAC_BATHROOM: "",
+    FAC_PARKING: "",
+    FAC_LIVING: "",
+    FAC_MEDIA: "",
+    FAC_INTERNET: "",
+    FAC_SERVICE: "",
+    FAC_GENERAL: "",
+    FAC_LANGUAGE: "",
+    FAC_BED: "",
+    FAC_KITCHEN: "",
+    FAC_RECEPTION: "",
+    P_EXTRA: "",
   });
-
-  //클릭하는 함수 정의
+  console.log(selectedRooms);
   const hostInsert = async () => {
-    if (selectedRooms.data < 0) {
+    //적어도 하나를 선택해야 한다.
+    const checked = Object.values(
+      selectedRooms["FAC_ROOM"],
+      selectedRooms["FAC_RESTARUANT"],
+      selectedRooms["FAC_SECURITY"],
+      selectedRooms["FAC_BATHROOM"],
+      selectedRooms["FAC_PARKING"],
+      selectedRooms["FAC_LIVING"],
+      selectedRooms["FAC_MEDIA"],
+      selectedRooms["FAC_INTERNET"],
+      selectedRooms["FAC_SERVICE"],
+      selectedRooms["FAC_GENERAL"],
+      selectedRooms["FAC_LANGUAGE"],
+      selectedRooms["FAC_BED"],
+      selectedRooms["FAC_KITCHEN"],
+      selectedRooms["FAC_RECEPTION"],
+      selectedRooms["P_EXTRA"]
+    ).some((value) => value !== "");
+    if (!checked) {
       dispatch(setToastMessage("숙소정보 등록 실패"));
       return;
     } else {
       dispatch(setToastMessage("숙소정보 등록에 성공하였습니다"));
+      //navigate("/host/end");
     }
-
+    setTempid(p_id);
+    setTempUpdate(true);
   };
   //시설정보 입력하는 useEffect => tempid가 업데이트 될때마다 실행된다
   useEffect(() => {
     const insertFacilities = async () => {
+      // P_ID 동일한것 있는지 확인 후 실행
       if (tempidUpdate) {
+        console.log(tempidUpdate);
+        console.log(tempid);
+        const facExist = await hostfacExistDB(tempid);
+        console.log(facExist);
+        // const extExist = await hostextraExistDB(tempid);
+        if (facExist) {
+          console.log(
+            "Facilities and extras for tempid already exist in database."
+          );
+          return;
+        }
         const facilities = {
           P_ID: tempid,
           FAC_ROOM: selectedRooms.FAC_ROOM.toString(),
+          FAC_RESTARUANT: selectedRooms.FAC_RESTARUANT.toString(),
+          FAC_SECURITY: selectedRooms.FAC_SECURITY.toString(),
+          FAC_BATHROOM: selectedRooms.FAC_BATHROOM.toString(),
+          FAC_PARKING: selectedRooms.FAC_PARKING.toString(),
+          FAC_BED: selectedRooms.FAC_BED.toString(),
+          FAC_LIVING: selectedRooms.FAC_LIVING.toString(),
+          FAC_MEDIA: selectedRooms.FAC_MEDIA.toString(),
+          FAC_INTERNET: selectedRooms.FAC_INTERNET.toString(),
+          FAC_SERVICE: selectedRooms.FAC_SERVICE.toString(),
+          FAC_GENERAL: selectedRooms.FAC_GENERAL.toString(),
+          FAC_LANGUAGE: selectedRooms.FAC_LANGUAGE.toString(),
+          FAC_KITCHEN: selectedRooms.FAC_KITCHEN.toString(),
+          FAC_RECEPTION: selectedRooms.FAC_RECEPTION.toString(),
+        };
+        const extra = {
+          P_ID: tempid,
+          P_EXTRA: selectedRooms.P_EXTRA.toString(),
         };
         console.log(facilities);
+        console.log(extra);
         //숙소시설insert
         const facres = await hostfacInsertDB(facilities);
-        console.log(facres.data);
+        const extres = await hostextraInsertDB(extra);
+        console.log(facres);
+        console.log(extres);
       }
     };
     insertFacilities();
@@ -70,20 +123,15 @@ const RegisterRoom = ({ tempid }) => {
 
   return (
     <>
-      <HeaderNav1 />
+      <HostHeaderNav />
       <div style={{ width: "70%", margin: "10% auto" }}>
         <Accordion>
-          <HostRoom
+          <HostFac
             selectedRooms={selectedRooms}
             setSelectedRooms={setSelectedRooms}
           />
-          {/* ////////////////////객실 끝////////////////////////// */}
-          {/* ////////////////////사진 시작////////////////////////// */}
-          <HostPhoto />
-          {/* ////////////////////사진 끝////////////////////////// */}
         </Accordion>
         <div className="d-grid gap-2 col-6 mx-auto">
-          {/*HostZipCode의 내용이 버튼을 누를때 insert되어야 한다. */}
           <button
             className="btn btn-warning"
             type="button"

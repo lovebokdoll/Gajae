@@ -1,7 +1,7 @@
 import React from "react";
 import Footer from "../../components/footer/Footer";
-import HeaderNav1 from "../../components/header/HeaderNav1";
 import HostMainPage from "../../components/host/HostMainPage";
+import HostHeaderNav from "../../components/host/HostHeaderNav";
 /**
  * 호스트가 숙소를 등록한다.
  * @returns 숙소등록 페이지
@@ -9,7 +9,7 @@ import HostMainPage from "../../components/host/HostMainPage";
 const HostPage = () => {
   return (
     <>
-      <HeaderNav1 />
+      <HostHeaderNav />
       <HostMainPage />
       <Footer />
     </>

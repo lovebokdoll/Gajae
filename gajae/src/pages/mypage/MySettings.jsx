@@ -605,7 +605,13 @@ const MySettings = () => {
               </div>
             )}
             {isAddressChange && (
-              <div style={{ display: 'flex', alignItems: 'center', height: '20px' }}>
+              <div
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  height: '20px',
+                }}
+              >
                 <span style={{ width: '90px', marginRight: '10px' }}>주소</span>
                 <div style={{ marginRight: '10px' }}>
                   {renderInput('user_address', 'user_address', '주소를 입력해주세요', (event) => handleAddress(event.target.value))}

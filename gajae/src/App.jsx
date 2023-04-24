@@ -7,15 +7,19 @@ import KakaoRedirectHandler from './api/kakao/KakaoRedirectHandler';
 import NaverPay from './api/naver/NaverPay';
 import ReservateComplete from './components/Reservate/ReservateComplete';
 import ReservationDetail from './components/Reservate/ReservationDetail';
+import HostEndPage from './components/host/HostEndPage';
 import HostLogin from './components/host/HostLogin';
 import HostSignUp from './components/host/HostSignUp';
+import HostHotelUpdate from './components/host/myhost/HostHotelUpdate';
+import MyHostpage from './components/host/myhost/MyHostpage';
+import MyHotelPage from './components/host/myhost/MyHotelPage';
 import RegisterHotel from './components/host/register/RegisterHotel';
 import RegisterRoom from './components/host/register/RegisterRoom';
 import SignUpTest from './components/login/SignUpTest';
 import CurrencyModal from './components/modal/CurrencyModal';
 import NationModal from './components/modal/NationModal';
 import InicisPay from './components/pay/InicisPay';
-import PropertyMap from "./components/searchItem/PropertyMap";
+import PropertyMap from './components/searchItem/PropertyMap';
 import Toast from './components/toast/Toast';
 import HostPage from './pages/host/HostPage';
 import HotelPage from './pages/hotel/HotelPage';
@@ -52,73 +56,38 @@ const App = () => {
         <Route path="/" exact="true" element={<MainPage />} />
         {/* signup & signin */}
         <Route path="/signup" exact={true} element={<SignUpTest />} />
-        <Route
-          path="/signup/succession"
-          exact={true}
-          element={<WelcomePage />}
-        />
+        <Route path="/signup/succession" exact={true} element={<WelcomePage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/login/activate" element={<UserActivatePage />} />
         <Route path="/login/findid" element={<IDFindPage />} />
         <Route path="/login/findpw" element={<PWFindPage />} />
         <Route path="/mypage" exact={true} element={<Mypage />} />
-        <Route
-          path="/propertylist/:P_ADDRESS?"
-          element={<PropertyListPage />}
-        />
+        <Route path="/propertylist/:P_ADDRESS?" element={<PropertyListPage />} />
         <Route path="/hotel" element={<HotelPage />} />
         <Route path="/review/write" element={<ReviewWritePage />} />
-        <Route
-          path="/auth/kakao/callback"
-          exact={true}
-          element={<KakaoRedirectHandler />}
-        />
+        <Route path="/auth/kakao/callback" exact={true} element={<KakaoRedirectHandler />} />
         <Route path="/kakaoprofile" exact={true} element={<KakaoProfile />} />
         <Route path="/naverpay" exact={true} element={<NaverPay />} />
         <Route path="/mypage" exact={true} element={<Mypage />} />
         <Route path="/mypage/settings" exact={true} element={<MySettings />} />
-        <Route
-          path="/mypage/notifications"
-          exact={true}
-          element={<MyNotificationsPage />}
-        />
-        <Route
-          path="/mypage/reservations"
-          exact={true}
-          element={<MyReservatiosPage />}
-        />
+        <Route path="/mypage/notifications" exact={true} element={<MyNotificationsPage />} />
+        <Route path="/mypage/reservations" exact={true} element={<MyReservatiosPage />} />
         <Route path="/mypage/review" exact={true} element={<MyReviewPage />} />
-        <Route
-          path="/mypage/payment"
-          exact={true}
-          element={<MyPaymentPage />}
-        />
-        <Route
-          path="/mypage/wishlist"
-          exact={true}
-          element={<MyWishListPage />}
-        />
+        <Route path="/mypage/payment" exact={true} element={<MyPaymentPage />} />
+        <Route path="/mypage/wishlist" exact={true} element={<MyWishListPage />} />
         <Route path="/reservate" element={<ReservationDetail />} />
         <Route path="/pay" exact={true} element={<Payapge />} />
-        <Route
-          path="/pay/complete"
-          exact={true}
-          element={<ReservateComplete />}
-        />
+        <Route path="/pay/complete" exact={true} element={<ReservateComplete />} />
         <Route path="/inicis" exact={true} element={<InicisPay />} />
         <Route path="/host" exact={true} element={<HostPage />} />
+        <Route path="/host/end" exact={true} element={<HostEndPage />} />
         <Route path="/host/signup" exact={true} element={<HostSignUp />} />
         <Route path="/host/login" exact={true} element={<HostLogin />} />
-        <Route
-          path="/host/registerHotel"
-          exact={true}
-          element={<RegisterHotel />}
-        />
-        <Route
-          path="/host/registerRoom"
-          exact={true}
-          element={<RegisterRoom />}
-        />
+        <Route path="/host/registerHotel" exact={true} element={<RegisterHotel />} />
+        <Route path="/host/registerRoom/:p_id?" exact={true} element={<RegisterRoom />} />
+        <Route path="/host/myhostpage" exact={true} element={<MyHostpage />} />
+        <Route path="/host/myhotelpage" exact={true} element={<MyHotelPage />} />
+        <Route path="/host/update" exact={true} element={<HostHotelUpdate />} />
         <Route path="/review/update" exact={true} element={<ReviewUpdate />} />
         <Route path="/test" exact={true} element={<PropertyMap />} />
       </Routes>
