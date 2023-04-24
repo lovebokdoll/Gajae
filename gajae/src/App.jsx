@@ -36,12 +36,13 @@ import MyReviewPage from './pages/mypage/MyReviewPage';
 import MySettings from './pages/mypage/MySettings';
 import MyWishListPage from './pages/mypage/MyWishListPage';
 import Mypage from './pages/mypage/Mypage';
-import Payapge from './pages/pay/Payapge';
+import Paypage from './pages/pay/Paypage';
 import PropertyListPage from './pages/propertyList/PropertyListPage';
 import ReviewUpdate from './pages/reviewBoard/ReviewUpdate';
 import ReviewWritePage from './pages/reviewBoard/ReviewWritePage';
 
 const App = () => {
+  
   const toastStatus = useSelector((state) => state.toastStatus);
   const modalStatus = useSelector((state) => state.modalInfo);
   const nationStatus = useSelector((state) => state.nationModalInfo);
@@ -76,7 +77,7 @@ const App = () => {
         <Route path="/mypage/payment" exact={true} element={<MyPaymentPage />} />
         <Route path="/mypage/wishlist" exact={true} element={<MyWishListPage />} />
         <Route path="/reservate" element={<ReservationDetail />} />
-        <Route path="/pay" exact={true} element={<Payapge />} />
+        <Route path="/pay" exact={true} element={<Paypage />} />
         <Route path="/pay/complete" exact={true} element={<ReservateComplete />} />
         <Route path="/inicis" exact={true} element={<InicisPay />} />
         <Route path="/host" exact={true} element={<HostPage />} />

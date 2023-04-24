@@ -158,6 +158,7 @@ hotel_title hotel_address
   border-radius: 5px;
   width: 100%;
   max-width: 1000px;
+  align-items: center;
 }
 
 .headerIcon {

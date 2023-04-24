@@ -9,25 +9,25 @@ const HeaderNav2 = () => {
       <div className="header">
         <div className="headerContainer listMode">
           <div className="headerList">
-            <div className="headerListItem active">
+            <div className="headerListItem ">
               <FontAwesomeIcon icon={faBed} />
-              <span>숙소</span>
+              <span>숙 소</span>
             </div>
             <div className="headerListItem">
               <FontAwesomeIcon icon={faPlane} />
-              <span>항공권</span>
+              <span>항 공 권</span>
             </div>
             <div className="headerListItem">
               <FontAwesomeIcon icon={faCar} />
-              <span>렌터카</span>
+              <span>렌 터 카</span>
             </div>
             <div className="headerListItem">
               <FontAwesomeIcon icon={faBed} />
-              <span>투어</span>
+              <span>투 어</span>
             </div>
             <div className="headerListItem">
               <FontAwesomeIcon icon={faTaxi} />
-              <span>택시</span>
+              <span>택 시</span>
             </div>
           </div>
         </div>

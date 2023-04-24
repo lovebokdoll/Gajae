@@ -199,10 +199,9 @@ const PropertyListPage = () => {
       <div>
         <HeaderNav1 />
         <HeaderNav2></HeaderNav2>
-        <div
-          className="container"
-          style={{ display: "flex", justifyContent: "center" }}
-        >
+        {/*end of the Header */}
+        <div className="body"> 
+        <div className="container" style={{ display: 'flex', justifyContent: 'center' }}>
           <div className="row">
             <div className="col-lg-3 col-md-12">
               <SearchBox />
@@ -222,15 +221,8 @@ const PropertyListPage = () => {
               </div>
             </div>
             <div className="col-lg-9 col-md-12">
-              <h4
-                className="search-hotel"
-                style={{
-                  marginTop: "20px",
-                  textAlign: "center",
-                  fontWeight: "bold",
-                }}
-              >
-                {params.P_ADDRESS} : 검색된 숙소{property.length}개
+              <h4 className="search-hotel" style={{ marginTop: '20px', textAlign: 'end', fontWeight: 'bold',width:1000 }}>
+                {params.P_ADDRESS} 검색된 숙소 {property.length}개
               </h4>
               <DropdownButton
                 id="dropdown-btn"
@@ -287,6 +279,8 @@ const PropertyListPage = () => {
         <div>
           <hr />
         </div>
+        </div> {/*end of the Body*/}
+
         <Footer />
       </div>
     </>

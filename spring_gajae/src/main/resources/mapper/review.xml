@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace = "review" >
-	 <insert id="reviewInsert" parameterType="map">
-	 	INSERT INTO REVIEW(
-	 		REVIEW_NUMBER, 
-			R_NUMBER, 
-			REVIEW_TITLE, 
-			REVIEW_GOOD, 
-			REVIEW_BAD, 
+	<insert id="reviewInsert" parameterType="map">
+		INSERT INTO REVIEW(
+			REVIEW_NUMBER,
+			R_NUMBER,
+			REVIEW_TITLE,
+			REVIEW_GOOD,
+			REVIEW_BAD,
 			REVIEW_DATE,
-			REVIEW_PHOTO, 
-			REVIEW_SERVICE, 
-			REVIEW_FACILITY, 
-			REVIEW_CLEAN, 
+			REVIEW_PHOTO,
+			REVIEW_SERVICE,
+			REVIEW_FACILITY,
+			REVIEW_CLEAN,
 			REVIEW_LOCATION,
 			REVIEW_COST,
 			REVIEW_AVERAGE

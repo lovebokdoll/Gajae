@@ -32,10 +32,11 @@ const HeaderNav1 = () => {
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
               <Nav className="me-auto">
-                <Link to="/" style={{ color: 'white' }} className="nav-link">
-                  <img id="main_logo" src="../images/ex3.png" alt="대체_텍스트" />
-                </Link>
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <Link to="/" style={{ color: '#003580' }} className="nav-link">
+              <img id="main_logo" src="../images/001.png" alt="대체_텍스트" />
+              </Link>
+          <div className='GiveGap'style={{width: 342}}> </div> {/* 로고랑 KRW사이 GAP지우면 안됨*/}
+                <div className='header-reduxitem' style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                   <CurrencyButton onClick={handleCurrencyModal}>
                     <span>KRW</span>
                   </CurrencyButton>

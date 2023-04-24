@@ -1,6 +1,6 @@
 .fp {
   width: 100%;
-  max-width: 1024px;
+  max-width: 1500px;
   margin: 0 auto; /* 가운데 정렬을 위해 추가 */
   display: flex;
   justify-content: space-between;

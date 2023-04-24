@@ -1,31 +1,55 @@
 .pList {
-  max-width: 1024px;
-  margin: 0 auto; /* 가운데 정렬을 위해 추가 */
+  max-width: 1500px;
+  margin: 0 auto;
   display: flex;
-  justify-content: space-between;
-  gap: 20px;
+  justify-content: center;
+  gap: 60px;
+  flex-wrap: wrap;
 }
 
 .pListItem {
-  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 2px solid #ccc;
+  background-color: #fff;
+  padding: 20px;
   border-radius: 10px;
-  overflow: hidden;
-  cursor: pointer;
-  width: 300;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  min-width: 420px;
+  height: 300px;
 }
 
 .pListImg {
   width: 100%;
   height: 150px;
   object-fit: cover;
+  margin-bottom: 20px;
+  border-radius: 10px;
 }
 
 .pListTitles > h1 {
-  font-size: 18px;
-  color: #444;
+  font-size: 20px;
+  color: #333;
+  margin-bottom: 5px;
 }
 
 .pListTitles > h2 {
-  font-size: 14px;
-  font-weight: 300;
+  font-size: 16px;
+  color: #666;
+  margin-bottom: 0;
+}
+
+.recommendPlace {
+  text-align: left;
+  font-size: 30px;
+  width: 100%;
+  padding: 30px 0;
+}
+
+.pListTitles {
+  max-width: 150px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }

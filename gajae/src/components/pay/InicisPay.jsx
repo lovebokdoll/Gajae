@@ -14,6 +14,7 @@ const InicisPay = () => {
       return decodeURIComponent(parts.pop().split(';').shift());
     }
   }
+
   const totalPrice = getCookie('totalPrice'); //쿠키에서 가격호출
   const P_TITLE = getCookie('P_TITLE'); //쿠키에서 호텔명호출
   const roomType = decodeURIComponent(getCookie('roomtype'));
@@ -49,7 +50,7 @@ const InicisPay = () => {
     const { IMP } = window;
     IMP.init([['imp68150140']]); // 결제 데이터 정의
     const data = {
-      pg: 'html5_inicis',
+      pg: 'nice',
       pay_method: 'card',
       merchant_uid: `mid_${new Date().getTime()}`,
       name: P_TITLE,
@@ -64,8 +65,13 @@ const InicisPay = () => {
   };
 
   const callback = (response) => {
-    const { success, error_msg } = response;
+    const { success, error_msg, amount, name } = response;
+    console.log('success:response ===>', response);
+    console.log('success:response.data ===>', response.data);
     if (success) {
+      console.log('success:response ===>', response);
+      console.log('success:response.data ===>', response.data);
+      alert('성공');
       window.location.href = '/pay/complete'; // 결제 성공 시 /pay/complete 페이지로 이동
     } else {
       alert(`결제 실패 : ${error_msg}`);
@@ -75,7 +81,7 @@ const InicisPay = () => {
   return (
     <>
       <button onClick={onClickPayment} style={{ border: '0', background: 'none' }}>
-        <img src="../images/inicis.png" alt="이니시스로 결제하기" />
+        <img src="../images/paybutton.png" alt="이니시스로 결제하기" />
       </button>
     </>
   );

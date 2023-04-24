@@ -9,11 +9,19 @@
   justify-content: center;
   align-items: center;
 }
+.header-reduxitem {
+  display: flex;
+  align-items: center;
+  right: 100%;
+}
 
+#main_logo {
+  left: 100%;
+}
 .nav-link {
   position: relative;
 }
 
-#main_logo {
-  left: 100;
+.container-fluid {
+  width: 1000px;
 }
