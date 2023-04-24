@@ -40,4 +40,11 @@ public class ResultDao {
         bList = sqlSessionTemplate.selectList( "priceHigh", pMap );
         return bList;
     }
+
+	public List<Map<String, Object>> markList() {
+		log.info("markList호출");
+		List<Map<String, Object>> mList = null;
+	    mList = sqlSessionTemplate.selectList("markList");
+	    return mList;
+	}
 }

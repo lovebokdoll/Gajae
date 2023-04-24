@@ -38,4 +38,10 @@ public class ResultLogic {
 		resultList = searchDao.priceHigh(pMap, orderBy);
 		return resultList;
 	}
+	//지도 
+	public List<Map<String, Object>> markList() {
+		List<Map<String, Object>> mList = null;
+		mList = searchDao.markList();
+		return mList;
+	}
 }

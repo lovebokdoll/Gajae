@@ -1,30 +1,47 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
 import { useState } from "react";
-import { Link } from "react-router-dom";
-import { reviewListDB } from "../../service/reviewboardLogic";
-import Dropdowntoggle from "../reviewBoard/Dropdowntoggle";
+import { reviewDeleteDB, reviewListDB } from "../../service/reviewboardLogic";
+import Dropdowntoggle from "../../components/review/Dropdowntoggle";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const MyReviewList = ({ userId }) => {
   const [myreview, setMyreview] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
+
   const pageNumber = [];
   const reviewsPerPage = 5;
   console.log(userId);
+
   useEffect(() => {
-    const user = {
-      USERID: userId,
-    };
-    const reviewList = async (user) => {
-      const res = await reviewListDB();
+    const reviewList = async () => {
+      const user = {
+        USER_ID: userId,
+      };
+      const res = await reviewListDB(user);
       if (res) {
         setMyreview(res.data);
         console.log(res.data);
       }
     };
     reviewList();
-  }, []);
+  }, [userId]);
 
+  const onDelete = async (reviw_number) => {
+    try {
+      const deleteReview = {
+        REVIEW_NUMBER: reviw_number,
+      };
+      const res = await reviewDeleteDB(deleteReview);
+      const updatedReviews = myreview.filter(
+        (review) => review.REVIEW_NUMBER !== reviw_number
+      );
+      setMyreview(updatedReviews);
+    } catch (error) {}
+  };
+
+  console.log(myreview);
+  //페이징 처리
   for (let i = 1; i <= Math.ceil(myreview?.length / reviewsPerPage); i++) {
     pageNumber.push(i);
   }
@@ -34,44 +51,63 @@ const MyReviewList = ({ userId }) => {
   const start = indexOfFirstReview;
   const end = indexOfLastReview;
 
-  const onEdit = (review_number) => {
-    window.location.href = `/review/update?review_number=${review_number}`;
-  };
-  const onDelete = () => {};
   return (
     <>
       <BackDiv>
+        <h3 style={{ fontWeight: "bold" }}>
+          <FontAwesomeIcon
+            icon="fa-solid fa-pen-to-square"
+            style={{ color: "#1e3050" }}
+          />
+          &nbsp; 이용후기
+        </h3>
+        <TLineDiv></TLineDiv>
         <ReviewList>
           {myreview.slice(start, end).map((review, index) => (
-            <li key={index}>
-              <hr />
+            <ReviewItem key={index}>
+              <ColorDiv></ColorDiv>
+              {/* 수정 삭제 버튼이 있는 컴포넌트 */}
+              <BtnWrapper>
+                <Dropdowntoggle review={review} onDelete={onDelete} />
+              </BtnWrapper>
               <ReviewWrapper>
                 <ImageContainer>
                   <ImageWrapper>
-                    <img
-                      src="https://via.placeholder.com/150"
-                      alt="placeholder image"
-                    />
+                    <img src="../images/오션뷰.jpg" alt="placeholder image" />
                   </ImageWrapper>
-                  <ImageDescription>호텔정보</ImageDescription>
+                  <ImageDescription>
+                    <p>
+                      <FontAwesomeIcon icon="fa-solid fa-house" />
+                      &nbsp;&nbsp;
+                      {review.P_TITLE} - {review.ROOM_TYPE}
+                    </p>
+                    <p>
+                      <FontAwesomeIcon icon="fa-regular fa-calendar-check" />
+                      &nbsp;&nbsp;
+                      {review.R_START_DATE} ~ {review.R_END_DATE}
+                    </p>
+                  </ImageDescription>
                 </ImageContainer>
                 <ContentWrapper>
                   <ReviewTitle>{review.REVIEW_TITLE}</ReviewTitle>
-                  <RText>{review.REVIEW_GOOD}</RText>
-                  <RText>{review.REVIEW_BAD}</RText>
+                  <RText>
+                    <FontAwesomeIcon
+                      icon="fa-regular fa-face-smile"
+                      style={{ color: "#99ff00" }}
+                    />
+                    &nbsp;&nbsp;
+                    {review.REVIEW_GOOD}
+                  </RText>
+                  <RText>
+                    <FontAwesomeIcon icon="fa-regular fa-face-frown" />
+                    &nbsp;&nbsp;
+                    {review.REVIEW_BAD}
+                  </RText>
+                  <img src="{review.REVIEW_PHOTO}" />
                   <CardTimestamp>{review.REVIEW_DATE}</CardTimestamp>
-                  <ButtonContainer>
-                    <ButtonWrapper>
-                      <Dropdowntoggle
-                        review={review}
-                        onEdit={onEdit}
-                        onDelte={onDelete}
-                      />
-                    </ButtonWrapper>
-                  </ButtonContainer>
                 </ContentWrapper>
               </ReviewWrapper>
-            </li>
+            </ReviewItem>
           ))}
         </ReviewList>
         <nav>
@@ -101,25 +137,29 @@ const MyReviewList = ({ userId }) => {
 export default MyReviewList;
 
 const BackDiv = styled.div`
-  display: flex;
+  display: block;
   flex-direction: column;
-  width: 90%;
-  padding: 10px;
-  max-width: 1200px;
+  margin-left: 50px;
+  max-width: 800px;
   min-height: 650px;
   align-items: center;
+  font-family: "KOTRA_GOTHIC";
 `;
 
 const ReviewList = styled.ul`
   margin: 0;
   padding: 0;
+`;
+const ReviewItem = styled.li`
+  margin: 0;
+  pading: 0;
   list-style-type: none;
 `;
 
 const ReviewWrapper = styled.div`
   display: flex;
   flex-direction: row;
-  max-width: 700px;
+  max-width: 500px;
   height: 230px;
   position: relative;
   margin: 50px 0 50px 0;
@@ -135,7 +175,7 @@ const ImageWrapper = styled.div`
 
 const ContentWrapper = styled.div`
   flex: 0 0 66.666667%;
-  padding: 1rem;
+  margin-left: 30px;
 `;
 
 const ReviewTitle = styled.h5`
@@ -154,7 +194,7 @@ const CardTimestamp = styled.p`
 `;
 
 const ButtonWrapper = styled.div`
-  display: flex;
+  float: rigth;
   align-items: center;
 `;
 
@@ -171,7 +211,7 @@ const ImageDescription = styled.div`
   flex: 0 0 33.333333%;
   width: 100%;
   padding: 0.5rem; /* 기존 코드: 1rem */
-  font-size: 1rem;
+  font-size: 0.8rem;
   margin-top: 0.25rem;
 `;
 
@@ -181,4 +221,20 @@ const ImageContainer = styled.div`
   flex-basis: 33.333333%;
 `;
 
-const DropLink = styled(Link);
+const ColorDiv = styled.div`
+  background-color: lightgray;
+  height: 1px;
+  with: 100%;
+`;
+
+const BtnWrapper = styled.div`
+  float: right;
+  background-color: white;
+  padding: 10px;
+`;
+
+const TLineDiv = styled.div`
+  background-color: #1e3050;
+  height: 7px;
+  with: 100%;
+`;
