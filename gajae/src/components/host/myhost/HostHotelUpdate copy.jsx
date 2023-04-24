@@ -206,7 +206,7 @@ export const HostHotelUpdate = () => {
               }}
             />
 
-            <h6>룸타입을 추가하세요</h6>
+            <h6>변경 할 룸타입을 선택하세요</h6>
             <form>
               {[
                 { label: "스위트룸", value: "1" },

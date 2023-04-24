@@ -73,15 +73,7 @@ public class HostController {
 		log.info("result = {}", result);
 		return String.valueOf(result);
 	}
-//	//특정 숙소 리뷰 리스트
-//		@GetMapping("p_reviewList") 
-//		public List<Map<String, Object>>propertyList(@RequestParam("P_ID") int P_ID ){
-//			log.info("propertyList 호출 ");
-//			List<Map<String, Object>> pList = null;
-//			pList = reviewBoardLoigic.propertyList(P_ID);
-//			log.info(pList);
-//			return pList;
-//		}
+
 	//등록된 숙소 불러오기 
 	@GetMapping("hotelList")
 	public String hotelList(@RequestParam Map<String, Object> map) {
