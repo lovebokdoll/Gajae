@@ -2,7 +2,7 @@
 import { faComment, faCreditCard, faHeart, faHistory, faSignOutAlt, faUser } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useEffect, useState } from 'react';
-import { Button, Form, Nav } from 'react-bootstrap';
+import { Button, Form, Modal, Nav } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import Footer from '../../components/footer/Footer';
@@ -20,7 +20,10 @@ import {
   MySettingsPageTitle,
   MySettingsRow,
   MySettingsRowLayout,
+  ProfileImage,
+  ProfileUploadButton,
   SignOutButton,
+  TransparentButton,
 } from './styled-mypage';
 
 const MySettings = () => {
@@ -45,7 +48,22 @@ const MySettings = () => {
 
   const checkboxLable = ['남자', '여자'];
 
-  const [user_email, setUser_email] = useState();
+  const [localName, setLocalName] = useState('');
+  const [localNickName, setLocalNickName] = useState('');
+  const [localBirth, setLocalBitrh] = useState('');
+  const [localEmail, setLocalEmail] = useState('');
+
+  useEffect(() => {
+    const tempID = window.localStorage.getItem('userId');
+    if (tempID === null) {
+      navigate('/');
+    }
+    setUser({ USER_ID: tempID });
+    setLocalName(window.localStorage.getItem('userName'));
+    setLocalNickName(window.localStorage.getItem('userNickname'));
+    setLocalEmail(window.localStorage.getItem('userEmail'));
+    setLocalBitrh(window.localStorage.getItem('userBirth'));
+  }, []);
 
   const [user, setUser] = useState({
     USER_ID: '',
@@ -121,16 +139,6 @@ const MySettings = () => {
       }}
     />
   ));
-
-  useEffect(() => {
-    const tempID = window.localStorage.getItem('userId');
-    if (tempID === null) {
-      navigate('/');
-    }
-    setUser({ USER_ID: tempID });
-    console.log(window.localStorage.getItem.user_email);
-    setUser_email(window.localStorage.getItem.user_email);
-  }, []);
 
   const searchAddress = (event) => {
     console.log(user);
@@ -359,13 +367,21 @@ const MySettings = () => {
               <MSPTTitle>개인정보</MSPTTitle>
               <MSPTComment>정보를 업데이트하고 각 정보가 어떻게 활용되는지 알아보세요.</MSPTComment>
             </MySettingsPageTitle>
+            <ProfileUploadButton>
+              <ProfileImage src="/images/login/2532839-200.png" alt="이미지" />
+            </ProfileUploadButton>
+            {/*       <Modal isOpen={modalIsOpen} onRequestClose={closeModal} style={customStyles}>
+              <h2>프로필 사진 업로드</h2>
+              <input type="file" accept="image/*" />
+              <button onClick={handleUpload}>업로드</button>
+            </Modal> */}
           </MySettingsFlexByRow>
           <MySettingsRow>
             <MySettingsRowLayout>
               {!isNameChange && (
                 <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                   <span style={{ display: 'inline-block', width: '50px' }}>이름</span>
-                  <span style={{ display: 'inline-block', textAlign: 'left', marginRight: 'auto' }}>YOON HOJAE</span>
+                  <span style={{ display: 'inline-block', textAlign: 'left', paddingLeft: '100px', marginRight: 'auto' }}>{localName}</span>
                   <Button onClick={() => setIsChange('isNameChange', true)}>수정</Button>
                 </div>
               )}
@@ -399,16 +415,16 @@ const MySettings = () => {
             {!isNickNameChange && (
               <div style={{ display: 'flex', alignItems: 'center' }}>
                 <span style={{ width: '50px' }}>닉네임</span>
-                <span style={{ marginLeft: '10px', marginRight: 'auto' }}>다른 사람에게 공개할 닉네임을 입력해주세요</span>
+                <span style={{ marginLeft: '10px', paddingLeft: '89px', marginRight: 'auto' }}>
+                  다른 사람에게 공개할 닉네임을 입력해주세요
+                </span>
                 <Button onClick={() => setIsChange('isNickNameChange', true)}>수정</Button>
               </div>
             )}
             {isNickNameChange && (
               <div style={{ display: 'flex', alignItems: 'center' }}>
                 <span style={{ width: '90px', marginRight: '10px' }}>닉네임</span>
-                {renderInput('user_nickname', 'user_nickname', '다른 사람에게 공개할 닉네임을 입력해주세요', (event) =>
-                  handleNickname(event.target.value)
-                )}
+                {renderInput('user_nickname', localNickName, (event) => handleNickname(event.target.value))}
                 <Button
                   style={{ marginLeft: '15px' }}
                   onClick={() => {
@@ -442,7 +458,7 @@ const MySettings = () => {
             {!isEmailChange && (
               <div style={{ display: 'flex', alignItems: 'center' }}>
                 <span style={{ marginRight: '10px' }}>이메일</span>
-                <span style={{ marginRight: 'auto' }}>{user_email}예약 확정 이메일이 이곳으로 전송됩니다.</span>
+                <span style={{ paddingLeft: '92px', marginRight: 'auto' }}>예약 확정 이메일이 이곳으로 전송됩니다.</span>
                 <div style={{ marginLeft: 'auto' }}>
                   <Button onClick={() => setIsChange('isEmailChange', true)}>수정</Button>
                 </div>
@@ -451,7 +467,7 @@ const MySettings = () => {
             {isEmailChange && (
               <div style={{ display: 'flex', alignItems: 'center' }}>
                 <span style={{ width: '90px', marginRight: '10px' }}>이메일</span>
-                {renderInput('user_email', 'user_email', '이메일을 입력해주세요', (event) => handleEmail(event.target.value))}
+                {renderInput('user_email', 'user_email', localEmail, (event) => handleEmail(event.target.value))}
                 <Button
                   style={{ marginLeft: '15px' }}
                   onClick={() => {
@@ -521,7 +537,7 @@ const MySettings = () => {
             {isBirthChange && (
               <div style={{ display: 'flex', alignItems: 'center' }}>
                 <span style={{ width: '90px', marginRight: '10px' }}>생년월일</span>
-                {renderInputLength('user_birth', 'user_birth', 'YYYY-MM-DD', 8, (event) => handleBirth(event.target.value))}
+                {renderInputLength('user_birth', 'user_birth', localBirth, 8, (event) => handleBirth(event.target.value))}
                 <Button
                   style={{ marginLeft: '15px' }}
                   onClick={() => {

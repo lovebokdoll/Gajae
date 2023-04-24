@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="reservation">
+	<!-- review_number는 review 작성시 update -->
+	<insert id="resInsert" parameterType="map">
+		INSERT INTO
+		GAJAE.RESERVATIONS (
+		R_NUMBER,
+		USER_ID,
+		P_ID,
+		R_DATE,
+		R_START_DATE,
+		R_END_DATE,
+		R_NAME,
+		R_MOBILE,
+		R_EMAIL,
+		R_PEOPLE,
+		R_ETA,
+		R_PS,
+		R_STATE,
+		PAY_NUMBER,
+		ROOM_ID
+		)
+		VALUES (
+		#{R_NUMBER},
+		#{USER_ID},
+		#{P_ID},
+		TO_CHAR(
+		SYSDATE, 'YYYY-MM-DD HH24:MI:SS'),
+		#{R_START_DATE},
+		#{R_END_DATE},
+		#{R_NAME},
+		#{R_MOBILE},
+		#{R_EMAIL},
+		#{R_PEOPLE},
+		#{R_ETA},
+		#{R_PS},
+		#{R_STATE},
+		#{PAY_NUMBER},
+		#{ROOM_ID}
+		)
+	</insert>
+
+	<select id="resInformation" parameterType="map" resultType="map">
+		SELECT
+		R_NUMBER ,
+		USER_ID ,
+		P_ID ,
+		REVIEW_NUMBER ,
+		R_DATE ,
+		R_UPDATE ,
+		R_START_DATE ,
+		R_END_DATE ,
+		R_NAME ,
+		R_MOBILE ,
+		R_EMAIL ,
+		R_PEOPLE ,
+		R_ETA ,
+		R_PS ,
+		R_STATE ,
+		PAY_NUMBER ,
+		ROOM_ID
+		FROM
+		GAJAE.RESERVATIONS
+	</select>
+
+</mapper>

@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="payment">
+
+	<select id="paymentInformation" parameterType="map"
+		resultType="map">
+		SELECT
+		PAY_NUMBER ,
+		MERCHANT_UID ,
+		MERCHANT_NAME ,
+		PAID_AMOUNT,
+		PAID_AT ,
+		PAY_METHOD ,
+		PG_PROVIDER ,
+		PG_TID ,
+		PG_TYPE ,
+		RECEIPT_URL ,
+		STATUS ,
+		SUCCESS ,
+		APPLY_NUM ,
+		BANK_NAME ,
+		BUYER_ADDR ,
+		BUYER_EMAIL ,
+		BUYER_NAME ,
+		BUYER_POSTCODE ,
+		BUYER_TEL ,
+		CARD_NAME ,
+		CARD_NUMBER ,
+		CARD_QUOTA ,
+		CURRENCY
+		FROM
+		GAJAE.PAYMENT
+	</select>
+
+	<!-- REVIEW_NUMBER는 사용자가 이용후기를 입력했을 때 UPDATE 처리한다. -->
+	<insert id="paymentInsert" parameterType="map">
+	INSERT INTO GAJAE.PAYMENT (
+	PAY_NUMBER,
+	MERCHANT_UID,
+	MERCHANT_NAME,
+	PAID_AMOUNT,
+	PAID_AT,
+	PAY_METHOD,
+	PG_PROVIDER,
+	PG_TID,
+	PG_TYPE,
+	RECEIPT_URL,
+	STATUS,
+	SUCCESS,
+	APPLY_NUM,
+	BANK_NAME,
+	BUYER_ADDR,
+	BUYER_EMAIL,
+	BUYER_NAME,
+	BUYER_POSTCODE,
+	BUYER_TEL,
+	CARD_NAME,
+	CARD_NUMBER,
+	CARD_QUOTA,
+	CURRENCY
+	)
+	VALUES (
+	<if test="pay_number != null">
+		#{pay_number},
+	</if>
+	<if test="merchant_uid != null">
+		#{merchant_uid},
+	</if>
+	<if test="merchant_name != null">
+		#{merchant_name},
+	</if>
+	<if test="paid_amount != null">
+		#{paid_amount},
+	</if>
+	<if test="paid_at != null">
+		#{paid_at},
+	</if>
+	<if test="pay_method != null">
+		#{pay_method},
+	</if>
+	<if test="pg_provider != null">
+		#{pg_provider},
+	</if>
+	<if test="pg_tid != null">
+		#{pg_tid},
+	</if>
+	<if test="pg_type != null">
+		#{pg_type},
+	</if>
+	<if test="receipt_url != null">
+		#{receipt_url},
+	</if>
+	<if test="status != null">
+		#{status},
+	</if>
+	<if test="success != null">
+		#{success},
+	</if>
+	<if test="apply_num != null">
+		#{apply_num},
+	</if>
+	<if test="bank_name != null">
+		#{bank_name},
+	</if>
+	<if test="buyer_addr != null">
+		#{buyer_addr},
+	</if>
+	<if test="buyer_email != null">
+		#{buyer_email},
+	</if>
+	<if test="buyer_name != null">
+		#{buyer_name},
+	</if>
+	<if test="buyer_postcode != null">
+		#{buyer_postcode},
+	</if>
+	<if test="buyer_tel != null">
+		#{buyer_tel},
+	</if>
+	<if test="card_name != null">
+		#{card_name},
+	</if>
+	<if test="card_number != null">
+		#{card_number},
+	</if>
+	<if test="card_quota != null">
+		#{card_quota},
+	</if>
+	<if test="currency != null">
+		#{currency}
+		</if>
+		)
+	</insert>
+
+	<update id="paymentUpdate" parameterType="map"></update>
+	<delete id="paymentDelete" parameterType="map"></delete>
+
+</mapper>

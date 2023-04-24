@@ -1,18 +1,24 @@
 import React, { useEffect, useState } from 'react';
 import { Container, Nav, Navbar } from 'react-bootstrap';
-import { useSelector } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
+import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { setModalTrue } from '../../redux/modalStatus/action';
 import MyPageDropDown from '../mypage/MyPageDropDown';
 import './headerNav1.css';
 import { CurrencyButton, NationButton } from './styled-header';
+import { setNationModalTrue } from '../../redux/nationStatus/action';
 
 const HeaderNav1 = () => {
-  const navigate = useNavigate();
-
-  const { userAuth } = useSelector((state) => state);
-
   const [userId, setUserId] = useState();
+
+  const dispatch = useDispatch();
+
+  const handleCurrencyModal = () => {
+    dispatch(setModalTrue('Choose your currency'));
+  };
+  const handleNationModal = () => {
+    dispatch(setNationModalTrue('Choose your nation'));
+  };
 
   useEffect(() => {
     setUserId(window.localStorage.getItem('userId'));
@@ -30,11 +36,11 @@ const HeaderNav1 = () => {
                   <img id="main_logo" src="../images/ex3.png" alt="대체_텍스트" />
                 </Link>
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                  <CurrencyButton>
+                  <CurrencyButton onClick={handleCurrencyModal}>
                     <span>KRW</span>
                   </CurrencyButton>
-                  <NationButton>
-                    <img src="/images/korea.svg.png"></img>
+                  <NationButton onClick={handleNationModal}>
+                    <img src="/images/Flag_of_South_Korea.png"></img>
                   </NationButton>
                   {userId ? (
                     <MyPageDropDown />

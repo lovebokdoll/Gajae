@@ -1,7 +1,7 @@
 import { faComment, faCreditCard, faHeart, faHistory, faSignOutAlt, faUser } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useEffect, useState } from 'react';
-import { Button, Form, Nav } from 'react-bootstrap';
+import { Button, Nav } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import Footer from '../../components/footer/Footer';
 import HeaderNav1 from '../../components/header/HeaderNav1';
@@ -15,15 +15,36 @@ import {
   MyPageLinkMove,
   MySettingsFlexByRow,
   MySettingsPageTitle,
-  MySettingsRow,
-  MySettingsRowLayout,
   SignOutButton,
 } from './styled-mypage';
+import {
+  CardButton,
+  CardDiv,
+  CardEXPInput,
+  CardForm,
+  CardInput,
+  CardLabel,
+  CardSaveButton,
+  CardSettingsRow,
+  MyCardRow,
+} from './styled-payment';
 
 const MyPaymentPage = () => {
   const [isCardAdd, setIsCardAdd] = useState(false);
   const [localID, setLocalID] = useState('');
   const navigate = useNavigate();
+
+  const [cardInfo, setCardInfo] = useState({
+    cardOwner: '',
+    cardNumber: '',
+    cardExpiryMonth: '',
+    cardExpiryYear: '',
+  });
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setCardInfo((prevState) => ({ ...prevState, [name]: value }));
+    console.log(cardInfo);
+  };
 
   useEffect(() => {
     const tempID = window.localStorage.getItem('userId');
@@ -33,7 +54,6 @@ const MyPaymentPage = () => {
       setLocalID(tempID);
     }
   }, []);
-  console.log(localID);
 
   return (
     <>
@@ -87,7 +107,7 @@ const MyPaymentPage = () => {
               <MSPTComment>더욱 간편한 예약을 위해 결제 수단을 안전하게 추가하거나 삭제하세요.</MSPTComment>
             </MySettingsPageTitle>
           </MySettingsFlexByRow>
-          <MySettingsRow>
+          <MyCardRow>
             <div class="payment-info">
               <div class="payment-title">결제정보</div>
               <div class="card-info">
@@ -98,39 +118,49 @@ const MyPaymentPage = () => {
                 <button>삭제</button>
               </div>
             </div>
-          </MySettingsRow>
-          <MySettingsRow>
-            <MySettingsRowLayout>
-              {!isCardAdd && (
-                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                  <span style={{ display: 'inline-block', width: '200px', marginLeft: '25%' }}>다른 카드로 결제</span>
-                  <Button onClick={() => setIsCardAdd(true)}>카드추가</Button>
-                </div>
-              )}
-              {isCardAdd && (
-                <div>
-                  <Button
-                    style={{ marginLeft: '15px' }}
+          </MyCardRow>
+          <CardSettingsRow>
+            {!isCardAdd && (
+              <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                <span style={{ display: 'inline-block', width: '200px', marginLeft: '23%' }}>다른 카드로 결제</span>
+                <Button onClick={() => setIsCardAdd(true)}>카드추가</Button>
+              </div>
+            )}
+            {isCardAdd && (
+              <>
+                <CardDiv>
+                  <CardButton
                     onClick={() => {
                       setIsCardAdd(false);
                     }}
                   >
                     취소
-                  </Button>
-                  <div>a</div>
-                  <Form>
-                    <label>카드 소유주 성명</label>
-                    <input></input>
-                    <label>카드 번호</label>
-                    <input></input>
-                    <label>유효기간</label>
-                    <input></input>
-                    <input type="button" />
-                  </Form>
-                </div>
-              )}
-            </MySettingsRowLayout>
-          </MySettingsRow>
+                  </CardButton>{' '}
+                </CardDiv>
+                <CardForm>
+                  <CardLabel>카드 소유주 성명</CardLabel>
+                  <CardInput type="text" name="cardOwner" value={cardInfo.cardOwner} onChange={handleInputChange}></CardInput>
+                  <CardLabel>카드 번호</CardLabel>
+                  <CardInput type="text" name="cardNumber" value={cardInfo.cardNumber} onChange={handleInputChange}></CardInput>
+                  <CardLabel>유효기간 (월)</CardLabel>
+                  <CardEXPInput
+                    type="text"
+                    name="cardExpiryMonth"
+                    value={cardInfo.cardExpiryMonth}
+                    onChange={handleInputChange}
+                  ></CardEXPInput>
+                  <CardLabel>유효기간 (연)</CardLabel>
+                  <CardEXPInput
+                    type="text"
+                    name="cardExpiryYear"
+                    value={cardInfo.cardExpiryYear}
+                    onChange={handleInputChange}
+                  ></CardEXPInput>
+                  <CardSaveButton type="button">저장</CardSaveButton>
+                </CardForm>
+              </>
+            )}
+          </CardSettingsRow>
         </MSCRightDIV>
       </MSContainer>
       <Footer />

@@ -11,6 +11,7 @@ import { signinDB } from '../../service/user/user';
 import { DividerDiv, DividerDiv2, DividerHr, DividerSpan, MyInput, MyLabel, MyP, PwEye, SubmitButton } from '../../style/FormStyle';
 import './loginPage.css';
 import { AuthContainer, SignInForm } from './styled-login';
+import { LoginImage, MGDIV } from './styled-loginpage';
 
 /**
  *
@@ -128,7 +129,8 @@ const LoginPage = () => {
       <HeaderNav1 />
       <HeaderNav2 />
       <SignInForm>
-        <img src="/images/가재는게편.png"></img>
+        <LoginImage src="/images/login/login.gif" />
+        <MGDIV></MGDIV>
         <MyLabel htmlFor="email">
           {' '}
           아이디

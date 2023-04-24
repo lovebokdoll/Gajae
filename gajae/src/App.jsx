@@ -5,14 +5,14 @@ import './App.css';
 import KakaoProfile from './api/kakao/KakaoProfile';
 import KakaoRedirectHandler from './api/kakao/KakaoRedirectHandler';
 import NaverPay from './api/naver/NaverPay';
+import ReservateComplete from './components/Reservate/ReservateComplete';
 import ReservationDetail from './components/Reservate/ReservationDetail';
 import HostLogin from './components/host/HostLogin';
 import HostSignUp from './components/host/HostSignUp';
 import RegisterHotel from './components/host/register/RegisterHotel';
 import RegisterRoom from './components/host/register/RegisterRoom';
-import ReservateComplete from './components/Reservate/ReservateComplete';
 import SignUpTest from './components/login/SignUpTest';
-import WelcomePage from './components/login/WelcomePage';
+import CurrencyModal from './components/modal/CurrencyModal';
 import InicisPay from './components/pay/InicisPay';
 import Toast from './components/toast/Toast';
 import HostPage from './pages/host/HostPage';
@@ -21,6 +21,7 @@ import IDFindPage from './pages/login/IDFindPage';
 import LoginPage from './pages/login/LoginPage';
 import PWFindPage from './pages/login/PWFindPage';
 import UserActivatePage from './pages/login/UserActivatePage';
+import WelcomePage from './pages/login/WelcomePage';
 import MainPage from './pages/main/MainPage';
 import MyNotificationsPage from './pages/mypage/MyNotificationsPage';
 import MyPaymentPage from './pages/mypage/MyPaymentPage';
@@ -34,13 +35,19 @@ import PropertyListPage from './pages/propertyList/PropertyListPage';
 import ImageUpload from './pages/reviewBoard/ImageUpload';
 import ReviewUpdate from './pages/reviewBoard/ReviewUpdate';
 import ReviewWritePage from './pages/reviewBoard/ReviewWritePage';
+import NationModal from './components/modal/NationModal';
 
 const App = () => {
   const toastStatus = useSelector((state) => state.toastStatus);
+  const modalStatus = useSelector((state) => state.modalInfo);
+  const nationStatus = useSelector((state) => state.nationModalInfo);
 
   return (
     <div style={{ height: '100vh' }}>
-      {toastStatus.status && <Toast />}{' '}
+      {toastStatus.status && <Toast />}
+      {/*  */}
+      {modalStatus.status && <CurrencyModal />}
+      {nationStatus.status && <NationModal />}
       <Routes>
         <Route path="/" exact="true" element={<MainPage />} />
         {/* signup & signin */}

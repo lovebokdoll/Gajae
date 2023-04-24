@@ -1,9 +1,9 @@
 import React from 'react';
+import { Card } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import Footer from '../footer/Footer';
 import HeaderNav1 from '../header/HeaderNav1';
 import HeaderNav2 from '../header/HeaderNav2';
-import Footer from '../footer/Footer';
-import { Button, Card } from 'react-bootstrap';
 
 const ReservateComplete = () => {
   return (

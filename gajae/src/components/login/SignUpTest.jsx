@@ -244,6 +244,7 @@ const SignUpTest = () => {
   };
 
   const signup = async () => {
+    
     if (
       !userInfo.user_id.trim() ||
       !userInfo.user_pw.trim() ||

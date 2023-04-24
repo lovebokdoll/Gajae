@@ -118,6 +118,7 @@ export const MySettingsFlexByRow = styled.div`
 export const MySettingsPageTitle = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
 `;
 export const MSPTTitle = styled.div`
   font-size: 2em;
@@ -130,6 +131,7 @@ export const MSPTComment = styled.div`
   display: flex;
   flex-direction: column;
 `;
+
 export const MySettingsRow = styled.div`
   width: 100%;
   padding: 16px 0px;
@@ -158,4 +160,19 @@ export const EditButton = styled.button`
   border-radius: 4px;
   font-size: 1.2em;
   cursor: pointer;
+`;
+
+export const ProfileImage = styled.img`
+  width: 70px;
+  height: 70px;
+`;
+
+export const ProfileUploadButton = styled.button`
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+
+ &:hover {
+    background-color: #ebf3ff;
+  }
 `;

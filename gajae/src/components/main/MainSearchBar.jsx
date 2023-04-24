@@ -1,20 +1,19 @@
 import { faBed, faCalendarDays, faCar, faPerson, faPlane, faTaxi } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import axios from 'axios';
 import { format } from 'date-fns';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { DateRange } from 'react-date-range';
 import 'react-date-range/dist/styles.css'; // main css file
 import 'react-date-range/dist/theme/default.css'; // theme css file
 import { useNavigate } from 'react-router-dom';
 import './mainSearchBar.css';
-import axios from 'axios';
 
 const MainSearchBar = ({ type }) => {
   const navigate = useNavigate();
 
   //지역 입력
   const [P_ADDRESS, setP_Address] = useState('');
-  console.log(P_ADDRESS)
 
   const [openDate, setOpenDate] = useState(false);
 
@@ -43,16 +42,18 @@ const MainSearchBar = ({ type }) => {
   };
 
   const handleSearch = (e) => {
+    console.log(date);
     navigate(`/propertylist/?P_ADDRESS=${P_ADDRESS}`, { state: { P_ADDRESS, date, options } });
 
     e.preventDefault(); // 페이지 리로딩 방지
-    axios.post('http://localhost:9999/search/list', { P_ADDRESS })
-      .then(response => {
-        console.log(P_ADDRESS)
+    axios
+      .post('http://localhost:9999/search/list', { P_ADDRESS })
+      .then((response) => {
+        console.log(P_ADDRESS);
         console.log(response.data);
         // 검색 결과를 처리할 코드
       })
-      .catch(error => {
+      .catch((error) => {
         console.error(error);
         // 에러 처리 코드
       });

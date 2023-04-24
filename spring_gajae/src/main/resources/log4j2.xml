@@ -41,6 +41,12 @@
 		<Logger name="user" level="DEBUG" additivity="false">
 			<AppenderRef ref="consoleAppender" />
 		</Logger>
+		<Logger name="payment" level="DEBUG" additivity="false">
+			<AppenderRef ref="consoleAppender" />
+		</Logger>
+		<Logger name="reservation" level="DEBUG" additivity="false">
+			<AppenderRef ref="consoleAppender" />
+		</Logger>
 		<Logger name="kakao" level="DEBUG" additivity="false">
 			<AppenderRef ref="consoleAppender" />
 		</Logger>

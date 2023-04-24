@@ -1,8 +1,8 @@
-import Cookies from "js-cookie";
-import { useCallback, useEffect, useState } from "react";
-import { Button, Dropdown, Modal } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
-import { Charge_title, TotalPrice } from "../../style/HotelStyle";
+import Cookies from 'js-cookie';
+import { useCallback, useEffect, useState } from 'react';
+import { Button, Dropdown, Modal } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
+import { Charge_title, TotalPrice } from '../../style/HotelStyle';
 /**
  * HotelPage에서 넘어온 정보를 이용하여 갯수만큼 화면에 뿌려준다.
  * 옵션정보&요금 - 숙소정보
@@ -85,7 +85,7 @@ const HotelAvailabilityRow = ({ row }) => {
       list.push(obj);
     });
     setHotels(list);
-  }, [row, selectedFacModal]);
+  }, [row]);
 
   //지금예약버튼
   const onReservation = () => {
@@ -103,18 +103,18 @@ const HotelAvailabilityRow = ({ row }) => {
         const roomtype = roomTypes[i];
         const selecteNumber = selectedNumber[i];
         //Cookies.set(roomtype, selecteNumber);//한 꺼번에 두개를 담는게 아니라  하나씩 담는것 임
-        Cookies.set("roomtype", roomTypes); //한 꺼번에 두개를 담는게 아니라  하나씩 담는것 임
-        Cookies.set("selectedNumber", selecteNumber); // 인원 수 쿠키에 담음 Cookies.set("P_TITLE", row.P_TITLE);
-        console.log("가용인원" + selectedNumber);
-        console.log("룸타입 " + roomTypes);
+        Cookies.set('roomtype', roomTypes); //한 꺼번에 두개를 담는게 아니라  하나씩 담는것 임
+        Cookies.set('selectedNumber', selecteNumber); // 인원 수 쿠키에 담음 Cookies.set("P_TITLE", row.P_TITLE);
+        console.log('가용인원' + selectedNumber);
+        console.log('룸타입 ' + roomTypes);
       }
-      Cookies.set("totalPrice", totalPrice); // 총액 쿠키에 담음
-      navigate("/reservate");
-      console.log(" totalPrice" + totalPrice); // 총액 콘솔에 출력
+      Cookies.set('totalPrice', totalPrice); // 총액 쿠키에 담음
+      navigate('/reservate');
+      console.log(' totalPrice' + totalPrice); // 총액 콘솔에 출력
     } else {
-      alert("객실을 선택해주세요");
+      alert('객실을 선택해주세요');
     }
-    console.log("지금예약버튼 클릭 -> 결제확인페이지로 이동");
+    console.log('지금예약버튼 클릭 -> 결제확인페이지로 이동');
   };
 
   const handleClose = () => setShow(false);
@@ -144,7 +144,7 @@ const HotelAvailabilityRow = ({ row }) => {
                     <a
                       href="javascript:void(0);"
                       style={{
-                        textDecoration: "none",
+                        textDecoration: 'none',
                       }}
                       onClick={() => {
                         setSelectedRoomModal(hotel.ROOM_TYPE);
@@ -175,7 +175,7 @@ const HotelAvailabilityRow = ({ row }) => {
                   <td>{hotel.ROOM_PRICE}원</td>
 
                   <td>
-                    {hotel.ROOM_OPTION?.split(",").map((option, index) => (
+                    {hotel.ROOM_OPTION?.split(',').map((option, index) => (
                       <div key={index}>{option}</div>
                     ))}
                   </td>
@@ -184,16 +184,11 @@ const HotelAvailabilityRow = ({ row }) => {
                     <div className="table-wrapper-item2">
                       <Dropdown>
                         <Dropdown.Toggle variant="danger" id="dropdown-basic">
-                          {selectNumber[index] || 0}{" "}
-                          {/* index값이 존재하지 않을 경우 0으로 보여줌 */}
+                          {selectNumber[index] || 0} {/* index값이 존재하지 않을 경우 0으로 보여줌 */}
                         </Dropdown.Toggle>
                         <Dropdown.Menu>
-                          <Dropdown.Item onClick={() => selectNum(index, 0)}>
-                            0
-                          </Dropdown.Item>
-                          <Dropdown.Item onClick={() => selectNum(index, 1)}>
-                            1
-                          </Dropdown.Item>
+                          <Dropdown.Item onClick={() => selectNum(index, 0)}>0</Dropdown.Item>
+                          <Dropdown.Item onClick={() => selectNum(index, 1)}>1</Dropdown.Item>
                           {/* <Dropdown.Item onClick={() => selectNum(index, 2)}>
                             2
                           </Dropdown.Item>
@@ -230,11 +225,7 @@ const HotelAvailabilityRow = ({ row }) => {
             {selectedPriceModal}원
           </Modal.Footer>
           <Modal.Footer>
-            <Button
-              className="btn_close"
-              variant="secondary"
-              onClick={handleClose}
-            >
+            <Button className="btn_close" variant="secondary" onClick={handleClose}>
               닫기
             </Button>
           </Modal.Footer>

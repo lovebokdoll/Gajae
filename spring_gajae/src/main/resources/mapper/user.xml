@@ -72,7 +72,8 @@
 		USER_ID = #{USER_ID}
 	</update>
 
-	<insert id="signup">INSERT INTO GAJAE.USERS
+	<insert id="signup">
+	INSERT INTO GAJAE.USERS
 		(
 		USER_ID ,
 		USER_PW ,

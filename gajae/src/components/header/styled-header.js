@@ -38,6 +38,11 @@ export const NationButton = styled.button`
   border-radius: 5px;
   position: relative;
   transition: all 0.3s ease;
+
+  img {
+    width: 30px;
+    height: 20px;
+  }
   &:hover::before {
     content: '언어 선택';
     display: block;
