@@ -2,37 +2,42 @@ import { faBed, faCalendarDays, faCar, faHotel, faPerson, faPlane, faSuitcaseRol
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import axios from 'axios';
 import { format } from 'date-fns';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { DateRange } from 'react-date-range';
 import 'react-date-range/dist/styles.css'; // main css file
 import 'react-date-range/dist/theme/default.css'; // theme css file
 import { useNavigate } from 'react-router-dom';
 import { BButton } from '../../style/FormStyle';
 import './mainSearchBar.css';
+import Cookies from 'js-cookie';
+import { useDispatch } from 'react-redux';
+import { setToastMessage } from '../../redux/toastStatus/action';
 
 const MainSearchBar = ({ type }) => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  //유효성 검사
-  const [addressError, setAddressError] = useState(false);
+  //쿠키 1주일 설정하는 변수
+  const oneWeekFromNow = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
 
+  //사용자가 선택했던 목적지(쿠키)
+  const [destination, setDestination] = useState(Cookies.get('destination') || '');
   //지역 입력
   const [P_ADDRESS, setP_Address] = useState('');
-  console.log(P_ADDRESS);
   //인원수, 객실수 입력
   const [ROOM_CAPACITY, setRoom_Capacity] = useState({
     adult: 1,
   });
 
-  console.log(ROOM_CAPACITY);
   const [openDate, setOpenDate] = useState(false);
+
   const [date, setDate] = useState([
     {
       startDate: new Date(),
       endDate: new Date(),
       key: 'selection',
     },
-  ]); //날짜
+  ]);
 
   const [openOptions, setOpenOptions] = useState(false);
   const handleOption = (name, operation) => {
@@ -44,15 +49,41 @@ const MainSearchBar = ({ type }) => {
     });
   };
 
+  const checkDate = (event) => {};
+
   const handleSearch = (e) => {
     const roomCapacity = parseInt(ROOM_CAPACITY.adult);
-    console.log('왜 호출 안되냐?');
-    if (!P_ADDRESS) {
-      alert('지역을 입력해주세요');
+
+    const startDate = date[0].startDate;
+    const formattedStartDate = `${startDate.getFullYear()}-${(startDate.getMonth() + 1).toString().padStart(2, '0')}-${startDate
+      .getDate()
+      .toString()
+      .padStart(2, '0')}`;
+    console.log('Formatted start date:', formattedStartDate);
+
+    const endDate = date[0].endDate;
+
+    const formattedEndDate = `${endDate.getFullYear()}-${(endDate.getMonth() + 1).toString().padStart(2, '0')}-${endDate
+      .getDate()
+      .toString()
+      .padStart(2, '0')}`;
+    console.log('Formatted end date:', formattedEndDate);
+
+    if (P_ADDRESS === '' || formattedStartDate === formattedEndDate) {
+      dispatch(setToastMessage('같은 날짜를 선택할 수 없습니다.'));
       return;
     }
 
-    navigate(`/propertylist/?P_ADDRESS=${P_ADDRESS}&ROOM_CAPACITY=${roomCapacity}&DATE=${date}`, { state: { P_ADDRESS, date, ROOM_CAPACITY } });
+    Cookies.set('startDate', formattedStartDate, oneWeekFromNow);
+    Cookies.set('endDate', formattedEndDate, oneWeekFromNow);
+    Cookies.set('destination', P_ADDRESS, { expires: new Date(Date.now() + 10 * 60 * 1000) });
+
+    navigate(
+      `/propertylist/?P_ADDRESS=${P_ADDRESS}&ROOM_CAPACITY=${roomCapacity}&startdate=${formattedStartDate}&enddate=${formattedEndDate}`,
+      {
+        state: { P_ADDRESS, date, ROOM_CAPACITY },
+      }
+    );
 
     axios
       .post('http://localhost:9999/search/list', { P_ADDRESS, ROOM_CAPACITY: roomCapacity })
@@ -104,13 +135,13 @@ const MainSearchBar = ({ type }) => {
                   <FontAwesomeIcon icon={faSuitcaseRolling} style={{ marginRight: '10px' }} className="headerIcon" />
                   <input
                     type="text"
-                    placeholder="어디로 떠나시나요?"
+                    placeholder={`어디로 떠나시나요?${destination ? `` : ''}`}
+                    defaultValue={destination}
                     className="headerSearchInput"
                     onChange={(e) => setP_Address(e.target.value)}
                     onKeyPress={(e) => {
                       if (e.key === 'Enter' && !P_ADDRESS) {
                         e.preventDefault();
-                        alert('지역을 입력해주세요');
                       }
                     }}
                   />
@@ -161,13 +192,7 @@ const MainSearchBar = ({ type }) => {
                 )}
               </div>
               <div className="SearchBtn">
-                <BButton
-                  className="headerBtn"
-                  style={{ backgroundColor: '#0077C0', width: '50px' }}
-                  type="submit"
-                  disabled={!P_ADDRESS}
-                  onClick={handleSearch}
-                >
+                <BButton className="headerBtn" style={{ backgroundColor: '#0077C0', width: '50px' }} type="submit" onClick={handleSearch}>
                   검색
                 </BButton>
               </div>

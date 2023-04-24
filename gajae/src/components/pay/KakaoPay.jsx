@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { paymentInsert } from '../../service/pay/pay';
-import { resInsert } from '../../service/reservation/reservation';
+import { resInsert, vacancyUpdate } from '../../service/reservation/reservation';
 
 const KakaoPay = (effect, deps) => {
   const [localID, setLocalId] = useState('');
@@ -11,15 +11,15 @@ const KakaoPay = (effect, deps) => {
   const [resInfo, setResInfo] = useState({
     r_number: '',
     user_id: '',
-    p_id: 3,
-    r_start_date: '2022-04-25',
-    r_end_date: '2022-04-27',
+    p_id: 11,
+    r_start_date: '2023-04-25',
+    r_end_date: '2023-04-27',
     r_mobile: '010-2410-1226',
     r_people: '2',
     r_eta: '14:00',
     r_ps: '금연 객실을 원합니다.',
     r_state: '예약완료',
-    room_id: '7',
+    room_id: 1,
   });
 
   const getCookie = (name) => {
@@ -136,6 +136,18 @@ const KakaoPay = (effect, deps) => {
         console.log('reservationResponse ===>', response.data);
       };
       reservationInsert();
+
+      const vacancyDateUpdate = async () => {
+        const dateMap = {
+          P_ID: resInfo.p_id,
+          ROOM_ID: resInfo.room_id,
+          PAY_NUMBER: paymentData.pay_number,
+        };
+        const response = await vacancyUpdate(dateMap);
+        console.log('vacancyResponse ===>', response);
+      };
+      vacancyDateUpdate();
+
       // window.location.href = '/pay/complete'; // 결제 성공 시 /pay/complete 페이지로 이동
     } else {
       alert(`결제 실패 : ${error_msg} 다시 시도해주시길바랍니다`);

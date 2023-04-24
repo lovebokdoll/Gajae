@@ -2,14 +2,23 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="vacancy">
 
-	<select id="getCheckedDate" parameterType="map" resultType="map">
+	<select id="startEndDate" parameterType="map" resultType="map">
 		SELECT
-		R_START_DATE,
-		R_END_DATE
-		FROM GAJAE.RESERVATIONS
-		WHERE
-		R_NUMBER =
-		#{R_NUMBER}
+		TO_CHAR(TO_DATE(R_START_DATE), 'YYYY-MM-DD') AS START_DATE,
+		TO_CHAR(TO_DATE(R_END_DATE), 'YYYY-MM-DD') AS END_DATE
+		FROM
+		GAJAE.RESERVATIONS
+		WHERE R_NUMBER = #{R_NUMBER}
 	</select>
+
+	<update id="vacancyUpdate" parameterType="map">
+    	UPDATE P_VACANCY_11
+   		SET RES_YN = 'Y'
+        WHERE P_ID=#{P_ID}
+        AND ROOM_ID=#{ROOM_ID}
+        AND TO_DATE(RES_DATE, 'YYYY-MM-DD') <![CDATA[ >= ]]> TO_DATE(#{START_DATE}, 'YYYY-MM-DD')
+        AND TO_DATE(RES_DATE, 'YYYY-MM-DD') <![CDATA[ <= ]]> TO_DATE(#{END_DATE}, 'YYYY-MM-DD')
+	</update>
+
 
 </mapper>

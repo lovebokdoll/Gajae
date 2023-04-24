@@ -16,10 +16,21 @@ public class VacancyDao {
     @Autowired
     private SqlSessionTemplate sqlSessionTemplate;
     
-    public List<Map<String, Object>> getCheckedDate( Map<String, Object> map ) {
+    // public String getResNumber
+    
+    public List<Map<String, Object>> startEndDate( Map<String, Object> map ) {
         
-        List<Map<String, Object>> checkedDateList = sqlSessionTemplate.selectList( "vacancy.getCheckedDate", map );
+        List<Map<String, Object>> resDateList = sqlSessionTemplate.selectList( "vacancy.startEndDate", map );
         
-        return checkedDateList;
+        return resDateList;
+    }
+    
+    public int vacancyUpdate( Map<String, Object> map ) {
+        
+        log.info( "map = {}", map );
+        
+        int result = sqlSessionTemplate.update( "vacancy.vacancyUpdate", map );
+        
+        return result;
     }
 }

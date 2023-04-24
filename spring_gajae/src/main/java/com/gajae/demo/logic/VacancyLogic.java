@@ -18,33 +18,32 @@ public class VacancyLogic {
     @Autowired
     private VacancyDao vacancyDao;
     
-    public List<Map<String, Object>> getCheckedDate( Map<String, Object> map ) {
+    private List<Map<String, Object>> startEndDate( Map<String, Object> map ) {
         
-        List<Map<String, Object>> checkedDateList = vacancyDao.getCheckedDate( map );
+        List<Map<String, Object>> resDateList = vacancyDao.startEndDate( map );
         
+        log.info( "resDateList = {}", resDateList );
         
-        
-        return checkedDateList;
+        return resDateList;
     }
     
-    public Map<String, Object> convertDate() {
+    public int vacancyUpdate( Map<String, Object> map ) {
         
-        String checkInYear   = "";
-        String checkInMonth  = "";
-        String checkInDay    = "";
-        String checkOutYear  = "";
-        String checkOutMonth = "";
-        String checkOutDay   = "";
+        List<Map<String, Object>> resDateList = startEndDate( map );
         
-        Map<String, Object> dateMap = new HashMap<>();
+        Map<String, Object> dateMap = new HashMap<String, Object>();
         
-        dateMap.put( "checkInYear", checkInYear );
-        dateMap.put( "checkInMonth", checkInMonth );
-        dateMap.put( "checkInDay", checkInDay );
-        dateMap.put( "checkOutYear", checkOutYear );
-        dateMap.put( "checkOutMonth", checkOutMonth );
-        dateMap.put( "checkOutDay", checkOutDay );
+        if ( !resDateList.isEmpty() ) {
+            dateMap.put( "START_DATE", resDateList.get( 0 ).get( "START_DATE" ) );
+            dateMap.put( "END_DATE", resDateList.get( 0 ).get( "END_DATE" ) );
+            dateMap.put( "P_ID", Integer.parseInt( ( String ) map.get( "P_ID" ) ) );
+            dateMap.put( "ROOM_ID", Integer.parseInt( ( String ) map.get( "ROOM_ID" ) ) );
+        }
+        log.info( "dateMap = {}", dateMap );
         
-        return dateMap;
+        int result = vacancyDao.vacancyUpdate( dateMap );
+        
+        return result;
     }
+    
 }

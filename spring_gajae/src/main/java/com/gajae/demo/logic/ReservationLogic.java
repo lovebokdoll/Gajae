@@ -1,6 +1,5 @@
 package com.gajae.demo.logic;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -27,11 +26,9 @@ public class ReservationLogic {
     
     public int resInsert( Map<String, Object> map ) {
         
-        String r_number = generateReservationNumber();
-        
-        map.put( "R_NUMBER", r_number );
-        
-        log.info( "r_number = {}, map.get(R_NUMBER) ={}", r_number, map.get( "R_NUMBER" ) );
+        // String r_number = generateReservationNumber();
+        // map.put( "R_NUMBER", r_number );
+        // log.info( "r_number = {}, map.get(R_NUMBER) ={}", r_number, map.get( "R_NUMBER" ) );
         
         int result = reservationDao.resInsert( map );
         
@@ -56,5 +53,5 @@ public class ReservationLogic {
         }
         return stringBuilder.toString();
     }
-   
+    
 }
