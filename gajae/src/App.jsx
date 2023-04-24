@@ -29,8 +29,7 @@ import MyReservatiosPage from './pages/mypage/MyReservatiosPage';
 import MyReviewPage from './pages/mypage/MyReviewPage';
 import MySettings from './pages/mypage/MySettings';
 import MyWishListPage from './pages/mypage/MyWishListPage';
-import Mypage from './pages/mypage/Mypage';
-import Payapge from './pages/pay/Paypage';
+import Mypage from './pages/mypage/Mypage'
 import PropertyListPage from './pages/propertyList/PropertyListPage';
 import ImageUpload from './pages/reviewBoard/ImageUpload';
 import ReviewUpdate from './pages/reviewBoard/ReviewUpdate';
