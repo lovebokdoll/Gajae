@@ -33,6 +33,21 @@ export const searchListDB = (property) => {
   });
 }; //resultcontroller에서 오는거
 
+export const noticeListDB = (property) => {
+  return new Promise((resolve, reject) => {
+    try {
+      const response = axios({
+        method: "post",
+        url: process.env.REACT_APP_SPRING_IP + "notice/list",
+        data: property,
+      });
+      resolve(response);
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+
 export const memberInsertDB = (member) => {
   return new Promise((resolve, reject) => {
     try {

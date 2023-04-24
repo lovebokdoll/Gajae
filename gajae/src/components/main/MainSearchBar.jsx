@@ -1,4 +1,4 @@
-import { faBed, faCalendarDays, faCar, faPerson, faPlane, faTaxi } from '@fortawesome/free-solid-svg-icons';
+import { faBed, faCalendarDays, faCar, faHotel, faPerson, faPlane, faSuitcaseRolling, faTaxi } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import axios from 'axios';
 import { format } from 'date-fns';
@@ -7,47 +7,55 @@ import { DateRange } from 'react-date-range';
 import 'react-date-range/dist/styles.css'; // main css file
 import 'react-date-range/dist/theme/default.css'; // theme css file
 import { useNavigate } from 'react-router-dom';
+import { BButton } from '../../style/FormStyle';
 import './mainSearchBar.css';
 
 const MainSearchBar = ({ type }) => {
   const navigate = useNavigate();
 
+  //유효성 검사
+  const [addressError, setAddressError] = useState(false);
+
   //지역 입력
   const [P_ADDRESS, setP_Address] = useState('');
+  console.log(P_ADDRESS);
+  //인원수, 객실수 입력
+  const [ROOM_CAPACITY, setRoom_Capacity] = useState({
+    adult: 1,
+  });
 
+  console.log(ROOM_CAPACITY);
   const [openDate, setOpenDate] = useState(false);
-
   const [date, setDate] = useState([
     {
       startDate: new Date(),
       endDate: new Date(),
       key: 'selection',
     },
-  ]);//날짜 
+  ]); //날짜
 
   const [openOptions, setOpenOptions] = useState(false);
-  const [options, setOptions] = useState({
-    adult: 1,
-    children: 0,
-    room: 1,
-  });// 인원 선택창
-
   const handleOption = (name, operation) => {
-    setOptions((prev) => {
+    setRoom_Capacity((prev) => {
       return {
         ...prev,
-        [name]: operation === 'i' ? options[name] + 1 : options[name] - 1,
+        [name]: operation === 'i' ? ROOM_CAPACITY[name] + 1 : ROOM_CAPACITY[name] - 1,
       };
     });
   };
 
   const handleSearch = (e) => {
-    console.log(date);
-    navigate(`/propertylist/?P_ADDRESS=${P_ADDRESS}`, { state: { P_ADDRESS, date, options } });
+    const roomCapacity = parseInt(ROOM_CAPACITY.adult);
+    console.log('왜 호출 안되냐?');
+    if (!P_ADDRESS) {
+      alert('지역을 입력해주세요');
+      return;
+    }
 
-    e.preventDefault(); // 페이지 리로딩 방지
+    navigate(`/propertylist/?P_ADDRESS=${P_ADDRESS}&ROOM_CAPACITY=${roomCapacity}&DATE=${date}`, { state: { P_ADDRESS, date, ROOM_CAPACITY } });
+
     axios
-      .post('http://localhost:9999/search/list', { P_ADDRESS })
+      .post('http://localhost:9999/search/list', { P_ADDRESS, ROOM_CAPACITY: roomCapacity })
       .then((response) => {
         console.log(P_ADDRESS);
         console.log(response.data);
@@ -59,116 +67,92 @@ const MainSearchBar = ({ type }) => {
       });
   };
 
-  
-
   return (
     <div className="header">
       <div className={type === 'list' ? 'headerContainer listMode' : 'headerContainer'}>
-      <div className="headerList">
-  <div className="headerListItem active" style={{ width: 300 }}>
-    <FontAwesomeIcon icon={faBed} />
-    <span>Stays</span>
-  </div>
-  <div className="headerListItem" style={{ width: 300 }}>
-    <FontAwesomeIcon icon={faPlane} />
-    <span>Flights</span>
-  </div>
-  <div className="headerListItem" style={{ width: 300 }}>
-    <FontAwesomeIcon icon={faCar} />
-    <span>Car rentals</span>
-  </div>
-  <div className="headerListItem" style={{ width: 300 }}>
-    <FontAwesomeIcon icon={faBed} />
-    <span>Attractions</span>
-  </div>
-  <div className="headerListItem" style={{ width: 300 }}>
-    <FontAwesomeIcon icon={faTaxi} />
-    <span>Airport taxis</span>
-  </div>
-</div>
-
+        <div className="headerList">
+          <div className="headerListItem active">
+            <FontAwesomeIcon icon={faHotel} />
+            <span>숙소</span>
+          </div>
+          <div className="headerListItem">
+            <FontAwesomeIcon icon={faPlane} />
+            <span>항공권</span>
+          </div>
+          <div className="headerListItem">
+            <FontAwesomeIcon icon={faCar} />
+            <span>렌트카</span>
+          </div>
+          <div className="headerListItem">
+            <FontAwesomeIcon icon={faBed} />
+            <span>투어</span>
+          </div>
+          <div className="headerListItem">
+            <FontAwesomeIcon icon={faTaxi} />
+            <span>택시</span>
+          </div>
+        </div>
         {type !== 'list' && (
           <>
-            <div style={{fontSize:50}}>다음에 머무를 숙소를 찾아보세요</div>
-            <p className="headerDesc">
-            호텔부터 홈까지, 다양한 숙소가 한 곳에! 특가를 찾아보세요
-            </p>
+            <h4 className="headerTitle" style={{ textAlign: 'center', color: '#FFFFFF', marginTop: '30px' }}>
+              새로운 모험, 새로운 경험, 그리고 새로운 나를 만나다
+            </h4>
+            <br />
             <div className="headerSearch">
-            <div className="headerSearchItem" style={{textAlign: "center"}}>
-  <FontAwesomeIcon icon={faBed} className="headerIcon" />
-  <input
-    type="text"
-    placeholder="어디로 향하시나요?"
-    className="headerSearchInput"
-    onChange={(e) => setP_Address(e.target.value)}
-  />
-</div>
-
-              <div className="headerSearchItem" style={{ cursor: 'pointer' }}>
-  <FontAwesomeIcon icon={faCalendarDays} className="headerIcon" />
-  <span onClick={() => setOpenDate(!openDate)} className="headerSearchText">{`${format(
-    date[0].startDate,
-    'MM/dd/yyyy'
-  )} to ${format(date[0].endDate, 'MM/dd/yyyy')}`}</span>
-  {openDate && (
-    <DateRange
-      editableDateInputs={true}
-      onChange={(item) => {
-        console.log(item.selection);
-        setDate([item.selection]);
-      }}
-      moveRangeOnFirstSelection={false}
-      ranges={date}
-      className="date"
-      minDate={new Date()}
-    />
-  )}
-</div>
-
-              <div className="headerSearchItem">
-                <FontAwesomeIcon icon={faPerson} className="headerIcon" />
-                <span
-                  onClick={() => setOpenOptions(!openOptions)}
-                  className="headerSearchText"
-                >{`${options.adult} adult · ${options.children} children · ${options.room} room`}</span>
+              <div className="headerSearchText">
+                <form onSubmit={handleSearch}>
+                  <FontAwesomeIcon icon={faSuitcaseRolling} style={{ marginRight: '10px' }} className="headerIcon" />
+                  <input
+                    type="text"
+                    placeholder="어디로 떠나시나요?"
+                    className="headerSearchInput"
+                    onChange={(e) => setP_Address(e.target.value)}
+                    onKeyPress={(e) => {
+                      if (e.key === 'Enter' && !P_ADDRESS) {
+                        e.preventDefault();
+                        alert('지역을 입력해주세요');
+                      }
+                    }}
+                  />
+                </form>
+              </div>
+              <div className="headerSearchDate">
+                <FontAwesomeIcon icon={faCalendarDays} style={{ marginRight: '10px' }} className="headerIcon" />
+                <span onClick={() => setOpenDate(!openDate)} className="headerSearchText">{`${format(
+                  date[0].startDate,
+                  'MM/dd/yyyy'
+                )} to ${format(date[0].endDate, 'MM/dd/yyyy')}`}</span>
+                {openDate && (
+                  <DateRange
+                    editableDateInputs={true}
+                    onChange={(item) => {
+                      console.log(item.selection);
+                      setDate([item.selection]);
+                    }}
+                    moveRangeOnFirstSelection={false}
+                    ranges={date}
+                    className="date"
+                    minDate={new Date()}
+                  />
+                )}
+              </div>
+              <div className="headerSearchAdult">
+                <FontAwesomeIcon icon={faPerson} style={{ marginRight: '10px' }} className="headerIcon" />
+                <span onClick={() => setOpenOptions(!openOptions)} className="headerSearchText">{`${ROOM_CAPACITY.adult} adult`}</span>
                 {openOptions && (
                   <div className="options">
                     <div className="optionItem">
                       <span className="optionText">Adult</span>
                       <div className="optionCounter">
-                        <button disabled={options.adult <= 1} className="optionCounterButton" onClick={() => handleOption('adult', 'd')}>
-                          -
-                        </button>
-                        <span className="optionCounterNumber">{options.adult}</span>
-                        <button className="optionCounterButton" onClick={() => handleOption('adult', 'i')}>
-                          +
-                        </button>
-                      </div>
-                    </div>
-                    <div className="optionItem">
-                      <span className="optionText">Children</span>
-                      <div className="optionCounter">
                         <button
-                          disabled={options.children <= 0}
+                          disabled={ROOM_CAPACITY.adult <= 1}
                           className="optionCounterButton"
-                          onClick={() => handleOption('children', 'd')}
+                          onClick={() => handleOption('adult', 'd')}
                         >
                           -
                         </button>
-                        <span className="optionCounterNumber">{options.children}</span>
-                        <button className="optionCounterButton" onClick={() => handleOption('children', 'i')}>
-                          +
-                        </button>
-                      </div>
-                    </div>
-                    <div className="optionItem">
-                      <span className="optionText">Room</span>
-                      <div className="optionCounter">
-                        <button disabled={options.room <= 1} className="optionCounterButton" onClick={() => handleOption('room', 'd')}>
-                          -
-                        </button>
-                        <span className="optionCounterNumber">{options.room}</span>
-                        <button className="optionCounterButton" onClick={() => handleOption('room', 'i')}>
+                        <span className="optionCounterNumber">{ROOM_CAPACITY.adult}</span>
+                        <button className="optionCounterButton" onClick={() => handleOption('adult', 'i')}>
                           +
                         </button>
                       </div>
@@ -176,10 +160,16 @@ const MainSearchBar = ({ type }) => {
                   </div>
                 )}
               </div>
-              <div className="headerSearchItem">
-                <button className="headerBtn" onClick={handleSearch}>
+              <div className="SearchBtn">
+                <BButton
+                  className="headerBtn"
+                  style={{ backgroundColor: '#0077C0', width: '50px' }}
+                  type="submit"
+                  disabled={!P_ADDRESS}
+                  onClick={handleSearch}
+                >
                   검색
-                </button>
+                </BButton>
               </div>
             </div>
           </>

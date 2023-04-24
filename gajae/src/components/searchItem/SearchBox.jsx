@@ -2,7 +2,9 @@ import axios from 'axios';
 import Cookies from 'js-cookie';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import '../main/mainSearchBar.css';
+import { faBed, faCalendarCheck, faHotel } from '@fortawesome/free-solid-svg-icons';
 
 const SearchBox = () => {
   const navigate = useNavigate();
@@ -64,13 +66,14 @@ const SearchBox = () => {
         style={{ backgroundColor: '#FFFFFF', border: 'px solid #000000', marginTop: '10px', padding: '20px 10px', width: '200px' }}
       >
         <div style={{ marginTop: '10px' }}>
-          <label style={{ fontSize: '15px', marginBottom: '10px', fontFamily: 'BlinkMacSystemFont', color: '#333' }}>
-            여행지/숙소 이름
+        <FontAwesomeIcon icon={faHotel} style={{marginRight: '10px'}}/>
+          <label style={{ fontSize: '15px', marginBottom: '10px', fontFamily: 'BlinkMacSystemFont', color: '#333'}}>
+            지역 이름
           </label>
           <br />
           <input
             className="addressbox"
-            style={{ paddingLeft: '15px', fontSize: '15px' }}
+            style={{ paddingLeft: '15px', fontSize: '15px'}}
             defaultValue={ADDRESS}
             onChange={(e) => setP_Address(e.target.value)}
             type="text"
@@ -78,23 +81,26 @@ const SearchBox = () => {
         </div>
 
         <div style={{ marginTop: '10px' }}>
+        <FontAwesomeIcon icon={faCalendarCheck} style={{marginRight: '10px'}} />
           <label style={{ fontSize: '15px', marginBottom: '10px', fontFamily: 'BlinkMacSystemFont', color: '#333' }}>체크인 날짜</label>
           <br />
           <input className="databox" type="date" name="" id="" />
         </div>
         <div style={{ marginTop: '10px' }}>
+        <FontAwesomeIcon icon={faCalendarCheck} style={{marginRight: '10px'}} />
           <label style={{ fontSize: '15px', marginBottom: '10px', fontFamily: 'BlinkMacSystemFont', color: '#333' }}>체크아웃 날짜</label>
           <br />
           <input className="databox" type="date" />
         </div>
 
         <div className="headerSearchItem">
-          <span onClick={() => setOpenOptions(!openOptions)} className="headerSearchText">{`${ROOM_CAPACITY.adult} 명`}</span>
+        <FontAwesomeIcon icon="fa-solid fa-user" />
+          <span onClick={() => setOpenOptions(!openOptions)} className="headerSearchText" >{`${ROOM_CAPACITY.adult} 명`}</span>
           {openOptions && (
-            <div id="option-adult">
-              <div className="optionItem-adult">
-                <span className="optionText">인원 수</span>
-                <div className="optionCounter">
+                  <div className="optionsBar" style={{marginLeft:'50px'}}>
+                  <div className="optionItem">
+                    <span className="optionText">인원</span>
+                    <div className="optionCounter">
                   <button disabled={ROOM_CAPACITY.adult <= 1} className="optionCounterButton" onClick={() => handleOption('adult', 'd')}>
                     -
                   </button>
