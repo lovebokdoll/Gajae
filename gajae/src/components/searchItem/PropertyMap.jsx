@@ -4,6 +4,8 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { useRef } from "react";
 import { markListDB } from "../../service/database";
+import "bootstrap/dist/css/bootstrap.min.css";
+import styled from "styled-components";
 
 const PropertyMap = () => {
   const mapRef = useRef(null);
@@ -17,6 +19,8 @@ const PropertyMap = () => {
         return {
           P_MAPX: item.P_MAPX,
           P_MAPY: item.P_MAPY,
+          P_TITLE: item.P_TITLE,
+          P_STAR: item.P_STAR,
         };
       });
       setMap(markList);
@@ -37,6 +41,20 @@ const PropertyMap = () => {
       const marker = new kakao.maps.Marker({
         position: new kakao.maps.LatLng(item.P_MAPY, item.P_MAPX),
       });
+      console.log(map);
+      kakao.maps.event.addListener(marker, "click", function () {
+        const infowindow = new kakao.maps.InfoWindow({
+          content: `
+          <div style="width:200px; text-align: center; background-color: #F8F8F8; border-radius: 40px; padding: 10px; opacity: 0.9;">
+          <h5 style="font-size: 20px; font-weight: bold;">${item.P_TITLE}</h5>
+          <p style="font-size: 16px;">${item.P_STAR}성급</p>
+          <a href="호텔 홈페이지 주소" style="font-size: 14px; color: blue;">홈페이지</a>
+          </div>
+          `,
+        });
+        infowindow.open(kakaoMap, marker);
+      });
+
       marker.setMap(kakaoMap);
     });
 

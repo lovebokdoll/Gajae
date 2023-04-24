@@ -4,7 +4,7 @@ import React from 'react';
 import { Nav } from 'react-bootstrap';
 import Footer from '../../components/footer/Footer';
 import HeaderNav1 from '../../components/header/HeaderNav1';
-import MyReviewList from './MyReviewList';
+import MyReviewList from '../../components/review/MyReviewList'
 import {
   MSCLeftDIV,
   MSCRightDIV,

@@ -65,7 +65,7 @@ export const reviewUpdateDB = (review) => {
   });
 };
 
-export const reviewDelete = (review) => {
+export const reviewDeleteDB = (review) => {
   console.log(review);
   return new Promise((resolve, reject) => {
     try {

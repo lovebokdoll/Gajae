@@ -3,6 +3,9 @@ import { useEffect } from "react";
 import styled from "styled-components";
 import { useState } from "react";
 import axios from "axios";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import ReviewProgressBar from "../review/ReviewProgressBar";
+import { CloseButton } from "react-bootstrap";
 
 const HotelReview = ({ property }) => {
   console.log(property);
@@ -24,7 +27,9 @@ const HotelReview = ({ property }) => {
     };
     p_reviewList();
   }, [property]);
+
   console.log(review);
+
   useEffect(() => {
     if (review) {
       const scores = review.map((review) => review.REVIEW_AVERAGE);
@@ -36,38 +41,43 @@ const HotelReview = ({ property }) => {
 
   return (
     <>
+      <TitleContainer>
+        <BtnClose></BtnClose>
+        <Title> 이용후기 </Title>
+        <TRating>{totalscore}</TRating>
+      </TitleContainer>
+      <hr />
       <BackDiv>
-        <TitleContainer>
-          <TRating>{totalscore}</TRating>
-          <Title> 이용후기 </Title>
-        </TitleContainer>
+        <ReviewProgressBar review={review} />
         <ReviewList>
+          <hr />
           {review &&
             review.map((review, index) => (
               <li key={index}>
                 <ReviewWrapper>
                   <ImageContainer>
+                    {/* 사용자 정보 가져오기 */}
                     <ImageWrapper>
-                      <img
-                        src="https://via.placeholder.com/150"
-                        alt="placeholder image"
-                      />
+                      <UserImg src="../images/default.png" />
                     </ImageWrapper>
-                    <ImageDescription>호텔정보</ImageDescription>
+                    <p>
+                      <FontAwesomeIcon icon="fa-solid fa-user" />
+                      &nbsp;&nbsp;
+                      {review.USER_NICKNAME}&nbsp;&nbsp;
+                      <img
+                        src="/images/korea.svg.png"
+                        style={{ border: "1px solid black" }}
+                      ></img>
+                    </p>
+                    <p>
+                      <FontAwesomeIcon icon="fa-regular fa-calendar" />
+                      &nbsp;&nbsp;{review.NUM_NIGHTS}박
+                    </p>
+                    <p>
+                      <i className="fa-solid fa-people-group"></i>
+                      &nbsp;&nbsp;{review.R_PEOPLE}명
+                    </p>
                   </ImageContainer>
-                  <PropertyContainer>
-                    <PropertyDescription>
-                      <p>{review.USER_ID}</p>
-                      <p>
-                        <StyledIcon className="fa-regular fa-calendar"></StyledIcon>
-                        {review.NUM_NIGHTS}박
-                      </p>
-                      <p>
-                        <i className="fa-solid fa-people-group"></i>
-                        {review.R_PEOPLE}명
-                      </p>
-                    </PropertyDescription>
-                  </PropertyContainer>
                   <ContentWrapper>
                     <ReviewTitle>{review.REVIEW_TITLE}</ReviewTitle>
                     <RText>
@@ -100,21 +110,71 @@ export default HotelReview;
 const BackDiv = styled.div`
   display: flex;
   flex-direction: column;
-  width: 90%;
   padding: 10px;
-  max-width: 1200px;
-  min-height: 650px;
   align-items: center;
+  //overflow: auto; /* 혹은 scroll */
+`;
+const TitleContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 50px;
+`;
+const Title = styled.div`
+  text-align: center;
+  font-size: 30px;
+  font-weight: bold;
+  flex-grow: 1;
+`;
+const TRating = styled.button`
+  font-weight: bold
+  background-color: #003580;
+  color: white;
+  margin-right: 100px;
+  padding: 10px;
+  font-weight: bold;
+  font-size: 20px;
+  border: none;
+  border-radius: 10px;
+`;
+
+const BtnClose = styled(CloseButton)`
+  margin-right: 50px;
 `;
 const ReviewWrapper = styled.div`
   display: flex;
   flex-direction: row;
-  max-width: 700px;
-  height: 200px;
+  max-width: 1000px;
+  width: 900px;
+  height: 260px;
   position: relative;
   margin: 0;
   padiing: 0;
   align-items: stretch;
+`;
+
+const ReviewList = styled.ul`
+  margin: 100px 0 0 0;
+  padding: 0;
+  list-style-type: none;
+`;
+
+const ImageContainer = styled.div`
+  margin-left: 70px;
+  display: flex;
+  flex-direction: column;
+  flex-basis: 33.333333%;
+`;
+const ImageWrapper = styled.div`
+  flex: 0 0 33.333333%;
+  display: flex;
+  margin-left: 30px;
+`;
+
+const UserImg = styled.img`
+  width: 70px;
+  height: 70px;
+  margin-bottom: 5px;
 `;
 
 const ContentWrapper = styled.div`
@@ -173,36 +233,16 @@ const PropertyContainer = styled.div`
   flex-basis: 33.333333%;
 `;
 
-const ReviewList = styled.ul`
-  margin: 0;
-  padding: 0;
-  list-style-type: none;
-`;
-
 const StyledIcon = styled.i`
   color: syblue;
   margin-right: 5px;
-`;
-
-const ImageContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  flex-basis: 33.333333%;
-`;
-
-const ImageWrapper = styled.div`
-  flex: 0 0 33.333333%;
-  img {
-    width: 100%;
-    height: 100%;
-  }
 `;
 
 const ImageDescription = styled.div`
   flex: 0 0 33.333333%;
   width: 100%;
   padding: 0.5rem; /* 기존 코드: 1rem */
-  font-size: 1rem;
+  font-size: 0.8rem;
   margin-top: 0.25rem;
 `;
 
@@ -219,23 +259,23 @@ const Rating = styled.button`
   height: 40px;
 `;
 
-const TRating = styled.button`
-  background-color: #003580;
-  margin-left: 30px;
-  color: white;
-  padding: 5px;
-
-  font-weight: bold;
-  border: none;
+const GridContainer = styled.div`
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); // 3개의 열, 각 열은 같은 너비
+  grid-template-rows: repeat(5, 1fr); // 5개의 행, 각 행은 같은 높이
+  gap: 10px; // 디브간의 간격
+  border: 1px solid #ccc; // 그리드에 테두리 씌우기
 `;
 
-const Title = styled.div`
-  margin-left: 10px;
+const GridItem = styled.div`
+  background-color: whigt;
+  border: 1px solid #ccc;
 `;
-
-const TitleContainer = styled.div`
+const LabelWrapper = styled.div`
+  flex: 1;
+`;
+const ItemContentWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 50px;
 `;

@@ -1,9 +1,7 @@
 import React from "react";
-import { Button, CloseButton, Modal } from "react-bootstrap";
-import { Grid, styled } from "@material-ui/core";
-import SearchBox from "./SearchBox";
+import { CloseButton, Modal, ModalHeader, ModalTitle } from "react-bootstrap";
 import PropertyMap from "./PropertyMap";
-import ModalSearchBox from "./ModalSearchBox";
+import styled from "styled-components";
 
 const MapModal = (props) => {
   const { showModal, closeModal } = props;
@@ -16,15 +14,13 @@ const MapModal = (props) => {
         onHide={props.handleClose}
         style={{ maxWidth: "1000px" }}
       >
-        <Modal.Header className="bg-primary text-white">
-          <Modal.Title
-            style={{ display: "flex", flexDirection: "row-reverse" }}
-          >
-            <CloseButton onClick={closeModal} style={{ marginLeft: "auto" }} />
-            다음에 머무를 숙소를 찾아보세요&nbsp;&nbsp;
-            <i className="fa-solid fa-location-dot"></i>
-          </Modal.Title>
-        </Modal.Header>
+        <MHeader>
+          <MTitle>
+            <i className="fa-solid fa-location-dot"></i>&nbsp; 지친 일상에서
+            벗어나 여유로운 숙박을 즐겨보세요.
+          </MTitle>
+          <CBtn onClick={closeModal} />
+        </MHeader>
         <Modal.Body style={{ display: "flex", alignItems: "center" }}>
           <PropertyMap />
         </Modal.Body>
@@ -34,3 +30,24 @@ const MapModal = (props) => {
 };
 
 export default MapModal;
+
+const MHeader = styled(ModalHeader)`
+  height: 40px;
+  background-color: white;
+`;
+
+const MTitle = styled(ModalTitle)`
+  display: flex;
+  align-items: center;
+  margin-letf: auto;
+  font-size: 1rem;
+`;
+
+const CBtn = styled(CloseButton)`
+  margin-left: auto;
+  color: white;
+  opacity: 0.5;
+  &:hover {
+    opacity: 1;
+  }
+`;
