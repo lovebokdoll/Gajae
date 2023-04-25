@@ -2,15 +2,24 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useRef, useState } from "react";
 import { Alert, Modal, ModalFooter, ModalHeader } from "react-bootstrap";
 import DropdownItem from "react-bootstrap/esm/DropdownItem";
+import { get } from "react-native/Libraries/TurboModule/TurboModuleRegistry";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-const HotelListDropdown = ({ hotel, onDelete, onEdit }) => {
+const HotelListDropdown = ({ hotel, onEdit }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const [status, setStatus] = useState("");
+
   const handleShow = () => setShowModal(true);
   const handleClose = () => setShowModal(false);
-
+  const getStatus = () => {
+    if (hotel.STATUS == "Y") {
+      setStatus("영업중");
+    } else {
+      setStatus("영업중지");
+    }
+  };
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
   };
@@ -18,11 +27,6 @@ const HotelListDropdown = ({ hotel, onDelete, onEdit }) => {
   // const handleEditClick = () => {
   //   window.location.href = `/host/update?hotel_id=${hotel.id}`;
   // };
-
-  const handleDeleteClick = () => {
-    onDelete(hotel.P_ID);
-    handleClose();
-  };
 
   return (
     <>
@@ -40,9 +44,7 @@ const HotelListDropdown = ({ hotel, onDelete, onEdit }) => {
             className={isDropdownOpen ? "dropdown-menu show" : "dropdown-menu"}
           >
             <DropdownItem onClick={() => onEdit(hotel.P_ID)}>수정</DropdownItem>
-            <DropdownItem onClick={() => onDelete(hotel.P_ID)}>
-              삭제
-            </DropdownItem>
+            <DropdownItem>{status}</DropdownItem>
           </div>
         )}
       </div>
@@ -58,7 +60,7 @@ const HotelListDropdown = ({ hotel, onDelete, onEdit }) => {
           <p>삭제 후에는 이 호텔이 더 이상 나타나지 않습니다.</p>
         </ActionContainer>
         <Footer>
-          <DeleteButton onClick={handleDeleteClick}>삭제</DeleteButton>
+          <DeleteButton>삭제</DeleteButton>
           <CancelButton onClick={handleClose}>취소</CancelButton>
         </Footer>
       </AlertModal>

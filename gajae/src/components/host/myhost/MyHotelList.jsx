@@ -44,8 +44,8 @@ const MyHotelList = ({ hostId }) => {
   const onEdit = (hotel_id) => {
     window.location.href = `/host/update?hotel_id=${hotel_id}`;
   };
-  //삭제처리
-  const onDelete = async (P_ID) => {
+  //영업중 영업중지 표시
+  const onStatus = async (P_ID) => {
     try {
       const deleteHotel = {
         P_ID: P_ID,
@@ -72,11 +72,7 @@ const MyHotelList = ({ hostId }) => {
             <ReviewItem key={index}>
               {/* 수정 삭제 버튼이 있는 컴포넌트 */}
               <BtnWrapper>
-                <HotelListDropdown
-                  hotel={hotel}
-                  onEdit={onEdit}
-                  onDelete={onDelete}
-                />
+                <HotelListDropdown hotel={hotel} onEdit={onEdit} />
               </BtnWrapper>
               <ReviewWrapper>
                 <ImageContainer>

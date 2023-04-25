@@ -5,7 +5,8 @@
 	<!-- 달력생성 -->
 	<insert id="vacancyCreate">
 		INSERT INTO P_VACANCY_${P_ID} (P_ID, ROOM_ID, RES_DATE, RES_YN)
-		SELECT #{P_ID}, ROOM_ID, TO_CHAR(LEVEL - 1 + DATE '2023-04-24',
+		SELECT
+		#{P_ID}, ROOM_ID, TO_CHAR(LEVEL - 1 + DATE '2023-04-24',
 		'YYYY-MM-DD'), 'N'
 		FROM (
 		<foreach item="item" index="index" collection="roomIds"
@@ -114,7 +115,8 @@
 			P_REFUND,
 			P_HIREDATE,
 			P_PHOTO,
-			HOST_BUSINESS_NUM
+			HOST_BUSINESS_NUM,
+			STATUS
 			)
 			VALUES(
 			#{item.p_id},
@@ -132,7 +134,8 @@
 			TO_DATE(SYSDATE,
 			'YYYY-MM-DDHH24:MI:SS'),
 			#{item.p_photo},
-			#{item.host_business_num}
+			#{item.host_business_num},
+			'Y'
 			)
 		</foreach>
 		SELECT * FROM dual
@@ -254,10 +257,12 @@
 		p.P_OVERVIEW,
 		p.P_ADDRESS,
 		p.P_TEL,
-		p.P_STAR
+		p.P_STAR,
+		p.STATUS
 		FROM
 		PROPERTIES p
-		JOIN HOST h ON p.HOST_BUSINESS_NUM
+		JOIN HOST h ON
+		p.HOST_BUSINESS_NUM
 		=h.HOST_BUSINESS_NUM
 		<if test='HOST_ID!=null and HOST_ID.length()>0'>
 			WHERE h.HOST_ID =#{HOST_ID}
@@ -270,7 +275,8 @@
 		p.P_TEL,
 		p.P_ADDRESS,
 		p.P_OVERVIEW,
-		p.P_STAR
+		p.P_STAR,
+		p.STATUS
 	</select>
 
 	<!--나의 호텔 Detail -->
@@ -304,20 +310,21 @@
 
 	<!-- 호텔정보 수정하기 -->
 	<update id="hotelUpdate" parameterType="map">
-			UPDATE GAJAE.PROPERTIES
-			SET
-			P_ID=#{P_ID},
-			P_TITLE=#{P_TITLE},
-			P_STAR=#{P_STAR},
-			P_PHOTO=#{P_PHOTO},
-			P_TEL=#{P_TEL},
-			P_OVERVIEW=#{P_OVERVIEW},
-			P_SCALE=#{P_SCALE},
-			P_CHECKIN=#{P_CHECKIN},
-			P_CHECKOUT=#{P_CHECKOUT},
-			P_CHANGE_DATE= TO_DATE(SYSDATE,'YYYY-MM-DD
-			HH24:MI:SS')
-			WHERE P_ID = #{P_ID}
+		UPDATE GAJAE.PROPERTIES
+		SET
+		P_ID=#{P_ID},
+		P_TITLE=#{P_TITLE},
+		P_STAR=#{P_STAR},
+		P_PHOTO=#{P_PHOTO},
+		P_TEL=#{P_TEL},
+		P_OVERVIEW=#{P_OVERVIEW},
+		P_SCALE=#{P_SCALE},
+		P_CHECKIN=#{P_CHECKIN},
+		P_CHECKOUT=#{P_CHECKOUT},
+		P_CHANGE_DATE= TO_DATE(SYSDATE,'YYYY-MM-DD
+		HH24:MI:SS'),
+		STATUS=#{STATUS}
+		WHERE P_ID = #{P_ID}
 	</update>
 
 	<delete id="hotelDelete" parameterType="map">

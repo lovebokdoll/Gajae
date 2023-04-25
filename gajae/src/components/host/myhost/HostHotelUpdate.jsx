@@ -23,10 +23,7 @@ export const HostHotelUpdate = () => {
   const [checkOut, setCheckOut] = useState("");
   const [imageUrl, setImageUrl] = useState("");
   const [refund, setRefund] = useState("");
-  const [roomtype, setRoomtype] = useState("");
-  const [updateRoomtype, setUpdateRoomType] = useState({
-    ROOM_ID: "",
-  });
+  const [status, setStatus] = useState("");
 
   const textareaRef = useRef(null);
   useEffect(() => {
@@ -80,24 +77,10 @@ export const HostHotelUpdate = () => {
   const handleRefund = useCallback((value) => {
     setRefund(value);
   }, []);
-
-  const handleRoomType = (e) => {
-    console.log(e);
-    const roomId = e.target.id;
-    const selectedroomtype = e.target.labels[0].innerText;
-    const isChecked = e.target.checked;
-    setUpdateRoomType((updateRoomtype) => ({
-      ROOM_ID: isChecked
-        ? [...updateRoomtype.ROOM_ID, roomId]
-        : //value에 해당하는 효소를 제외하고 남은 요소들로 새로운 배열을 만든다.
-          updateRoomtype.ROOM_ID.filter((val) => val !== roomId),
-    }));
-    console.log(updateRoomtype);
-    console.log(roomtype);
-  };
-  useEffect(() => {
-    console.log(updateRoomtype);
-  }, [updateRoomtype]);
+  const handleStatus = useCallback((value) => {
+    setStatus(value);
+    console.log(value);
+  }, []);
 
   const hotelUpdate = async () => {
     if (title.trim === "||content.trim()===")
@@ -113,7 +96,7 @@ export const HostHotelUpdate = () => {
       P_CHECKIN: checkIn,
       P_CHECKOUT: checkOut,
       P_REFUND: refund,
-      ROOM_ID: updateRoomtype.ROOM_ID,
+      STATUS: status,
     };
     const res = await hosthotelUpdateDB(review);
     if (!res.data) return alert("게시글 수정에 실패하였습니다.");
@@ -142,6 +125,19 @@ export const HostHotelUpdate = () => {
             호텔 수정페이지
           </span>
         </div>
+        <select
+          className="form-select form-select-sm"
+          aria-label=".form-select-sm example"
+          style={{ width: "20%", marginBottom: "5%" }}
+          onChange={(e) => {
+            handleStatus(e.target.value);
+          }}
+        >
+          <option selected>호텔의 운영상태를 선택해주세요.</option>
+          <option value="Y">영업 중</option>
+          <option value="N">영업 종료</option>
+        </select>
+
         <FormDiv>
           <div style={{ width: "100%", maxWidth: "2000px" }}>
             <div
