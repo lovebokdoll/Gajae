@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import '../main/mainSearchBar.css';
-import { faBed, faCalendarCheck, faHotel } from '@fortawesome/free-solid-svg-icons';
+import { faCalendarCheck, faHotel } from '@fortawesome/free-solid-svg-icons';
 
 const SearchBox = () => {
   const navigate = useNavigate();
@@ -67,7 +67,7 @@ const SearchBox = () => {
       >
         <div style={{ marginTop: '10px' }}>
         <FontAwesomeIcon icon={faHotel} style={{marginRight: '10px'}}/>
-          <label style={{ fontSize: '15px', marginBottom: '10px', fontFamily: 'BlinkMacSystemFont', color: '#333'}}>
+          <label style={{ fontSize: '15px', marginBottom: '10px', fontFamily: 'KOTRA_GOTHIC', color: '#333'}}>
             지역 이름
           </label>
           <br />
@@ -82,13 +82,13 @@ const SearchBox = () => {
 
         <div style={{ marginTop: '10px' }}>
         <FontAwesomeIcon icon={faCalendarCheck} style={{marginRight: '10px'}} />
-          <label style={{ fontSize: '15px', marginBottom: '10px', fontFamily: 'BlinkMacSystemFont', color: '#333' }}>체크인 날짜</label>
+          <label style={{ fontSize: '15px', marginBottom: '10px', fontFamily: 'KOTRA_GOTHIC', color: '#333' }}>체크인 날짜</label>
           <br />
           <input className="databox" type="date" name="" id="" />
         </div>
         <div style={{ marginTop: '10px' }}>
         <FontAwesomeIcon icon={faCalendarCheck} style={{marginRight: '10px'}} />
-          <label style={{ fontSize: '15px', marginBottom: '10px', fontFamily: 'BlinkMacSystemFont', color: '#333' }}>체크아웃 날짜</label>
+          <label style={{ fontSize: '15px', marginBottom: '10px', fontFamily: 'KOTRA_GOTHIC', color: '#333' }}>체크아웃 날짜</label>
           <br />
           <input className="databox" type="date" />
         </div>

@@ -24,14 +24,10 @@ public class ResultDao {
 	    StringTokenizer st = null;
 	    String p_extras[] = null;
 	    int size = 0;
-	    if (pMap.get("P_EXTRA") != null) {
-	        st = new StringTokenizer(pMap.get("P_EXTRA").toString(), ",");
-	        size = st.countTokens(); // 몇가지가 있는지
-	        p_extras = new String[size];
-	        for (int i = 0; i < size; i++) {
-	            p_extras[i] = st.nextToken();
-	            pMap.put("P_EXTRA_" + i, p_extras[i]);
-	        }
+	    for (int i = 0; i < size; i++) {
+	        String value = st.nextToken();
+	        String key = "P_EXTRA_" + i;
+	        pMap.put(key, value);
 	    }
 
 	    StringTokenizer star = null;

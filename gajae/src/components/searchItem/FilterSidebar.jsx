@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
+import './FilterSidebar.css';
 
-const FilterSidebar = ({ ranks = [], filtersList = [], checkedFilters = () => {} }) => {
+const FilterSidebar = ({ ranks = [], checkedFilters = () => {} }) => {
   const [filters, setFilters] = useState([
     { name: "수영장", value: false },
     { name: "노래방", value: false },

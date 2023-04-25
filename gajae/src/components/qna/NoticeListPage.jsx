@@ -62,7 +62,7 @@ const NoticeListPage = (property) => {
       <HeaderNav1 />
       <ContainerDiv>
         <HeaderDiv>
-          <h3 style={{ marginLeft: '10px' }}>자주 묻는 질문</h3>
+          <h3 style={{ marginLeft: '10px' , marginTop: '50px'}}>자주 묻는 질문</h3>
         </HeaderDiv>
         <FormDiv>
           <div>

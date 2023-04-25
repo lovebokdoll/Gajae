@@ -19,6 +19,8 @@ public class ResultLogic {
     	
     	log.info( "pMap = {}", pMap );
 		List<Map<String, Object>> resultList = null;
+		
+		
 		resultList = searchDao.searchlist(pMap);
 		return resultList;
     }

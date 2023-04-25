@@ -32,20 +32,24 @@
 
 .siCheck {
   font-size: 15px;
+  font-family: 'KOTRA_GOTHIC';
 }
 
 .siTitle {
   font-size: 20px;
+  font-family: 'KOTRA_GOTHIC';
   width: 4y00px;
   color: black;
 }
 
 .siP_ADDRESS {
   font-size: 12px;
+  font-family: 'KOTRA_GOTHIC';
 }
 
 .siTaxiOp {
   font-size: 12px;
+  font-family: 'KOTRA_GOTHIC';
   background-color: #7fa064;
   color: white;
   width: max-content;
@@ -60,17 +64,20 @@
 
 .siROOM_TYPE {
   font-size: 12px;
+  font-family: 'KOTRA_GOTHIC';
 }
 
 .siP_REFUND {
   font-size: 12px;
   color: gray;
   font-weight: bold;
+  font-family: 'KOTRA_GOTHIC';
 }
 
 .siROOM_OPTION {
   font-size: 12px;
   color: gray;
+  font-family: 'KOTRA_GOTHIC';
 }
 
 .siDetails {
@@ -105,15 +112,18 @@
 
 .siPrice {
   font-size: 24px;
+  font-family: 'KOTRA_GOTHIC';
 }
 
 .siTaxes {
   font-size: 12px;
+  font-family: 'KOTRA_GOTHIC';
   color: gray;
 }
 
 .siCheckButton {
   background-color: #000000;
+  font-family: 'KOTRA_GOTHIC';
   color: white;
   font-weight: bold;
   padding: 10px 5px;

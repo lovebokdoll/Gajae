@@ -196,17 +196,17 @@ const handleRankingClick = (event) => {
                 </div>
               </div>
               <div className="col-lg-9 col-md-12">
-                <h4 className="search-hotel" style={{ marginTop: '20px', textAlign: 'end', fontWeight: 'bold', width: 1000 }}>
+                <h4 className="search-hotel" style={{ marginTop: '20px', textAlign: 'end', fontWeight: 'bold', width: 1000 , fontFamily : 'KOTRA_GOTHIC'}}>
                   {params.P_ADDRESS} : 검색된 숙소 {property.length}개
                 </h4>
-                <DropdownButton id="dropdown-btn" title={orderBy ? orderBy : '정렬 순서'}>
-                  <Dropdown.Item id="dropdownItem-btn" onClick={() => handleOrder('가격 낮은순')}>
+                <DropdownButton id="dropdown-btn" style={{fontFamily : 'KOTRA_GOTHIC'}} title={orderBy ? orderBy : '정렬 순서'}>
+                  <Dropdown.Item id="dropdownItem-btn"  style={{fontFamily : 'KOTRA_GOTHIC'}} onClick={() => handleOrder('가격 낮은순')}>
                     가격 낮은순
                   </Dropdown.Item>
-                  <Dropdown.Item id="dropdownItem-btn" onClick={() => handleOrder('가격 높은순')}>
+                  <Dropdown.Item id="dropdownItem-btn"  style={{fontFamily : 'KOTRA_GOTHIC'}} onClick={() => handleOrder('가격 높은순')}>
                     가격 높은순
                   </Dropdown.Item>
-                  <Dropdown.Item id="dropdownItem-btn" onClick={() => handleOrder('평점 높은순')}>
+                  <Dropdown.Item id="dropdownItem-btn"  style={{fontFamily : 'KOTRA_GOTHIC'}} onClick={() => handleOrder('평점 높은순')}>
                     평점 높은순
                   </Dropdown.Item>
                 </DropdownButton>
