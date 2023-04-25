@@ -52,13 +52,14 @@ const MySettings = () => {
   const [localNickName, setLocalNickName] = useState('');
   const [localBirth, setLocalBitrh] = useState('');
   const [localEmail, setLocalEmail] = useState('');
-
+  const [localID, setLocalId] =useState('');
   useEffect(() => {
     const tempID = window.localStorage.getItem('userId');
     if (tempID === null) {
       navigate('/');
     }
     setUser({ USER_ID: tempID });
+    setLocalId(window.localStorage.getItem('userId'));
     setLocalName(window.localStorage.getItem('userName'));
     setLocalNickName(window.localStorage.getItem('userNickname'));
     setLocalEmail(window.localStorage.getItem('userEmail'));

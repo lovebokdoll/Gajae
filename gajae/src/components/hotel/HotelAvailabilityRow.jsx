@@ -10,7 +10,6 @@ import { Charge_title, TotalPrice } from '../../style/HotelStyle';
 
 const HotelAvailabilityRow = ({ row }) => {
   const navigate = useNavigate();
-  console.log(row); // 배열객체로 받아오기
   const [hotels, setHotels] = useState([]);
   //객실선택갯수를 담는 useState선언
   const [selectNumber, setSelectNumber] = useState([]);
@@ -25,9 +24,11 @@ const HotelAvailabilityRow = ({ row }) => {
   const [selectedModal, setSelectedRoomModal] = useState([]);
   const [selectedPriceModal, setSelectedPriceModal] = useState([]);
   const [selectedFacModal, setSelectedFacModal] = useState({});
+  //쿠키에 선택된 룸Id저장하는 useState
+  const [selectRoomId, setSelectRoomId] = useState({});
   const [localID, setLocalID] = useState();
   useEffect(() => {
-    setLocalID(window.localStorage.getItem("userId"));
+    setLocalID(window.localStorage.getItem('userId'));
   }, []);
   const selectNum = useCallback(
     (index, value) => {
@@ -41,16 +42,20 @@ const HotelAvailabilityRow = ({ row }) => {
     let totalPrice = 0;
     //쿠키에 객체로 담아준다.
     const selectedRooms = {};
+    const selectedRoomIds = {};
     for (let i = 0; i < hotels.length; i++) {
       const num = selectNumber[i] || 0;
       totalPrice += num * hotels[i].ROOM_PRICE;
       selectedRooms[hotels[i].ROOM_TYPE] = num;
+      selectedRoomIds[hotels[i].ROOM_ID] = num;
     }
     setTotalPrice(totalPrice);
     const temp = JSON.stringify(selectedRooms);
-    console.log(temp);
     const rooms = JSON.parse(temp);
-    console.log(rooms);
+
+    //룸ID
+    const rid = JSON.stringify(selectedRoomIds);
+    const rids = JSON.parse(rid);
 
     const selectedRoomTypes = Object.keys(rooms)
       .filter((room) => rooms[room] !== 0)
@@ -58,8 +63,16 @@ const HotelAvailabilityRow = ({ row }) => {
         obj[key] = rooms[key];
         return obj;
       }, {});
-    console.log(selectedRoomTypes);
+
+    const selectedRids = Object.keys(rids)
+      .filter((rid) => rids[rid] !== 0)
+      .reduce((obj, key) => {
+        obj[key] = rids[key];
+        return obj;
+      }, {});
     setSelectRoom(selectedRoomTypes);
+    //룸아이디
+    setSelectRoomId(selectedRids);
   }, [hotels, selectNumber]);
 
   useEffect(() => {
@@ -70,6 +83,7 @@ const HotelAvailabilityRow = ({ row }) => {
         ROOM_PRICE: item.ROOM_PRICE,
         ROOM_CAPACITY: item.ROOM_CAPACITY,
         ROOM_OPTION: item.ROOM_OPTION,
+        ROOM_ID: item.ROOM_ID,
         FAC_ROOM: item.FAC_ROOM,
         FAC_RESTARUANT: item.FAC_RESTARUANT,
         FAC_SECURITY: item.FAC_SECURITY,
@@ -94,33 +108,24 @@ const HotelAvailabilityRow = ({ row }) => {
   const onReservation = () => {
     if (totalPrice > 0) {
       if (localID == null) {
-        alert("로그인을 먼저 진행해주세요.");
+        alert('로그인을 먼저 진행해주세요.');
         return;
       }
-      for (let i = 0; i < selectRoom.length; i++) {
-        //쿠키를 언제 지울건지 알아야 함
-        const roomtype = roomTypes[i];
-        //Cookies.remove(roomtype);
-      }
-      //Cookies.remove(); //기존 쿠키값 왜 삭제 안됨???????
+      const roomIds = Object.keys(selectRoomId);
       const roomTypes = Object.keys(selectRoom);
       const selectedNumber = Object.values(selectRoom);
       for (let i = 0; i < roomTypes.length; i++) {
-        const roomtype = roomTypes[i];
         const selecteNumber = selectedNumber[i];
-        //Cookies.set(roomtype, selecteNumber);//한 꺼번에 두개를 담는게 아니라  하나씩 담는것 임
-        Cookies.set('roomtype', roomTypes); //한 꺼번에 두개를 담는게 아니라  하나씩 담는것 임
-        Cookies.set('selectedNumber', selecteNumber); // 인원 수 쿠키에 담음 Cookies.set("P_TITLE", row.P_TITLE);
-        console.log('가용인원' + selectedNumber);
-        console.log('룸타입 ' + roomTypes);
+        const selectRoomid = roomIds[i];
+        Cookies.set('resRoomType', roomTypes); //한 꺼번에 두개를 담는게 아니라  하나씩 담는것 임
+        Cookies.set('selectedRoomNumber', selecteNumber); // 인원 수 쿠키에 담음 Cookies.set("P_TITLE", row.P_TITLE);
+        Cookies.set('resRoomId', selectRoomid);
       }
-      Cookies.set('totalPrice', totalPrice); // 총액 쿠키에 담음
+      Cookies.set('resPrice', totalPrice); // 총액 쿠키에 담음
       navigate('/reservate');
-      console.log(' totalPrice' + totalPrice); // 총액 콘솔에 출력
     } else {
       alert('객실을 선택해주세요');
     }
-    console.log('지금예약버튼 클릭 -> 결제확인페이지로 이동');
   };
 
   const handleClose = () => setShow(false);

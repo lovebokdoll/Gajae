@@ -35,4 +35,22 @@
 	</select>
 
 	<insert id="propertyInsert" parameterType="map"></insert>
+
+	<select id="propertyForPayment" parameterType="map"
+		resultType="map">
+		SELECT
+		P_TITLE,
+		P_PHOTO,
+		P_STAR,
+		P_ADDRESS,
+		P_CHECKIN,
+		P_CHECKOUT,
+		P_REFUND
+		FROM
+		GAJAE.PROPERTIES
+		WHERE
+		P_ID = #{P_ID}
+		AND ROOM_ID
+		= #{ROOM_ID}
+	</select>
 </mapper>

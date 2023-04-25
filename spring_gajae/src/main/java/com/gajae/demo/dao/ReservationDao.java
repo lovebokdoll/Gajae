@@ -27,21 +27,11 @@ public class ReservationDao {
     
     public int resInsert( Map<String, Object> map ) {
         
-        int result   = sqlSessionTemplate.insert( "reservation.resInsert", map );
-        int r_number = 0;
-        
-        // INSERT 성공 시 시퀀스로 생성된 번호 가져오기
-        if ( result == 1 ) {
-            
-            if ( map.get( "r_number" ) != null ) {
-                r_number = Integer.parseInt( map.get( "r_number" ).toString() );
-            }
-        }
+        int result = sqlSessionTemplate.insert( "reservation.resInsert", map );
         
         log.info( "result = {}", result );
-        log.info( "r_number = {}", r_number );
         
-        return r_number;
+        return result;
     }
     
     public int resUpdate( Map<String, Object> map ) {
@@ -49,6 +39,14 @@ public class ReservationDao {
         int result = sqlSessionTemplate.update( "reservation.resUpdate", map );
         
         log.info( "result = {}", result );
+        
+        return result;
+    }
+    
+    public int vacancyUpdate( Map<String, Object> map ) {
+        
+        
+        int result = sqlSessionTemplate.update( "vacancy.vacancyUpdate", map );
         
         return result;
     }

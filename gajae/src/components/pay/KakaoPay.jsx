@@ -1,42 +1,46 @@
+import Cookies from 'js-cookie';
 import React, { useEffect, useState } from 'react';
 import { paymentInsert } from '../../service/pay/pay';
-import { resInsert, vacancyUpdate } from '../../service/reservation/reservation';
+import { resInsert } from '../../service/reservation/reservation';
 
 const KakaoPay = (effect, deps) => {
   const [localID, setLocalId] = useState('');
-  const bookerName = localStorage.getItem('bookerName');
-  const userEmail = localStorage.getItem('userEmail');
-  const tel = localStorage.getItem('tel');
+
+  const [resPrice, setResPrice] = useState(Cookies.get('resPrice'));
+  const [resTitle, setResTitle] = useState(Cookies.get('p_title'));
+  const [resRoomType, setResRoomType] = useState(Cookies.get('resRoomType'));
+  const [resName, setResName] = useState(Cookies.get('resName'));
+  const [resEmail, setResEmail] = useState(Cookies.get('resEmail'));
+  const [resNumber, setResNumber] = useState(Cookies.get('resNumber'));
+  const [resStartDate, setResStartDate] = useState(Cookies.get('startDate'));
+  const [resEndDate, setResEndDate] = useState(Cookies.get('endDate'));
+  const [resPeople, setResPeople] = useState(Cookies.get('resPeople'));
+  const [p_id, setP_id] = useState(Cookies.get('p_id'));
+  const [room_id, setRoom_id] = useState(Cookies.get('room_id'));
 
   const [resInfo, setResInfo] = useState({
-    r_number: '',
-    user_id: '',
-    p_id: 11,
-    r_start_date: '2023-04-25',
-    r_end_date: '2023-04-27',
-    r_mobile: '010-2410-1226',
-    r_people: '2',
-    r_eta: '14:00',
-    r_ps: '금연 객실을 원합니다.',
-    r_state: '예약완료',
+    resTitle: resTitle,
+    resRoomType: resRoomType,
+    resPrice: resPrice,
+    resName: resName,
+    resEmail: resEmail,
+    resMobile: resNumber,
+    resStartDate: resStartDate,
+    resEndDate: resEndDate,
+    resPeople: resPeople,
+    r_state: '예약확정',
+    r_eta: '',
+    r_ps: '',
+    p_id: p_id,
     room_id: 1,
   });
 
-  const getCookie = (name) => {
-    const value = document.cookie;
-    const parts = value.split(`${name}=`);
-    if (parts.length === 2) {
-      return decodeURIComponent(parts.pop().split(';').shift());
-    }
-  };
-
-  const totalPrice = getCookie('totalPrice'); //쿠키에서 가격호출
-  const P_TITLE = getCookie('P_TITLE'); //쿠키에서 호텔명호출
-  const roomType = decodeURIComponent(getCookie('roomtype'));
+  const [propertiesInfo, setPropertiesInfo] = useState({});
+  const [facilitiesInfo, setFacilitiesInfo] = useState({});
+  const [extraInfo, setExtraInfo] = useState({});
 
   useEffect(() => {
     setLocalId(window.localStorage.getItem('userId'));
-
     const jquery = document.createElement('script');
     jquery.src = 'https://code.jquery.com/jquery-1.12.4.min.js';
     const iamport = document.createElement('script');
@@ -56,13 +60,13 @@ const KakaoPay = (effect, deps) => {
       pg: 'kakaopay',
       pay_method: 'card',
       merchant_uid: `mid_${new Date().getTime()}`,
-      name: P_TITLE,
-      roomType,
-      amount: totalPrice,
+      name: resTitle,
+      roomType: resRoomType,
+      amount: resPrice,
       custom_data: { name: '부가정보', desc: '세부 부가정보' },
-      buyer_name: bookerName,
-      buyer_tel: tel,
-      buyer_email: userEmail,
+      buyer_name: resName,
+      buyer_tel: resNumber,
+      buyer_email: resEmail,
     };
     console.log('onClickPayment.data ===> ', data);
     IMP.request_pay(data, callback);
@@ -73,6 +77,7 @@ const KakaoPay = (effect, deps) => {
     console.log('response ===>', response);
 
     if (success) {
+      console.log('resInfo ===>', resInfo);
       console.log('success:response ===>', response);
       if (response.bank_name === null) {
         response.bank_name = '';
@@ -108,23 +113,18 @@ const KakaoPay = (effect, deps) => {
       console.log('paymentData ===>', paymentData);
 
       const payInsert = async () => {
-        const response = await paymentInsert(paymentData);
-        console.log('payInsert response ===> ', response.data);
-      };
-      payInsert();
-
-      const reservationInsert = async () => {
+        const paymentResponse = await paymentInsert(paymentData);
+        console.log('payInsert response ===> ', paymentResponse.data);
+       
         const reservationData = {
-          /*  R_NUMBER: '', 스프링에서 자동생성 - 기존예약번호랑 중복되는지는 reservationLogic에서 처리 */
-          R_NUMBER: resInfo.r_number,
           USER_ID: localID,
-          P_ID: resInfo.p_id,
-          R_START_DATE: resInfo.r_start_date,
-          R_END_DATE: resInfo.r_end_date,
+          P_ID: parseInt(resInfo.p_id),
+          R_START_DATE: resInfo.resStartDate,
+          R_END_DATE: resInfo.resEndDate,
           R_NAME: paymentData.buyer_name,
-          R_MOBILE: resInfo.r_mobile,
+          R_MOBILE: resInfo.resMobile,
           R_EMAIL: paymentData.buyer_email,
-          R_PEOPLE: resInfo.r_people,
+          R_PEOPLE: resInfo.resPeople,
           R_ETA: resInfo.r_eta,
           R_PS: resInfo.r_ps,
           R_STATE: resInfo.r_state,
@@ -132,21 +132,11 @@ const KakaoPay = (effect, deps) => {
           ROOM_ID: resInfo.room_id,
         };
         console.log('reservationData ===>', reservationData);
-        const response = await resInsert(reservationData);
-        console.log('reservationResponse ===>', response.data);
-      };
-      reservationInsert();
 
-      const vacancyDateUpdate = async () => {
-        const dateMap = {
-          P_ID: resInfo.p_id,
-          ROOM_ID: resInfo.room_id,
-          PAY_NUMBER: paymentData.pay_number,
-        };
-        const response = await vacancyUpdate(dateMap);
-        console.log('vacancyResponse ===>', response);
+        const reservationResponse = await resInsert(reservationData);
+        console.log('reservationResponse ===>', reservationResponse.data);
       };
-      vacancyDateUpdate();
+      payInsert();
 
       // window.location.href = '/pay/complete'; // 결제 성공 시 /pay/complete 페이지로 이동
     } else {

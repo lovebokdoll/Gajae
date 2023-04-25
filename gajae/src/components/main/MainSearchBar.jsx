@@ -2,16 +2,16 @@ import { faBed, faCalendarDays, faCar, faHotel, faPerson, faPlane, faSuitcaseRol
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import axios from 'axios';
 import { format } from 'date-fns';
-import { useEffect, useState } from 'react';
+import Cookies from 'js-cookie';
+import { useState } from 'react';
 import { DateRange } from 'react-date-range';
 import 'react-date-range/dist/styles.css'; // main css file
 import 'react-date-range/dist/theme/default.css'; // theme css file
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { setToastMessage } from '../../redux/toastStatus/action';
 import { BButton } from '../../style/FormStyle';
 import './mainSearchBar.css';
-import Cookies from 'js-cookie';
-import { useDispatch } from 'react-redux';
-import { setToastMessage } from '../../redux/toastStatus/action';
 
 const MainSearchBar = ({ type }) => {
   const navigate = useNavigate();
@@ -23,9 +23,9 @@ const MainSearchBar = ({ type }) => {
   //사용자가 선택했던 목적지(쿠키)
   const [destination, setDestination] = useState(Cookies.get('destination') || '');
   //지역 입력
-  const [P_ADDRESS, setP_Address] = useState('');
+  const [p_address, setP_Address] = useState('');
   //인원수, 객실수 입력
-  const [ROOM_CAPACITY, setRoom_Capacity] = useState({
+  const [room_capacity, setRoom_Capacity] = useState({
     adult: 1,
   });
 
@@ -44,15 +44,13 @@ const MainSearchBar = ({ type }) => {
     setRoom_Capacity((prev) => {
       return {
         ...prev,
-        [name]: operation === 'i' ? ROOM_CAPACITY[name] + 1 : ROOM_CAPACITY[name] - 1,
+        [name]: operation === 'i' ? room_capacity[name] + 1 : room_capacity[name] - 1,
       };
     });
   };
 
-  const checkDate = (event) => {};
-
   const handleSearch = (e) => {
-    const roomCapacity = parseInt(ROOM_CAPACITY.adult);
+    const roomCapacity = parseInt(room_capacity.adult);
 
     const startDate = date[0].startDate;
     const formattedStartDate = `${startDate.getFullYear()}-${(startDate.getMonth() + 1).toString().padStart(2, '0')}-${startDate
@@ -69,26 +67,26 @@ const MainSearchBar = ({ type }) => {
       .padStart(2, '0')}`;
     console.log('Formatted end date:', formattedEndDate);
 
-    if (P_ADDRESS === '' || formattedStartDate === formattedEndDate) {
-      dispatch(setToastMessage('같은 날짜를 선택할 수 없습니다.'));
+    if (p_address === '') {
+      dispatch(setToastMessage('여행을 떠나실 곳을 선택해주세요.'));
       return;
     }
 
     Cookies.set('startDate', formattedStartDate, oneWeekFromNow);
     Cookies.set('endDate', formattedEndDate, oneWeekFromNow);
-    Cookies.set('destination', P_ADDRESS, { expires: new Date(Date.now() + 10 * 60 * 1000) });
-
+    Cookies.set('destination', p_address, { expires: new Date(Date.now() + 10 * 60 * 1000) });
+    Cookies.set('resPeople', roomCapacity, oneWeekFromNow);
     navigate(
-      `/propertylist/?P_ADDRESS=${P_ADDRESS}&ROOM_CAPACITY=${roomCapacity}&startdate=${formattedStartDate}&enddate=${formattedEndDate}`,
+      `/propertylist/?P_ADDRESS=${p_address}&ROOM_CAPACITY=${roomCapacity}&startdate=${formattedStartDate}&enddate=${formattedEndDate}`,
       {
-        state: { P_ADDRESS, date, ROOM_CAPACITY },
+        state: { p_address, date, room_capacity },
       }
     );
 
     axios
-      .post('http://localhost:9999/search/list', { P_ADDRESS, ROOM_CAPACITY: roomCapacity })
+      .post('http://localhost:9999/search/list', { P_ADDRESS: p_address, ROOM_CAPACITY: roomCapacity })
       .then((response) => {
-        console.log(P_ADDRESS);
+        console.log(p_address);
         console.log(response.data);
         // 검색 결과를 처리할 코드
       })
@@ -135,12 +133,11 @@ const MainSearchBar = ({ type }) => {
                   <FontAwesomeIcon icon={faSuitcaseRolling} style={{ marginRight: '10px' }} className="headerIcon" />
                   <input
                     type="text"
-                    placeholder={`어디로 떠나시나요?${destination ? `` : ''}`}
-                    defaultValue={destination}
+                    placeholder={`어디로 떠나시나요?`}
                     className="headerSearchInput"
                     onChange={(e) => setP_Address(e.target.value)}
                     onKeyPress={(e) => {
-                      if (e.key === 'Enter' && !P_ADDRESS) {
+                      if (e.key === 'Enter' && !p_address) {
                         e.preventDefault();
                       }
                     }}
@@ -169,20 +166,20 @@ const MainSearchBar = ({ type }) => {
               </div>
               <div className="headerSearchAdult">
                 <FontAwesomeIcon icon={faPerson} style={{ marginRight: '10px' }} className="headerIcon" />
-                <span onClick={() => setOpenOptions(!openOptions)} className="headerSearchText">{`${ROOM_CAPACITY.adult} adult`}</span>
+                <span onClick={() => setOpenOptions(!openOptions)} className="headerSearchText">{`${room_capacity.adult} adult`}</span>
                 {openOptions && (
                   <div className="options">
                     <div className="optionItem">
                       <span className="optionText">Adult</span>
                       <div className="optionCounter">
                         <button
-                          disabled={ROOM_CAPACITY.adult <= 1}
+                          disabled={room_capacity.adult <= 1}
                           className="optionCounterButton"
                           onClick={() => handleOption('adult', 'd')}
                         >
                           -
                         </button>
-                        <span className="optionCounterNumber">{ROOM_CAPACITY.adult}</span>
+                        <span className="optionCounterNumber">{room_capacity.adult}</span>
                         <button className="optionCounterButton" onClick={() => handleOption('adult', 'i')}>
                           +
                         </button>

@@ -1,5 +1,6 @@
 package com.gajae.demo.logic;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -14,6 +15,7 @@ import lombok.extern.log4j.Log4j2;
 @Log4j2
 @Service
 public class ReservationLogic {
+    
     @Autowired
     private ReservationDao reservationDao;
     
@@ -26,11 +28,12 @@ public class ReservationLogic {
     
     public int resInsert( Map<String, Object> map ) {
         
-        // String r_number = generateReservationNumber();
-        // map.put( "R_NUMBER", r_number );
-        // log.info( "r_number = {}, map.get(R_NUMBER) ={}", r_number, map.get( "R_NUMBER" ) );
-        
         int result = reservationDao.resInsert( map );
+        
+        if ( result == 1 ) {
+            int vacancyResult = vacancyUpdate( map );
+            log.info( "vacancyResult = {}", vacancyResult );
+        }
         
         return result;
     }
@@ -42,16 +45,20 @@ public class ReservationLogic {
         return result;
     }
     
-    private String generateReservationNumber() {
+    public int vacancyUpdate( Map<String, Object> map ) {
         
-        StringBuilder stringBuilder = new StringBuilder();
-        Random        random        = new Random();
+        Map<String, Object> dateMap = new HashMap<String, Object>();
         
-        for ( int i = 0; i < 12; i++ ) {
-            int digit = random.nextInt( 10 ); // 0~9까지 랜덤한 숫자 선택
-            stringBuilder.append( digit );
-        }
-        return stringBuilder.toString();
+        dateMap.put( "START_DATE", map.get( "R_START_DATE" ) );
+        dateMap.put( "END_DATE", map.get( "R_END_DATE" ) );
+        dateMap.put( "P_ID", map.get( "P_ID" ) );
+        dateMap.put( "ROOM_ID", map.get( "ROOM_ID" ) );
+        
+        log.info( "dateMap = {}", dateMap );
+        
+        int result = reservationDao.vacancyUpdate( dateMap );
+        
+        return result;
     }
     
 }

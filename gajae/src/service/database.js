@@ -1,13 +1,14 @@
-import axios from "axios";
+import axios from 'axios';
 /**
  * POST방식으로 전송 시 반드시 data 속성으로 파라미터를 전송할 것
  */
 export const propertyListDB = (property) => {
+  console.log(property);
   return new Promise((resolve, reject) => {
     try {
       const response = axios({
-        method: "get",
-        url: process.env.REACT_APP_SPRING_GAJAE_IP + "property/list",
+        method: 'get',
+        url: process.env.REACT_APP_SPRING_IP + 'property/propertyForPayment',
         params: property,
       });
       resolve(response);
@@ -22,8 +23,8 @@ export const searchListDB = (property) => {
   return new Promise((resolve, reject) => {
     try {
       const response = axios({
-        method: "post",
-        url: process.env.REACT_APP_SPRING_IP + "search/list",
+        method: 'post',
+        url: process.env.REACT_APP_SPRING_IP + 'search/list',
         data: property,
       });
       resolve(response);
@@ -37,8 +38,8 @@ export const noticeListDB = (property) => {
   return new Promise((resolve, reject) => {
     try {
       const response = axios({
-        method: "post",
-        url: process.env.REACT_APP_SPRING_IP + "notice/list",
+        method: 'post',
+        url: process.env.REACT_APP_SPRING_IP + 'notice/list',
         data: property,
       });
       resolve(response);
@@ -52,8 +53,8 @@ export const memberInsertDB = (member) => {
   return new Promise((resolve, reject) => {
     try {
       const response = axios({
-        method: "post", //@RequestBody
-        url: process.env.REACT_APP_SPRING_GAJAE_IP + "member/memberInsert",
+        method: 'post', //@RequestBody
+        url: process.env.REACT_APP_SPRING_GAJAE_IP + 'member/memberInsert',
         data: member,
       });
       resolve(response);
@@ -64,14 +65,14 @@ export const memberInsertDB = (member) => {
 };
 
 export const uploadImageDB = (file) => {
-  console.log("file ===> ", file);
+  console.log('file ===> ', file);
   return new Promise((resolve, reject) => {
     try {
       const response = axios({
-        method: "post",
-        url: process.env.REACT_APP_SPRING_GAJAE_IP + "reply/imageUpload",
+        method: 'post',
+        url: process.env.REACT_APP_SPRING_GAJAE_IP + 'reply/imageUpload',
         headers: {
-          "Content-Type": "multipart/form-data",
+          'Content-Type': 'multipart/form-data',
         },
         processData: false,
         contentType: false,
@@ -85,14 +86,14 @@ export const uploadImageDB = (file) => {
 };
 
 export const uploadFileDB = (file) => {
-  console.log("file ===> ", file);
+  console.log('file ===> ', file);
   return new Promise((resolve, reject) => {
     try {
       const response = axios({
-        method: "post",
-        url: process.env.REACT_APP_SPRING_GAJAE_IP + "reply/fileUpload",
+        method: 'post',
+        url: process.env.REACT_APP_SPRING_GAJAE_IP + 'reply/fileUpload',
         headers: {
-          "Content-Type": "multipart/form-data",
+          'Content-Type': 'multipart/form-data',
         },
         processData: false,
         contentType: false,
@@ -109,9 +110,7 @@ export const uploadFileDB = (file) => {
 export const markListDB = () => {
   return new Promise((resolve, reject) => {
     try {
-      const response = axios.get(
-        process.env.REACT_APP_SPRING_IP + "search/markList"
-      );
+      const response = axios.get(process.env.REACT_APP_SPRING_IP + 'search/markList');
       resolve(response);
     } catch (error) {
       reject(error);

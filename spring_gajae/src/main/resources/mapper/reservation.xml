@@ -2,8 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="reservation">
 	<!-- review_number는 review 작성시 update -->
-	<insert id="resInsert" parameterType="map"
-		useGeneratedKeys="true" keyColumn="r_number" keyProperty="r_number">
+	<insert id="resInsert" parameterType="map">
 		INSERT INTO
 		GAJAE.RESERVATIONS (
 		R_NUMBER,
@@ -23,7 +22,7 @@
 		ROOM_ID
 		)
 		VALUES (
-		#{R_NUMBER},
+		SEQ_R_NUMBER.NEXTVAL,
 		#{USER_ID},
 		#{P_ID},
 		TO_CHAR(

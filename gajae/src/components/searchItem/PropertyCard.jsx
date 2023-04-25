@@ -14,13 +14,12 @@ const PropertyCard = ({ row }) => {
   };
   //예약하기를 눌렀을 때 해당 숙소 이름, 인원 수, 주소, 체크인아웃, 가격, ID 담아서 이동
   const handleHotel = () => {
-    Cookies.set('P_TITLE', row.P_TITLE);
-    Cookies.set('ROOM_CAPACITY', row.ROOM_CAPACITY);
-    Cookies.set('P_ADDRESS', row.P_ADDRESS);
-    Cookies.set('P_CHECKIN', row.P_CHECKIN);
-    Cookies.set('P_CHECKOUT', row.P_CHECKOUT);
-    Cookies.set('ROOM_PRICE', row.ROOM_PRICE);
-    Cookies.set('P_ID', row.P_ID);
+    Cookies.set('p_title', row.P_TITLE);
+    // 해당 숙소 주소이므로 resAddress로 이름 수정
+    Cookies.set('resAddress', row.P_ADDRESS);
+    Cookies.set('p_checkin', row.P_CHECKIN);
+    Cookies.set('p_checkout', row.P_CHECKOUT);
+    Cookies.set('p_id', row.P_ID);
     navigate('/hotel');
   };
 
@@ -57,7 +56,8 @@ const PropertyCard = ({ row }) => {
           </Link>
           <span className="siCheck">
             {' '}
-            체크인 : {row.P_CHECKIN} <br/>{/* 텍스트 정렬안되서 수정*/}
+            체크인 : {row.P_CHECKIN} <br />
+            {/* 텍스트 정렬안되서 수정*/}
             체크아웃 : {row.P_CHECKOUT}
           </span>
           <span className="siP_ADDRESS">{row.P_ADDRESS}</span>

@@ -18,9 +18,9 @@ public class PropertyDAO {
     @Autowired
     private SqlSessionTemplate sqlSessionTemplate;
     
-    public List<PropertyVO> propertyList( Map<String, Object> pMap ) {
+    public List<PropertyVO> propertyList( Map<String, Object> map ) {
         
-        List<PropertyVO> propertyList = sqlSessionTemplate.selectList( "property.list", pMap );
+        List<PropertyVO> propertyList = sqlSessionTemplate.selectList( "property.list", map );
         
         log.info( "propertyList = {}", propertyList );
         
@@ -46,6 +46,15 @@ public class PropertyDAO {
         int result = sqlSessionTemplate.delete( "propertyDelete", pMap );
         
         return result;
+    }
+    
+    public List<Map<String, Object>> propertyForPayment( Map<String, Object> map ) {
+        
+        List<Map<String, Object>> propertyList = sqlSessionTemplate.selectList( "property.propertyForPayment", map );
+        
+        log.info( "propertyList = {}", propertyList );
+        
+        return propertyList;
     }
     
 }

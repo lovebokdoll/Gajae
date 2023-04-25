@@ -12,13 +12,24 @@
 	</select>
 
 	<update id="vacancyUpdate" parameterType="map">
-    	UPDATE P_VACANCY_11
-   		SET RES_YN = 'Y'
-        WHERE P_ID=#{P_ID}
-        AND ROOM_ID=#{ROOM_ID}
-        AND TO_DATE(RES_DATE, 'YYYY-MM-DD') <![CDATA[ >= ]]> TO_DATE(#{START_DATE}, 'YYYY-MM-DD')
-        AND TO_DATE(RES_DATE, 'YYYY-MM-DD') <![CDATA[ <= ]]> TO_DATE(#{END_DATE}, 'YYYY-MM-DD')
+		UPDATE P_VACANCY_${P_ID}
+		SET RES_YN = 'Y'
+		WHERE P_ID=#{P_ID}
+		AND ROOM_ID=#{ROOM_ID}
+		AND TO_DATE(RES_DATE, 'YYYY-MM-DD') <![CDATA[ >= ]]> TO_DATE(#{START_DATE}, 'YYYY-MM-DD')
+		AND TO_DATE(RES_DATE, 'YYYY-MM-DD') <![CDATA[ <= ]]> TO_DATE(#{END_DATE}, 'YYYY-MM-DD')
 	</update>
-
+	
+	<insert id="vacancyCreate">
+	INSERT INTO P_VACANCY_${P_ID} (P_ID, ROOM_ID, RES_DATE, RES_YN)
+	SELECT #{P_ID}, ROOM_ID, TO_CHAR(LEVEL - 1 + DATE '2023-04-24', 'YYYY-MM-DD'), 'N'
+	FROM (
+		<foreach item="item" index="index" collection="roomIds" separator="UNION ALL">
+			SELECT #{item} AS ROOM_ID FROM DUAL
+		</foreach>
+	) ROOMS
+	CONNECT BY LEVEL <![CDATA[ <= ]]>
+	(DATE '2023-07-30' - DATE '2023-04-24' + 1)
+	</insert>
 
 </mapper>

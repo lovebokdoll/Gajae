@@ -23,13 +23,13 @@ const LoginPage = () => {
 
   const userAuth = useSelector((store) => store.userAuth);
   const [tempUser, setTempUser] = useState({
-    user_id: "",
-    user_pw: "",
+    user_id: '',
+    user_pw: '',
   });
 
   const [userId, setUserId] = useState();
 
-  const REDIRECT_URI = "http://localhost:3000/auth/kakao/callback";
+  const REDIRECT_URI = 'http://localhost:3000/auth/kakao/callback';
   const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.REACT_APP_KAKAO_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
 
   const kakaoLogin = () => {
@@ -42,19 +42,17 @@ const LoginPage = () => {
       console.log(result);
       console.log(result.uid);
       setUserId(result.uid);
-      window.localStorage.setItem("userId", result.uid);
-      navigate("/");
+      window.localStorage.setItem('userId', result.uid);
+      navigate('/');
       window.location.reload();
     } catch (error) {
-      dispatch(
-        setToastMessage(error + ": 로그인과정 중에 문제가 발생했습니다.")
-      );
+      dispatch(setToastMessage(error + ': 로그인과정 중에 문제가 발생했습니다.'));
     }
   };
 
   const signin = async () => {
     if (!tempUser.user_id || !tempUser.user_pw) {
-      dispatch(setToastMessage("아이디와 비밀번호를 입력해주세요."));
+      dispatch(setToastMessage('아이디와 비밀번호를 입력해주세요.'));
     }
 
     const response = await signinDB(tempUser);
@@ -64,40 +62,41 @@ const LoginPage = () => {
     const jsonDoc = JSON.parse(temp);
 
     console.log(jsonDoc[0]);
-    if (jsonDoc[0].USER_ACTIVATE === "N") {
-      alert("휴면 계정입니다. 휴면 계정 해지 페이지로 이동합니다.");
-      navigate("/login/activate");
+    if (jsonDoc[0].USER_ACTIVATE === 'N') {
+      alert('휴면 계정입니다. 휴면 계정 해지 페이지로 이동합니다.');
+      navigate('/login/activate');
       return;
     }
     if (response.data) {
-      window.localStorage.setItem("userId", jsonDoc[0].USER_ID);
-      window.localStorage.setItem("userName", jsonDoc[0].USER_NAME);
-      window.localStorage.setItem("userNickname", jsonDoc[0].USER_NICKNAME);
-      window.localStorage.setItem("userAuth", jsonDoc[0].USER_AUTH);
-      window.localStorage.setItem("userEmail", jsonDoc[0].USER_EMAIL);
-      window.localStorage.setItem("userBirth", jsonDoc[0].USER_BIRTH);
-      navigate("/");
+      window.localStorage.setItem('userId', jsonDoc[0].USER_ID);
+      window.localStorage.setItem('userName', jsonDoc[0].USER_NAME);
+      window.localStorage.setItem('userNickname', jsonDoc[0].USER_NICKNAME);
+      window.localStorage.setItem('userAuth', jsonDoc[0].USER_AUTH);
+      window.localStorage.setItem('userEmail', jsonDoc[0].USER_EMAIL);
+      window.localStorage.setItem('userBirth', jsonDoc[0].USER_BIRTH);
+      window.localStorage.setItem('userPhoto', jsonDoc[0].USER_PHOTO);
+      navigate('/');
     } else {
-      dispatch(setToastMessage("아이디 또는 비밀번호가 일치하지 않습니다."));
+      dispatch(setToastMessage('아이디 또는 비밀번호가 일치하지 않습니다.'));
     }
   };
 
   const [submitButton, setSubmitButton] = useState({
     disabled: true,
-    bgColor: "rgb(175, 210, 244)",
+    bgColor: 'rgb(175, 210, 244)',
     hover: false,
   });
 
   const [passwordType, setPasswordType] = useState({
-    type: "password",
+    type: 'password',
     visible: false,
   });
 
   useEffect(() => {
-    if (tempUser.user_id !== "" && tempUser.user_pw !== "") {
-      setSubmitButton({ disabled: false, bgColor: "rgb(105, 175, 245)" });
+    if (tempUser.user_id !== '' && tempUser.user_pw !== '') {
+      setSubmitButton({ disabled: false, bgColor: 'rgb(105, 175, 245)' });
     } else {
-      setSubmitButton({ disabled: true, bgColor: "rgb(175, 210, 244)" });
+      setSubmitButton({ disabled: true, bgColor: 'rgb(175, 210, 244)' });
     }
   }, [tempUser]);
 
@@ -109,11 +108,11 @@ const LoginPage = () => {
 
   const passwordView = (e) => {
     const id = e.currentTarget.id;
-    if (id === "password") {
+    if (id === 'password') {
       if (!passwordType.visible) {
-        setPasswordType({ ...passwordType, type: "text", visible: true });
+        setPasswordType({ ...passwordType, type: 'text', visible: true });
       } else {
-        setPasswordType({ ...passwordType, type: "password", visible: false });
+        setPasswordType({ ...passwordType, type: 'password', visible: false });
       }
     }
   };
@@ -123,13 +122,13 @@ const LoginPage = () => {
       setSubmitButton({
         ...submitButton,
         hover: false,
-        bgColor: "rgb(105, 175, 245)",
+        bgColor: 'rgb(105, 175, 245)',
       });
     } else {
       setSubmitButton({
         ...submitButton,
         hover: true,
-        bgColor: "rgb(58, 129, 200)",
+        bgColor: 'rgb(58, 129, 200)',
       });
     }
   };
@@ -142,17 +141,12 @@ const LoginPage = () => {
         <LoginImage src="/images/login/login.gif" />
         <MGDIV></MGDIV>
         <MyLabel htmlFor="email">
-          {" "}
+          {' '}
           아이디
-          <MyInput
-            type="text"
-            id="user_id"
-            name="user_id"
-            onChange={(e) => changeUser(e)}
-          />
+          <MyInput type="text" id="user_id" name="user_id" onChange={(e) => changeUser(e)} />
         </MyLabel>
         <MyLabel htmlFor="password">
-          {" "}
+          {' '}
           비밀번호
           <MyInput
             type={passwordType.type}
@@ -167,7 +161,7 @@ const LoginPage = () => {
             onClick={(e) => {
               passwordView(e);
             }}
-            style={{ color: `${passwordType.visible ? "gray" : "lightgray"}` }}
+            style={{ color: `${passwordType.visible ? 'gray' : 'lightgray'}` }}
           >
             <PwEye className="fa fa-eye fa-lg"></PwEye>
           </div>
@@ -179,30 +173,30 @@ const LoginPage = () => {
           onMouseLeave={toggleHover}
           onClick={() => {
             signin();
-            window.localStorage.removeItem("hostId");
-            window.localStorage.removeItem("hostName");
-            window.localStorage.removeItem("hostCompanyName");
-            window.localStorage.removeItem("hostBusinessNum");
+            window.localStorage.removeItem('hostId');
+            window.localStorage.removeItem('hostName');
+            window.localStorage.removeItem('hostCompanyName');
+            window.localStorage.removeItem('hostBusinessNum');
           }}
         >
           로그인
         </SubmitButton>
-      </SignInForm>{" "}
+      </SignInForm>{' '}
       <DividerDiv>
         <DividerHr />
         <DividerSpan>또는 다음 중 하나로 계속</DividerSpan>
       </DividerDiv>
       <AuthContainer>
         <div>
-          <a style={{ marginRight: "15px" }}>
+          <a style={{ marginRight: '15px' }}>
             <Image src="/images/login/네이버로그인.png" />
           </a>
           <button
             onClick={googleSignIn}
             style={{
-              marginRight: "15px",
-              border: "none",
-              backgroundColor: "transparent",
+              marginRight: '15px',
+              border: 'none',
+              backgroundColor: 'transparent',
             }}
           >
             <Image src="/images/login/구글로그인.png" />
@@ -211,33 +205,21 @@ const LoginPage = () => {
             <Image src="/images/login/카카오로그인.png" />
           </a>
         </div>
-        <MyP style={{ marginTop: "20px" }}>
+        <MyP style={{ marginTop: '20px' }}>
           신규 사용자이신가요?&nbsp;
-          <Link
-            to="/signup"
-            className="text-decoration-none"
-            style={{ color: "blue" }}
-          >
+          <Link to="/signup" className="text-decoration-none" style={{ color: 'blue' }}>
             계정 만들기
           </Link>
         </MyP>
         <MyP>
           아이디를 잊으셨나요?&nbsp;
-          <Link
-            to="/login/findid"
-            className="text-decoration-none"
-            style={{ color: "blue" }}
-          >
+          <Link to="/login/findid" className="text-decoration-none" style={{ color: 'blue' }}>
             아이디 찾기
           </Link>
         </MyP>
         <MyP>
           비밀번호를 잊으셨나요?&nbsp;
-          <Link
-            to="/login/findpw"
-            className="text-decoration-none"
-            style={{ color: "blue" }}
-          >
+          <Link to="/login/findpw" className="text-decoration-none" style={{ color: 'blue' }}>
             비밀번호 찾기
           </Link>
         </MyP>

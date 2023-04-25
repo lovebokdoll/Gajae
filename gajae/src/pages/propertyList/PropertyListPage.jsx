@@ -65,9 +65,7 @@ const PropertyListPage = () => {
   console.log(params);
 
   //쿠키에 검색정보 저장
-  Cookies.set('P_ADDRESS', params.P_ADDRESS);
-  Cookies.set('ROOM_CAPACITY', params.ROOM_CAPACITY);
-  Cookies.set('P_TITLE', params.P_TITLE);
+  Cookies.set('p_address', params.P_ADDRESS);
 
   //정렬조건
   const handleOrder = (orderBy) => {
@@ -75,8 +73,8 @@ const PropertyListPage = () => {
   };
 
   //쿠키 값 빼서 스프링으로 같이 넘겨주기
-  const P_ADDRESS = Cookies.get('P_ADDRESS');
-  const ROOM_CAPACITY = Cookies.get('ROOM_CAPACITY');
+  const P_ADDRESS = Cookies.get('p_address');
+  const ROOM_CAPACITY = Cookies.get('res_people');
 
   //사용자가 정렬조건 선택 시 스프링으로 요청
   useEffect(() => {
