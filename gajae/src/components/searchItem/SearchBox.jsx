@@ -65,7 +65,7 @@ const SearchBox = () => {
         id="leftbox"
         style={{ backgroundColor: '#FFFFFF', border: 'px solid #000000', marginTop: '10px', padding: '20px 10px', width: '200px' }}
       >
-        <div style={{ marginTop: '10px' }}>
+        <div className='location-name' style={{ marginTop: '10px' ,width:200}}>
         <FontAwesomeIcon icon={faHotel} style={{marginRight: '10px'}}/>
           <label style={{ fontSize: '15px', marginBottom: '10px', fontFamily: 'BlinkMacSystemFont', color: '#333'}}>
             지역 이름

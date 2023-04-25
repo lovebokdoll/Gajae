@@ -68,7 +68,7 @@ const PropertyCard = ({ row }) => {
         </div>
         <div className="siDetails">
           <div className="siRanking">
-            <button className="rankigbtn">{row.REVIEW_AVERAGE}</button>
+            <button className="rankigbtn" style={{minWidth:'40px',minHeight:'40px'}}>{row.REVIEW_AVERAGE}</button>
           </div>
           <div className="siDetailTexts">
             <span className="siPrice">{Number(row.ROOM_PRICE).toLocaleString() + '원'}</span>

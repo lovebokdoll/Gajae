@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import "./hotel.css";
+import "./Book_hotel.css";
 
-import HotelSearchBar from "./HotelSearchBar";
+import Book_HotelSearchBar from "./Book_HotelSearchBar";
 
 /**
  *SearchBar 보여줌
@@ -13,7 +13,7 @@ const HotelAvailabilityHeader = () => {
     <>
       <div className="availabilitytitle">예약 가능 여부</div>
       <div>
-        <HotelSearchBar />
+        <Book_HotelSearchBar />
       </div>
     </>
   );
