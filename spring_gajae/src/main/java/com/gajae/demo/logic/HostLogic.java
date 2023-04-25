@@ -1,6 +1,7 @@
 package com.gajae.demo.logic;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -143,6 +144,14 @@ public class HostLogic {
 		return p_id;
 
 	}
+	//달력생성
+	private void vacancyCreate(Map<String, Object> map) {
+		//받아온 p_id,roomIds담기
+		Map<String, Object> vacancyMap = new HashMap<>();
+		vacancyMap.put("P_ID", 12);
+		vacancyMap.put("roomIds", Arrays.asList(3, 4, 5));
+		vacancyCreate(vacancyMap);
+	}
 
 	// 룸타입 등록
 	private List<Map<String, Object>> roomList(Map<String, Object> map) {
@@ -239,79 +248,90 @@ public class HostLogic {
 	 * log.info("result = []", result); return result; }
 	 */
 	// 룸타입 업데이트처리
-	/**
-	 * 기존에 있던 룸타입 데이터를 불러와서 기존에 데이터가 있는(선택된)경우 -> 유지 기존에 없던 데이터가 선택된 경우 ->insert
-	 * 
-	 * @param map
-	 * @return
-	 */
-	public List<Map<String, Object>> hotelUpdate(Map<String, Object> map) {
-		log.info("map={}", map);
-		ArrayList<String> arrayList = (ArrayList<String>) map.get("ROOM_ID");
-		log.info("roomIds={}", arrayList);
-		// ArrayList의 요소를 배열로 반환한다
-		String[] roomtypes = arrayList.toArray(new String[0]);
-		log.info("roomtypes={}", roomtypes);
-		int[] rids = new int[roomtypes.length];
 
-		for (int i = 0; i < rids.length; i++) {
-			log.info(roomtypes[i]);
-			rids[i] = Integer.parseInt(roomtypes[i]);
-		}
-		ArrayList<Map<String, Object>> list = new ArrayList<>();
-		Map<String, Object> pMap = null;
-		for (int i = 0; i < rids.length; i++) {
-			pMap = new HashMap<>();
-			pMap.put("P_ID", map.get("P_ID"));
-			pMap.put("P_TITLE", map.get("P_TITLE"));
-			pMap.put("P_STAR", map.get("P_STAR"));
-			pMap.put("P_POSTAL", map.get("P_POSTAL"));
-			pMap.put("P_PHOTO", map.get("P_PHOTO"));
-			pMap.put("P_ADDRESS", map.get("P_ADDRESS"));
-			pMap.put("P_TEL", map.get("P_TEL"));
-			pMap.put("P_OVERVIEW", map.get("P_OVERVIEW"));
-			pMap.put("P_SCALE", map.get("P_SCALE"));
-			pMap.put("P_CHECKIN", map.get("P_CHECKIN"));
-			pMap.put("P_CHECKOUT", map.get("P_CHECKOUT"));
-			pMap.put("P_REFUND", map.get("P_REFUND"));
-			pMap.put("ROOM_ID", rids[i]);
-			log.info("pMap={}", pMap);
-			list.add(pMap);
-		}
-		log.info("list = {}", list);
-		
-		// 해당하는 룸아이디 불러오기 
-		List<Map<String, Object>> getRoomIds = hostDAO.getRoomIds(map);
-		log.info("getRoomIds = {}", getRoomIds);
-		
-			ArrayList<Map<String, Object>> roomIdlist = new ArrayList<>();
-			Map<String, Object> rMap = null;
-			for (int i = 0; i < rids.length; i++) {
-				rMap = new HashMap<>();
-				rMap.put("ROOM_ID", rids[i]);	
-				roomIdlist.add(rMap);
-			}
-			log.info("roomIdlist = {}", roomIdlist);
-			
-			for(Map<String,Object>roomIds:roomIdlist) {
-			boolean roomTypeExists = false;
-			for(Map<String, Object> getRoomId :getRoomIds) {
-				if(roomIds.get("ROOM_ID").equals(getRoomId.get("ROOM_ID"))) {
-					roomTypeExists = true;
-					System.out.println("동일한 room_id=>유지");
-					break;
-				}
-			}
-		}
-		// List<Map<String, Object>> result = hostDAO.hotelUpdate(list);
-
-		// log.info("result = []", result);
-		return null;
+	public int hotelUpdate(Map<String, Object> map) {
+		log.info("map = {}", map);
+		int result = hostDAO.hotelUpdate(map);
+		return result;
 	}
+//	public List<Map<String, Object>> hotelUpdate(Map<String, Object> map) {
+//		log.info("map={}", map);
+//		ArrayList<String> arrayList = (ArrayList<String>) map.get("ROOM_ID");
+//		log.info("roomIds={}", arrayList);
+//		// ArrayList의 요소를 배열로 반환한다
+//		String[] roomtypes = arrayList.toArray(new String[0]);
+//		log.info("roomtypes={}", roomtypes);
+//		int[] rids = new int[roomtypes.length];
+//		
+//		for (int i = 0; i < rids.length; i++) {
+//			log.info(roomtypes[i]);
+//			rids[i] = Integer.parseInt(roomtypes[i]);
+//		}
+//		ArrayList<Map<String, Object>> list = new ArrayList<>();
+//		Map<String, Object> pMap = null;
+//		for (int i = 0; i < rids.length; i++) {
+//			pMap = new HashMap<>();
+//			pMap.put("P_ID", map.get("P_ID"));
+//			pMap.put("P_TITLE", map.get("P_TITLE"));
+//			pMap.put("P_STAR", map.get("P_STAR"));
+//			pMap.put("P_POSTAL", map.get("P_POSTAL"));
+//			pMap.put("P_PHOTO", map.get("P_PHOTO"));
+//			pMap.put("P_ADDRESS", map.get("P_ADDRESS"));
+//			pMap.put("P_TEL", map.get("P_TEL"));
+//			pMap.put("P_OVERVIEW", map.get("P_OVERVIEW"));
+//			pMap.put("P_SCALE", map.get("P_SCALE"));
+//			pMap.put("P_CHECKIN", map.get("P_CHECKIN"));
+//			pMap.put("P_CHECKOUT", map.get("P_CHECKOUT"));
+//			pMap.put("P_REFUND", map.get("P_REFUND"));
+//			pMap.put("ROOM_ID", rids[i]);
+//			log.info("pMap={}", pMap);
+//			list.add(pMap);
+//		}
+//		log.info("list = {}", list);
+//		
+//		// 해당하는 룸아이디 불러오기
+//		List<Map<String, Object>> getRoomIds = hostDAO.getRoomIds(map);
+//		log.info("getRoomIds = {}", getRoomIds);
+//		
+//		ArrayList<Map<String, Object>> roomIdlist = new ArrayList<>();
+//		Map<String, Object> rMap = null;
+//		for (int i = 0; i < rids.length; i++) {
+//			rMap = new HashMap<>();
+//			rMap.put("ROOM_ID", rids[i]);
+//			roomIdlist.add(rMap);
+//		}
+//		log.info("roomIdlist = {}", roomIdlist);
+//		
+//		for (Map<String, Object> roomIds : roomIdlist) {
+//			boolean roomTypeExists = false;
+//			for (Map<String, Object> getRoomId : getRoomIds) {
+//				// ROOM_ID비교
+//				if (roomIds.get("ROOM_ID").equals(getRoomId.get("ROOM_ID"))) {
+//					roomTypeExists = true;
+//					System.out.println("동일한 room_id=>유지");
+//					break;
+//				} else {
+//					// 새로 들어온 room_id Insert
+//					hostDAO.propertyInsert(list);
+//				}
+//				
+//			}
+//		}
+//		// List<Map<String, Object>> result = hostDAO.hotelUpdate(list);
+//		
+//		// log.info("result = []", result);
+//		return null;
+//	}
 
 	public Map<String, Object> facPidExist(Map<String, Object> map) {
 		Map<String, Object> result = null;
 		result = hostDAO.facPidExist(map);
+		return result;
+	}
+
+	public int hotelDelete(Map<String, Object> map) {
+		int result = 0;
+		result = hostDAO.hotelDelete(map);
 		return result;
 	}
 

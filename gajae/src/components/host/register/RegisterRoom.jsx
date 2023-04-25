@@ -1,12 +1,6 @@
 import React, { useEffect, useState } from "react";
-import HeaderNav1 from "../../header/HeaderNav1";
 import { Accordion } from "react-bootstrap";
-import {
-  hostextraExistDB,
-  hostextraInsertDB,
-  hostfacExistDB,
-  hostfacInsertDB,
-} from "../../../service/hostLogic";
+import { hostextraInsertDB, hostfacInsertDB } from "../../../service/hostLogic";
 import { useDispatch } from "react-redux";
 import { setToastMessage } from "../../../redux/toastStatus/action";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -67,60 +61,42 @@ const RegisterRoom = () => {
       return;
     } else {
       dispatch(setToastMessage("숙소정보 등록에 성공하였습니다"));
-      //navigate("/host/end");
     }
     setTempid(p_id);
     setTempUpdate(true);
   };
-  //시설정보 입력하는 useEffect => tempid가 업데이트 될때마다 실행된다
-  useEffect(() => {
-    const insertFacilities = async () => {
-      // P_ID 동일한것 있는지 확인 후 실행
-      if (tempidUpdate) {
-        console.log(tempidUpdate);
-        console.log(tempid);
-        const facExist = await hostfacExistDB(tempid);
-        console.log(facExist);
-        // const extExist = await hostextraExistDB(tempid);
-        if (facExist) {
-          console.log(
-            "Facilities and extras for tempid already exist in database."
-          );
-          return;
-        }
-        const facilities = {
-          P_ID: tempid,
-          FAC_ROOM: selectedRooms.FAC_ROOM.toString(),
-          FAC_RESTARUANT: selectedRooms.FAC_RESTARUANT.toString(),
-          FAC_SECURITY: selectedRooms.FAC_SECURITY.toString(),
-          FAC_BATHROOM: selectedRooms.FAC_BATHROOM.toString(),
-          FAC_PARKING: selectedRooms.FAC_PARKING.toString(),
-          FAC_BED: selectedRooms.FAC_BED.toString(),
-          FAC_LIVING: selectedRooms.FAC_LIVING.toString(),
-          FAC_MEDIA: selectedRooms.FAC_MEDIA.toString(),
-          FAC_INTERNET: selectedRooms.FAC_INTERNET.toString(),
-          FAC_SERVICE: selectedRooms.FAC_SERVICE.toString(),
-          FAC_GENERAL: selectedRooms.FAC_GENERAL.toString(),
-          FAC_LANGUAGE: selectedRooms.FAC_LANGUAGE.toString(),
-          FAC_KITCHEN: selectedRooms.FAC_KITCHEN.toString(),
-          FAC_RECEPTION: selectedRooms.FAC_RECEPTION.toString(),
-        };
-        const extra = {
-          P_ID: tempid,
-          P_EXTRA: selectedRooms.P_EXTRA.toString(),
-        };
-        console.log(facilities);
-        console.log(extra);
-        //숙소시설insert
-        const facres = await hostfacInsertDB(facilities);
-        const extres = await hostextraInsertDB(extra);
-        console.log(facres);
-        console.log(extres);
-      }
-    };
-    insertFacilities();
-  }, [tempidUpdate]);
-
+  const insertFacilities = async () => {
+    if (tempidUpdate) {
+      const facilities = {
+        P_ID: tempid,
+        FAC_ROOM: selectedRooms.FAC_ROOM.toString(),
+        FAC_RESTARUANT: selectedRooms.FAC_RESTARUANT.toString(),
+        FAC_SECURITY: selectedRooms.FAC_SECURITY.toString(),
+        FAC_BATHROOM: selectedRooms.FAC_BATHROOM.toString(),
+        FAC_PARKING: selectedRooms.FAC_PARKING.toString(),
+        FAC_BED: selectedRooms.FAC_BED.toString(),
+        FAC_LIVING: selectedRooms.FAC_LIVING.toString(),
+        FAC_MEDIA: selectedRooms.FAC_MEDIA.toString(),
+        FAC_INTERNET: selectedRooms.FAC_INTERNET.toString(),
+        FAC_SERVICE: selectedRooms.FAC_SERVICE.toString(),
+        FAC_GENERAL: selectedRooms.FAC_GENERAL.toString(),
+        FAC_LANGUAGE: selectedRooms.FAC_LANGUAGE.toString(),
+        FAC_KITCHEN: selectedRooms.FAC_KITCHEN.toString(),
+        FAC_RECEPTION: selectedRooms.FAC_RECEPTION.toString(),
+      };
+      const extra = {
+        P_ID: tempid,
+        P_EXTRA: selectedRooms.P_EXTRA.toString(),
+      };
+      console.log(facilities);
+      console.log(extra);
+      //숙소시설insert
+      await hostfacInsertDB(facilities);
+      await hostextraInsertDB(extra);
+      navigate("/host/end");
+    }
+  };
+  insertFacilities();
   return (
     <>
       <HostHeaderNav />

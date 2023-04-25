@@ -2,6 +2,21 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="host">
 
+	<!-- 달력생성 -->
+	<insert id="vacancyCreate">
+		INSERT INTO P_VACANCY_${P_ID} (P_ID, ROOM_ID, RES_DATE, RES_YN)
+		SELECT #{P_ID}, ROOM_ID, TO_CHAR(LEVEL - 1 + DATE '2023-04-24',
+		'YYYY-MM-DD'), 'N'
+		FROM (
+		<foreach item="item" index="index" collection="roomIds"
+			separator="UNION ALL">
+			SELECT #{item} AS ROOM_ID FROM DUAL
+		</foreach>
+		) ROOMS
+		CONNECT BY LEVEL <![CDATA[ <= ]]>
+		(DATE '2023-07-30' - DATE '2023-04-24' + 1)
+	</insert>
+
 	<!-- 중복확인 -->
 	<select id="overlapCheck" parameterType="map" resultType="map">
 		SELECT
@@ -84,12 +99,40 @@
 		<foreach collection="list" item="item" index="index"
 			separator=" ">
 			INTO
-			GAJAE.PROPERTIES(P_ID,ROOM_ID,P_TITLE,P_STAR,P_POSTAL,P_TEL,P_ADDRESS,P_OVERVIEW,
-			P_SCALE,P_CHECKIN,P_CHECKOUT,P_REFUND,P_HIREDATE,P_PHOTO,HOST_BUSINESS_NUM)
-			VALUES(#{item.p_id},#{item.r_id},#{item.p_title},#{item.p_star},#{item.p_postal},#{item.p_tel},#{item.p_address},
-			#{item.p_overview},#{item.p_scale},#{item.p_checkin},#{item.p_checkout},#{item.p_refund},
+			GAJAE.PROPERTIES(
+			P_ID,
+			ROOM_ID,
+			P_TITLE,
+			P_STAR,
+			P_POSTAL,
+			P_TEL,
+			P_ADDRESS,
+			P_OVERVIEW,
+			P_SCALE,
+			P_CHECKIN,
+			P_CHECKOUT,
+			P_REFUND,
+			P_HIREDATE,
+			P_PHOTO,
+			HOST_BUSINESS_NUM
+			)
+			VALUES(
+			#{item.p_id},
+			#{item.r_id},
+			#{item.p_title},
+			#{item.p_star},
+			#{item.p_postal},
+			#{item.p_tel},
+			#{item.p_address},
+			#{item.p_overview},
+			#{item.p_scale},
+			#{item.p_checkin},
+			#{item.p_checkout},
+			#{item.p_refund},
 			TO_DATE(SYSDATE,
-			'YYYY-MM-DDHH24:MI:SS'),#{item.p_photo},#{item.host_business_num}
+			'YYYY-MM-DDHH24:MI:SS'),
+			#{item.p_photo},
+			#{item.host_business_num}
 			)
 		</foreach>
 		SELECT * FROM dual
@@ -201,27 +244,33 @@
 		</foreach>
 		SELECT * FROM dual
 	</update>
-
+	<!--등록한 호텔리스트 -->
 	<select id="hotelList" parameterType="map" resultType="map">
 		SELECT
 		p.P_ID,
 		p.P_TITLE ,
 		p.P_PHOTO,
 		p.P_HIREDATE,
-		p.ROOM_ID,
+		p.P_OVERVIEW,
+		p.P_ADDRESS,
 		p.P_TEL,
-		p.P_ADDRESS ,
-		pr.ROOM_TYPE
+		p.P_STAR
 		FROM
 		PROPERTIES p
-		JOIN P_ROOMTYPE pr ON
-		p.ROOM_ID = pr.ROOM_ID
 		JOIN HOST h ON p.HOST_BUSINESS_NUM
 		=h.HOST_BUSINESS_NUM
 		<if test='HOST_ID!=null and HOST_ID.length()>0'>
 			WHERE h.HOST_ID =#{HOST_ID}
 		</if>
-
+		GROUP BY
+		p.P_ID,
+		p.P_TITLE ,
+		p.P_PHOTO,
+		p.P_HIREDATE,
+		p.P_TEL,
+		p.P_ADDRESS,
+		p.P_OVERVIEW,
+		p.P_STAR
 	</select>
 
 	<!--나의 호텔 Detail -->
@@ -243,7 +292,8 @@
 		pf.FAC_ROOM ,
 		P_CHANGE_DATE
 		FROM PROPERTIES p
-		JOIN P_ROOMTYPE pr ON pr.ROOM_ID = p.ROOM_ID
+		JOIN P_ROOMTYPE pr ON
+		pr.ROOM_ID = p.ROOM_ID
 		JOIN
 		PRO_FACILITIES pf ON pf.P_ID = p.P_ID
 		<if test='P_ID!=null and P_ID.length()>0'>
@@ -253,25 +303,27 @@
 	</select>
 
 	<!-- 호텔정보 수정하기 -->
-	<update id="hotelUpdate" parameterType="list">
-		<foreach collection="list" item="item" index="index"
-			separator=";" open="DECLARE BEGIN" close="; END;">
+	<update id="hotelUpdate" parameterType="map">
 			UPDATE GAJAE.PROPERTIES
 			SET
-			P_ID=#{item.P_ID},
-			P_TITLE=#{item.P_TITLE},
-			P_STAR=#{item.P_STAR},
-			P_POSTAL=#{item.P_POSTAL},
-			P_PHOTO=#{item.P_PHOTO},
-			P_ADDRESS=#{item.P_ADDRESS},
-			P_TEL=#{item.P_TEL},
-			P_OVERVIEW=#{item.P_OVERVIEW},
-			P_SCALE=#{item.P_SCALE},
-			P_CHECKIN=#{item.P_CHECKIN},
-			P_CHECKOUT=#{item.P_CHECKOUT},
-			ROOM_ID=#{item.ROOM_ID},
-			P_CHANGE_DATE= TO_DATE(SYSDATE,'YYYY-MM-DD HH24:MI:SS')
-			WHERE P_ID = #{item.P_ID}
-		</foreach>
+			P_ID=#{P_ID},
+			P_TITLE=#{P_TITLE},
+			P_STAR=#{P_STAR},
+			P_PHOTO=#{P_PHOTO},
+			P_TEL=#{P_TEL},
+			P_OVERVIEW=#{P_OVERVIEW},
+			P_SCALE=#{P_SCALE},
+			P_CHECKIN=#{P_CHECKIN},
+			P_CHECKOUT=#{P_CHECKOUT},
+			P_CHANGE_DATE= TO_DATE(SYSDATE,'YYYY-MM-DD
+			HH24:MI:SS')
+			WHERE P_ID = #{P_ID}
 	</update>
+
+	<delete id="hotelDelete" parameterType="map">
+		DELETE FROM PROPERTIES
+		WHERE P_ID = #{P_ID}
+	</delete>
+
+
 </mapper>

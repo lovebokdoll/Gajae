@@ -10,15 +10,12 @@ import {
   hostHotelDetailDB,
   hosthotelUpdateDB,
 } from "../../../service/hostLogic";
-import { FormCheck } from "react-bootstrap";
 export const HostHotelUpdate = () => {
   const param = useLocation();
   const hotelNumber = new URLSearchParams(param.search).get("hotel_id");
   console.log("p_id=" + hotelNumber);
   const [title, setTitle] = useState("");
   const [star, setStar] = useState("");
-  const [postal, setPostal] = useState("");
-  const [address, setAddress] = useState("");
   const [tel, setTel] = useState(0);
   const [overView, setOverView] = useState("");
   const [scale, setScale] = useState("");
@@ -43,14 +40,9 @@ export const HostHotelUpdate = () => {
       const jsonDoc = JSON.parse(temp); // 배열 접근 처리
       console.log(jsonDoc);
       //룸타입만 필터링
-      const filterRoomtype = jsonDoc.map((Object) => Object.ROOM_TYPE);
-      console.log(filterRoomtype);
       setTitle(jsonDoc[0].P_TITLE);
       setStar(jsonDoc[0].P_STAR);
-      setPostal(jsonDoc[0].P_POSTAL);
-      setAddress(jsonDoc[0].P_ADDRESS);
       setTel(jsonDoc[0].P_TEL);
-      setRoomtype(filterRoomtype);
       setOverView(jsonDoc[0].P_OVERVIEW);
       setScale(jsonDoc[0].P_SCALE);
       setCheckIn(jsonDoc[0].P_CHECKIN);
@@ -72,6 +64,7 @@ export const HostHotelUpdate = () => {
   const handleTel = useCallback((value) => {
     setTel(value);
   }, []);
+
   const handleOverView = useCallback((value) => {
     setOverView(value);
   }, []);
@@ -113,9 +106,7 @@ export const HostHotelUpdate = () => {
       P_ID: hotelNumber,
       P_TITLE: title,
       P_STAR: star,
-      P_POSTAL: postal,
       P_PHOTO: imageUrl,
-      P_ADDRESS: address,
       P_TEL: tel,
       P_OVERVIEW: overView,
       P_SCALE: scale,
@@ -189,7 +180,7 @@ export const HostHotelUpdate = () => {
                 marginBottom: "10px",
               }}
             />
-            <h5>룸타입</h5>
+            {/* <h5>룸타입</h5>
             <h6>기존 룸타입</h6>
             <Textarea
               id="dataset-title"
@@ -230,7 +221,7 @@ export const HostHotelUpdate = () => {
                   />
                 </div>
               ))}
-            </form>
+            </form> */}
             <div
               style={{
                 display: "flex",
@@ -283,6 +274,7 @@ export const HostHotelUpdate = () => {
                 handleTel(e.target.value);
               }}
             />
+
             <div
               style={{
                 display: "flex",

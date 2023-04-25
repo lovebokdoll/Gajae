@@ -101,9 +101,9 @@ public class HostDAO {
 		return result;
 	}
 
-	public List<Map<String, Object>> hotelUpdate(ArrayList<Map<String, Object>> list) {
-		log.info("map = {}", list);
-		List<Map<String, Object>> result = sqlSessionTemplate.selectList("host.hotelUpdate", list);
+	public int hotelUpdate(Map<String, Object> map) {
+		log.info("map = {}", map);
+		int result = sqlSessionTemplate.update("host.hotelUpdate", map);
 		return result;
 	}
 
@@ -122,6 +122,13 @@ public class HostDAO {
 
 		log.info("roomIds = {}", roomIds);
 		return roomIds;
+	}
+
+	public int hotelDelete(Map<String, Object> map) {
+		int result = 0;
+		log.info("map = {}", map);
+		result = sqlSessionTemplate.delete("host.hotelDelete", map);
+		return result;
 	}
 
 }

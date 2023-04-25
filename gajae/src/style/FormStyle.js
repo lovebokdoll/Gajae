@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const LoginForm = styled.form`
   display: flex;
@@ -13,11 +13,11 @@ export const LoginForm = styled.form`
   padding: 80px 30px 80px 30px;
   border-radius: 30px;
   margin: 150px 0px 150px 0px;
-  border: 2px solid lightgrey;
+  //  border: 2px solid lightgrey;
 `;
 
 export const SignupForm = styled(LoginForm)`
-  padding: 50px 40px 80px 40px;
+  padding: 40px 40px 80px 40px;
   max-width: 800px;
   min-width: 300px;
   width: 100%;
@@ -25,11 +25,11 @@ export const SignupForm = styled(LoginForm)`
 `;
 
 export const MyH1 = styled.h1`
-  padding-top: 50px;
-  font-size: 38px;
+  padding-top: 60px;
+  font-size: 30px;
   margin-bottom: 60px;
   margin-top: 15px;
-  font-weight: 20px;
+  font-weight: 15px;
   text-align: center;
 `;
 
@@ -85,13 +85,22 @@ export const MyInput = styled.input`
   }
 `;
 
+export const MyForm = styled.div`
+  width: 100%;
+  align-items: center;
+  position: relative;
+  top: 40%;
+  left: 40%;
+  //transform: translate(-20%, -50%);
+`;
+
 export const SubmitButton = styled.button`
   width: 250px;
   height: 40px;
   font-size: 16px;
   font-weight: bold;
   border-radius: 24px;
-  margin-bottom: 20px;
+  margin-bottom: 100px;
   border: 1.5px solid rgb(105, 175, 245);
   color: white;
   background-color: ${(props) => props.bgColor};
@@ -182,7 +191,7 @@ export const BButton = styled.button`
 export const ContainerDiv = styled.div`
   display: flex;
   flex-direction: column;
-  font-family: 'KOTRA_GOTHIC';
+  font-family: "KOTRA_GOTHIC";
   width: 100%;
   margin-bottom: 50px;
   align-items: center;
@@ -296,7 +305,7 @@ export const Hr = styled.hr`
 export const Title = styled.h1`
   font-size: 40px;
   font-weight: bold;
-  marginleft: '10px';
+  marginleft: "10px";
 `;
 
 export const WholeForm = styled.div`

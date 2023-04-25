@@ -5,7 +5,7 @@ import { Form, useLocation } from "react-router-dom";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ImageUpload from "../../../components/review/ImageUpload";
-import HostHeaderNav from "../HostHeaderNav";
+import HostHeaderNav from "../HostHeaderNav1";
 import {
   hostHotelDetailDB,
   hosthotelUpdateDB,

@@ -14,6 +14,7 @@ import HostZipCode from "./HostZipCode";
 import { useEffect } from "react";
 import ImageUpload from "../../review/ImageUpload";
 import HostHeaderNav from "../HostHeaderNav";
+import Footer from "../../footer/Footer";
 
 const RegisterHotel = () => {
   const navigate = useNavigate();
@@ -139,8 +140,8 @@ const RegisterHotel = () => {
   }, [selectedRooms]);
   return (
     <>
-      <HostHeaderNav />
       <Background>
+        <HostHeaderNav />
         <Titlehotel> 호텔등록을 시작합니다! </Titlehotel>
         <Titlehotel_content> 호텔 정보를 알려주세요. </Titlehotel_content>
         <R_CardGroup_hotel>
@@ -164,7 +165,7 @@ const RegisterHotel = () => {
                 <Form.Group className="mb-3" controlId="formBasicEmail">
                   <Form.Control
                     type="text"
-                    placeholder="호텔이름 입력하기-p_title"
+                    placeholder="호텔이름 입력하기"
                     onChange={(e) => {
                       handleTitle(e.target.value);
                     }}
@@ -252,7 +253,7 @@ const RegisterHotel = () => {
                 <Form.Group className="mb-3" controlId="formBasicEmail">
                   <Form.Control
                     type="text"
-                    placeholder="호텔설명하기"
+                    placeholder="호텔 체크인시간 입력하기"
                     onChange={(e) => {
                       handleCheckin(e.target.value);
                     }}
@@ -266,7 +267,7 @@ const RegisterHotel = () => {
                 <Form.Group className="mb-3" controlId="formBasicEmail">
                   <Form.Control
                     type="text"
-                    placeholder="호텔설명하기"
+                    placeholder="호텔 체크아웃시간 입력하기"
                     onChange={(e) => {
                       handleCheckOut(e.target.value);
                     }}
@@ -280,7 +281,7 @@ const RegisterHotel = () => {
                 <Form.Group className="mb-3" controlId="formBasicEmail">
                   <Form.Control
                     type="text"
-                    placeholder="호텔설명하기"
+                    placeholder="호텔규모 작성하기"
                     onChange={(e) => {
                       handleScale(e.target.value);
                     }}
@@ -301,7 +302,7 @@ const RegisterHotel = () => {
                 <Form.Group className="mb-3" controlId="formBasicEmail">
                   <Form.Control
                     type="text"
-                    placeholder="호텔설명하기"
+                    placeholder="호텔환불규정 작성하기"
                     onChange={(e) => {
                       handleRefund(e.target.value);
                     }}
@@ -317,6 +318,7 @@ const RegisterHotel = () => {
           </Card>
         </R_CardGroup_hotel>
       </Background>
+      <Footer />
     </>
   );
 };

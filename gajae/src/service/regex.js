@@ -118,8 +118,8 @@ export const regexMobile = (event) => {
 
 export const regexBusinessNum = (event) => {
   console.log("event ===>", event);
-  const businessNum = event.target.value;
 
+  const businessNum = event.target.value;
   const regex = /^01([0|1|6|7|8|9]?)([0-9]{4})([0-9]{4})$/;
 
   if (businessNum.length === 0) {

@@ -34,12 +34,12 @@ const MyHotelPage = () => {
         <MSCLeftDIV>
           {" "}
           <Nav defaultActiveKey="/home" className="flex-column">
-            <MyPageLinkMove to="/host/myhostpage">
+            {/* <MyPageLinkMove to="/host/myhostpage">
               <span style={{ paddingRight: "5px" }}>
                 <FontAwesomeIcon icon={faUser} />
               </span>
               개인 정보
-            </MyPageLinkMove>
+            </MyPageLinkMove> */}
             <MyPageLinkMove to="/host/myhotelpage">
               <span style={{ paddingRight: "5px" }}>
                 <FontAwesomeIcon icon={faHistory} />
@@ -69,6 +69,7 @@ const MyHotelPage = () => {
           </MySettingsFlexByRow>
         </MSCRightDIV>
       </MSContainer>
+      <div style={{ height: "50px" }} />
       <Footer />
     </>
   );
