@@ -10,16 +10,16 @@ import 'react-date-range/dist/theme/default.css'; // theme css file
 import { useNavigate } from 'react-router-dom';
 import { BButton } from '../../style/FormStyle';
 import './mainSearchBar.css';
-import { Button, Modal } from 'react-bootstrap';
+import { Toast } from 'react-bootstrap';
+import Swal from 'sweetalert2';
 
 const MainSearchBar = ({ type }) => {
   const navigate = useNavigate();
-  const [show, setShow] = useState(false);
 
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
-
+  // Trie에서 첫번째 cities에서 글자를 찾음
   const cities = ['서울', '부산'];
+  const [citiesList, setCitiesList] = useState(cities); // 지역 리스트 상태관리
+  const [isDrobBox, setIsDropbox] = useState(false); // 드롭박스 유무
 
 
   //지역 입력
@@ -50,14 +50,35 @@ const MainSearchBar = ({ type }) => {
     });
   };
 
+  //지역 입력 안했을 시 모달 창
+  const Toast = Swal.mixin({
+    toast: true,
+    position: 'center-center',
+    showConfirmButton: false,
+    timer: 2000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+      toast.addEventListener('mouseenter', Swal.stopTimer);
+      toast.addEventListener('mouseleave', Swal.resumeTimer);
+    },
+  });
+  
+
   const handleSearch = (e) => {
     const roomCapacity = parseInt(ROOM_CAPACITY.adult);
     if (!P_ADDRESS) {
-      handleShow(); // 모달 창을 엽니다.
+      Toast.fire({
+        icon: 'info',
+        title: '지역을 입력하세요.',
+        timerProgressBar : false
+    })
       return;
     }
+  
+    // 주소, 인원수, 날짜 정보를 가지고 페이지 이동
     navigate(`/propertylist/?P_ADDRESS=${P_ADDRESS}&ROOM_CAPACITY=${roomCapacity}&DATE=${date}`, { state: { P_ADDRESS, date, ROOM_CAPACITY } });
-
+  
+    // 검색 결과 요청
     axios
       .post('http://localhost:9999/search/list', { P_ADDRESS, ROOM_CAPACITY: roomCapacity })
       .then((response) => {
@@ -67,9 +88,10 @@ const MainSearchBar = ({ type }) => {
       })
       .catch((error) => {
         console.error(error);
-        // 에러 처리 코드
       });
   };
+  
+
 
   return (
     <div className="header">
@@ -106,18 +128,29 @@ const MainSearchBar = ({ type }) => {
               <div className="headerSearchText">
                 <form onSubmit={handleSearch}>
                   <FontAwesomeIcon icon={faSuitcaseRolling} style={{ marginRight: '10px' }} className="headerIcon" />
-                  <input
+                <input
                     type="text"
                     placeholder="어디로 떠나시나요?"
                     className="headerSearchInput"
                     onChange={(e) => setP_Address(e.target.value)}
                     onKeyPress={(e) => {
-                      if (e.key === 'Enter' && !P_ADDRESS) {
+                      if (e.key === 'Enter') {
                         e.preventDefault();
-                        handleShow();
+                        if (!P_ADDRESS) {
+                          // 지역 입력하라는 모달창
+                          Toast.fire({
+                            icon: 'info',
+                            title: '지역을 입력하세요.',
+                            timer: 2000,
+                            timerProgressBar : false
+                        })
+                        } else {
+                          handleSearch();
+                        }
                       }
                     }}
                   />
+
                 </form>
               </div>
               <div className="headerSearchDate">
@@ -168,23 +201,11 @@ const MainSearchBar = ({ type }) => {
               <BButton
                 className="headerBtn"
                 style={{ backgroundColor: '#0077C0', width: '50px' }}
-                type="button"  // 버튼의 타입을 변경합니다
+                type="button"
                 onClick={handleSearch}
               >
                 검색
               </BButton>
-
-              <Modal show={show} onHide={handleClose}>
-
-                <Modal.Body>
-                  지역을 입력해주세요.
-                </Modal.Body>
-                <Modal.Footer>
-                  <Button variant="secondary" onClick={handleClose}>
-                    닫기
-                  </Button>
-                </Modal.Footer>
-              </Modal>
               </div>
             </div>
           </>

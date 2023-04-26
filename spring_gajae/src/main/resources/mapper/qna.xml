@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="qna">
+
+	<select id="qnalist" parameterType="map" resultType="map">
+			select QNA_NO, QNA_TITLE, QNA_CONTENT, QNA_TYPE, QNA_DATE,USER_ID from qna
+	</select>
+	
+	<insert id="qnaInsert" parameterType="map"
+		useGeneratedKeys="true" keyColumn="qna_bno" keyProperty="qna_bno">
+		INSERT INTO qna (QNA_NO, USER_ID, QNA_TITLE, QNA_CONTENT, QNA_DATE)
+		VALUES (SEQ_QNA_NO.nextval, #{USER_ID}, #{QNA_TITLE}, #{QNA_CONTENT}, to_char(SYSDATE,'YYYY-MM-DD'))
+	</insert>
+	
+</mapper>

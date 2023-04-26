@@ -4,10 +4,10 @@
 
 #dropdown-btn {
   margin-top: 10px;
-  background-color: transparent;
-  color: black;
+  background-color: #0058ab;
+  color: white;
   width: 200px;
-  border: 2px solid black;
+  border: none;
 }
 
 #dropdownItem-btn {

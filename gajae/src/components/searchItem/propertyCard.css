@@ -50,7 +50,7 @@
 .siTaxiOp {
   font-size: 12px;
   font-family: 'KOTRA_GOTHIC';
-  background-color: #7fa064;
+  background-color: #febb02;
   color: white;
   width: max-content;
   padding: 3px;
@@ -96,7 +96,7 @@
   font-weight: 500;
 }
 .siRanking > button {
-  background-color: #003580;
+  background-color: #0058ab;
   color: white;
   padding: 5px;
   font-weight: bold;
@@ -121,8 +121,13 @@
   color: gray;
 }
 
+.swal2-swal {
+  width: 500px !important;
+  max-width: calc(100vw - 40px) !important;
+}
+
 .siCheckButton {
-  background-color: #000000;
+  background-color: #0058ab;
   font-family: 'KOTRA_GOTHIC';
   color: white;
   font-weight: bold;

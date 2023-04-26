@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import '../main/mainSearchBar.css';
-import { faCalendarCheck, faHotel } from '@fortawesome/free-solid-svg-icons';
+import { faCalendarCheck, faLocationDot } from '@fortawesome/free-solid-svg-icons';
 
 const SearchBox = () => {
   const navigate = useNavigate();
@@ -66,7 +66,7 @@ const SearchBox = () => {
         style={{ backgroundColor: '#FFFFFF', border: 'px solid #000000', marginTop: '10px', padding: '20px 10px', width: '200px' }}
       >
         <div style={{ marginTop: '10px' }}>
-        <FontAwesomeIcon icon={faHotel} style={{marginRight: '10px'}}/>
+        <FontAwesomeIcon icon={faLocationDot} style={{marginRight: '10px', color: "#0058ab"}} />
           <label style={{ fontSize: '15px', marginBottom: '10px', fontFamily: 'KOTRA_GOTHIC', color: '#333'}}>
             지역 이름
           </label>
@@ -82,20 +82,20 @@ const SearchBox = () => {
         </div>
 
         <div style={{ marginTop: '10px' }}>
-        <FontAwesomeIcon icon={faCalendarCheck} style={{marginRight: '10px'}} />
+        <FontAwesomeIcon icon={faCalendarCheck} style={{marginRight: '10px'}}/>
           <label style={{ fontSize: '15px', marginBottom: '10px', fontFamily: 'KOTRA_GOTHIC', color: '#333' }}>체크인 날짜</label>
           <br />
           <input className="databox" type="date" name="" id="" />
         </div>
         <div style={{ marginTop: '10px' }}>
-        <FontAwesomeIcon icon={faCalendarCheck} style={{marginRight: '10px'}} />
+        <FontAwesomeIcon icon={faCalendarCheck} style={{marginRight: '10px'}}/>
           <label style={{ fontSize: '15px', marginBottom: '10px', fontFamily: 'KOTRA_GOTHIC', color: '#333' }}>체크아웃 날짜</label>
           <br />
           <input className="databox" type="date" />
         </div>
 
         <div className="headerSearchItem">
-        <FontAwesomeIcon icon="fa-solid fa-user" />
+        <FontAwesomeIcon icon="fa-solid fa-user" style={{color: "gray"}}/>
           <span onClick={() => setOpenOptions(!openOptions)} className="headerSearchText" >{`${ROOM_CAPACITY.adult} 명`}</span>
           {openOptions && (
                   <div className="optionsBar" style={{marginLeft:'50px'}}>
@@ -123,7 +123,7 @@ const SearchBox = () => {
             height: '40px',
             marginTop: '20px',
             border: '0px',
-            backgroundColor: '#000000',
+            backgroundColor: '#0058ab',
             padding: '8px',
             color: 'white',
           }}

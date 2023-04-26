@@ -14,6 +14,7 @@ const PropertyCard = ({ row }) => {
     setIsLiked(!isLiked);
     console.log(isLiked);
   };
+
   //예약하기를 눌렀을 때 해당 숙소 이름, 인원 수, 주소, 체크인아웃, 가격, ID 담아서 이동
   const handleHotel = () => {
     Cookies.set('P_TITLE', row.P_TITLE);
@@ -27,10 +28,29 @@ const PropertyCard = ({ row }) => {
   };
 
 
+  const Toast = Swal.mixin({
+    toast: true,
+    position: 'center-center',
+    showConfirmButton: false,
+    timer: 2000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+      toast.addEventListener('mouseenter', Swal.stopTimer);
+      toast.addEventListener('mouseleave', Swal.resumeTimer);
+    },
+  });
+
+  //복사 됨 모달창
   const copyPageUrl = () => {
     const copyText = window.location.origin + '/hotel';
     navigator.clipboard.writeText(copyText);
-    Swal.fire('Copied successfully')
+    Toast.fire({
+      icon: 'success',
+      title: 'Copy가 완료되었습니다.',
+      timer: 2000,
+      timerProgressBar : false
+    });
+    
   }
   
   

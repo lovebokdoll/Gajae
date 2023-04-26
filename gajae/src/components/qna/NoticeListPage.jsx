@@ -3,6 +3,8 @@ import { Accordion,Table } from 'react-bootstrap';
 import { ContainerDiv, FormDiv, HeaderDiv } from '../../style/FormStyle';
 import HeaderNav1 from '../header/HeaderNav1';
 import { noticeListDB } from '../../service/database';
+import HeaderNav2 from '../header/HeaderNav2';
+import Footer from '../footer/Footer';
 const NoticeListPage = (property) => {
 
   const [listBody, setListBody] = useState([]);
@@ -60,6 +62,7 @@ const NoticeListPage = (property) => {
   return (
     <>
       <HeaderNav1 />
+        <HeaderNav2></HeaderNav2>
       <ContainerDiv>
         <HeaderDiv>
           <h3 style={{ marginLeft: '10px' , marginTop: '50px'}}>자주 묻는 질문</h3>
@@ -86,6 +89,8 @@ const NoticeListPage = (property) => {
           </div>
         </FormDiv>
       </ContainerDiv>
+
+      <Footer />
     </>
   );
           }

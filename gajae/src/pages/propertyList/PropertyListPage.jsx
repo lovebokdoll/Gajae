@@ -14,6 +14,8 @@ import FilterSidebar from '../../components/searchItem/FilterSidebar';
 import { searchListDB } from '../../service/database';
 import { BButton } from '../../style/FormStyle';
 import './propertyList.css';
+import { faMap } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 /**6
  * 사용자가 마이페이지에서 여행지, 체크인&체크아웃 날짜, 인원 수&객실 수를 선택한 데이터를 기준하여 화면을 렌더링한다.
@@ -22,7 +24,6 @@ import './propertyList.css';
  */
 const PropertyListPage = () => {
 
-  const [ranksList, setRanksList] = useState([]);
   const [P_STAR, setP_STAR] = useState(null);
   const [P_EXTRA, setP_EXTRA] = useState(null);
 
@@ -167,17 +168,17 @@ const checkedRanks = (selectedRanks) => {
               <div className="col-lg-3 col-md-12">
                 <SearchBox />
                 <div>
-                  <BButton
-                    id="mapbtn"
-                    type="mapbotton"
-                    className="me-2 mb-2"
-                    data-bs-dismiss="modal"
-                    data-bs-target="#fullScreenModal"
-                    style={{ height: '60px', width: '200px' }}
-                    onClick={openModal}
-                  >
-                    지도에서 보기
-                  </BButton>
+                <BButton
+  id="mapbtn"
+  type="mapbotton"
+  className="me-2 mb-2"
+  data-bs-dismiss="modal"
+  data-bs-target="#fullScreenModal"
+  style={{ height: '60px', width: '200px' }}
+  onClick={openModal}
+>
+  <FontAwesomeIcon icon={faMap} /> 지도에서 보기
+</BButton>
                   <MapModal show={showModal} closeModal={closeModal} />
                   <FilterSidebar checkedFilters={checkedFilters} checkedRanks={checkedRanks}/>
                 </div>
@@ -230,6 +231,7 @@ const checkedRanks = (selectedRanks) => {
           </div>
           <div>
             <hr />
+            <br />
           </div>
         </div>{' '}
         {/*end of the Body*/}
