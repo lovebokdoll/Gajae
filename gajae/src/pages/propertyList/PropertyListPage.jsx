@@ -3,7 +3,7 @@ import Cookies from 'js-cookie';
 import React, { useEffect, useState } from 'react';
 import { Dropdown, DropdownButton } from 'react-bootstrap';
 import ReactPaginate from 'react-paginate';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import Footer from '../../components/footer/Footer';
 import HeaderNav1 from '../../components/header/HeaderNav1';
 import HeaderNav2 from '../../components/header/HeaderNav2';
@@ -23,7 +23,6 @@ import './propertyList.css';
 const PropertyListPage = () => {
 
   const [ranksList, setRanksList] = useState([]);
-  const [filterList, setFilterList] = useState([]);
   const [P_STAR, setP_STAR] = useState(null);
   const [P_EXTRA, setP_EXTRA] = useState(null);
 
@@ -93,6 +92,7 @@ const PropertyListPage = () => {
       .post('http://localhost:9999/search/list', filterParams)
       .then((response) => {
         setProperty(response.data);
+        setP_EXTRA(selectedFilters)
       })
       .catch((error) => {
         console.error(error);
@@ -100,35 +100,24 @@ const PropertyListPage = () => {
   };
 
 ////////////////////////////성급/////////////////////////////
-const handleRankingClick = (event) => {
-  
-  const rank = event.target.value;
-  const checkboxes = document.getElementsByName('check');
-  for (let i = 0; i < checkboxes.length; i++) {
-    if (checkboxes[i].value !== rank) {
-      checkboxes[i].checked = true;
-    }
-  }
-  ranks(rank);
-}
+const checkedRanks = (selectedRanks) => {
+  const ranksParams = {
+    orderBy,
+    P_ADDRESS,
+    ROOM_CAPACITY,
+    P_STAR: selectedRanks,
+  };
 
-  const ranks = (star) => {
-    // 별점 선택에 따라 요청 보내기
-    axios
-      .post('http://localhost:9999/search/list', { orderBy, P_ADDRESS, ROOM_CAPACITY, P_STAR: star, P_EXTRA })
-      .then((response) => {
-        setProperty(response.data);
-        setP_STAR(star); // P_STAR 값을 업데이트
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  }
-  
-
-  useEffect(() => {}, [setRanksList]);
-
-
+  axios
+    .post('http://localhost:9999/search/list', ranksParams)
+    .then((response) => {
+      setProperty(response.data);
+      setP_STAR(selectedRanks)
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+};
   
   ////////////////////////////정렬조건/////////////////////////////
   useEffect(() => {
@@ -140,8 +129,6 @@ const handleRankingClick = (event) => {
       data.orderBy = 'priceHigh';
     } else if (orderBy === '평점 높은순') {
       data.orderBy = 'reviewwHigh';
-       data.P_EXTRA = setP_EXTRA; // 선택된 부대시설 추가
-       data.P_STAR = setP_STAR; // 선택된 부대시설 추가
   }
     
     axios
@@ -192,7 +179,7 @@ const handleRankingClick = (event) => {
                     지도에서 보기
                   </BButton>
                   <MapModal show={showModal} closeModal={closeModal} />
-                  <FilterSidebar ranks={ranks} checkedFilters={checkedFilters} handleRankingClick={handleRankingClick}/>
+                  <FilterSidebar checkedFilters={checkedFilters} checkedRanks={checkedRanks}/>
                 </div>
               </div>
               <div className="col-lg-9 col-md-12">

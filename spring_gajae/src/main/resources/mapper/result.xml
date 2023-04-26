@@ -21,8 +21,9 @@
 		RESERVATIONS S ON S.P_ID = P.P_ID
 		LEFT OUTER JOIN REVIEW R ON
 		S.REVIEW_NUMBER = R.REVIEW_NUMBER
+		WHERE P.STATUS = 'Y'
 		<if test="P_ADDRESS != null">
-			WHERE P_ADDRESS LIKE '%${P_ADDRESS}%'
+			AND P_ADDRESS LIKE '%${P_ADDRESS}%'
 		</if>
 		<if test="ROOM_CAPACITY != null">
 			AND A.ROOM_CAPACITY >= '${ROOM_CAPACITY}'
@@ -31,15 +32,24 @@
 			AND P.P_ID = B.P_ID
 		</if>
 		<if test="P_EXTRA != null and P_EXTRA.size() > 0">
-			AND B.P_EXTRA IN
-			<foreach collection="P_EXTRA" item="P_EXTRA" open="("
-				close=")" separator=",">
+			AND (
+			<foreach collection="P_EXTRA" item="P_EXTRA"
+				separator=" AND ">
+				P.P_ID IN (
+				SELECT P_ID
+				FROM P_EXTRAS
+				WHERE P_EXTRA =
 				#{P_EXTRA}
+				)
 			</foreach>
+			)
 		</if>
-
-		<if test="P_STAR">
-			AND P.P_STAR = '${P_STAR}'
+		<if test="P_STAR != null">
+			AND P.P_STAR IN
+			<foreach collection="P_STAR" item="P_STAR" open="(" close=")"
+				separator=",">
+				#{P_STAR}
+			</foreach>
 		</if>
 		GROUP BY P.P_ID, P.P_TITLE, P.P_ADDRESS, P.P_CHECKOUT, P.P_CHECKIN,
 		P.P_REFUND, P.P_STAR
@@ -53,7 +63,7 @@
 		COALESCE(MAX(R.REVIEW_AVERAGE), 0) AS
 		REVIEW_AVERAGE,
 		P.P_CHECKIN,
-		P.P_REFUND, MAX(A.ROOM_PRICE) AS ROOM_PRICE,
+		P.P_REFUND, MIN(A.ROOM_PRICE) AS ROOM_PRICE,
 		WM_CONCAT(DISTINCT
 		A.ROOM_TYPE) AS ROOM_TYPE, MAX(A.ROOM_OPTION) AS ROOM_OPTION ,
 		P.P_STAR
@@ -65,8 +75,9 @@
 		RESERVATIONS S ON S.P_ID = P.P_ID
 		LEFT OUTER JOIN REVIEW R ON
 		S.REVIEW_NUMBER = R.REVIEW_NUMBER
+		WHERE P.STATUS = 'Y'
 		<if test="P_ADDRESS != null">
-			WHERE P_ADDRESS LIKE '%${P_ADDRESS}%'
+			AND P_ADDRESS LIKE '%${P_ADDRESS}%'
 		</if>
 		<if test="ROOM_CAPACITY != null">
 			AND A.ROOM_CAPACITY >= '${ROOM_CAPACITY}'
@@ -74,11 +85,25 @@
 		<if test="P_EXTRA != null">
 			AND P.P_ID = B.P_ID
 		</if>
-		<if test="P_EXTRA != null">
-			AND B.P_EXTRA LIKE '%${P_EXTRA}%'
+		<if test="P_EXTRA != null and P_EXTRA.size() > 0">
+			AND (
+			<foreach collection="P_EXTRA" item="P_EXTRA"
+				separator=" AND ">
+				P.P_ID IN (
+				SELECT P_ID
+				FROM P_EXTRAS
+				WHERE P_EXTRA =
+				#{P_EXTRA}
+				)
+			</foreach>
+			)
 		</if>
-		<if test="P_STAR">
-			AND P.P_STAR = '${P_STAR}'
+		<if test="P_STAR != null">
+			AND P.P_STAR IN
+			<foreach collection="P_STAR" item="P_STAR" open="(" close=")"
+				separator=",">
+				#{P_STAR}
+			</foreach>
 		</if>
 		GROUP BY P.P_ID, P.P_TITLE, P.P_ADDRESS, P.P_CHECKOUT, P.P_CHECKIN,
 		P.P_REFUND, P.P_STAR
@@ -91,7 +116,7 @@
 		COALESCE(MAX(R.REVIEW_AVERAGE), 0) AS
 		REVIEW_AVERAGE,
 		P.P_CHECKIN,
-		P.P_REFUND, MAX(A.ROOM_PRICE) AS ROOM_PRICE,
+		P.P_REFUND, MIN(A.ROOM_PRICE) AS ROOM_PRICE,
 		WM_CONCAT(DISTINCT
 		A.ROOM_TYPE) AS ROOM_TYPE, MAX(A.ROOM_OPTION) AS ROOM_OPTION ,
 		P.P_STAR
@@ -103,8 +128,9 @@
 		RESERVATIONS S ON S.P_ID = P.P_ID
 		LEFT OUTER JOIN REVIEW R ON
 		S.REVIEW_NUMBER = R.REVIEW_NUMBER
+		WHERE P.STATUS = 'Y'
 		<if test="P_ADDRESS != null">
-			WHERE P_ADDRESS LIKE '%${P_ADDRESS}%'
+			AND P_ADDRESS LIKE '%${P_ADDRESS}%'
 		</if>
 		<if test="ROOM_CAPACITY != null">
 			AND A.ROOM_CAPACITY >= '${ROOM_CAPACITY}'
@@ -112,11 +138,25 @@
 		<if test="P_EXTRA != null">
 			AND P.P_ID = B.P_ID
 		</if>
-		<if test="P_EXTRA != null">
-			AND B.P_EXTRA LIKE '%${P_EXTRA}%'
+		<if test="P_EXTRA != null and P_EXTRA.size() > 0">
+			AND (
+			<foreach collection="P_EXTRA" item="P_EXTRA"
+				separator=" AND ">
+				P.P_ID IN (
+				SELECT P_ID
+				FROM P_EXTRAS
+				WHERE P_EXTRA =
+				#{P_EXTRA}
+				)
+			</foreach>
+			)
 		</if>
-		<if test="P_STAR">
-			AND P.P_STAR = '${P_STAR}'
+		<if test="P_STAR != null">
+			AND P.P_STAR IN
+			<foreach collection="P_STAR" item="P_STAR" open="(" close=")"
+				separator=",">
+				#{P_STAR}
+			</foreach>
 		</if>
 		GROUP BY P.P_ID, P.P_TITLE, P.P_ADDRESS, P.P_CHECKOUT, P.P_CHECKIN,
 		P.P_REFUND, P.P_STAR
@@ -131,7 +171,7 @@
 		COALESCE(MAX(R.REVIEW_AVERAGE), 0) AS
 		REVIEW_AVERAGE,
 		P.P_CHECKIN,
-		P.P_REFUND, MAX(A.ROOM_PRICE) AS ROOM_PRICE,
+		P.P_REFUND, MIN(A.ROOM_PRICE) AS ROOM_PRICE,
 		WM_CONCAT(DISTINCT
 		A.ROOM_TYPE) AS ROOM_TYPE, MAX(A.ROOM_OPTION) AS ROOM_OPTION ,
 		P.P_STAR
@@ -143,8 +183,9 @@
 		RESERVATIONS S ON S.P_ID = P.P_ID
 		LEFT OUTER JOIN REVIEW R ON
 		S.REVIEW_NUMBER = R.REVIEW_NUMBER
+		WHERE P.STATUS = 'Y'
 		<if test="P_ADDRESS != null">
-			WHERE P_ADDRESS LIKE '%${P_ADDRESS}%'
+			AND P_ADDRESS LIKE '%${P_ADDRESS}%'
 		</if>
 		<if test="ROOM_CAPACITY != null">
 			AND A.ROOM_CAPACITY >= '${ROOM_CAPACITY}'
@@ -152,11 +193,25 @@
 		<if test="P_EXTRA != null">
 			AND P.P_ID = B.P_ID
 		</if>
-		<if test="P_EXTRA != null">
-			AND B.P_EXTRA LIKE '%${P_EXTRA}%'
+		<if test="P_EXTRA != null and P_EXTRA.size() > 0">
+			AND (
+			<foreach collection="P_EXTRA" item="P_EXTRA"
+				separator=" AND ">
+				P.P_ID IN (
+				SELECT P_ID
+				FROM P_EXTRAS
+				WHERE P_EXTRA =
+				#{P_EXTRA}
+				)
+			</foreach>
+			)
 		</if>
-		<if test="P_STAR">
-			AND P.P_STAR = '${P_STAR}'
+		<if test="P_STAR != null">
+			AND P.P_STAR IN
+			<foreach collection="P_STAR" item="P_STAR" open="(" close=")"
+				separator=",">
+				#{P_STAR}
+			</foreach>
 		</if>
 		GROUP BY P.P_ID, P.P_TITLE, P.P_ADDRESS, P.P_CHECKOUT, P.P_CHECKIN,
 		P.P_REFUND, P.P_STAR

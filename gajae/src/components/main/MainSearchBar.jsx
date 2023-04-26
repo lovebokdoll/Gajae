@@ -19,8 +19,8 @@ const MainSearchBar = ({ type }) => {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  //유효성 검사
-  const [addressError, setAddressError] = useState(false);
+  const cities = ['서울', '부산'];
+
 
   //지역 입력
   const [P_ADDRESS, setP_Address] = useState('');

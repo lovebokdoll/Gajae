@@ -150,3 +150,11 @@
   filter: invert(53%) sepia(100%) saturate(7500%) hue-rotate(330deg)
     brightness(104%) contrast(122%);
 }
+
+#copybtn{
+  background: none;
+  border: none;
+  color: black;
+  font-size: 24px;
+  justify-content: flex-end;
+}

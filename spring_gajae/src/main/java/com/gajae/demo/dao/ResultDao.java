@@ -22,7 +22,7 @@ public class ResultDao {
 	    List<Map<String, Object>> bList = sqlSessionTemplate.selectList("searchlist", pMap);
 
 	    StringTokenizer st = null;
-	    String p_extras[] = null;
+
 	    int size = 0;
 	    for (int i = 0; i < size; i++) {
 	        String value = st.nextToken();
@@ -31,18 +31,12 @@ public class ResultDao {
 	    }
 
 	    StringTokenizer star = null;
-	    String p_stars[] = null;
 	    size = 0;
-	    if (pMap.get("P_STAR") != null) {
-	        star = new StringTokenizer(pMap.get("P_STAR").toString(), ",");
-	        size = star.countTokens(); // 몇가지가 있는지
-	        p_stars = new String[size];
-	        for (int i = 0; i < size; i++) {
-	            p_stars[i] = star.nextToken();
-	            pMap.put("P_STAR_" + i, p_stars[i]);
-	        }
+	    for (int i = 0; i < size; i++) {
+	        String value = star.nextToken();
+	        String key = "P_STAR" + i;
+	        pMap.put(key, value);
 	    }
-
 	    log.info("pMap = {}", pMap);
 	    log.info("bList = {}", bList);
 	    return bList;

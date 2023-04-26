@@ -3,7 +3,7 @@
 <mapper namespace="hotel">
 
 	<select id="hotelDetaillist" parameterType="map"
-		resultType="com.gajae.demo.dto.HotelDTO">
+		resultType="map">
 		SELECT
 		F.P_ID,
 		P.P_TITLE,
@@ -18,6 +18,7 @@
 		R.ROOM_PRICE,
 		R.ROOM_CAPACITY,
 		R.ROOM_OPTION,
+		R.ROOM_DETAIL,
 		F.FAC_ROOM,
 		F.FAC_RESTARUANT,
 		F.FAC_SECURITY,

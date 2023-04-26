@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './propertyCard.css';
-import { FaHeart, FaRegHeart } from 'react-icons/fa';
+import { FaHeart, FaRegHeart, FaShareAlt } from 'react-icons/fa';
 import Cookies from 'js-cookie';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import Swal from "sweetalert2";
 
 const PropertyCard = ({ row }) => {
   const navigate = useNavigate();
@@ -25,6 +26,14 @@ const PropertyCard = ({ row }) => {
     navigate('/hotel');
   };
 
+
+  const copyPageUrl = () => {
+    const copyText = window.location.origin + '/hotel';
+    navigator.clipboard.writeText(copyText);
+    Swal.fire('Copied successfully')
+  }
+  
+  
   return (
     <>
       <div style={{ position: 'relative' }}></div>
@@ -74,9 +83,15 @@ const PropertyCard = ({ row }) => {
         </div>
         <div className="siDetails">
           <div className="siRanking">
-            <button className="rankigbtn">{row.REVIEW_AVERAGE}</button>
+            <button id="rankigbtn" >{row.REVIEW_AVERAGE}</button>
+
           </div>
           <div className="siDetailTexts">
+            <div>
+            <button id = 'copybtn' onClick={copyPageUrl}>
+              <FaShareAlt />
+            </button>
+            </div>
             <span className="siPrice">{Number(row.ROOM_PRICE).toLocaleString() + '원'}</span>
             <span className="siTaxes ">세금 및 수수료 포함</span>
             <button className="siCheckButton" onClick={handleHotel}>

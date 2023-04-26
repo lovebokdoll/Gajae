@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './FilterSidebar.css';
 
-const FilterSidebar = ({ ranks = [], checkedFilters = () => {} }) => {
+const FilterSidebar = ({ checkedFilters = () => {} , checkedRanks = () => {}}) => {
   const [filters, setFilters] = useState([
     { name: "수영장", value: false },
     { name: "노래방", value: false },
@@ -17,6 +17,14 @@ const FilterSidebar = ({ ranks = [], checkedFilters = () => {} }) => {
     { name: "넷플릭스", value: false }
   ]);
 
+  const [ranks, setRanks] = useState([
+    { name: "1", value: false },
+    { name: "2", value: false },
+    { name: "3", value: false },
+    { name: "4", value: false },
+    { name: "5", value: false },
+  ]);
+ 
   const handleCheckboxChange = (event) => {
     const name = event.target.name;
     const checked = event.target.checked;
@@ -30,17 +38,19 @@ const FilterSidebar = ({ ranks = [], checkedFilters = () => {} }) => {
     checkedFilters(newFiltersList.filter(filter => filter.value).map(filter => filter.name));
   };
 
-  const handleRankingClick = (event) => {
-    const rank = event.target.value;
-    const checkboxes = document.getElementsByName('check');
-    for (let i = 0; i < checkboxes.length; i++) {
-      if (checkboxes[i].value !== rank) {
-        checkboxes[i].checked = false;
+  const handleRanksChange = (event) => {
+    const name = event.target.name;
+    const checked = event.target.checked;
+    const newRanksList = ranks.map((rank) => {
+      if (rank.name === name) {
+        return { ...rank, value: checked };
       }
-    }
-    ranks(rank);
-  }
-
+      return rank;
+    });
+    setRanks(newRanksList);
+    checkedRanks(newRanksList.filter((rank) => rank.value).map((rank) => rank.name));
+  };
+  
 
   return (
     <> 
@@ -115,23 +125,23 @@ const FilterSidebar = ({ ranks = [], checkedFilters = () => {} }) => {
 
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
       <label>1등급</label>
-      <input type="checkbox" name="check" value="1" onChange={handleRankingClick} />
+      <input type="checkbox" name="1" checked={ranks.find(rank => rank.name === "1").value} onChange={handleRanksChange}  />
     </div>
     <div style={{ display: 'flex', justifyContent: 'space-between' }}>
       <label>2등급</label>
-      <input type="checkbox" name="check" value="2" onChange={handleRankingClick} />
+      <input type="checkbox" name="2" checked={ranks.find(rank => rank.name === "2").value} onChange={handleRanksChange}  />
     </div>
     <div style={{ display: 'flex', justifyContent: 'space-between' }}>
       <label>3등급</label>
-      <input type="checkbox" name="check" value="3" onChange={handleRankingClick} />
+      <input type="checkbox" name="3" checked={ranks.find(rank => rank.name === "3").value} onChange={handleRanksChange}  />
     </div>
     <div style={{ display: 'flex', justifyContent: 'space-between' }}>
       <label>4등급</label>
-      <input type="checkbox" name="check" value="4" onChange={handleRankingClick} />
+      <input type="checkbox" name="4" checked={ranks.find(rank => rank.name === "4").value} onChange={handleRanksChange}  />
     </div>
     <div style={{ display: 'flex', justifyContent: 'space-between' }}>
       <label>5등급</label>
-      <input type="checkbox" name="check" value="5" onChange={handleRankingClick} />
+      <input type="checkbox" name="5" checked={ranks.find(rank => rank.name === "5").value} onChange={handleRanksChange}  />
     </div>
     
     </div>

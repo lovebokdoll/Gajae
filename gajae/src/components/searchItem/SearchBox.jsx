@@ -40,7 +40,7 @@ const SearchBox = () => {
       };
     });
   };
-  const handleSearh = (e) => {
+  const handleSearch = (e) => {
     const roomCapacity = parseInt(ROOM_CAPACITY.adult); // ROOM_CAPACITY를 숫자형태로 변환
     navigate(`/propertylist/?P_ADDRESS=${P_ADDRESS}&ROOM_CAPACITY=${roomCapacity}`, { state: { P_ADDRESS, date, ROOM_CAPACITY } });
 
@@ -78,6 +78,7 @@ const SearchBox = () => {
             onChange={(e) => setP_Address(e.target.value)}
             type="text"
           />
+
         </div>
 
         <div style={{ marginTop: '10px' }}>
@@ -115,7 +116,7 @@ const SearchBox = () => {
         </div>
 
         <button
-          onClick={handleSearh}
+          onClick={handleSearch}
           style={{
             cursor: 'pointer',
             width: '100%',
