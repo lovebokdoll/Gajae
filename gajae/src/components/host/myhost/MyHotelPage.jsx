@@ -1,10 +1,7 @@
 import {
   faComment,
-  faCreditCard,
-  faHeart,
   faHistory,
   faSignOutAlt,
-  faUser,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
@@ -23,10 +20,17 @@ import {
   MySettingsPageTitle,
 } from "../../../pages/mypage/styled-mypage";
 import MyHotelList from "./MyHotelList";
+import { useNavigate } from "react-router-dom";
 
 const MyHotelPage = () => {
+  const navigate = useNavigate();
   const hostId = localStorage.getItem("hostId");
   console.log(hostId);
+  const signOut = () => {
+    console.log("signOut");
+    window.localStorage.clear();
+    navigate("/host");
+  };
   return (
     <>
       <HostHeaderNav />
@@ -53,7 +57,7 @@ const MyHotelPage = () => {
               내 호텔후기
             </MyPageLinkMove>
 
-            <SignOutButton>
+            <SignOutButton onClick={signOut}>
               <span style={{ paddingRight: "5px" }}>
                 <FontAwesomeIcon icon={faSignOutAlt} />
               </span>

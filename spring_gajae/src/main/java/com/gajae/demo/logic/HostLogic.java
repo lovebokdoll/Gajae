@@ -79,6 +79,8 @@ public class HostLogic {
 			pMap.put("p_star", map.get("p_star"));
 			pMap.put("p_photo", map.get("p_photo"));
 			pMap.put("host_business_num", map.get("host_business_num"));
+			pMap.put("p_mapx", map.get("p_mapx"));
+			pMap.put("p_mapy", map.get("p_mapy"));
 			log.info(rids[i]);
 			// log.info("before : ", map);
 			// map.put("r_id", rids[i]);

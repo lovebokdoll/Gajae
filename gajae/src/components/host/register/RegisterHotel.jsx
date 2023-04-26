@@ -1,6 +1,9 @@
 import React, { useCallback, useState } from "react";
 import {
   Background,
+  CardCheckIn,
+  CardCheckOut,
+  CardTime,
   R_CardGroup_hotel,
   Titlehotel,
   Titlehotel_content,
@@ -26,6 +29,8 @@ const RegisterHotel = () => {
   const [p_tel, setHostHotelTel] = useState("");
   const [p_postal, setHostzipcode] = useState("");
   const [p_address, setHostAddr] = useState("");
+  const [p_mapy, setHostMapy] = useState("");
+  const [p_mapx, setHostMapx] = useState("");
   const [p_refund, setHostHotelRefund] = useState("");
   const [p_scale, setHostHotelScale] = useState("");
   const [p_star, setHostHotelStar] = useState("");
@@ -39,18 +44,14 @@ const RegisterHotel = () => {
   const [post, setPost] = useState({
     zipcode: "",
     addr: "",
-    addrDetail: "",
   });
-
   const tempBusinessNum = window.localStorage.getItem("hostBusinessNum");
   console.log(tempBusinessNum);
-
   const getImage = (imageUrl) => {
     setImageUrl(imageUrl);
     console.log(imageUrl);
   };
   //호텔등록하기 버튼
-
   const hotelInsert = async () => {
     const properties = {
       p_title,
@@ -58,6 +59,8 @@ const RegisterHotel = () => {
       p_tel,
       p_postal,
       p_address,
+      p_mapx: p_mapx,
+      p_mapy: p_mapy,
       p_refund,
       p_scale,
       p_star,
@@ -70,7 +73,6 @@ const RegisterHotel = () => {
     console.log(properties);
     //호텔insert
     const propertyres = await hostpropertyInsertDB(properties);
-
     //p_id시퀀스 출력 - 성공 한 경우 채번된 p_id를 반환한다.
     console.log(propertyres.data);
     if (propertyres.data < 0) {
@@ -86,13 +88,11 @@ const RegisterHotel = () => {
           "호텔정보 등록에 성공하였습니다. 숙소 등록페이지로 이동합니다."
         )
       );
-
       setTimeout(() => {
         setTempid(propertyres.data);
         console.log(`tempid: ${propertyres.data}`);
         navigate(`/host/registerRoom?p_id=${propertyres.data}`);
       }, 1500);
-      // <Link to={`/host/registerRoom?p_id=${tempid}`}></Link>;
     }
   };
   const handleTitle = useCallback((e) => {
@@ -147,7 +147,9 @@ const RegisterHotel = () => {
         <R_CardGroup_hotel>
           <Card style={{ width: "55rem", margin: "5% auto" }}>
             <Card.Body>
-              <Card.Title>사업자번호를 입력해주세요</Card.Title>
+              <Card.Title>
+                <i class="fa-solid fa-check"></i>사업자번호를 입력해주세요
+              </Card.Title>
               <Form>
                 <Form.Group className="mb-4" controlId="formBasicEmail">
                   <Form.Control
@@ -160,7 +162,10 @@ const RegisterHotel = () => {
               </Form>
             </Card.Body>
             <Card.Body>
-              <Card.Title>호텔의 이름을 알려주세요</Card.Title>
+              <Card.Title>
+                {" "}
+                <i class="fa-solid fa-check"></i>호텔의 이름을 알려주세요
+              </Card.Title>
               <Form>
                 <Form.Group className="mb-3" controlId="formBasicEmail">
                   <Form.Control
@@ -174,7 +179,10 @@ const RegisterHotel = () => {
               </Form>
             </Card.Body>
             <Card.Body>
-              <Card.Title>호텔의 전화번호을 알려주세요</Card.Title>
+              <Card.Title>
+                {" "}
+                <i class="fa-solid fa-check"></i>호텔의 전화번호를 알려주세요
+              </Card.Title>
               <Form>
                 <Form.Group className="mb-3" controlId="formBasicEmail">
                   <Form.Control
@@ -187,14 +195,27 @@ const RegisterHotel = () => {
                 </Form.Group>
               </Form>
             </Card.Body>
-            <HostZipCode
-              onZipcodeChange={setHostzipcode}
-              onAddrChange={setHostAddr}
-              post={post}
-              setPost={setPost}
-            />
             <Card.Body>
-              <Card.Title>호텔의 성급을 알려주세요</Card.Title>
+              <Card.Title>
+                <i class="fa-solid fa-location-dot fa-fade"></i>호텔의 위치를
+                알려주세요
+              </Card.Title>
+              <HostZipCode
+                onZipcodeChange={setHostzipcode}
+                onAddrChange={setHostAddr}
+                post={post}
+                setPost={setPost}
+                setHostMapx={setHostMapx}
+                setHostMapy={setHostMapy}
+                p_mapy={p_mapy}
+                p_mapx={p_mapx}
+              />
+            </Card.Body>
+            <Card.Body>
+              <Card.Title>
+                {" "}
+                <i class="fa-solid fa-check"></i>호텔의 성급을 알려주세요
+              </Card.Title>
               <Form>
                 <Form.Group className="mb-3" controlId="formBasicEmail">
                   <Form.Control
@@ -208,7 +229,10 @@ const RegisterHotel = () => {
               </Form>
             </Card.Body>
             <Card.Body>
-              <Card.Title>호텔에 대해 설명해주세요</Card.Title>
+              <Card.Title>
+                {" "}
+                <i class="fa-solid fa-check"></i>호텔에 대해 설명해주세요
+              </Card.Title>
               <Form>
                 <Form.Group className="mb-3" controlId="formBasicEmail">
                   <Form.Control
@@ -221,8 +245,53 @@ const RegisterHotel = () => {
                 </Form.Group>
               </Form>
             </Card.Body>
+            <CardTime>
+              <CardCheckIn>
+                <Card.Body>
+                  <Card.Title>
+                    {" "}
+                    <i class="fa-regular fa-clock"></i>호텔의 체크인시간을
+                    알려주세요
+                  </Card.Title>
+                  <Form>
+                    <Form.Group className="mb-3" controlId="formBasicEmail">
+                      <Form.Control
+                        type="text"
+                        placeholder="호텔 체크인시간 입력하기"
+                        onChange={(e) => {
+                          handleCheckin(e.target.value);
+                        }}
+                      />
+                    </Form.Group>
+                  </Form>
+                </Card.Body>
+              </CardCheckIn>
+              <CardCheckOut>
+                <Card.Body>
+                  <Card.Title>
+                    {" "}
+                    <i class="fa-solid fa-clock"></i>호텔의 체크아웃시간을
+                    알려주세요
+                  </Card.Title>
+                  <Form>
+                    <Form.Group className="mb-3" controlId="formBasicEmail">
+                      <Form.Control
+                        type="text"
+                        placeholder="호텔 체크아웃시간 입력하기"
+                        onChange={(e) => {
+                          handleCheckOut(e.target.value);
+                        }}
+                      />
+                    </Form.Group>
+                  </Form>
+                </Card.Body>
+              </CardCheckOut>
+            </CardTime>
             <Card.Body>
-              <Card.Title>호텔의 룸타입을 선택해주세요.</Card.Title>
+              <Card.Title>
+                {" "}
+                <i class="fa-solid fa-check"></i>호텔의 룸타입을 선택해주세요.
+              </Card.Title>
               <Form>
                 {[
                   { label: "스위트룸", value: "1" },
@@ -247,36 +316,12 @@ const RegisterHotel = () => {
                 ))}
               </Form>
             </Card.Body>
+
             <Card.Body>
-              <Card.Title>호텔에 체크인시간을 알려주세요</Card.Title>
-              <Form>
-                <Form.Group className="mb-3" controlId="formBasicEmail">
-                  <Form.Control
-                    type="text"
-                    placeholder="호텔 체크인시간 입력하기"
-                    onChange={(e) => {
-                      handleCheckin(e.target.value);
-                    }}
-                  />
-                </Form.Group>
-              </Form>
-            </Card.Body>
-            <Card.Body>
-              <Card.Title>호텔에 체크아웃시간을 알려주세요</Card.Title>
-              <Form>
-                <Form.Group className="mb-3" controlId="formBasicEmail">
-                  <Form.Control
-                    type="text"
-                    placeholder="호텔 체크아웃시간 입력하기"
-                    onChange={(e) => {
-                      handleCheckOut(e.target.value);
-                    }}
-                  />
-                </Form.Group>
-              </Form>
-            </Card.Body>
-            <Card.Body>
-              <Card.Title>호텔의 규모를 알려주세요</Card.Title>
+              <Card.Title>
+                {" "}
+                <i class="fa-solid fa-check"></i>호텔의 규모를 알려주세요
+              </Card.Title>
               <Form>
                 <Form.Group className="mb-3" controlId="formBasicEmail">
                   <Form.Control
@@ -291,12 +336,18 @@ const RegisterHotel = () => {
             </Card.Body>
             {/*============== 호텔사진등록================ */}
             <Card.Body>
-              <Card.Title>호텔의 사진을 등록해주세요</Card.Title>
+              <Card.Title>
+                {" "}
+                <i class="fa-solid fa-check"></i>호텔의 사진을 등록해주세요
+              </Card.Title>
               <ImageUpload getImage={getImage} />
             </Card.Body>
             {/*=============== 호텔사진등록 =================*/}
             <Card.Body>
-              <Card.Title>호텔에 환불규정을 알려주세요</Card.Title>
+              <Card.Title>
+                {" "}
+                <i class="fa-solid fa-check"></i>호텔의 환불규정을 알려주세요
+              </Card.Title>
 
               <Form>
                 <Form.Group className="mb-3" controlId="formBasicEmail">
@@ -313,7 +364,14 @@ const RegisterHotel = () => {
             <div className="d-grid gap-2 col-6 mx-auto">
               {/*HostZipCode의 내용이 버튼을 누를때 insert되어야 한다. */}
 
-              <Button onClick={hotelInsert}> 등록하기</Button>
+              <button
+                type="button"
+                class="btn btn-warning"
+                onClick={hotelInsert}
+                style={{ marginBottom: "8%" }}
+              >
+                등록하기
+              </button>
             </div>
           </Card>
         </R_CardGroup_hotel>

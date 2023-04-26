@@ -1,5 +1,30 @@
 import styled from "styled-components";
 
+export const CardTime = styled.div`
+  width: 90%;
+  margin: auto;
+  display: flex;
+  flex-wrap: wrap;
+`;
+
+export const CardCheckIn = styled.div`
+  width: 90%;
+  margin: 20px auto;
+  display: flex;
+  position: relative;
+  top: 10px;
+  flex-basis: 50%;
+`;
+
+export const CardCheckOut = styled.div`
+  width: 90%;
+  margin: 20px auto;
+  display: flex;
+  position: relative;
+  top: 10px;
+  flex-basis: 50%;
+`;
+
 //숙소등록시 객실선택에 대한 css
 export const HostTable = styled.div`
   width: 90%;
@@ -7,7 +32,7 @@ export const HostTable = styled.div`
   display: flex;
   position: relative;
   top: 10px;
-  flex-wrap: wrap;
+  flex-basis: 50%;
 `;
 export const HostTableItem1 = styled.div`
   flex-basis: 30%;
@@ -28,7 +53,7 @@ export const HostTableItem3 = styled.div`
 export const Background = styled.div`
   background-color: #003580;
   width: 100%;
-  height: 2500px;
+  height: 3000px;
   position: relative;
 `;
 export const Title = styled.div`
@@ -244,8 +269,8 @@ export const FormDiv = styled.div`
   width: 90%;
   border: 2px solid lightGray;
   border-radius: 20px;
-  padding: 10px;
-  max-width: 300px;
+  padding: 30px;
+  max-width: 400px;
   min-height: 300px;
 `;
 export const HeaderDiv = styled.div`

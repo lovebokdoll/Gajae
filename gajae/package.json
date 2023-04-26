@@ -18,6 +18,7 @@
     "bootstrap": "^5.2.3",
     "bootstrap-icons": "^1.10.4",
     "date-fns": "^2.29.3",
+    "dotenv": "^16.0.3",
     "file-loader": "^6.2.0",
     "firebase": "^9.19.1",
     "has-flag": "^5.0.1",

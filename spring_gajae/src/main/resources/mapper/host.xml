@@ -116,6 +116,8 @@
 			P_HIREDATE,
 			P_PHOTO,
 			HOST_BUSINESS_NUM,
+			P_MAPX,
+			P_MAPY,
 			STATUS
 			)
 			VALUES(
@@ -135,6 +137,8 @@
 			'YYYY-MM-DDHH24:MI:SS'),
 			#{item.p_photo},
 			#{item.host_business_num},
+			#{item.p_mapx},
+			#{item.p_mapy},
 			'Y'
 			)
 		</foreach>
@@ -283,6 +287,7 @@
 	<select id="hotelDetail" parameterType="map" resultType="map">
 		SELECT
 		p.P_ID ,
+		STATUS,
 		pr.ROOM_TYPE,
 		P_TITLE ,
 		P_PHOTO ,

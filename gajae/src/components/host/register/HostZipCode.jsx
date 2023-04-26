@@ -1,16 +1,25 @@
 /*global daum*/
-import { useCallback, useState } from "react";
+/*global kakao*/
+import { useCallback } from "react";
 import { Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { ContainerDiv, FormDiv } from "../../../style/HostStyle";
+import axios from "axios";
+import KakaoMapHotel from "./KakaoMapHotel";
+//import dotenv from "dotenv";
 
 const HostZipCode = ({
   onZipcodeChange,
   onAddrChange,
   post,
   setPost,
+  setHostMapx,
+  setHostMapy,
+  p_mapy,
+  p_mapx,
 }) => {
-  const navigate = useNavigate("");
+  const navigate = useNavigate();
+  //주소정보 담기
   const handleZipcode = useCallback((e) => {
     onZipcodeChange(e);
   }, []);
@@ -20,8 +29,10 @@ const HostZipCode = ({
   // const handleAddrdtl = useCallback((e) => {
   //   onAddrDtlChange(e);
   // }, []);
+
   const clickAddr = (e) => {
     e.preventDefault();
+    //dotenv.config();
     new daum.Postcode({
       oncomplete: function (data) {
         let addr = "";
@@ -32,24 +43,41 @@ const HostZipCode = ({
         }
         console.log(data); //전체주소정보
         console.log(addr); //주소정보만
-        setPost({ ...post, zipcode: data.zonecode, addr: addr });
+        setPost({ zipcode: data.zonecode, addr: addr });
         document.querySelector("#host_zipcode").value = data.zonecode; //화면에 자동으로 입력처리
         document.querySelector("#host_addr").value = addr;
         //document.querySelector("#host_addr_dtl").focus(); //addr이 입력되었을때
         handleZipcode(document.querySelector("#host_zipcode").value);
         handleAddr(document.querySelector("#host_addr").value);
+        let config = {
+          method: "get",
+          maxBodyLength: Infinity,
+          url: `http://dapi.kakao.com/v2/local/search/address.json?query=${addr}}`,
+          headers: {
+            Authorization: `KakaoAK ${process.env.REACT_APP_KAKAO_REST_API_KEY}`,
+          },
+        };
 
-        /**
-         * 위도경도 받아오기
-         */
+        axios
+          .request(config)
+          .then((response) => {
+            const { x, y } = response.data.documents[0].road_address;
+            setHostMapx(x);
+            setHostMapy(y);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
       },
     }).open();
   };
+
   return (
     <>
       <ContainerDiv>
         <FormDiv>
-          <div style={{ width: "200px", maxWidth: "200px" }}>
+          <div style={{ width: "200px" }}>
+            <KakaoMapHotel p_mapy={p_mapy} p_mapx={p_mapx} />
             <div
               style={{
                 display: "flex",

@@ -15,7 +15,7 @@ const MyHotelList = ({ hostId }) => {
   const [myhotel, setMyHotel] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const pageNumber = [];
-  const hotelsPerPage = 2;
+  const hotelsPerPage = 4;
   console.log(hostId);
   useEffect(() => {
     const host = {
@@ -35,7 +35,6 @@ const MyHotelList = ({ hostId }) => {
   for (let i = 1; i <= Math.ceil(myhotel?.length / hotelsPerPage); i++) {
     pageNumber.push(i);
   }
-
   const indexOfLastReview = currentPage * hotelsPerPage;
   const indexOfFirstReview = indexOfLastReview - hotelsPerPage;
   const start = indexOfFirstReview;
@@ -44,25 +43,14 @@ const MyHotelList = ({ hostId }) => {
   const onEdit = (hotel_id) => {
     window.location.href = `/host/update?hotel_id=${hotel_id}`;
   };
-  //영업중 영업중지 표시
-  const onStatus = async (P_ID) => {
-    try {
-      const deleteHotel = {
-        P_ID: P_ID,
-      };
-      const res = await hotelDeleteDB(deleteHotel);
-      const updatedHotels = myhotel.filter(
-        (hotel) => hotel.HOTEL_NUMBER !== P_ID
-      );
-      setMyHotel(updatedHotels);
-    } catch (error) {}
-  };
+
+  console.log(myhotel);
 
   return (
     <>
       <BackDiv>
-        <h3 style={{ fontWeight: "bold" }}>
-          <FontAwesomeIcon icon="fa-solid fa-hotel" />
+        <h3 style={{ fontWeight: "bold", marginLeft: "20px" }}>
+          <i class="fa-solid fa-house"></i>
           &nbsp; MY HOTEL
         </h3>
         <TLineDiv></TLineDiv>
@@ -77,7 +65,11 @@ const MyHotelList = ({ hostId }) => {
               <ReviewWrapper>
                 <ImageContainer>
                   <ImageWrapper>
-                    <img src={hotel.P_PHOTO} alt="placeholder image" />
+                    <img
+                      src={hotel.P_PHOTO}
+                      style={{ borderRadius: "30%", scale: "120%" }}
+                      alt="placeholder image"
+                    />
                   </ImageWrapper>
                   <ImageDescription>
                     <p>
@@ -142,11 +134,11 @@ export default MyHotelList;
 const BackDiv = styled.div`
   display: block;
   flex-direction: column;
-  width: 600px;
+  width: 800px;
   min-height: 900px;
   max-height: 1000px;
   align-items: center;
-  font-family: "KOTRA_GOTHIC";
+  //font-family: "KOTRA_GOTHIC";
 `;
 
 const ReviewList = styled.ul`
@@ -166,11 +158,11 @@ const ReviewWrapper = styled.div`
   max-width: 800px;
   height: 300px;
   position: relative;
-  margin: 50px 0 50px 0;
+  margin: 50px 0 50px 15px;
 `;
 const ImageContainer = styled.div`
   display: flex;
-  margin-left: 40px;
+  margin-left: 80px;
   flex-direction: column;
   flex-basis: 33.333333%;
 `;
@@ -193,7 +185,7 @@ const ImageDescription = styled.div`
 
 const ContentWrapper = styled.div`
   flex: 0 0 50.666667%;
-  margin-left: 50px;
+  margin-left: 70px;
 `;
 const TextWrapper = styled.div`
   display: flex;
@@ -229,10 +221,11 @@ const BtnWrapper = styled.div`
 
 const TLineDiv = styled.div`
   background-color: #1e3050;
-  height: 4px;
+  height: 1px;
+  margin: 3%;
   with: 100%;
 `;
 
 const EmtyDiv = styled.div`
-  height: 20px;
+  height: 10px;
 `;

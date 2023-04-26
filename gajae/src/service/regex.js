@@ -47,13 +47,13 @@ export const regexPassword = (event) => {
 
   if (password.length === 0) {
     return " ";
-  } else if (password.length < 8 || password.length > 20) {
+  } else if (password.length < 8 && password.length > 20) {
     return "8자리 ~ 20자리 이내로 입력해주세요.";
   } else if (hangulcheck.test(password)) {
     return "비밀번호에 한글을 사용 할 수 없습니다.";
   } else if (password.search(/\s/) !== -1) {
     return "비밀번호는 공백 없이 입력해주세요.";
-  } else if (num < 0 || eng < 0 || special < 0) {
+  } else if (num < 0 && eng < 0 && special < 0) {
     return "영문, 숫자, 특수문자를 혼합하여 입력해주세요.";
   } else {
     return "";

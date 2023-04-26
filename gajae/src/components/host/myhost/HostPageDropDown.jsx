@@ -1,6 +1,7 @@
 import React from "react";
 import { Dropdown } from "react-bootstrap";
 import { Link, Navigate, useNavigate } from "react-router-dom";
+import MyHotelPage from "./MyHotelPage";
 
 const HostPageDropDown = () => {
   const navigate = useNavigate();
@@ -43,7 +44,7 @@ const HostPageDropDown = () => {
             marginBottom: "5px",
           }}
         >
-          숙소 관리
+          관리하기
         </Link>
         <br />
         <button

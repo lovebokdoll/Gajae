@@ -299,7 +299,10 @@ const HostSignUp = () => {
                 marginBottom: "15px",
               }}
             >
-              <FontAwesomeIcon icon="fa-solid fa-right-to-bracket"  style={{ padding: "5px" }} />
+              <FontAwesomeIcon
+                icon="fa-solid fa-right-to-bracket"
+                style={{ padding: "5px" }}
+              />
               파트너 계정 등록
             </div>
             <div
@@ -311,7 +314,6 @@ const HostSignUp = () => {
                 marginBottom: "20px",
               }}
             >
-          
               이미 파트너로 등록하셨나요?
             </div>
             <Link

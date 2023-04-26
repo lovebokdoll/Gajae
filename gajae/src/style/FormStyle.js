@@ -191,7 +191,7 @@ export const BButton = styled.button`
 export const ContainerDiv = styled.div`
   display: flex;
   flex-direction: column;
-  font-family: "KOTRA_GOTHIC";
+  //font-family: "KOTRA_GOTHIC";
   width: 100%;
   margin-bottom: 50px;
   align-items: center;
