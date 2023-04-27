@@ -113,4 +113,19 @@ public class UserDAO {
         return result;
     }
     
+    public List<Map<String, Object>> afterUpdate( Map<String, Object> map ) {
+        
+        List<Map<String, Object>> userList = sqlSessionTemplate.selectList( "user.afterUpdate", map );
+        
+        return userList;
+    }
+    
+    public List<Map<String, Object>> pwCheck( Map<String, Object> map ) {
+        
+        List<Map<String, Object>> userList = sqlSessionTemplate.selectList( "user.pwCheck", map );
+        
+        log.info( "userList = {}", userList );
+        
+        return userList;
+    }
 }

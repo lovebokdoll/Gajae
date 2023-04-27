@@ -2,7 +2,7 @@
 import { faComment, faCreditCard, faHeart, faHistory, faSignOutAlt, faUser } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useEffect, useState } from 'react';
-import { Button, Form, Modal, Nav } from 'react-bootstrap';
+import { Button, Form, Nav } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import Footer from '../../components/footer/Footer';
@@ -23,10 +23,20 @@ import {
   ProfileImage,
   ProfileUploadButton,
   SignOutButton,
-  TransparentButton,
 } from './styled-mypage';
+import UserDeactivateModal from '../../components/mypage/UserDeactivateModal';
 
 const MySettings = () => {
+  const [showModal, setShowModal] = useState(false);
+
+  const handleUserDeactivate = () => {
+    setShowModal(true);
+  };
+
+  const handleConfirmDeactivate = () => {
+    setShowModal(false);
+  };
+
   const [isNickNameCheck, setIsNickNameCheck] = useState(false);
   const checkNickname = async () => {
     if (user.USER_NICKNAME === '') {
@@ -52,7 +62,9 @@ const MySettings = () => {
   const [localNickName, setLocalNickName] = useState('');
   const [localBirth, setLocalBitrh] = useState('');
   const [localEmail, setLocalEmail] = useState('');
-  const [localID, setLocalId] =useState('');
+  const [localMobile, setLocalMobile] = useState('');
+  const [localID, setLocalId] = useState('');
+  const [createDate, setCreateDate] = useState('');
   useEffect(() => {
     const tempID = window.localStorage.getItem('userId');
     if (tempID === null) {
@@ -64,7 +76,10 @@ const MySettings = () => {
     setLocalNickName(window.localStorage.getItem('userNickname'));
     setLocalEmail(window.localStorage.getItem('userEmail'));
     setLocalBitrh(window.localStorage.getItem('userBirth'));
+    setLocalMobile(window.localStorage.getItem('userMobile'));
+    setCreateDate(window.localStorage.getItem('userCreateDate'));
   }, []);
+  console.log(localNickName);
 
   const [user, setUser] = useState({
     USER_ID: '',
@@ -180,15 +195,6 @@ const MySettings = () => {
     setUser({ ...user, USER_EMAIL: event });
   };
 
-  const userDeactivate = async () => {
-    const sendUser = {
-      USER_ID: user.USER_ID,
-    };
-    console.log(sendUser);
-    const response = await deactivate(sendUser);
-    console.log(response.data);
-  };
-
   const handleBirth = (event) => {
     const b = event;
     let birthday = '';
@@ -203,23 +209,24 @@ const MySettings = () => {
     const response = await userUpdateDB(user);
 
     console.log(response.data);
-    if (response.data === 1) {
-      dispatch(setToastMessage('주소 수정 성공~'));
+    if (response.data != null) {
+      dispatch(setToastMessage('회원 정보가 수정되었습니다.'));
       window.location.reload();
     } else {
-      dispatch(setToastMessage('주소 수정 실패~'));
+      dispatch(setToastMessage('죄송합니다. 저희 쪽에 문제가 있는 것 같습니다.'));
     }
   };
 
   const updateName = async () => {
     const response = await userUpdateDB(user);
-
     console.log(response.data);
-    if (response.data === 1) {
-      dispatch(setToastMessage('이름 수정 성공~'));
+
+    if (response.data != null) {
+      dispatch(setToastMessage('회원 정보가 수정되었습니다.'));
+      window.localStorage.setItem('userName', response.data[0].USER_NAME);
       window.location.reload();
     } else {
-      dispatch(setToastMessage('이름 수정 실패~'));
+      dispatch(setToastMessage('죄송합니다. 저희 쪽에 문제가 있는 것 같습니다.'));
     }
   };
 
@@ -227,11 +234,11 @@ const MySettings = () => {
     const response = await userUpdateDB(user);
 
     console.log(response.data);
-    if (response.data === 1) {
-      dispatch(setToastMessage('성별 수정 성공~'));
+    if (response.data != null) {
+      dispatch(setToastMessage('회원 정보가 수정되었습니다.'));
       window.location.reload();
     } else {
-      dispatch(setToastMessage('성별 수정 실패~'));
+      dispatch(setToastMessage('죄송합니다. 저희 쪽에 문제가 있는 것 같습니다.'));
     }
   };
 
@@ -239,11 +246,12 @@ const MySettings = () => {
     const response = await userUpdateDB(user);
 
     console.log(response.data);
-    if (response.data === 1) {
-      dispatch(setToastMessage('생일 수정 성공~'));
+    if (response.data != null) {
+      dispatch(setToastMessage('회원 정보가 수정되었습니다.'));
+      window.localStorage.setItem('userBirth', response.data[0].USER_BIRTH);
       window.location.reload();
     } else {
-      dispatch(setToastMessage('생일 수정 실패~'));
+      dispatch(setToastMessage('죄송합니다. 저희 쪽에 문제가 있는 것 같습니다.'));
     }
   };
 
@@ -251,11 +259,12 @@ const MySettings = () => {
     const response = await userUpdateDB(user);
 
     console.log(response.data);
-    if (response.data === 1) {
-      dispatch(setToastMessage('번호 수정 성공~'));
+    if (response.data != null) {
+      dispatch(setToastMessage('회원 정보가 수정되었습니다.'));
+      window.localStorage.setItem('userMobile', response.data[0].USER_MOBILE);
       window.location.reload();
     } else {
-      dispatch(setToastMessage('번호 수정 실패~'));
+      dispatch(setToastMessage('죄송합니다. 저희 쪽에 문제가 있는 것 같습니다.'));
     }
   };
 
@@ -264,11 +273,12 @@ const MySettings = () => {
       const response = await userUpdateDB(user);
 
       console.log(response.data);
-      if (response.data === 1) {
-        dispatch(setToastMessage('닉네임 수정 성공~'));
+      if (response.data != null) {
+        dispatch(setToastMessage('회원 정보가 수정되었습니다.'));
+        window.localStorage.setItem('userNickname', response.data[0].USER_NICKNAME);
         window.location.reload();
       } else {
-        dispatch(setToastMessage('닉네임 수정 실패~'));
+        dispatch(setToastMessage('죄송합니다. 저희 쪽에 문제가 있는 것 같습니다.'));
       }
     } else {
       setIsChange('isNickNameChange', true);
@@ -280,11 +290,12 @@ const MySettings = () => {
     const response = await userUpdateDB(user);
 
     console.log(response.data);
-    if (response.data === 1) {
-      dispatch(setToastMessage('이메일 수정 성공~'));
+    if (response.data != null) {
+      dispatch(setToastMessage('회원 정보가 수정되었습니다.'));
+      window.localStorage.setItem('userEmail', response.data[0].USER_EMAIL);
       window.location.reload();
     } else {
-      dispatch(setToastMessage('이메일 수정 실패~'));
+      dispatch(setToastMessage('죄송합니다. 저희 쪽에 문제가 있는 것 같습니다.'));
     }
   };
 
@@ -425,7 +436,7 @@ const MySettings = () => {
             {isNickNameChange && (
               <div style={{ display: 'flex', alignItems: 'center' }}>
                 <span style={{ width: '90px', marginRight: '10px' }}>닉네임</span>
-                {renderInput('user_nickname', localNickName, (event) => handleNickname(event.target.value))}
+                {renderInput('user_nickname', 'user_nickname', localNickName, (event) => handleNickname(event.target.value))}
                 <Button
                   style={{ marginLeft: '15px' }}
                   onClick={() => {
@@ -503,7 +514,7 @@ const MySettings = () => {
               <div style={{ display: 'flex', alignItems: 'center' }}>
                 <span style={{ width: '90px', marginRight: '10px' }}>전화번호</span>
                 <div style={{ display: 'flex', alignItems: 'center' }}>
-                  {renderInput('user_mobile', 'user_mobile', '전화번호를 입력해주세요', (event) => handleMobile(event.target.value))}
+                  {renderInput('user_mobile', 'user_mobile', localMobile, (event) => handleMobile(event.target.value))}
                   <Button
                     style={{ marginLeft: '15px' }}
                     onClick={() => {
@@ -637,15 +648,20 @@ const MySettings = () => {
           <MySettingsRow>
             <div style={{ display: 'flex', alignItems: 'center', height: '20px' }}>
               <span>회원탈퇴</span>
-              <Button
-                style={{ marginLeft: 'auto' }}
-                onClick={(event) => {
-                  event.preventDefault();
-                  userDeactivate();
-                }}
-              >
+              <Button style={{ marginLeft: 'auto' }} onClick={handleUserDeactivate}>
                 회원탈퇴
               </Button>
+              {showModal && (
+                <UserDeactivateModal
+                  title="회원탈퇴"
+                  message="정말로 탈퇴하시겠습니까?"
+                  confirmText="회원탈퇴"
+                  onCancel={() => setShowModal(false)}
+                  onConfirm={handleConfirmDeactivate}
+                  localID={localID}
+                  createDate={createDate}
+                />
+              )}
             </div>
           </MySettingsRow>
         </MSCRightDIV>

@@ -13,13 +13,14 @@
 		USER_AUTH,
 		USER_ACTIVATE,
 		USER_PHOTO,
-		USER_MOBILE
+		USER_MOBILE,
+		USER_HIREDATE
 		FROM
 		GAJAE.USERS
-		WHERE USER_ID = #{user_id}
+		WHERE
+		USER_ID = #{user_id}
 		AND
-		USER_PW =
-		#{user_pw}
+		USER_PW = #{user_pw}
 	</select>
 
 	<select id="getUser" parameterType="map" resultType="map">
@@ -75,7 +76,7 @@
 	</update>
 
 	<insert id="signup">
-	INSERT INTO GAJAE.USERS
+		INSERT INTO GAJAE.USERS
 		(
 		USER_ID ,
 		USER_PW ,
@@ -96,7 +97,8 @@
 		#{USER_MOBILE},
 		#{USER_BIRTH},
 		#{USER_AUTH},
-		TO_CHAR( SYSDATE, 'YYYY-MM-DD HH24:MI:SS')
+		TO_CHAR( SYSDATE,
+		'YYYY-MM-DD HH24:MI:SS')
 		)
 	</insert>
 
@@ -125,6 +127,7 @@
 		<if test="USER_GENDER != null and USER_GENDER.length()>0">
 			USER_GENDER = #{USER_GENDER}
 		</if>
+		, USER_EDIT_DATE = TO_CHAR( SYSDATE,'YYYY-MM-DD HH24:MI:SS')
 		WHERE
 		USER_ID = #{USER_ID}
 	</update>
@@ -147,4 +150,27 @@
 		#{USER_MOBILE}
 	</select>
 
+	<select id="afterUpdate" parameterType="map" resultType="map">
+		SELECT
+		USER_NAME,
+		USER_NICKNAME ,
+		USER_EMAIL ,
+		USER_MOBILE ,
+		USER_BIRTH ,
+		USER_ADDRESS ,
+		USER_GENDER ,
+		USER_ACTIVATE ,
+		USER_PHOTO ,
+		USER_AUTH ,
+		USER_HIREDATE
+		FROM GAJAE.USERS
+		WHERE USER_ID=#{USER_ID}
+	</select>
+
+	<select id="pwCheck" parameterType="map" resultType="map">
+		SELECT USER_ACTIVATE
+		FROM GAJAE.USERS
+		WHERE USER_ID=#{USER_ID}
+		AND USER_PW=#{USER_PW}
+	</select>
 </mapper>

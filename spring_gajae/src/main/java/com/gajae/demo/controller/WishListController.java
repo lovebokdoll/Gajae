@@ -5,6 +5,8 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,16 +25,6 @@ public class WishListController {
     @Autowired
     private WishListLogic wishListLogic;
     
-    @GetMapping( "register" )
-    public String wishRegister( @RequestParam Map<String, Object> map ) {
-        
-        log.info( "map = {}", map );
-        
-        int result = wishListLogic.wishRegister( map );
-        
-        return String.valueOf( result );
-    }
-    
     @GetMapping( "getWishlist" )
     public String getWishlist( @RequestParam Map<String, Object> map ) {
         
@@ -44,4 +36,33 @@ public class WishListController {
         return temp;
     }
     
+    @PostMapping( "wishInsert" )
+    public String wishInsert( @RequestBody Map<String, Object> map ) {
+        
+        log.info( "map = {}", map );
+        
+        int result = wishListLogic.wishInsert( map );
+        
+        return String.valueOf( result );
+    }
+    
+    @PostMapping( "wishUpdate" )
+    public String wishUpdate( @RequestBody Map<String, Object> map ) {
+        
+        log.info( "map = {}", map );
+        
+        int result = wishListLogic.wishUpdate( map );
+        
+        return String.valueOf( result );
+    }
+    
+    @GetMapping( "wishDelete" )
+    public String wishDelete( @RequestParam Map<String, Object> map ) {
+        
+        log.info( "map = {}", map );
+        
+        int result = wishListLogic.wishDelete( map );
+        
+        return String.valueOf( result );
+    }
 }

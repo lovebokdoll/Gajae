@@ -71,9 +71,14 @@ public class UserController {
         
         log.info( "map = {}", map );
         
-        int result = userLogic.userUpdate( map );
+        List<Map<String, Object>> userList = userLogic.userUpdate( map );
         
-        return String.valueOf( result );
+        Gson   gson = new Gson();
+        String temp = gson.toJson( userList );
+        
+        log.info( "temp ={}", temp );
+        
+        return temp;
     }
     
     @GetMapping( "idCheck" )
@@ -88,6 +93,24 @@ public class UserController {
         if ( userList.size() > 0 ) {
             result = 1;
         }
+        
+        return result;
+    }
+    
+    @PostMapping( "pwCheck" )
+    public int pwCheck( @RequestBody Map<String, Object> map ) {
+        
+        log.info( "map = {}", map );
+        
+        List<Map<String, Object>> userList = userLogic.pwCheck( map );
+        
+        log.info( "userList = {}", userList );
+        int result = 0;
+        
+        if ( userList.size() > 0 ) {
+            result = 1;
+        }
+        log.info( result );
         
         return result;
     }

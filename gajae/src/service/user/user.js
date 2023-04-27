@@ -46,6 +46,21 @@ export const idCheck = (params) => {
   });
 };
 
+export const pwCheck = (params) => {
+  return new Promise((resolve, reject) => {
+    try {
+      const response = axios({
+        method: 'post',
+        url: process.env.REACT_APP_SPRING_IP + 'user/pwCheck',
+        data: params,
+      });
+      resolve(response);
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+
 export const nicknameCheck = (params) => {
   console.log(params);
   return new Promise((resolve, reject) => {

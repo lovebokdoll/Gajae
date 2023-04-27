@@ -18,9 +18,9 @@ public class WishListDAO {
     @Autowired
     private SqlSessionTemplate sqlSessionTemplate;
     
-    public int wishRegister( Map<String, Object> map ) {
+    public int wishInsert( Map<String, Object> map ) {
         
-        int result = sqlSessionTemplate.insert( "wishRegister", map );
+        int result = sqlSessionTemplate.insert( "wishlist.wishInsert", map );
         
         return result;
     }
@@ -32,6 +32,19 @@ public class WishListDAO {
         log.info( "wishlist = {}", wishlist );
         
         return wishlist;
+    }
+    
+    public int wishUpdate( Map<String, Object> map ) {
+        
+        int result = sqlSessionTemplate.update( "wishlist.wishUpdate", map );
+        
+        return result;
+    }
+    
+    public int wishDelete( Map<String, Object> map ) {
+        int result = sqlSessionTemplate.delete( "wishlist.wishDelete", map );
+        
+        return result;
     }
     
 }

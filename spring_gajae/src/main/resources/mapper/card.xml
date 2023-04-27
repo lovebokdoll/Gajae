@@ -2,5 +2,60 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="card">
 
+	<insert id="cardInsert" parameterType="map">
+		INSERT INTO
+		GAJAE.CARD_INFO (
+		USER_ID,
+		CARD_OWNER,
+		CARD_NUMBER,
+		CARD_EXP)
+		VALUES
+		(
+		#{USER_ID},
+		#{CARD_OWNER},
+		#{CARD_NUMBER},
+		#{CARD_EXP}
+		)
+	</insert>
+
+	<select id="cardInformation" parameterType="map"
+		resultType="map">
+		SELECT
+		USER_ID,
+		CARD_OWNER,
+		CARD_NUMBER,
+		CARD_EXP
+		FROM
+		GAJAE.CARD_INFO
+		WHERE USER_ID = #{USER_ID}
+	</select>
+
+
+	<update id="cardUpdate" parameterType="map">
+		UPDATE GAJAE.CARD_INFO
+		SET
+		CARD_OWNER
+		CARD_NUMBER
+		CARD_EXP
+		WHERE USER_ID =
+		#{USER_ID}
+		<if test="cardOwner != null">
+			AND CARD_OWNER = #{CARD_OWNER}
+		</if>
+		<if test="cardNumber != null">
+			AND CARD_NUMBER = #{CARD_NUMBER}
+		</if>
+		<if test="cardExp != null">
+			AND CARD_EXP = #{CARD_EXP}
+		</if>
+	</update>
+
+	<delete id="cardDelete" parameterType="map">
+		DELETE FROM
+		GAJAE.CARD_INFO
+		WHERE USER_ID = #{USER_ID}
+		AND CARD_NUMBER =
+		#{CARD_NUMBER}
+	</delete>
 
 </mapper>

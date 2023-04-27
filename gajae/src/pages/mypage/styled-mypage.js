@@ -172,7 +172,11 @@ export const ProfileUploadButton = styled.button`
   border: none;
   cursor: pointer;
 
- &:hover {
+  &:hover {
     background-color: #ebf3ff;
   }
+`;
+
+export const AbsoluteDIV = styled.div`
+  margin-top: '30px';
 `;

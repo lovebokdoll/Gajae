@@ -11,7 +11,7 @@ export const CardSettingsRow = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 16px 0px;
+  padding: 24px 0px;
   border-top: 1px solid lightgrey;
 `;
 export const CardButton = styled(Button)`
@@ -44,30 +44,29 @@ export const CardInput = styled.input`
     color: lightgray;
     font-size: 13px;
   }
-
 `;
 
 export const CardEXPInput = styled.input`
-width: 200px;
-margin-bottom: 20px;
-display: block;
-height: 32px;
-border: none;
-border-bottom: 1px solid #dddddd;
-font-size: 15px;
-&:focus,
-&:hover {
-  border-bottom: 2px solid #004fff;
-  outline: none;
-}
-&::-webkit-outer-spin-button,
-&::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-}
-&::placeholder {
-  color: lightgray;
-  font-size: 13px;
-}
+  width: 200px;
+  margin-bottom: 20px;
+  display: block;
+  height: 32px;
+  border: none;
+  border-bottom: 1px solid #dddddd;
+  font-size: 15px;
+  &:focus,
+  &:hover {
+    border-bottom: 2px solid #004fff;
+    outline: none;
+  }
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+  }
+  &::placeholder {
+    color: lightgray;
+    font-size: 13px;
+  }
 `;
 
 export const CardForm = styled.form`
@@ -78,7 +77,7 @@ export const CardForm = styled.form`
   margin-top: 16px;
 `;
 
-export const MyCardRow = styled.div`
+export const MyCardRows = styled.div`
   width: 100%;
   padding: 16px 0px;
   border-top: 1px solid lightgrey;

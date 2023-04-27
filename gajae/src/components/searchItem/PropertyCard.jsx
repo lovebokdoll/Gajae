@@ -5,6 +5,7 @@ import { FaHeart, FaRegHeart } from 'react-icons/fa';
 import Cookies from 'js-cookie';
 
 const PropertyCard = ({ row }) => {
+  console.log(row);
   const navigate = useNavigate();
   const [isLiked, setIsLiked] = useState(false);
 

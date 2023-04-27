@@ -20,7 +20,7 @@
 		AND TO_DATE(RES_DATE, 'YYYY-MM-DD') <![CDATA[ <= ]]> TO_DATE(#{END_DATE}, 'YYYY-MM-DD')
 	</update>
 	
-	<insert id="vacancyCreate">
+	<insert id="vacancyInsert">
 	INSERT INTO P_VACANCY_${P_ID} (P_ID, ROOM_ID, RES_DATE, RES_YN)
 	SELECT #{P_ID}, ROOM_ID, TO_CHAR(LEVEL - 1 + DATE '2023-04-24', 'YYYY-MM-DD'), 'N'
 	FROM (

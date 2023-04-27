@@ -75,6 +75,8 @@ const LoginPage = () => {
       window.localStorage.setItem('userEmail', jsonDoc[0].USER_EMAIL);
       window.localStorage.setItem('userBirth', jsonDoc[0].USER_BIRTH);
       window.localStorage.setItem('userPhoto', jsonDoc[0].USER_PHOTO);
+      window.localStorage.setItem('userMobile', jsonDoc[0].USER_MOBILE);
+      window.localStorage.setItem('userCreateDate', jsonDoc[0].USER_HIREDATE);
       navigate('/');
     } else {
       dispatch(setToastMessage('아이디 또는 비밀번호가 일치하지 않습니다.'));

@@ -1,9 +1,9 @@
-import React, { useEffect } from "react";
-import styled from "styled-components";
-import { useState } from "react";
-import { reviewDeleteDB, reviewListDB } from "../../service/reviewboardLogic";
-import Dropdowntoggle from "../../components/review/Dropdowntoggle";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import React, { useEffect } from 'react';
+import styled from 'styled-components';
+import { useState } from 'react';
+import { reviewDeleteDB, reviewListDB } from '../../service/reviewboardLogic';
+import Dropdowntoggle from '../../components/review/Dropdowntoggle';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const MyReviewList = ({ userId }) => {
   const [myreview, setMyreview] = useState([]);
@@ -11,7 +11,6 @@ const MyReviewList = ({ userId }) => {
 
   const pageNumber = [];
   const reviewsPerPage = 5;
-  console.log(userId);
 
   useEffect(() => {
     const reviewList = async () => {
@@ -33,14 +32,11 @@ const MyReviewList = ({ userId }) => {
         REVIEW_NUMBER: reviw_number,
       };
       const res = await reviewDeleteDB(deleteReview);
-      const updatedReviews = myreview.filter(
-        (review) => review.REVIEW_NUMBER !== reviw_number
-      );
+      const updatedReviews = myreview.filter((review) => review.REVIEW_NUMBER !== reviw_number);
       setMyreview(updatedReviews);
     } catch (error) {}
   };
 
-  console.log(myreview);
   //페이징 처리
   for (let i = 1; i <= Math.ceil(myreview?.length / reviewsPerPage); i++) {
     pageNumber.push(i);
@@ -54,11 +50,8 @@ const MyReviewList = ({ userId }) => {
   return (
     <>
       <BackDiv>
-        <h3 style={{ fontWeight: "bold" }}>
-          <FontAwesomeIcon
-            icon="fa-solid fa-pen-to-square"
-            style={{ color: "#1e3050" }}
-          />
+        <h3 style={{ fontWeight: 'bold' }}>
+          <FontAwesomeIcon icon="fa-solid fa-pen-to-square" style={{ color: '#1e3050' }} />
           &nbsp; 이용후기
         </h3>
         <TLineDiv></TLineDiv>
@@ -91,10 +84,7 @@ const MyReviewList = ({ userId }) => {
                 <ContentWrapper>
                   <ReviewTitle>{review.REVIEW_TITLE}</ReviewTitle>
                   <RText>
-                    <FontAwesomeIcon
-                      icon="fa-regular fa-face-smile"
-                      style={{ color: "#99ff00" }}
-                    />
+                    <FontAwesomeIcon icon="fa-regular fa-face-smile" style={{ color: '#99ff00' }} />
                     &nbsp;&nbsp;
                     {review.REVIEW_GOOD}
                   </RText>
@@ -113,17 +103,8 @@ const MyReviewList = ({ userId }) => {
         <nav>
           <ul className="pagination justify-content-center">
             {pageNumber.map((page) => (
-              <li
-                key={page}
-                className={
-                  page === currentPage ? "page-item active" : "page-item"
-                }
-              >
-                <a
-                  href="#"
-                  className="page-link"
-                  onClick={() => setCurrentPage(page)}
-                >
+              <li key={page} className={page === currentPage ? 'page-item active' : 'page-item'}>
+                <a href="#" className="page-link" onClick={() => setCurrentPage(page)}>
                   {page}
                 </a>
               </li>
@@ -143,7 +124,7 @@ const BackDiv = styled.div`
   max-width: 800px;
   min-height: 650px;
   align-items: center;
-  font-family: "KOTRA_GOTHIC";
+  font-family: 'KOTRA_GOTHIC';
 `;
 
 const ReviewList = styled.ul`

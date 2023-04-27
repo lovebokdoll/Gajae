@@ -2,8 +2,10 @@ import Cookies from 'js-cookie';
 import React, { useEffect, useState } from 'react';
 import { paymentInsert } from '../../service/pay/pay';
 import { resInsert } from '../../service/reservation/reservation';
+import { useNavigate } from 'react-router-dom';
 
 const KakaoPay = (effect, deps) => {
+  const navigate = useNavigate();
   const [localID, setLocalId] = useState('');
 
   const [resPrice, setResPrice] = useState(Cookies.get('resPrice'));
@@ -16,7 +18,7 @@ const KakaoPay = (effect, deps) => {
   const [resEndDate, setResEndDate] = useState(Cookies.get('endDate'));
   const [resPeople, setResPeople] = useState(Cookies.get('resPeople'));
   const [p_id, setP_id] = useState(Cookies.get('p_id'));
-  const [room_id, setRoom_id] = useState(Cookies.get('room_id'));
+  const [room_id, setRoom_id] = useState(Cookies.get('resRoomId'));
 
   const [resInfo, setResInfo] = useState({
     resTitle: resTitle,
@@ -29,15 +31,11 @@ const KakaoPay = (effect, deps) => {
     resEndDate: resEndDate,
     resPeople: resPeople,
     r_state: '예약확정',
-    r_eta: '',
-    r_ps: '',
+    r_eta: '아직 모름',
+    r_ps: 'null',
     p_id: p_id,
-    room_id: 1,
+    room_id: room_id,
   });
-
-  const [propertiesInfo, setPropertiesInfo] = useState({});
-  const [facilitiesInfo, setFacilitiesInfo] = useState({});
-  const [extraInfo, setExtraInfo] = useState({});
 
   useEffect(() => {
     setLocalId(window.localStorage.getItem('userId'));
@@ -115,7 +113,7 @@ const KakaoPay = (effect, deps) => {
       const payInsert = async () => {
         const paymentResponse = await paymentInsert(paymentData);
         console.log('payInsert response ===> ', paymentResponse.data);
-       
+
         const reservationData = {
           USER_ID: localID,
           P_ID: parseInt(resInfo.p_id),
@@ -137,7 +135,7 @@ const KakaoPay = (effect, deps) => {
         console.log('reservationResponse ===>', reservationResponse.data);
       };
       payInsert();
-
+      //navigate('/pay/notification');
       // window.location.href = '/pay/complete'; // 결제 성공 시 /pay/complete 페이지로 이동
     } else {
       alert(`결제 실패 : ${error_msg} 다시 시도해주시길바랍니다`);

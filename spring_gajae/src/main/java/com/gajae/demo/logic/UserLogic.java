@@ -1,5 +1,6 @@
 package com.gajae.demo.logic;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -8,6 +9,9 @@ import org.springframework.stereotype.Service;
 
 import com.gajae.demo.dao.UserDAO;
 
+import lombok.extern.log4j.Log4j2;
+
+@Log4j2
 @Service
 public class UserLogic {
     
@@ -35,11 +39,17 @@ public class UserLogic {
         return userList;
     }
     
-    public int userUpdate( Map<String, Object> map ) {
+    public List<Map<String, Object>> userUpdate( Map<String, Object> map ) {
         
         int result = userDAO.userUpdate( map );
         
-        return result;
+        // Map<String, Object> tempMap = new HashMap<>();
+        // tempMap.put( "USER_ID", map.get( "USER_ID" ) );
+        
+        List<Map<String, Object>> userList = userDAO.afterUpdate( map );
+        log.info( "userList = {}", userList );
+        
+        return userList;
     }
     
     public List<Map<String, Object>> idCheck( Map<String, Object> map ) {
@@ -77,6 +87,12 @@ public class UserLogic {
     public int activate( Map<String, Object> map ) {
         int result = userDAO.activate( map );
         return result;
+    }
+    
+    public List<Map<String, Object>> pwCheck( Map<String, Object> map ) {
+        List<Map<String, Object>> userList = userDAO.pwCheck( map );
+        
+        return userList;
     }
     
 }

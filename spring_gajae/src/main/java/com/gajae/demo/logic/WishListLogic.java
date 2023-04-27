@@ -15,8 +15,9 @@ public class WishListLogic {
     @Autowired
     private WishListDAO wishListDAO;
     
-    public int wishRegister( Map<String, Object> map ) {
-        int result = wishListDAO.wishRegister( map );
+    public int wishInsert( Map<String, Object> map ) {
+        
+        int result = wishListDAO.wishInsert( map );
         
         return result;
     }
@@ -26,6 +27,20 @@ public class WishListLogic {
         List<WishListVO> wishlist = wishListDAO.getWishlist( map );
         
         return wishlist;
+    }
+    
+    public int wishUpdate( Map<String, Object> map ) {
+        
+        int result = wishListDAO.wishUpdate( map );
+        
+        return result;
+    }
+    
+    public int wishDelete( Map<String, Object> map ) {
+        
+        int result = wishListDAO.wishDelete( map );
+        
+        return result;
     }
     
 }
