@@ -131,7 +131,7 @@ console.log(userId)
         <HeaderNav2></HeaderNav2>
       <ContainerDiv>
         <HeaderDiv>
-          <h3 style={{marginLeft:"10px", marginTop : '25px'}}>QnA 게시판</h3>
+          <h3 style={{marginLeft:"10px", marginTop : '25px'}}>문의 게시판</h3>
         </HeaderDiv>
         <div style={{ marginLeft: 'auto' , display : "flex", marginRight : '150px'}}>
           <BButton  onClick={handleQna}>작성하기</BButton>

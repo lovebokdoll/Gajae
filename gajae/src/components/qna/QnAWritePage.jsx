@@ -20,9 +20,9 @@ import MyFilter from "./MyFilter";
  */
 const QnAWritePage = () => {
   const navigate = useNavigate();
-  const [title, setTitle] = useState(""); //사용자가 입력한 제목 담기
-  const [content, setContent] = useState(""); //사용자가 입력한 내용 담기
-  const [titleType, setTitleType] = useState("");
+  const [QNA_TITLE, setTitle] = useState(""); //사용자가 입력한 제목 담기
+  const [QNA_CONTENT, setContent] = useState(""); //사용자가 입력한 내용 담기
+  const [QNA_TYPE, setTitleType] = useState("");
 
   const[types]= useState(['문의','결제','취소','예약']); //qna_type의 라벨값
 
@@ -43,9 +43,9 @@ const QnAWritePage = () => {
   const qnaInsert = async () => {
     const qna = {
       USER_ID: userId, // 로그인한 사용자의 ID
-      QNA_TITLE: title, // 작성한 글의 제목
-      QNA_CONTENT: content, // 작성한 글의 내용
-      QNA_TYPE: titleType, // 작성한 글의 유형
+      QNA_TITLE: QNA_TITLE, // 작성한 글의 제목
+      QNA_CONTENT: QNA_CONTENT, // 작성한 글의 내용
+      QNA_TYPE: QNA_TYPE, // 작성한 글의 유형
     };
     const res = await qnaInsertDB(qna);
     console.log(res.data);
@@ -63,7 +63,7 @@ const QnAWritePage = () => {
           <Hr />
         <FormDiv>
           <div style={{ width: "100%"}}>
-              <MyFilter title={titleType} types={types} handleType={handleType}></MyFilter>
+              <MyFilter title={QNA_TYPE} types={types} handleType={handleType}></MyFilter>
             <div
               style={{
                 display: "flex",

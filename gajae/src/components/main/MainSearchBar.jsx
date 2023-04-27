@@ -15,11 +15,6 @@ import Swal from 'sweetalert2';
 const MainSearchBar = ({ type }) => {
   const navigate = useNavigate();
 
-  // Trie에서 첫번째 cities에서 글자를 찾음
-  const [cities, setCities] = useState(['서울', '부산']);
-  const [citiesList, setCitiesList] = useState(cities); // 지역 리스트 상태관리
-  const [isDrobBox, setIsDropbox] = useState(false); // 드롭박스 유무
-
   
   //지역 입력
   const [P_ADDRESS, setP_Address] = useState('');

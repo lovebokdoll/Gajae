@@ -39,4 +39,9 @@ public class QnALogic {
 			result = qnaDao.qnaDelete(pMap);
 			return result;
 		}
+
+		public int qnaUpdate(Map<String, Object> pMap) {
+			int result = qnaDao.qnaUpdate(pMap);
+			return result;
+		}
 }

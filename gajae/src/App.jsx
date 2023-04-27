@@ -44,6 +44,7 @@ import NoticeListPage from './components/qna/NoticeListPage';
 import QnAListPage from './components/qna/QnAListPage';
 import QnADetailPage from './components/qna/QnADetailPage';
 import QnAWritePage from './components/qna/QnAWritePage';
+import QnAUpdatePage from './components/qna/QnAUpdatePage';
 
 const App = () => {
   
@@ -72,6 +73,7 @@ const App = () => {
         <Route path="/qnalist" element={<QnAListPage />} />
         <Route path="/qna/writer/*" element={<QnAWritePage />} />
         <Route path="/qna/detail/*" element={<QnADetailPage />} />
+        <Route path="/qna/update/*" element={<QnAUpdatePage />} />
         <Route path="/hotel" element={<HotelPage />} />
         <Route path="/review/write" element={<ReviewWritePage />} />
         <Route path="/auth/kakao/callback" exact={true} element={<KakaoRedirectHandler />} />

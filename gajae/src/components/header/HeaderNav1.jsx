@@ -35,8 +35,13 @@ const HeaderNav1 = () => {
               <Link to="/" style={{ color: '#003580' }} className="nav-link">
               <img id="main_logo" src="../images/001.png" alt="대체_텍스트" />
               </Link>
-          <div className='GiveGap'style={{width: 342}}> </div> {/* 로고랑 KRW사이 GAP지우면 안됨*/}
+          <div className='GiveGap'style={{width: 342}}> 
+          <Link to="/notice" style={{ color: 'white', marginTop : '38px',marginLeft : '20px', fontSize : '16px' }} className="nav-link">
+                        자주 묻는 질문
+                      </Link>
+          </div> {/* 로고랑 KRW사이 GAP지우면 안됨*/}
                 <div className='header-reduxitem' style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                
                   <CurrencyButton onClick={handleCurrencyModal}>
                     <span>KRW</span>
                   </CurrencyButton>
@@ -57,6 +62,9 @@ const HeaderNav1 = () => {
                   )}
                   <Link to="/host" style={{ color: 'white', marginRight: '10px' }} className="nav-link">
                     숙소등록
+                  </Link>
+                  <Link to="/qnalist" style={{ color: 'white', marginRight: '10px'}} className="nav-link">
+                    1 : 1 문의
                   </Link>
                 </div>
               </Nav>

@@ -45,4 +45,10 @@ public class QnaDao {
 		result = sqlSessionTemplate.delete("qnaDelete", pMap);
 		return result;
 	}
+
+	public int qnaUpdate(Map<String, Object> pMap) {
+		int result = 0;
+		result = sqlSessionTemplate.update("qnaUpdate", pMap);
+		return result;
+	}
 }

@@ -54,6 +54,12 @@ public class QnAController {
 			return temp;
 		}
 	    
+		@PostMapping("qnaUpdate")
+		private String qnaUpdate(@RequestBody Map<String, Object> pMap) {
+			 int result = qnaLogic.qnaUpdate( pMap );
+		     return String.valueOf( result );
+		}
+	    
 	    @PostMapping("qnaDelete")
 	    public int qnaDelete(@RequestBody Map<String, Object> pMap) {
 	        int result = qnaLogic.qnaDelete(pMap);

@@ -29,8 +29,23 @@
 		</if>
 	</select>
 
-	 <delete id="qnaDelete" parameterType="map">
-	 DELETE FROM QNA
-	 WHERE QNA_NO = #{QNA_NO}
-	 </delete>
+	<update id="qnaUpdate" parameterType="map">
+		UPDATE qna
+		SET
+		<if test='qna_title!=null'>
+			QNA_TITLE=#{QNA_TITLE},
+		</if>
+		<if test='qna_content!=null'>
+			QNA_CONTENT=#{QNA_CONTENT},
+		</if>
+		<if test='qna_type!=null'>
+			QNA_TYPE=#{QNA_TYPE},
+		</if>
+			QNA_DATE=TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI:SS')
+	</update>
+
+	<delete id="qnaDelete" parameterType="map">
+		DELETE FROM QNA
+		WHERE QNA_NO = #{QNA_NO}
+	</delete>
 </mapper>
