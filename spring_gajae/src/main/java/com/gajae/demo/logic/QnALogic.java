@@ -17,7 +17,6 @@ public class QnALogic {
 	    private QnaDao qnaDao;
 
 	    public List<Map<String, Object>> qnalist(Map<String, Object> pMap) {
-	    	log.info("pMap = {}", pMap);
 	    	List<Map<String, Object>> qList = null;
 			qList = qnaDao.qnalist(pMap);
 			return qList;	
@@ -26,9 +25,18 @@ public class QnALogic {
 		public int qnaInsert(Map<String, Object> pMap) {
 			int result = 0;
 			result = qnaDao.qnaInsert(pMap);
-
 			pMap.put("QNA_NO", result);
 			return result;
 		}
 
+		public List<Map<String, Object>> qnaDetail(Map<String, Object> pMap) {
+			List<Map<String, Object>> rList = null;
+			rList = qnaDao.qnaDetail(pMap);
+			return rList;
+		}
+		public int qnaDelete(Map<String, Object> pMap) {
+			int result = 0;
+			result = qnaDao.qnaDelete(pMap);
+			return result;
+		}
 }

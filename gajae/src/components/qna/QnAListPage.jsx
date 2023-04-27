@@ -1,17 +1,36 @@
 import React, { useState } from 'react'
 import { useEffect } from 'react';
-import { Table } from 'react-bootstrap';
+import { Table, Toast } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { BButton, ContainerDiv, FormDiv, HeaderDiv } from '../../style/FormStyle';
 import HeaderNav2 from '../header/HeaderNav2';
 import HeaderNav1 from '../header/HeaderNav1';
 import Footer from '../footer/Footer';
 import { qnaListDB } from '../../service/database';
+import Swal from 'sweetalert2';
 
 const QnAListPage = (qna) => {
   const navigate = useNavigate();
 
   const [qnalist, setQnaList] = useState([]);
+
+  //모달 창
+  const Toast = Swal.mixin({
+    toast: true,
+    position: 'center-center',
+    showConfirmButton: false,
+    timer: 2000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+      toast.addEventListener('mouseenter', Swal.stopTimer);
+      toast.addEventListener('mouseleave', Swal.resumeTimer);
+    },
+  });
+
+ // user_id 가져오기
+const userId = localStorage.getItem("userId");
+console.log(userId)
+
   useEffect(() => {
     const qnaList = async () => {
       const res = await qnaListDB(qna);
@@ -23,7 +42,8 @@ const QnAListPage = (qna) => {
           QNA_TITLE: row.QNA_TITLE,
           QNA_CONTENT: row.QNA_CONTENT,
           QNA_TYPE: row.QNA_TYPE,
-          QNA_DATE: row.QNA_DATE
+          QNA_DATE: row.QNA_DATE,
+          USER_ID: row.USER_ID
         };
         list.push(obj);
       });
@@ -33,17 +53,40 @@ const QnAListPage = (qna) => {
   }, [setQnaList]);
 
   const handleQna = () => {
-    navigate('/qna/writer');
+    if(!userId){
+      Toast.fire({
+        icon: 'info',
+        title: '로그인을 하세요.',
+        timer: 2000,
+        timerProgressBar : false
+    })
+      navigate('/login');
+    } else {
+      navigate('/qna/writer');
+    }
   }
+
+  const isMyPost = (USER_ID) => {
+    return userId === USER_ID;
+  };
+
+      
 
   const getAuth = (listItem) => {
     console.log(listItem);
-    console.log(listItem.qna_secret)
-    if(listItem.USER_ID === listItem.USER_ID){
-      navigate(`/qna/detail?QNA_NO=${listItem.QNA_NO}`)
+
+    if(userId === listItem.USER_ID){
+      navigate(`/qna/detail?QNA_NO=${listItem.QNA_NO}`);
     } else {
-      console.log("권한이 없습니다.")
+      console.log(listItem.USER_ID)
+      Toast.fire({
+        icon: 'error',
+        title: '읽기 권한이 없습니다.',
+        timer: 2000,
+        timerProgressBar : false
+    })
     }
+    
   }
 
   const listHeaders = ["글번호","분류","제목", "등록일"];
@@ -52,9 +95,10 @@ const QnAListPage = (qna) => {
 
   const listHeadersElements = listHeaders.map((listHeader, index) => 
   listHeader==='제목'?
-    <th key={index} style={{width:HeaderWd[index], paddingLeft:"40px"}}>{listHeader}</th>
+    <th key={index} style={{width:HeaderWd[index], paddingLeft:"40px", textAlign: 'center'}}>{listHeader}</th>
     :
     <th key={index} style={{width:HeaderWd[index],textAlign: 'center'}}>{listHeader}</th>
+
   )
   const listItemsElements = qnalist.map((listItem, index) => {
     console.log(listItem);
@@ -68,7 +112,10 @@ const QnAListPage = (qna) => {
             </td>
             <td style={{ width: HeaderWd[0], fontSize: '15px', textAlign: 'center' }}>
               {listItem.QNA_TITLE}
-            {listItem.comment?<span style={{fontWeight:"bold"}}>&nbsp;&nbsp;[답변완료]</span>:<span>&nbsp;&nbsp;[미답변]</span>}
+              {isMyPost(listItem.USER_ID) && (
+                <span style={{fontWeight:"bold", color:"red"}}>&nbsp;&nbsp;[본인글]</span>
+              )}
+              {listItem.comment?<span>&nbsp;&nbsp;[답변완료]</span>:<span>&nbsp;&nbsp;[미답변]</span>}
             </td>
             <td style={{ width: HeaderWd[0], fontSize: '15px', textAlign: 'center' }}>
               {listItem.QNA_DATE}
@@ -84,19 +131,19 @@ const QnAListPage = (qna) => {
         <HeaderNav2></HeaderNav2>
       <ContainerDiv>
         <HeaderDiv>
-          <h3 style={{marginLeft:"10px"}}>QnA 게시판</h3>
+          <h3 style={{marginLeft:"10px", marginTop : '25px'}}>QnA 게시판</h3>
         </HeaderDiv>
-        <div>
-          <BButton style={{ marginLeft: 'auto' }} onClick={handleQna}>작성하기</BButton>
+        <div style={{ marginLeft: 'auto' , display : "flex", marginRight : '150px'}}>
+          <BButton  onClick={handleQna}>작성하기</BButton>
         </div>
         <FormDiv>
           <div>
-            <div style={{display:"flex", justifyContent:"space-between", height:"40px"}}>
+ 
               {
                 sessionStorage.getItem('auth')==='teacher'&&
                 <BButton style={{width:"80px", height:"38px"}} onClick={()=>{navigate(`/qna/write`)}}>글쓰기</BButton>
               }
-            </div>
+          
             <Table responsive hover style={{minWidth:"800px"}}>
               <thead>
                 <tr>

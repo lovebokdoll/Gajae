@@ -213,7 +213,7 @@ const checkedRanks = (selectedRanks) => {
                     <PropertyCard key={index} row={row} style={{ marginRight: '10px', marginBottom: '10px' }} />
                   ))}
                   <div className="rounded-box">
-                    <ReactPaginate
+                  <ReactPaginate
                       pageCount={Math.ceil(property.length / propertiesPerPage)}
                       marginPagesDisplayed={2}
                       pageRangeDisplayed={5}

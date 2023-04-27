@@ -71,7 +71,7 @@ const App = () => {
         <Route path="/notice" element={<NoticeListPage />} />
         <Route path="/qnalist" element={<QnAListPage />} />
         <Route path="/qna/writer/*" element={<QnAWritePage />} />
-        <Route path="/qna/detail/*'" element={<QnADetailPage />} />
+        <Route path="/qna/detail/*" element={<QnADetailPage />} />
         <Route path="/hotel" element={<HotelPage />} />
         <Route path="/review/write" element={<ReviewWritePage />} />
         <Route path="/auth/kakao/callback" exact={true} element={<KakaoRedirectHandler />} />

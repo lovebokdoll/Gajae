@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,16 +34,31 @@ public class QnAController {
 	    }
 	    
 	    @PostMapping("qnaInsert")
-		public String qnaInsert(@RequestParam Map<String, Object> pMap) { // 리액트에서 body에 {}객체리터럴로
+	    public String qnaInsert(@RequestBody Map<String, Object> pMap) {
+	        log.info("qnaInsert === " + pMap);
+	        if (pMap.get("USER_ID") != null) {
+	            String userId = (String) pMap.get("USER_ID");
+	            pMap.put("USER_ID", userId);
+	        }
+	        int result = qnaLogic.qnaInsert(pMap);
+	        return String.valueOf(result);
+	    }
 
-			log.info("qnaInsert === " + pMap);
-			if (pMap.get("USER_ID") != null) {
-				int USER_ID = Integer.parseInt(pMap.get("USER_ID").toString());
-				pMap.put("USER_ID", USER_ID);
-			}
-			// LogManager로 하면 toString을 하지 않아도 됨
-			int result = 0;
-			result = qnaLogic.qnaInsert(pMap);
-			return String.valueOf(result);
+	    
+	    @PostMapping("qnaDetail")
+		public String qnaDetail(@RequestBody Map<String, Object> pMap) {
+			List<Map<String, Object>> bList = null;
+			bList = qnaLogic.qnaDetail(pMap);
+			Gson g = new Gson();
+			String temp = g.toJson(bList);
+			return temp;
 		}
+	    
+	    @PostMapping("qnaDelete")
+	    public int qnaDelete(@RequestBody Map<String, Object> pMap) {
+	        int result = qnaLogic.qnaDelete(pMap);
+	        return result;
+	    }
+
+
 }

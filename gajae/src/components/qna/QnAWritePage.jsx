@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import {
   ContainerDiv,
   Custom_btn,
@@ -11,9 +11,8 @@ import Footer from "../../components/footer/Footer";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import ImageUpload from "../../components/review/ImageUpload";
 import { qnaInsertDB } from "../../service/database";
+import MyFilter from "./MyFilter";
 
 /**
  *
@@ -22,21 +21,31 @@ import { qnaInsertDB } from "../../service/database";
 const QnAWritePage = () => {
   const navigate = useNavigate();
   const [title, setTitle] = useState(""); //사용자가 입력한 제목 담기
-  const [qnacontent, setQnaContent] = useState(""); //사용자가 입력한 내용 담기
-  const [imageUrl, setImageUrl] = useState("");
+  const [content, setContent] = useState(""); //사용자가 입력한 내용 담기
+  const [titleType, setTitleType] = useState("");
 
-  const handleTitle = (value) => {
-    setTitle(value);
+  const[types]= useState(['문의','결제','취소','예약']); //qna_type의 라벨값
+
+  const handleTitle = useCallback((e) => {
+    setTitle(e);
+  },[]);
+
+  const handleType =useCallback((e) => {
+    setTitleType(e);
+  },[]);
+
+  const handleContent = (value) => {
+    setContent(value);
   };
 
-  const getImage = (imageUrl) => {
-    setImageUrl(imageUrl);
-    console.log(imageUrl);
-  };
+  const userId = localStorage.getItem("userId");
 
   const qnaInsert = async () => {
     const qna = {
-
+      USER_ID: userId, // 로그인한 사용자의 ID
+      QNA_TITLE: title, // 작성한 글의 제목
+      QNA_CONTENT: content, // 작성한 글의 내용
+      QNA_TYPE: titleType, // 작성한 글의 유형
     };
     const res = await qnaInsertDB(qna);
     console.log(res.data);
@@ -44,6 +53,8 @@ const QnAWritePage = () => {
   };
 
 
+
+  
   return (
     <>
       <HeaderNav1 />
@@ -51,7 +62,8 @@ const QnAWritePage = () => {
               <Title style={{marginTop : '40px'}}>QnA</Title>
           <Hr />
         <FormDiv>
-          <div style={{ width: "100%", maxWidth: "2000px" }}>
+          <div style={{ width: "100%"}}>
+              <MyFilter title={titleType} types={types} handleType={handleType}></MyFilter>
             <div
               style={{
                 display: "flex",
@@ -99,7 +111,7 @@ const QnAWritePage = () => {
                 marginBottom: "3px",
               }}
               onChange={(e) => {
-                handleTitle(e.target.value);
+                handleContent(e.target.value);
               }}
             />
             <div

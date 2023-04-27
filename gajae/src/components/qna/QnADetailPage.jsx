@@ -1,79 +1,76 @@
 import React from 'react'
 import { useEffect } from 'react';
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { ContainerDiv, FormDiv, HeaderDiv, QnACommentArea } from '../../style/FormStyle';
-import { Button } from 'react-bootstrap';
+import { BButton, ContainerDiv, FormDiv, HeaderDiv, QnACommentArea } from '../../style/FormStyle';
 import HeaderNav1 from '../header/HeaderNav1';
 import Footer from '../footer/Footer';
-import { qnaDetailDB } from '../../service/database';
+import { qnaDeleteDB, qnaDetailDB } from '../../service/database';
+import Swal from 'sweetalert2';
 
 const QnADetailPage = () => {
   const search = window.location.search;
   console.log(search);
-  const page = search.split('&').filter((item)=>{return item.match('page')})[0]?.split('=')[1];
-  console.log(page);
   const QNA_NO = search.split('&').filter((item)=>{return item.match('QNA_NO')})[0]?.split('=')[1];
   console.log(QNA_NO);
   const [detail, setDetail] = useState({});
-  const[files, setFiles]= useState([]);
-  const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  
-  const commentInsert = () => {
-
-  }
-  const commentUpdate = () => {
-
-  }
-  
-  useEffect(() => {
-    const boardDetail = async() => {
-      const qna = {
-        QNA_NO : QNA_NO
-      }
-      
-      //상세보기 페이지에서는 첨부파일이 있는 경우에 fileList 호출해야함
-      //qnaListDB에서는 qna_bno를 결정지을 수 없음
-      const res = await qnaDetailDB(qna);
-      console.log(res.data); //빈배열만 출력됨
-      const temp = JSON.stringify(res.data)
-      const jsonDoc = JSON.parse(temp)
-      console.log(jsonDoc[0]) //qna - 1row
-      console.log(jsonDoc[1]) //1.png
-
-      console.log(jsonDoc[0].QNA_TITLE);
-      console.log(JSON.parse(jsonDoc[0].QNA_SECRET));
-      if(JSON.parse(jsonDoc[0].QNA_SECRET)){
-        if(sessionStorage.getItem('auth')!=='3'&&sessionStorage.getItem('no')!==JSON.stringify(jsonDoc[0].MEM_NO)) {
-          //navigate(`/qna/list?page=1`);
-          //return dispatch(setToastMsg("권한이 없습니다.")); 
-        }
-      }
-      //이미지 파일을 담을 배열 선언
-      const list = []
-      if(jsonDoc.length > 1){
-        for(let i = 1; i < jsonDoc.length; i++){ // 1번째 방부터 이미지가 들어있음
-          const obj = {
-            FILE_NAME : jsonDoc[i].FILE_NAME
-          }
-          list.push(obj)
-        }
-      }
-      setFiles(list)
-
-      setDetail({
-        QNA_TITLE : jsonDoc[0].QNA_TITLE,
-        QNA_CONTENT : jsonDoc[0].QNA_CONTENT,
-        USER_ID : jsonDoc[0].USER_ID,
-        QNA_DATE : jsonDoc[0].QNA_DATE,
-        QNA_TYPE : jsonDoc[0].QNA_TYPE,
-      });
+  const boardDelete = async() => {
+    const qna = {
+      QNA_NO: QNA_NO,
     }
-    boardDetail();
-  },[setDetail, setFiles , QNA_NO, dispatch, navigate])
+    console.log("========> " + QNA_NO)
+  
+    // 삭제 여부 물어보는 다이얼로그
+    const result = await Swal.fire({
+      title: '삭제하시겠습니까?',
+      text: '삭제하시면 복구할 수 없습니다.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: '삭제',
+      cancelButtonText: '취소'
+    });
+  
+    // 사용자가 '삭제' 버튼을 눌렀을 경우
+    if (result.isConfirmed) {
+      const res = await qnaDeleteDB(qna);
+      navigate("/qnalist");
+    }
+  }
+  const qnaList = () => {
+    navigate('/qnalist')
+  }
+  
+// user_id 가져오기
+const userId = localStorage.getItem("userId");
+console.log(userId)
+
+useEffect(() => {
+  const boardDetail = async () => {
+    const qna = {
+      QNA_NO: QNA_NO,
+    };
+    console.log(QNA_NO)
+    const res = await qnaDetailDB(qna);
+    console.log(res.data); 
+    if (res.data.length > 0) {
+      const temp = JSON.stringify(res.data);
+      const jsonDoc = JSON.parse(temp);
+      // 글 작성자의 user_id와 세션에 저장된 user_id를 비교하여 같은 경우에만 상세보기 가능
+      if (jsonDoc[0].USER_ID === userId) {
+          setDetail({
+            QNA_NO: jsonDoc[0].QNA_NO,
+            QNA_TITLE: jsonDoc[0].QNA_TITLE,
+            QNA_CONTENT: jsonDoc[0].QNA_CONTENT,
+            QNA_DATE: jsonDoc[0].QNA_DATE,
+            QNA_TYPE: jsonDoc[0].QNA_TYPE,
+          });
+      }
+    }
+  };
+  boardDetail();
+}, [QNA_NO, setDetail, userId, navigate]);
 
   
   return (
@@ -81,21 +78,28 @@ const QnADetailPage = () => {
       <HeaderNav1 />
       <ContainerDiv>
         <HeaderDiv>
-          <h3 style={{marginLeft:"10px"}}>QnA 게시글</h3>
+          <h3 style={{marginLeft:"10px", marginTop : '20px'}}>QnA 게시글</h3>
         </HeaderDiv>
         <FormDiv>
-
+        <div style={{display: 'flex', justifyContent: 'flex-end'}}>
+              <BButton style={{margin:'0px 10px 0px 10px'}} onClick={()=>{navigate(`/qna/update/${QNA_NO}`)}}>
+                수정
+              </BButton>
+              <BButton style={{margin:'0px 10px 0px 10px'}} onClick={()=>{boardDelete()}}>
+                삭제
+              </BButton>
+              <BButton style={{margin:'0px 10px 0px 10px'}} onClick={qnaList}>
+                목록
+              </BButton>
+            </div>
+            <hr style={{height:"2px"}}/>
+        <section style={{minHeight: '400px'}}>
+            <h3> 제목 : {detail.QNA_TITLE}</h3>
+            <br />
+            <div dangerouslySetInnerHTML={{__html:detail.QNA_CONTENT}}></div>
+          </section>
           <hr style={{height:"2px"}}/>
           <div>
-            <div style={{display:"flex", justifyContent: "space-between", marginBottom: "10px" }}>
-                <h2>답변 대기중&nbsp;</h2>
-              <div style={{display:"flex"}}>
-                <Button onClick={commentInsert}>답변</Button>
-                &nbsp;
-                <Button onClick={commentUpdate}>수정</Button>
-              </div>
-            </div>
-              <QnACommentArea />
           </div>
         </FormDiv>
       </ContainerDiv>

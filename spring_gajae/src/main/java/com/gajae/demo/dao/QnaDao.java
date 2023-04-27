@@ -16,7 +16,6 @@ public class QnaDao {
 	private SqlSessionTemplate sqlSessionTemplate;
 
 	public List<Map<String, Object>> qnalist(Map<String, Object> pMap) {
-		log.info("pMap = {}", pMap);
 		List<Map<String, Object>> qList = sqlSessionTemplate.selectList("qnalist", pMap);
 		return qList;
 	}
@@ -33,5 +32,17 @@ public class QnaDao {
 		log.info("result : " + result);
 		log.info("useGeneretedKeys 프로퍼티 속성값 : " + QNA_NO);
 		return QNA_NO;
+	}
+
+	public List<Map<String, Object>> qnaDetail(Map<String, Object> pMap) {
+		List<Map<String, Object>> qList = null;
+		qList = sqlSessionTemplate.selectList("qnaDetail", pMap);
+		return qList;
+	} 
+	
+	public int qnaDelete(Map<String, Object> pMap) {
+		int result = 0;
+		result = sqlSessionTemplate.delete("qnaDelete", pMap);
+		return result;
 	}
 }
