@@ -171,14 +171,6 @@ public class HostController {
 		return result;
 	}
 	
-//시설 P_ID불러오기
-	@GetMapping("facPidExist")
-	public Map<String, Object> facPidExist(@RequestParam Map<String, Object> map) {
-		Map<String, Object> result = null;
-		result = hostLogic.facPidExist(map);
-		return result;
-	}
-	
 	 @GetMapping( "hotelDelete" )
 	    public String hotelDelete( @RequestParam Map<String, Object> pMap ) {
 	        log.info( "pMap = {}", pMap );

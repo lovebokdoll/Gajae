@@ -91,7 +91,7 @@ const RegisterHotel = () => {
       setTimeout(() => {
         setTempid(propertyres.data);
         console.log(`tempid: ${propertyres.data}`);
-        navigate(`/host/registerRoom?p_id=${propertyres.data}`);
+      //  navigate(`/host/registerRoom?p_id=${propertyres.data}`);
       }, 1500);
     }
   };

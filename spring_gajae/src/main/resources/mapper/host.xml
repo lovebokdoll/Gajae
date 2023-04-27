@@ -2,21 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="host">
 
-	<!-- 달력생성 -->
-	<insert id="vacancyCreate">
-		INSERT INTO P_VACANCY_${P_ID} (P_ID, ROOM_ID, RES_DATE, RES_YN)
-		SELECT
-		#{P_ID}, ROOM_ID, TO_CHAR(LEVEL - 1 + DATE '2023-04-24',
-		'YYYY-MM-DD'), 'N'
-		FROM (
-		<foreach item="item" index="index" collection="roomIds"
-			separator="UNION ALL">
-			SELECT #{item} AS ROOM_ID FROM DUAL
-		</foreach>
-		) ROOMS
-		CONNECT BY LEVEL <![CDATA[ <= ]]>
-		(DATE '2023-07-30' - DATE '2023-04-24' + 1)
-	</insert>
+	
 
 	<!-- 중복확인 -->
 	<select id="overlapCheck" parameterType="map" resultType="map">
@@ -299,7 +285,8 @@
 		P_SCALE ,
 		P_CHECKIN ,
 		P_CHECKOUT ,
-		P_REFUND ,
+		P_REFUND
+		,
 		pf.FAC_ROOM ,
 		P_CHANGE_DATE
 		FROM PROPERTIES p
