@@ -74,7 +74,7 @@ const PropertyCard = ({ row }) => {
             <span className="siPrice">{Number(row.ROOM_PRICE).toLocaleString() + '원'}</span>
             <span className="siTaxes ">세금 및 수수료 포함</span>
             <button className="siCheckButton" onClick={handleHotel}>
-              예약하기
+              예    약    하    기
             </button>
           </div>
         </div>

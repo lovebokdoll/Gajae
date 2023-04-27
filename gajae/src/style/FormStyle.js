@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const LoginForm = styled.form`
   display: flex;
@@ -35,7 +35,7 @@ export const MyH1 = styled.h1`
 
 /* 3번의 하위태그에 대한 설정 */
 export const MyP = styled.p`
-  font-size: 13px;
+  font-size: 16px;
   text-align: center;
 `;
 
@@ -44,6 +44,7 @@ export const PwEye = styled.i`
   margin-left: 240px;
   margin-top: -25px;
   cursor: pointer;
+  align-items: center;
   &:hover {
     color: #808080;
   }
@@ -55,6 +56,7 @@ export const MyLabel = styled.label`
   color: #414149;
   display: block;
   margin-bottom: 40px;
+  width: 350;
 `;
 
 export const MyLabelAb = styled(MyLabel)`
@@ -64,9 +66,9 @@ export const MyLabelAb = styled(MyLabel)`
 `;
 
 export const MyInput = styled.input`
-  width: 275px;
+  width: 300px;
   display: block;
-  height: 32px;
+  height: 50px;
   border: none;
   border-bottom: 1px solid #dddddd;
   font-size: 15px;
@@ -82,19 +84,19 @@ export const MyInput = styled.input`
   &::placeholder {
     color: lightgray;
     font-size: 13px;
+    text-align: center;
   }
 `;
 
 export const SubmitButton = styled.button`
-  width: 250px;
-  height: 40px;
+  width: 300px;
+  height: 50px;
   font-size: 16px;
   font-weight: bold;
   border-radius: 24px;
   margin-bottom: 20px;
   border: 1.5px solid rgb(105, 175, 245);
   color: white;
-  background-color: ${(props) => props.bgColor};
   cursor: pointer;
 `;
 
@@ -163,7 +165,7 @@ export const DividerSpan = styled.span`
   margin-top: 5px;
   padding: 0 10px;
   color: #4b4b4b;
-  background-color: white;
+  background-color: none;
 `;
 
 export const BButton = styled.button`
@@ -182,7 +184,7 @@ export const BButton = styled.button`
 export const ContainerDiv = styled.div`
   display: flex;
   flex-direction: column;
-  font-family: 'KOTRA_GOTHIC';
+  font-family: "KOTRA_GOTHIC";
   width: 100%;
   margin-bottom: 50px;
   align-items: center;
@@ -296,7 +298,7 @@ export const Hr = styled.hr`
 export const Title = styled.h1`
   font-size: 40px;
   font-weight: bold;
-  marginleft: '10px';
+  marginleft: "10px";
 `;
 
 export const WholeForm = styled.div`

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
@@ -40,25 +40,39 @@ const MainAdvertisement = () => {
 
   const sliderSettings = {
     infinite: true,
-    slidesToShow: 3,
+    slidesToShow: 1,
     slidesToScroll: 1,
     autoplay: true,
     autoplaySpeed: 2000,
-    pauseOnHover: true, // 슬라이더 mousehover 시 멈추도록 설정
+    pauseOnHover: true,
+  };
+
+  const sliderRef = useRef(null);
+
+  const handleNextClick = () => {
+    sliderRef.current.slickNext();
+  };
+
+  const handlePrevClick = () => {
+    sliderRef.current.slickPrev();
   };
 
   return (
     <div className="featured-Container">
-      <Slider {...sliderSettings}>
-        {featuredItems.map((item, index) => (
-          <div className="featuredItem" key={index}>
-            <img src={item.imageSrc} alt="" className="featuredImg" />
-            <div className="featuredTitles">
-              <h1>{item.title}</h1>
+      <div className="featured">
+        <Slider ref={sliderRef} {...sliderSettings}>
+          {featuredItems.map((item, index) => (
+            <div className="featuredItem" key={index}>
+              <img src={item.imageSrc} alt="" className="featuredImg" />
+              <div className="featuredTitles">
+                <h1>{item.title}</h1>
+              </div>
             </div>
-          </div>
-        ))}
-      </Slider>
+          ))}
+        </Slider>
+      </div>
+      <button onClick={handlePrevClick}>Prev</button>
+      <button onClick={handleNextClick}>Next</button>
     </div>
   );
 };

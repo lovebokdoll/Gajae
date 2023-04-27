@@ -1,0 +1,13 @@
+.containerBig {
+  width: 1900px;
+  height: 800px;
+  background-image: url("../../../public/images/몽롱한사진.jpg");
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.image-container {
+  background-image: url("../../../public/images/LoginLogo.png");
+}
