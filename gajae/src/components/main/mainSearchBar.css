@@ -7,6 +7,12 @@
   width: 1800;
 }
 
+.date {
+  top: 50px;
+  z-index: 2;
+  right: 35%;
+}
+
 .headerContainer {
   margin: 20px 0px 100px 0px;
 }
@@ -211,6 +217,10 @@
   padding: 10px;
   border-radius: 5px;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+#leftbox {
+  left: 20%;
 }
 
 @keyframes shake {

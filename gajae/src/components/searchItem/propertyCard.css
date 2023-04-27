@@ -3,7 +3,7 @@
   width: 832px;
   padding: 10px;
   border-radius: 5px;
-  width: 1002.8px;
+  width: 1100.8px;
   display: flex;
   justify-content: space-between;
   gap: 20px;
@@ -46,7 +46,7 @@
 
 .siTaxiOp {
   font-size: 12px;
-  background-color: #7fa064;
+  background-color: #fafe8d;
   color: white;
   width: max-content;
   padding: 3px;
@@ -113,7 +113,7 @@
 }
 
 .siCheckButton {
-  background-color: #000000;
+  background-color: #003580;
   color: white;
   font-weight: bold;
   padding: 10px 5px;

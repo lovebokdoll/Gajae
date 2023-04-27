@@ -113,7 +113,6 @@ hotel_title hotel_address
 .table-wrapper-item3 {
   flex-basis: 20%;
   padding: 10px;
-
   box-sizing: border-box;
 }
 /*모달창 디자인*/
@@ -147,8 +146,10 @@ hotel_title hotel_address
 }
 
 .headerSearch {
+  display: flex;
+  justify-content: center;
   width: 100%;
-  margin: 50px 10%;
+  margin: 0px 26%;
   position: relative;
   top: 3px;
   height: 60px;

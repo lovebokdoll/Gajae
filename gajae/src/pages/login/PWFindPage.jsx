@@ -9,6 +9,7 @@ import { setToastMessage } from '../../redux/toastStatus/action';
 import { findUserPW } from '../../service/user/user';
 import { DividerDiv, DividerHr, DividerSpan } from '../../style/FormStyle';
 import { CenteredContainer, FindLink } from './styled-login';
+import { MGDIV } from './styled-loginpage';
 
 const PWFindPage = () => {
   const dispatch = useDispatch();
@@ -49,16 +50,22 @@ const PWFindPage = () => {
     <>
       <HeaderNav1 />
       <HeaderNav2 />
+         <div className="containerBig" style={{width:'1900px',height:'800px', backgroundSize: 'cover', display:'flex', justifyContent: 'center', alignItems: 'center'}}>
+  <div className="containerSmall" style={{ marginTop:'40px',marginBottom:'40px',width:'650px', height:'650px',  borderRadius:'20px', backgroundColor:'rgba(255,255,255,0.5)', position: 'relative' }}>
+  <div className='image-cover'>
+  <div className='image-container' style={{ backgroundImage: "url('/images/LoginLogo.png')" }} />
+</div>
       <FormContainer>
         <Form onSubmit={handleSubmit}>
           <FormGroup>
             <InputLabel htmlFor="id">아이디</InputLabel>
-            <Input type="text" id="id" value={id} onChange={(e) => setId(e.target.value)} />
+            <Input type="text" id="id" value={id} onChange={(e) => setId(e.target.value)} style={{width:'300px'}}/>
           </FormGroup>
           <FormGroup>
             <InputLabel htmlFor="mobile">핸드폰번호</InputLabel>
             <Input type="text" id="mobile" value={mobile} onChange={(e) => setMobile(e.target.value)} />
           </FormGroup>
+          <MGDIV></MGDIV>
           <ButtonContainer>
             <Button type="submit">비밀번호 찾기</Button>{' '}
           </ButtonContainer>
@@ -66,7 +73,7 @@ const PWFindPage = () => {
         </Form>
       </FormContainer>
       <DividerDiv>
-        <DividerHr />
+        
         <DividerSpan>
           <CenteredContainer>
             <p>
@@ -77,9 +84,7 @@ const PWFindPage = () => {
           </CenteredContainer>
         </DividerSpan>
       </DividerDiv>
-      <FooterContainer>
-        <Footer />
-      </FooterContainer>
+      </div></div>
     </>
   );
 };
@@ -113,7 +118,7 @@ const Input = styled.input`
 `;
 
 const Button = styled.button`
-  background-color: #0070f3;
+  background-color: #003580;
   color: white;
   padding: 0.5rem 1rem;
   border-radius: 0.25rem;
@@ -121,7 +126,7 @@ const Button = styled.button`
   cursor: pointer;
   font-size: 1.2rem;
   &:hover {
-    background-color: violet;
+    background-color: skyblue;
   }
 `;
 

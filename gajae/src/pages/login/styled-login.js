@@ -1,9 +1,9 @@
-import styled from 'styled-components';
-import { Link } from 'react-router-dom';
-import { FormGroup } from 'react-bootstrap';
+import styled from "styled-components";
+import { Link } from "react-router-dom";
+import { FormGroup } from "react-bootstrap";
 
 export const FindLink = styled(Link)`
-  color: violet; /* color 조정 */
+  color: blue; /* color 조정 */
   font-size: 1.1rem; /* font size 조정 */
 `;
 
@@ -37,14 +37,12 @@ export const CodeFormContainer = styled.div`
   justify-content: center;
   align-items: center;
   height: 450px;
-
   form {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
   }
-
   label {
     margin-bottom: 10px;
   }

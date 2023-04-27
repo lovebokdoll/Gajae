@@ -136,7 +136,7 @@ const HotelAvailabilityRow = ({ row }) => {
   return (
     <>
       {/* 룸타입별 내용 */}
-      <div className="table-wrapper">
+      <div className="table-wrapper" style={{width:'1200px'}}>
         <div className="table-wrapper-item1">
           <table className="table caption-top table-hover ">
             <thead className="table-primary">
@@ -242,22 +242,25 @@ const HotelAvailabilityRow = ({ row }) => {
           </Modal.Footer>
         </Modal>
         {/* 예약버튼 */}
-        <div className="table-wrapper-item3">
-          <Charge_title style={{ fontSize: 20 }}>객실유형 및 요금</Charge_title>
-          <br />
+        <div className="table-wrapper-item3" style={{width:'300px'}}>
+          <Charge_title style={{ textAlign:'left',fontSize: 15 }}>객실 유형 및 요금</Charge_title>
+          
           <TotalPrice>
             {Object.keys(selectRoom).map((key) => (
-              <div key={key}>
-                선택한 룸타입 : {key} {selectRoom[key]}개
+              <div key={key} style={{textAlign:'left' ,width:150}}>
+                선택한 룸타입 : <br/>
+                {key} {selectRoom[key]}개
               </div>
             ))}
-            {totalPrice}원<br />
+            <div style={{textAlign:'left',fontWeight:'bold'}}> {totalPrice}원 </div> <br />
           </TotalPrice>
+          <div className="ReservateButton">
           <Button variant="outline-info" onClick={onReservation}>
-            지금바로 예약하세요!
+            지금 바로 <br/>
+            예약하세요!
           </Button>
-          <div>단 2분이면 예약 완료!</div>
-          <div>예약수수료, 신용카드 수수료 없음!</div>
+          </div>
+       
         </div>
       </div>
     </>

@@ -127,7 +127,7 @@ const MainSearchBar = ({ type }) => {
               새로운 모험, 새로운 경험, 그리고 새로운 나를 만나다
             </h4>
             <br />
-            <div className="headerSearch">
+            <div className="headerSearch" style={{right:248}}>
               <div className="headerSearchText">
                 <form onSubmit={handleSearch}>
                   <FontAwesomeIcon icon={faSuitcaseRolling} style={{ marginRight: '10px' }} className="headerIcon" />
@@ -168,7 +168,7 @@ const MainSearchBar = ({ type }) => {
                 <FontAwesomeIcon icon={faPerson} style={{ marginRight: '10px' }} className="headerIcon" />
                 <span onClick={() => setOpenOptions(!openOptions)} className="headerSearchText">{`${room_capacity.adult} adult`}</span>
                 {openOptions && (
-                  <div className="options">
+                  <div className="options" style={{left:'65%'}}>
                     <div className="optionItem">
                       <span className="optionText">Adult</span>
                       <div className="optionCounter">

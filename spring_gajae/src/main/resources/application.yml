@@ -32,19 +32,25 @@ spring:
     multipart:
       enabled: true
   mail:
-   host: smtp.naver.com
-   port: 465
-   username: dltmfekgml@naver.com
-   password: 
-   protocol: smtps
-   properties:
-     mail:
-       smtp:
-         auth: true
-         starttls:
-           enable: true
-           required: true
-         ssl:
-           trust: smtp.naver.com
+    host: smtp.naver.com
+    port: 465
+    username: dltmfekgml@naver.com
+    password:
+    protocol: smtps
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
+          ssl:
+            trust: smtp.naver.com
 mybatis:
   mapper-locations: classpath:mapper/**.xml
+
+ncloud:
+  accessKey: <Y2HiJdfjSZAM5LiKB6YL>
+  secretKey: <GmJyb89xy2yCljmIVmxLJzG1K3h7Qj6edvuGTHwb>
+  serviceId: <ncp:sms:kr:306888428585:travelgajaesms>
+  fromPhoneNumber: <010-8932-3894>

@@ -139,9 +139,15 @@ const LoginPage = () => {
     <>
       <HeaderNav1 />
       <HeaderNav2 />
+        
+      <div className="big-container" style={{width:'1900px',height:'800px',backgroundImage: 'url(./images/몽롱한사진.jpg)', backgroundSize: 'cover', display:'flex', justifyContent: 'center', alignItems: 'center'}}>
+  <div className="login-container" style={{ marginTop:'40px',marginBottom:'40px',width:'750px', height:'750px',  borderRadius:'20px', backgroundColor:'rgba(255,255,255,0.5)', position: 'relative' }}>
+    <div className='Login-logo' style={{position: 'absolute', left: '50%', transform: 'translateX(-50%)'}}>
+      <img src="./images/LoginLogo.png" alt="" style={{ width: '100%', height: '100%' }} />
+    </div>
       <SignInForm>
-        <LoginImage src="/images/login/login.gif" />
-        <MGDIV></MGDIV>
+    <MGDIV></MGDIV>
+    <MGDIV></MGDIV>
         <MyLabel htmlFor="email">
           {' '}
           아이디
@@ -163,7 +169,7 @@ const LoginPage = () => {
             onClick={(e) => {
               passwordView(e);
             }}
-            style={{ color: `${passwordType.visible ? 'gray' : 'lightgray'}` }}
+            style={{ color: `${passwordType.visible ? "gray" : "lightgray"}`,transform: "translateY(-8px)" }}
           >
             <PwEye className="fa fa-eye fa-lg"></PwEye>
           </div>
@@ -180,12 +186,12 @@ const LoginPage = () => {
             window.localStorage.removeItem('hostCompanyName');
             window.localStorage.removeItem('hostBusinessNum');
           }}
-        >
-          로그인
+          >
+          로    그    인
         </SubmitButton>
       </SignInForm>{' '}
       <DividerDiv>
-        <DividerHr />
+        
         <DividerSpan>또는 다음 중 하나로 계속</DividerSpan>
       </DividerDiv>
       <AuthContainer>
@@ -200,7 +206,7 @@ const LoginPage = () => {
               border: 'none',
               backgroundColor: 'transparent',
             }}
-          >
+            >
             <Image src="/images/login/구글로그인.png" />
           </button>
           <a href="#" style={{ marginRight: '15px' }} onClick={kakaoLogin}>
@@ -209,26 +215,40 @@ const LoginPage = () => {
         </div>
         <MyP style={{ marginTop: '20px' }}>
           신규 사용자이신가요?&nbsp;
-          <Link to="/signup" className="text-decoration-none" style={{ color: 'blue' }}>
+          <Link
+            to="/signup"
+            className="text-decoration-none"
+            style={{ color: "blue",fontWeight:'bold' }}
+            >
             계정 만들기
           </Link>
         </MyP>
         <MyP>
           아이디를 잊으셨나요?&nbsp;
-          <Link to="/login/findid" className="text-decoration-none" style={{ color: 'blue' }}>
+          <Link
+            to="/login/findid"
+            className="text-decoration-none"
+            style={{ color: "blue" ,fontWeight:'bold'}}
+          >
             아이디 찾기
           </Link>
         </MyP>
         <MyP>
           비밀번호를 잊으셨나요?&nbsp;
-          <Link to="/login/findpw" className="text-decoration-none" style={{ color: 'blue' }}>
+          <Link
+            to="/login/findpw"
+            className="text-decoration-none"
+            style={{ color: "blue" ,fontWeight:'bold' }}
+            >
             비밀번호 찾기
           </Link>
         </MyP>
       </AuthContainer>
       <DividerDiv2 />
-      <Footer />
-    </>
+            </div>{/* end of the login - container */}
+            </div>{/* end of the big - container */}
+<MGDIV></MGDIV>
+         </>
   );
 };
 
