@@ -12,6 +12,7 @@ import { MarginBottomDiv10, MarginBottomDiv15, MarginBottomDiv3, MarginBottomDiv
 import CountrySelector from '../../components/pay/CountrySelector';
 import { convertEndDate, convertStartDate, countNights, dayOfWeek } from '../../service/reservation/resInformation';
 import PaymentSide from '../../components/pay/PaymentSide';
+import { MGDIV } from '../login/styled-loginpage';
 const PaymentPage = () => {
   const [resNumber, setResNumber] = useState(Cookies.get('resNumber') || '');
   const [agreed, setAgreed] = useState(false);
@@ -79,11 +80,12 @@ const PaymentPage = () => {
       <HeaderNav1 />
       <HeaderNav2 />
       <br />
-      <div className="Container">
-        <Form style={{ display: 'flex', justifyContent: 'center', height: 300 }} onSubmit={handleSubmit}>
+      <div className="Container" >
+
+        <Form className='inner-outter1' style={{ display: 'flex', justifyContent: 'center', height: 700 }} onSubmit={handleSubmit}>
         <PaymentSide />
           <Card className="personal-info" style={{ width: '50rem', backgroundColor: 'rgb(214,230,245)' }}>
-            <div className="innner1" style={{ paddingLeft: '40px' }}>
+            <div className="innner1" style={{ paddingLeft: '40px'}}>
               <h3 x style={{ paddingTop: '10px' }}>
                 {' '}
                 개인정보 입력{' '}
@@ -121,17 +123,10 @@ const PaymentPage = () => {
                     backgroundColor: 'var(--bui_color_white)',
                   }}
                 />
-                <div></div>
+                <div>
                 <span style={{ fontSize: '0.8rem', color: '#333333' }}>숙박 시설에서 연락을 드릴 수 있습니다.</span>
-              </div>
-            </div>
-          </Card>
-        </Form>
-        <br />
-        <Form style={{ display: 'flex', justifyContent: 'center' }}>
-          <Card className="reservate-info" style={{ width: '50rem', backgroundColor: 'rgb(214,230,245)' }}>
-            <div className="innner2" style={{ paddingLeft: '40px' }}>
-              <h3>예약 내역 확인</h3>
+                </div>
+                <h3>예약 내역 확인</h3>
               <p>선택 호텔: {p_title}</p>
               <p>주소: {resAddress}</p>
               <p>선택 객실: {resRoomType}</p>
@@ -145,10 +140,14 @@ const PaymentPage = () => {
               <p>객실 수: {selectedRoomNumber}</p>
               <p>투숙 인원: 성인 {resPeople}명</p>
             </div>
+              </div>
+          
           </Card>
         </Form>
+      {/* end of inner-outter1 */}
         <br />
-        <Form style={{ display: 'flex', justifyContent: 'center', height: 95 }}>
+
+        <Form className='inner-outter3' style={{ display: 'flex', justifyContent: 'center', height: 95 }}>
           <Card className="agree-checkbox" style={{ width: '50rem', alignContent: 'center', backgroundColor: 'rgb(214,230,245)' }}>
             <h3 style={{ paddingLeft: '40px' }}>개인정보 동의</h3>
             <div className="innner3" style={{ paddingLeft: '40px' }}>
@@ -159,6 +158,8 @@ const PaymentPage = () => {
             </div>
           </Card>
         </Form>
+                {/* inner-outter3 */}
+
         <br />
         {agreed && (
           <div>
@@ -172,7 +173,9 @@ const PaymentPage = () => {
           </div>
         )}
       </div>
-      <br />
+      <MGDIV></MGDIV>
+      <MGDIV></MGDIV>
+
       <Footer />
     </>
   );

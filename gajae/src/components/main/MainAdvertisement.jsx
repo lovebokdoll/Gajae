@@ -1,8 +1,5 @@
-import React, { useRef } from 'react';
-import Slider from 'react-slick';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
-import './MainAdvertisement.css';
+import React from 'react';
+import Carousel from 'react-bootstrap/Carousel';
 
 const MainAdvertisement = () => {
   const featuredItems = [
@@ -18,12 +15,10 @@ const MainAdvertisement = () => {
       imageSrc: './images/제주숙소1.jpg',
       title: 'Jeju',
     },
-   
     {
       imageSrc: './images/부산.jpg',
       title: 'Busan',
     },
-  
     {
       imageSrc: './images/제주야경.jpg',
       title: 'Seoul',
@@ -38,41 +33,38 @@ const MainAdvertisement = () => {
     },
   ];
 
-  const sliderSettings = {
-    infinite: true,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    autoplay: true,
-    autoplaySpeed: 2000,
-    pauseOnHover: true,
-  };
-
-  const sliderRef = useRef(null);
-
-  const handleNextClick = () => {
-    sliderRef.current.slickNext();
-  };
-
-  const handlePrevClick = () => {
-    sliderRef.current.slickPrev();
+  const renderCarouselItems = () => {
+    return featuredItems.map((item, index) => (
+      <Carousel.Item key={index}>
+        <img
+          src={item.imageSrc}
+          alt=""
+          className="d-block mx-auto featuredImg"
+          style={{
+            maxWidth: '1000px',
+            maxHeight: '500px',
+            objectFit: 'cover',
+          }}
+        />
+        <Carousel.Caption>
+          <h1>{item.title}</h1>
+        </Carousel.Caption>
+      </Carousel.Item>
+    ));
   };
 
   return (
     <div className="featured-Container">
-      <div className="featured">
-        <Slider ref={sliderRef} {...sliderSettings}>
-          {featuredItems.map((item, index) => (
-            <div className="featuredItem" key={index}>
-              <img src={item.imageSrc} alt="" className="featuredImg" />
-              <div className="featuredTitles">
-                <h1>{item.title}</h1>
-              </div>
-            </div>
-          ))}
-        </Slider>
-      </div>
-      <button onClick={handlePrevClick}>Prev</button>
-      <button onClick={handleNextClick}>Next</button>
+      <Carousel
+        interval={2000}
+        pauseOnHover={true}
+        controls={{
+          iconPrev: <span className="carousel-control-prev-icon" />,
+          iconNext: <span className="carousel-control-next-icon" />,
+        }}
+      >
+        {renderCarouselItems()}
+      </Carousel>
     </div>
   );
 };
