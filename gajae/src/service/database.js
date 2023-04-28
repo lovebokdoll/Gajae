@@ -93,6 +93,7 @@ export const qnaDetailDB = (qna) => {
 };
 
 export const qnaUpdateDB = (qna) => {
+  console.log(qna)
   return new Promise((resolve, reject) => {
     try {
       const response = axios({

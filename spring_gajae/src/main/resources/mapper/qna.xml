@@ -42,6 +42,7 @@
 			QNA_TYPE=#{QNA_TYPE},
 		</if>
 			QNA_DATE=TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI:SS')
+			WHERE USER_ID=#{USER_ID}
 	</update>
 
 	<delete id="qnaDelete" parameterType="map">

@@ -25,7 +25,6 @@ public class QnAController {
 	    
 	    @PostMapping( "list" )
 	     public String qnalist( @RequestParam Map<String, Object> pMap ) {
-	    	log.info("pMap = {}", pMap);
 	    	List<Map<String, Object>> qList = null;
 			qList = qnaLogic.qnalist(pMap);
 			Gson g = new Gson();
@@ -56,6 +55,7 @@ public class QnAController {
 	    
 		@PostMapping("qnaUpdate")
 		private String qnaUpdate(@RequestBody Map<String, Object> pMap) {
+			 log.info("pMap = {}", pMap);
 			 int result = qnaLogic.qnaUpdate( pMap );
 		     return String.valueOf( result );
 		}

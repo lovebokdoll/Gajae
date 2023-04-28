@@ -34,10 +34,7 @@ console.log(userId)
       setTitle(jsonDoc[0].QNA_TITLE)
       setContent(jsonDoc[0].QNA_CONTENT)
       setTitleType(jsonDoc[0].QNA_TYPE)
-      //작성자가 아닌데 수정하면 안되지요
-      if(jsonDoc[0].USER_ID !== sessionStorage.getItem("userId")){
-        return console.log("권한 없음")
-      }
+
     }
     qnaDetail();
   },[QNA_NO]);

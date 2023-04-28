@@ -11,7 +11,7 @@ import lombok.extern.log4j.Log4j2;
 
 @Log4j2
 @Repository
-public class QnaDao {
+public class QnADao {
 	@Autowired
 	private SqlSessionTemplate sqlSessionTemplate;
 
@@ -47,6 +47,7 @@ public class QnaDao {
 	}
 
 	public int qnaUpdate(Map<String, Object> pMap) {
+		log.info("pMap = {}", pMap);
 		int result = 0;
 		result = sqlSessionTemplate.update("qnaUpdate", pMap);
 		return result;
