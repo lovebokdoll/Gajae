@@ -57,6 +57,14 @@ public class ResultDao {
 		
 		return bList;
 	}
+	
+	public List<Map<String, Object>> reviewwHigh(Map<String, Object> pMap, String orderBy) {
+		log.info("pMap = {}", pMap);
+		log.info("orderby = {}", orderBy);
+		List<Map<String, Object>> bList = sqlSessionTemplate.selectList("reviewwHigh", pMap);
+		
+		return bList;
+	}
 	public List<Map<String, Object>> markList() {
 		log.info("markList호출");
 		

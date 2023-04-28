@@ -24,7 +24,7 @@ const FilterSidebar = ({ checkedFilters = () => {} , checkedRanks = () => {}}) =
     { name: "4", value: false },
     { name: "5", value: false },
   ]);
- 
+
   const handleCheckboxChange = (event) => {
     const name = event.target.name;
     const checked = event.target.checked;
