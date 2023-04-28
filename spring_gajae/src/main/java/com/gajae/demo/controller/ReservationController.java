@@ -59,4 +59,18 @@ public class ReservationController {
         return String.valueOf( result );
     }
     
+    @GetMapping( "resNotification" )
+    public String resNotification( @RequestParam Map<String, Object> map ) {
+        
+        log.info( "map = {}", map );
+        
+        List<Map<String, Object>> notificationList = reservationLogic.resNotification( map );
+        
+        Gson   gson = new Gson();
+        String temp = gson.toJson( notificationList );
+        
+        log.info( "temp ={}", temp );
+        
+        return temp;
+    }
 }

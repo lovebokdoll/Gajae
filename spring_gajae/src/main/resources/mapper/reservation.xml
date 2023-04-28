@@ -62,6 +62,25 @@
 		ROOM_ID
 		FROM
 		GAJAE.RESERVATIONS
+		<where>
+			<if test='PAY_NUMBER!=null'>
+				AND PAY_NUMBER = #{PAY_NUMBER}
+			</if>
+		</where>
 	</select>
+
+	<select id="resNotification">
+		SELECT PAY.*, RES.*, PRO.*, RT.*
+		FROM PAYMENT PAY
+		INNER JOIN RESERVATIONS RES ON PAY.PAY_NUMBER = RES.PAY_NUMBER
+		INNER JOIN PROPERTIES PRO ON RES.P_ID = PRO.P_ID
+		INNER JOIN P_ROOMTYPE RT ON RES.ROOM_ID = RT.ROOM_ID
+		WHERE PAY.PAY_NUMBER = [PAY_NUMBER]
+		AND RES.R_NUMBER = [R_NUMBER]
+		AND PRO.P_ID = [P_ID]
+		AND RT.ROOM_ID = [ROOM_ID];
+
+	</select>
+
 
 </mapper>

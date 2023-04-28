@@ -5,7 +5,6 @@ import './App.css';
 import KakaoProfile from './api/kakao/KakaoProfile';
 import KakaoRedirectHandler from './api/kakao/KakaoRedirectHandler';
 import NaverPay from './api/naver/NaverPay';
-import ReservateComplete from './components/Reservate/ReservateComplete';
 import ReservationDetail from './components/Reservate/ReservationDetail';
 import HostEndPage from './components/host/HostEndPage';
 import HostLogin from './components/host/HostLogin';
@@ -19,6 +18,7 @@ import SignUpTest from './components/login/SignUpTest';
 import CurrencyModal from './components/modal/CurrencyModal';
 import NationModal from './components/modal/NationModal';
 import InicisPay from './components/pay/InicisPay';
+import NoticeListPage from './components/qna/NoticeListPage';
 import PropertyMap from './components/searchItem/PropertyMap';
 import Toast from './components/toast/Toast';
 import HostPage from './pages/host/HostPage';
@@ -36,11 +36,11 @@ import MyReviewPage from './pages/mypage/MyReviewPage';
 import MySettings from './pages/mypage/MySettings';
 import MyWishListPage from './pages/mypage/MyWishListPage';
 import Mypage from './pages/mypage/Mypage';
+import ReservationNotificationPage from './pages/notification/ReservationNotificationPage';
 import Paypage from './pages/pay/Paypage';
 import PropertyListPage from './pages/propertyList/PropertyListPage';
 import ReviewUpdate from './pages/reviewBoard/ReviewUpdate';
 import ReviewWritePage from './pages/reviewBoard/ReviewWritePage';
-import NoticeListPage from './components/qna/NoticeListPage';
 
 const App = () => {
   const toastStatus = useSelector((state) => state.toastStatus);
@@ -59,7 +59,7 @@ const App = () => {
         <Route path="/signup" exact={true} element={<SignUpTest />} />
         <Route path="/signup/succession" exact={true} element={<WelcomePage />} />
         <Route path="/login" element={<LoginPage />} />
-       
+
         <Route path="/login/activate" element={<UserActivatePage />} />
         <Route path="/login/findid" element={<IDFindPage />} />
         <Route path="/login/findpw" element={<PWFindPage />} />
@@ -80,7 +80,7 @@ const App = () => {
         <Route path="/mypage/wishlist" exact={true} element={<MyWishListPage />} />
         <Route path="/reservate" element={<ReservationDetail />} />
         <Route path="/pay" exact={true} element={<Paypage />} />
-        <Route path="/pay/complete" exact={true} element={<ReservateComplete />} />
+        <Route path="/reservation/notification" exact={true} element={<ReservationNotificationPage />} />
         <Route path="/inicis" exact={true} element={<InicisPay />} />
         <Route path="/host" exact={true} element={<HostPage />} />
         <Route path="/host/end" exact={true} element={<HostEndPage />} />

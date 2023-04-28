@@ -61,4 +61,11 @@ public class ReservationLogic {
         return result;
     }
     
+    public List<Map<String, Object>> resNotification( Map<String, Object> map ) {
+        
+        List<Map<String, Object>> notificationList = reservationDao.resNotification( map );
+        
+        return notificationList;
+    }
+    
 }

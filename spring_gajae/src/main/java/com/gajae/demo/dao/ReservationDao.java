@@ -18,11 +18,11 @@ public class ReservationDao {
     
     public List<Map<String, Object>> resInformation( Map<String, Object> map ) {
         
-        List<Map<String, Object>> paymentInfoList = sqlSessionTemplate.selectList( "reservation.resInformation", map );
+        List<Map<String, Object>> resInfoList = sqlSessionTemplate.selectList( "reservation.resInformation", map );
         
-        log.info( "paymentInfoList = {}", paymentInfoList );
+        log.info( "resInfoList = {}", resInfoList );
         
-        return paymentInfoList;
+        return resInfoList;
     }
     
     public int resInsert( Map<String, Object> map ) {
@@ -45,10 +45,17 @@ public class ReservationDao {
     
     public int vacancyUpdate( Map<String, Object> map ) {
         
-        
         int result = sqlSessionTemplate.update( "vacancy.vacancyUpdate", map );
         
         return result;
     }
     
+    public List<Map<String, Object>> resNotification( Map<String, Object> map ) {
+        
+        List<Map<String, Object>> notificationList = sqlSessionTemplate.selectList( "reservation.resNotification", map );
+        
+        log.info( "notificationList = {}", notificationList );
+        
+        return notificationList;
+    }
 }
