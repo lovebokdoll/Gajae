@@ -19,6 +19,10 @@ import CurrencyModal from './components/modal/CurrencyModal';
 import NationModal from './components/modal/NationModal';
 import InicisPay from './components/pay/InicisPay';
 import NoticeListPage from './components/qna/NoticeListPage';
+import QnADetailPage from './components/qna/QnADetailPage';
+import QnAListPage from './components/qna/QnAListPage';
+import QnAUpdatePage from './components/qna/QnAUpdatePage';
+import QnAWritePage from './components/qna/QnAWritePage';
 import ReplyForm from './components/review/ReplyForm';
 import Toast from './components/toast/Toast';
 import HostPage from './pages/host/HostPage';
@@ -67,6 +71,10 @@ const App = () => {
         <Route path="/mypage" exact={true} element={<Mypage />} />
         <Route path="/propertylist" element={<PropertyListPage />} />
         <Route path="/notice" element={<NoticeListPage />} />
+        <Route path="/qnalist" element={<QnAListPage />} />
+        <Route path="/qna/writer/*" element={<QnAWritePage />} />
+        <Route path="/qna/detail/*" element={<QnADetailPage />} />
+        <Route path="/qna/update/*" element={<QnAUpdatePage />} />
         <Route path="/hotel" element={<HotelPage />} />
         <Route path="/review/write" element={<ReviewWritePage />} />
         <Route path="/auth/kakao/callback" exact={true} element={<KakaoRedirectHandler />} />

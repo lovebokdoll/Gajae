@@ -16,42 +16,30 @@ public class ResultDao {
 
 	@Autowired
 	private SqlSessionTemplate sqlSessionTemplate ;
-
 	public List<Map<String, Object>> searchlist(Map<String, Object> pMap) {
-		log.info("pMap = {}", pMap);
+	    log.info("pMap = {}", pMap);
 
-		List<Map<String, Object>> bList = sqlSessionTemplate.selectList("searchlist", pMap);
-		
+	    List<Map<String, Object>> bList = sqlSessionTemplate.selectList("searchlist", pMap);
 
-		StringTokenizer st = null;
-		String p_extras[] = null;
-		StringTokenizer star = null;
-		String p_stars[] = null;
-		int size = 0;
-		if (pMap.get("P_EXTRAS") != null) {
-			st = new StringTokenizer(pMap.get("P_EXTRAS").toString(), ",");
-			size = st.countTokens();// 몇가지가 있는지
-			p_extras = new String[size];
-		}
-		for (int i = 0; i < size; i++) {
-			p_extras[i] = st.nextToken();
-			pMap.put("P_EXTRAS" + i, p_extras[i]);
-		}
-		
-		if (pMap.get("P_STAR") != null) {
-			star = new StringTokenizer(pMap.get("P_STAR").toString(), ",");
-			size = star.countTokens();// 몇가지가 있는지
-			p_stars = new String[size];
-		}
-		for (int i = 0; i < size; i++) {
-			p_stars[i] = star.nextToken();
-			pMap.put("P_STAR" + i, p_stars[i]);
-		}
+	    StringTokenizer st = null;
 
-		log.info(pMap);// 파라미터값이 오라클 서버로 넘어가는 값들
-		log.info(bList);// 위에서 파라미터로 넘어간 값을 조건검색해서 조회된 결과값
+	    int size = 0;
+	    for (int i = 0; i < size; i++) {
+	        String value = st.nextToken();
+	        String key = "P_EXTRA_" + i;
+	        pMap.put(key, value);
+	    }
 
-		return bList;
+	    StringTokenizer star = null;
+	    size = 0;
+	    for (int i = 0; i < size; i++) {
+	        String value = star.nextToken();
+	        String key = "P_STAR" + i;
+	        pMap.put(key, value);
+	    }
+	    log.info("pMap = {}", pMap);
+	    log.info("bList = {}", bList);
+	    return bList;
 	}
 
 	public List<Map<String, Object>> priceLow(Map<String, Object> pMap, String orderBy) {

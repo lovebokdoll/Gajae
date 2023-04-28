@@ -1,113 +1,56 @@
 import React, { useState } from 'react';
+import './FilterSidebar.css';
 
-const FilterSidebar = ({ranks, filters}) => {
-  const [P_POOL, setP_POOL] = useState(false)
-  const [P_SING, setP_SING] = useState(false)
-  const [P_STORE, setP_STORE] = useState(false)
-  const [P_PC, setP_PC] = useState(false)
-  const [P_SPA, setP_SPA] = useState(false)
-  const [P_CAT, set_CAT] = useState(false)
-  const [P_BAR, setP_BAR] = useState(false)
-  const [P_PK, setP_PK] = useState(false)
-  const [P_WIFI, setP_WIFI] = useState(false)
-  const [P_SMOKIG, setP_SMOKIG] = useState(false)
-  const [P_TV, setP_TV] = useState(false)
-  const [P_NF, setP_NF] = useState(false)
+const FilterSidebar = ({ checkedFilters = () => {} , checkedRanks = () => {}}) => {
+  const [filters, setFilters] = useState([
+    { name: "수영장", value: false },
+    { name: "노래방", value: false },
+    { name: "편의점", value: false },
+    { name: "PC", value: false },
+    { name: "스파", value: false },
+    { name: "동물출입가능", value: false },
+    { name: "바베큐장", value: false },
+    { name: "주차장", value: false },
+    { name: "무료와이파이", value: false },
+    { name: "금연객실", value: false },
+    { name: "TV", value: false },
+    { name: "넷플릭스", value: false }
+  ]);
 
-  const pool = () => {
-    setP_POOL(!P_POOL)
-    console.log(P_POOL)
-    filters("수영장", !P_POOL)
-  }
-  const sing = () => {
-    setP_SING(!P_SING)
-    console.log(P_SING)
-    filters("노래방", !P_SING)
-  }
-  const store = () => {
-    setP_STORE(!P_STORE)
-    console.log(P_STORE)
-    filters("편의점", !P_STORE)
-  }
-  const pc = () => {
-    setP_PC(!P_PC)
-    console.log(P_PC)
-    filters("PC", !P_PC)
-  }
-  const spa = () => {
-    setP_SPA(!P_SPA)
-    console.log(P_SPA)
-    filters("스파", !P_SPA)
-  }
-  const cat = () => {
-    set_CAT(!P_CAT)
-    console.log(P_CAT)
-    filters("동물출입가능", !P_CAT)
-  }
-  const bar = () => {
-    setP_BAR(!P_BAR)
-    console.log(P_BAR)
-    filters("바베큐장", !P_BAR)
-  }
-  const pk = () => {
-    setP_PK(!P_PK)
-    console.log(P_PK)
-    filters("주차장", !P_PK)
-  }
-  const wifi = () => {
-    setP_WIFI(!P_WIFI)
-    console.log(P_WIFI)
-    filters("무료와이파이", !P_WIFI)
-  }
-  const smoking = () => {
-    setP_SMOKIG(!P_SMOKIG)
-    console.log(P_SMOKIG)
-    filters("금연객실", !P_SMOKIG)
-  }
-  const tv = () => {
-    setP_TV(!P_TV)
-    console.log(P_TV)
-    filters("TV", !P_TV)
-  }
-  const nk = () => {
-    setP_NF(!P_NF)
-    console.log(P_NF)
-    filters("넷플릭스", !P_NF)
-  }
+  const [ranks, setRanks] = useState([
+    { name: "1", value: false },
+    { name: "2", value: false },
+    { name: "3", value: false },
+    { name: "4", value: false },
+    { name: "5", value: false },
+  ]);
+ 
+  const handleCheckboxChange = (event) => {
+    const name = event.target.name;
+    const checked = event.target.checked;
+    const newFiltersList = filters.map(filter => {
+      if (filter.name === name) {
+        return { ...filter, value: checked };
+      }
+      return filter;
+    });
+    setFilters(newFiltersList);
+    checkedFilters(newFiltersList.filter(filter => filter.value).map(filter => filter.name));
+  };
 
-
-  const [one, setOne] = useState(false);
-  const [two, setTwo] = useState(false);
-  const [three, setThree] = useState(false);
-  const [four, setFour] = useState(false);
-  const [five, setFive] = useState(false);
-
-const oneRanking = () => {
-  setOne(!one)
-  console.log(one)
-  ranks("1", !one)
-}
-const twoRanking = () => {
-  setTwo(!two)
-  console.log(two)
-  ranks("2", !two)
-}
-const threeRanking = () => {
-  setThree(!three)
-  console.log(three)
-  ranks("3", !three)
-}
-const fourRanking = () => {
-  setFour(!four)
-  console.log(four)
-  ranks("4", !four)
-}
-const fiveRanking = () => {
-  setFive(!five)
-  console.log(five)
-  ranks("5", !five)
-}
-
+  const handleRanksChange = (event) => {
+    const name = event.target.name;
+    const checked = event.target.checked;
+    const newRanksList = ranks.map((rank) => {
+      if (rank.name === name) {
+        return { ...rank, value: checked };
+      }
+      return rank;
+    });
+    setRanks(newRanksList);
+    checkedRanks(newRanksList.filter((rank) => rank.value).map((rank) => rank.name));
+  };
+  
 
   return (
     <> 
@@ -117,62 +60,63 @@ const fiveRanking = () => {
 
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
         <label>수영장</label>
-        <input type="checkbox" onClick={pool}/>
+        <input type="checkbox" name="수영장" checked={filters.find(filter => filter.name === "수영장").value} onChange={handleCheckboxChange} />
       </div>
+
 
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
         <label>노래방</label>
-        <input type="checkbox"  onClick={sing}/>
+        <input type="checkbox" name="노래방" checked={filters.find(filter => filter.name === "노래방").value} onChange={handleCheckboxChange} />
       </div>
 
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
         <label>편의점</label>
-        <input type="checkbox"  onClick={store} />
+        <input type="checkbox" name="편의점" checked={filters.find(filter => filter.name === "편의점").value} onChange={handleCheckboxChange} />
       </div>
 
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
         <label>PC</label>
-        <input type="checkbox"  onClick={pc}/>
+        <input type="checkbox" name="PC" checked={filters.find(filter => filter.name === "PC").value} onChange={handleCheckboxChange} />
       </div>
 
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
         <label>스파</label>
-        <input type="checkbox"  onClick={spa} />
+        <input type="checkbox" name="스파" checked={filters.find(filter => filter.name === "스파").value} onChange={handleCheckboxChange} />
       </div>
 
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
         <label>동물출입가능</label>
-        <input type="checkbox"  onClick={cat} />
+        <input type="checkbox" name="동물출입가능" checked={filters.find(filter => filter.name === "동물출입가능").value} onChange={handleCheckboxChange} />
       </div>
 
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
         <label>바베큐장</label>
-        <input type="checkbox"  onClick={bar} />
+        <input type="checkbox" name="바베큐장" checked={filters.find(filter => filter.name === "바베큐장").value} onChange={handleCheckboxChange} />
       </div>
 
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
         <label>주차장</label>
-        <input type="checkbox"  onClick={pk} />
+        <input type="checkbox" name="주차장" checked={filters.find(filter => filter.name === "주차장").value} onChange={handleCheckboxChange} />
       </div>
 
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
         <label>무료와이파이</label>
-        <input type="checkbox"  onClick={wifi} />
+        <input type="checkbox" name="무료와이파이" checked={filters.find(filter => filter.name === "무료와이파이").value} onChange={handleCheckboxChange} />
       </div>
 
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
         <label>금연객실</label>
-        <input type="checkbox"  onClick={smoking} />
+        <input type="checkbox" name="금연객실" checked={filters.find(filter => filter.name === "금연객실").value} onChange={handleCheckboxChange} />
       </div>
 
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
         <label>TV</label>
-        <input type="checkbox"  onClick={tv} />
+        <input type="checkbox" name="TV" checked={filters.find(filter => filter.name === "TV").value} onChange={handleCheckboxChange} />
       </div>
 
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
         <label>넷플릭스</label>
-        <input type="checkbox" onClick={nk}/>
+        <input type="checkbox" name="넷플릭스" checked={filters.find(filter => filter.name === "넷플릭스").value} onChange={handleCheckboxChange} />
       </div>
 
       <hr/>
@@ -180,30 +124,26 @@ const fiveRanking = () => {
       <hr/>
 
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-        <label>1등급</label>
-        <input type="checkbox" onClick={oneRanking} />
-      </div>
-
-      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-        <label>2등급</label>
-        <input type="checkbox" onClick={twoRanking} />
-      </div>
-
-      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-        <label>3등급</label>
-        <input type="checkbox" onClick={threeRanking} />
-      </div>
-
-      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-        <label>4등급</label>
-        <input type="checkbox" onClick={fourRanking} />
-      </div>
-
-      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-        <label>5등급</label>
-        <input type="checkbox"  onClick={fiveRanking} />
-      </div>
-
+      <label>1등급</label>
+      <input type="checkbox" name="1" checked={ranks.find(rank => rank.name === "1").value} onChange={handleRanksChange}  />
+    </div>
+    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+      <label>2등급</label>
+      <input type="checkbox" name="2" checked={ranks.find(rank => rank.name === "2").value} onChange={handleRanksChange}  />
+    </div>
+    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+      <label>3등급</label>
+      <input type="checkbox" name="3" checked={ranks.find(rank => rank.name === "3").value} onChange={handleRanksChange}  />
+    </div>
+    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+      <label>4등급</label>
+      <input type="checkbox" name="4" checked={ranks.find(rank => rank.name === "4").value} onChange={handleRanksChange}  />
+    </div>
+    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+      <label>5등급</label>
+      <input type="checkbox" name="5" checked={ranks.find(rank => rank.name === "5").value} onChange={handleRanksChange}  />
+    </div>
+    
     </div>
   </>
   );

@@ -12,6 +12,7 @@ import { useNavigate } from 'react-router-dom';
 import { setToastMessage } from '../../redux/toastStatus/action';
 import { BButton } from '../../style/FormStyle';
 import './mainSearchBar.css';
+import Swal from 'sweetalert2';
 
 const MainSearchBar = ({ type }) => {
   const navigate = useNavigate();
@@ -48,6 +49,19 @@ const MainSearchBar = ({ type }) => {
       };
     });
   };
+
+  //지역 입력 안했을 시 모달 창
+  const Toast = Swal.mixin({
+    toast: true,
+    position: 'center-center',
+    showConfirmButton: false,
+    timer: 2000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+      toast.addEventListener('mouseenter', Swal.stopTimer);
+      toast.addEventListener('mouseleave', Swal.resumeTimer);
+    },
+  });
 
   const handleSearch = (e) => {
     const roomCapacity = parseInt(room_capacity.adult);
@@ -92,7 +106,6 @@ const MainSearchBar = ({ type }) => {
       })
       .catch((error) => {
         console.error(error);
-        // 에러 처리 코드
       });
   };
 
@@ -127,7 +140,7 @@ const MainSearchBar = ({ type }) => {
               새로운 모험, 새로운 경험, 그리고 새로운 나를 만나다
             </h4>
             <br />
-            <div className="headerSearch" style={{right:248}}>
+            <div className="headerSearch" style={{ right: 248 }}>
               <div className="headerSearchText">
                 <form onSubmit={handleSearch}>
                   <FontAwesomeIcon icon={faSuitcaseRolling} style={{ marginRight: '10px' }} className="headerIcon" />
@@ -137,7 +150,7 @@ const MainSearchBar = ({ type }) => {
                     className="headerSearchInput"
                     onChange={(e) => setP_Address(e.target.value)}
                     onKeyPress={(e) => {
-                      if (e.key === 'Enter' && !p_address) {
+                      if (e.key === 'Enter') {
                         e.preventDefault();
                       }
                     }}
@@ -168,7 +181,7 @@ const MainSearchBar = ({ type }) => {
                 <FontAwesomeIcon icon={faPerson} style={{ marginRight: '10px' }} className="headerIcon" />
                 <span onClick={() => setOpenOptions(!openOptions)} className="headerSearchText">{`${room_capacity.adult} adult`}</span>
                 {openOptions && (
-                  <div className="options" style={{left:'65%'}}>
+                  <div className="options" style={{ left: '65%' }}>
                     <div className="optionItem">
                       <span className="optionText">Adult</span>
                       <div className="optionCounter">
@@ -189,7 +202,7 @@ const MainSearchBar = ({ type }) => {
                 )}
               </div>
               <div className="SearchBtn">
-                <BButton className="headerBtn" style={{ backgroundColor: '#0077C0', width: '50px' }} type="submit" onClick={handleSearch}>
+                <BButton className="headerBtn" style={{ backgroundColor: '#0077C0', width: '50px' }} type="button" onClick={handleSearch}>
                   검색
                 </BButton>
               </div>

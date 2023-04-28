@@ -100,6 +100,7 @@ const HotelAvailabilityRow = ({ row }) => {
         FAC_RECEPTION: item.FAC_RECEPTION,
       };
       list.push(obj);
+      console.log(item.ROOM_DETAIL)
     });
     setHotels(list);
   }, [row]);
@@ -161,22 +162,10 @@ const HotelAvailabilityRow = ({ row }) => {
                         setSelectedRoomModal(hotel.ROOM_TYPE);
                         setSelectedPriceModal(hotel.ROOM_PRICE);
                         setSelectedFacModal({
-                          FAC_ROOM: hotel.FAC_ROOM,
-                          FAC_LANGUAGE: hotel.FAC_LANGUAGE,
-                          FAC_SECURITY: hotel.FAC_SECURITY,
-                          FAC_BATHROOM: hotel.FAC_BATHROOM,
-                          FAC_PARKING: hotel.FAC_PARKING,
-                          FAC_BED: hotel.FAC_BED,
-                          FAC_LIVING: hotel.FAC_LIVING,
-                          FAC_MEDIA: hotel.FAC_MEDIA,
-                          FAC_INTERNET: hotel.FAC_INTERNET,
-                          FAC_SERVICE: hotel.FAC_SERVICE,
-                          FAC_GENERAL: hotel.FAC_GENERAL,
-                          FAC_LANGUAGE: hotel.FAC_LANGUAGE,
-                          FAC_KITCHEN: hotel.FAC_KITCHEN,
-                          FAC_RECEPTION: hotel.FAC_RECEPTION,
+                          ROOM_DETAIL: hotel.ROOM_DETAIL
                         });
                         handleShow();
+                        console.log(hotel)
                       }}
                     >
                       {hotel.ROOM_TYPE}

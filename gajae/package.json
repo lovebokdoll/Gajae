@@ -31,6 +31,7 @@
     "qs": "^6.11.1",
     "quill-image-resize-module-react": "^3.0.0",
     "react": "^18.2.0",
+    "react-autocomplete": "^1.8.1",
     "react-bootstrap": "^2.7.2",
     "react-cookie": "^4.1.1",
     "react-cookies": "^0.1.1",
@@ -49,6 +50,7 @@
     "redux": "^4.2.1",
     "slick-carousel": "^1.8.1",
     "styled-components": "^5.3.9",
+    "sweetalert2": "^11.7.3",
     "web-vitals": "^2.1.0"
   },
   "scripts": {

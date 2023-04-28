@@ -5,18 +5,25 @@
 	<!-- 검색 -->
 	<select id="searchlist" parameterType="map" resultType="map">
 		SELECT P.P_ID, P.P_TITLE, P.P_ADDRESS, P.P_CHECKOUT,
-		WM_CONCAT(DISTINCT B.P_EXTRA) AS P_EXTRA, COALESCE(R.REVIEW_AVERAGE,
-		0) AS REVIEW_AVERAGE,
-		P.P_CHECKIN, P.P_REFUND, MIN(A.ROOM_PRICE) AS ROOM_PRICE,
-		WM_CONCAT(DISTINCT A.ROOM_TYPE) AS ROOM_TYPE, MAX(A.ROOM_OPTION) AS ROOM_OPTION ,
+		WM_CONCAT(DISTINCT B.P_EXTRA) AS P_EXTRA,
+		COALESCE(MAX(R.REVIEW_AVERAGE), 0) AS
+		REVIEW_AVERAGE,
+		P.P_CHECKIN,
+		P.P_REFUND, MAX(A.ROOM_PRICE) AS ROOM_PRICE,
+		WM_CONCAT(DISTINCT
+		A.ROOM_TYPE) AS ROOM_TYPE, MAX(A.ROOM_OPTION) AS ROOM_OPTION ,
 		P.P_STAR
 		FROM PROPERTIES P
-		INNER JOIN P_ROOMTYPE A ON P.ROOM_ID = A.ROOM_ID
+		INNER JOIN P_ROOMTYPE A ON P.ROOM_ID =
+		A.ROOM_ID
 		INNER JOIN P_EXTRAS B ON P.P_ID = B.P_ID
-		LEFT OUTER JOIN RESERVATIONS S ON S.P_ID = P.P_ID
-		LEFT OUTER JOIN REVIEW R ON S.REVIEW_NUMBER = R.REVIEW_NUMBER
+		LEFT OUTER JOIN
+		RESERVATIONS S ON S.P_ID = P.P_ID
+		LEFT OUTER JOIN REVIEW R ON
+		S.REVIEW_NUMBER = R.REVIEW_NUMBER
+		WHERE P.STATUS = 'Y'
 		<if test="P_ADDRESS != null">
-			WHERE P_ADDRESS LIKE '%${P_ADDRESS}%'
+			AND P_ADDRESS LIKE '%${P_ADDRESS}%'
 		</if>
 		<if test="ROOM_CAPACITY != null">
 			AND A.ROOM_CAPACITY >= '${ROOM_CAPACITY}'
@@ -24,32 +31,53 @@
 		<if test="P_EXTRA != null">
 			AND P.P_ID = B.P_ID
 		</if>
-		<if test="P_EXTRA != null">
-			AND B.P_EXTRA LIKE '%${P_EXTRA}%'
+		<if test="P_EXTRA != null and P_EXTRA.size() > 0">
+			AND (
+			<foreach collection="P_EXTRA" item="P_EXTRA"
+				separator=" AND ">
+				P.P_ID IN (
+				SELECT P_ID
+				FROM P_EXTRAS
+				WHERE P_EXTRA =
+				#{P_EXTRA}
+				)
+			</foreach>
+			)
 		</if>
-		<if test="P_STAR">
-			AND P.P_STAR = '${P_STAR}'
+		<if test="P_STAR != null">
+			AND P.P_STAR IN
+			<foreach collection="P_STAR" item="P_STAR" open="(" close=")"
+				separator=",">
+				#{P_STAR}
+			</foreach>
 		</if>
 		GROUP BY P.P_ID, P.P_TITLE, P.P_ADDRESS, P.P_CHECKOUT, P.P_CHECKIN,
-		P.P_REFUND, COALESCE(R.REVIEW_AVERAGE, 0), P.P_STAR
+		P.P_REFUND, P.P_STAR
 	</select>
 
 
 	<!-- 정렬조건 -->
 	<select id="priceLow" parameterType="map" resultType="map">
 		SELECT P.P_ID, P.P_TITLE, P.P_ADDRESS, P.P_CHECKOUT,
-		WM_CONCAT(DISTINCT B.P_EXTRA) AS P_EXTRA, COALESCE(R.REVIEW_AVERAGE,
-		0) AS REVIEW_AVERAGE,
-		P.P_CHECKIN, P.P_REFUND, MIN(A.ROOM_PRICE) AS ROOM_PRICE,
-		WM_CONCAT(DISTINCT A.ROOM_TYPE) AS ROOM_TYPE, MAX(A.ROOM_OPTION) AS ROOM_OPTION ,
+		WM_CONCAT(DISTINCT B.P_EXTRA) AS P_EXTRA,
+		COALESCE(MAX(R.REVIEW_AVERAGE), 0) AS
+		REVIEW_AVERAGE,
+		P.P_CHECKIN,
+		P.P_REFUND, MIN(A.ROOM_PRICE) AS ROOM_PRICE,
+		WM_CONCAT(DISTINCT
+		A.ROOM_TYPE) AS ROOM_TYPE, MAX(A.ROOM_OPTION) AS ROOM_OPTION ,
 		P.P_STAR
 		FROM PROPERTIES P
-		INNER JOIN P_ROOMTYPE A ON P.ROOM_ID = A.ROOM_ID
+		INNER JOIN P_ROOMTYPE A ON P.ROOM_ID =
+		A.ROOM_ID
 		INNER JOIN P_EXTRAS B ON P.P_ID = B.P_ID
-		LEFT OUTER JOIN RESERVATIONS S ON S.P_ID = P.P_ID
-		LEFT OUTER JOIN REVIEW R ON S.REVIEW_NUMBER = R.REVIEW_NUMBER
+		LEFT OUTER JOIN
+		RESERVATIONS S ON S.P_ID = P.P_ID
+		LEFT OUTER JOIN REVIEW R ON
+		S.REVIEW_NUMBER = R.REVIEW_NUMBER
+		WHERE P.STATUS = 'Y'
 		<if test="P_ADDRESS != null">
-			WHERE P_ADDRESS LIKE '%${P_ADDRESS}%'
+			AND P_ADDRESS LIKE '%${P_ADDRESS}%'
 		</if>
 		<if test="ROOM_CAPACITY != null">
 			AND A.ROOM_CAPACITY >= '${ROOM_CAPACITY}'
@@ -57,31 +85,52 @@
 		<if test="P_EXTRA != null">
 			AND P.P_ID = B.P_ID
 		</if>
-		<if test="P_EXTRA != null">
-			AND B.P_EXTRA LIKE '%${P_EXTRA}%'
+		<if test="P_EXTRA != null and P_EXTRA.size() > 0">
+			AND (
+			<foreach collection="P_EXTRA" item="P_EXTRA"
+				separator=" AND ">
+				P.P_ID IN (
+				SELECT P_ID
+				FROM P_EXTRAS
+				WHERE P_EXTRA =
+				#{P_EXTRA}
+				)
+			</foreach>
+			)
 		</if>
-		<if test="P_STAR">
-			AND P.P_STAR = '${P_STAR}'
+		<if test="P_STAR != null">
+			AND P.P_STAR IN
+			<foreach collection="P_STAR" item="P_STAR" open="(" close=")"
+				separator=",">
+				#{P_STAR}
+			</foreach>
 		</if>
 		GROUP BY P.P_ID, P.P_TITLE, P.P_ADDRESS, P.P_CHECKOUT, P.P_CHECKIN,
-		P.P_REFUND, COALESCE(R.REVIEW_AVERAGE, 0), P.P_STAR
+		P.P_REFUND, P.P_STAR
 		ORDER BY ROOM_PRICE ASC
 	</select>
 
 	<select id="priceHigh" parameterType="map" resultType="map">
 		SELECT P.P_ID, P.P_TITLE, P.P_ADDRESS, P.P_CHECKOUT,
-		WM_CONCAT(DISTINCT B.P_EXTRA) AS P_EXTRA, COALESCE(R.REVIEW_AVERAGE,
-		0) AS REVIEW_AVERAGE,
-		P.P_CHECKIN, P.P_REFUND, MIN(A.ROOM_PRICE) AS ROOM_PRICE,
-		WM_CONCAT(DISTINCT A.ROOM_TYPE) AS ROOM_TYPE, MAX(A.ROOM_OPTION) AS ROOM_OPTION ,
+		WM_CONCAT(DISTINCT B.P_EXTRA) AS P_EXTRA,
+		COALESCE(MAX(R.REVIEW_AVERAGE), 0) AS
+		REVIEW_AVERAGE,
+		P.P_CHECKIN,
+		P.P_REFUND, MIN(A.ROOM_PRICE) AS ROOM_PRICE,
+		WM_CONCAT(DISTINCT
+		A.ROOM_TYPE) AS ROOM_TYPE, MAX(A.ROOM_OPTION) AS ROOM_OPTION ,
 		P.P_STAR
 		FROM PROPERTIES P
-		INNER JOIN P_ROOMTYPE A ON P.ROOM_ID = A.ROOM_ID
+		INNER JOIN P_ROOMTYPE A ON P.ROOM_ID =
+		A.ROOM_ID
 		INNER JOIN P_EXTRAS B ON P.P_ID = B.P_ID
-		LEFT OUTER JOIN RESERVATIONS S ON S.P_ID = P.P_ID
-		LEFT OUTER JOIN REVIEW R ON S.REVIEW_NUMBER = R.REVIEW_NUMBER
+		LEFT OUTER JOIN
+		RESERVATIONS S ON S.P_ID = P.P_ID
+		LEFT OUTER JOIN REVIEW R ON
+		S.REVIEW_NUMBER = R.REVIEW_NUMBER
+		WHERE P.STATUS = 'Y'
 		<if test="P_ADDRESS != null">
-			WHERE P_ADDRESS LIKE '%${P_ADDRESS}%'
+			AND P_ADDRESS LIKE '%${P_ADDRESS}%'
 		</if>
 		<if test="ROOM_CAPACITY != null">
 			AND A.ROOM_CAPACITY >= '${ROOM_CAPACITY}'
@@ -89,37 +138,54 @@
 		<if test="P_EXTRA != null">
 			AND P.P_ID = B.P_ID
 		</if>
-		<if test="P_EXTRA != null">
-			AND B.P_EXTRA LIKE '%${P_EXTRA}%'
+		<if test="P_EXTRA != null and P_EXTRA.size() > 0">
+			AND (
+			<foreach collection="P_EXTRA" item="P_EXTRA"
+				separator=" AND ">
+				P.P_ID IN (
+				SELECT P_ID
+				FROM P_EXTRAS
+				WHERE P_EXTRA =
+				#{P_EXTRA}
+				)
+			</foreach>
+			)
 		</if>
-		<if test="P_STAR">
-			AND P.P_STAR = '${P_STAR}'
+		<if test="P_STAR != null">
+			AND P.P_STAR IN
+			<foreach collection="P_STAR" item="P_STAR" open="(" close=")"
+				separator=",">
+				#{P_STAR}
+			</foreach>
 		</if>
 		GROUP BY P.P_ID, P.P_TITLE, P.P_ADDRESS, P.P_CHECKOUT, P.P_CHECKIN,
-		P.P_REFUND, COALESCE(R.REVIEW_AVERAGE, 0), P.P_STAR
+		P.P_REFUND, P.P_STAR
 		ORDER BY ROOM_PRICE DESC
 	</select>
-	<select id="markList" parameterType="map" resultType="map">
-		SELECT DISTINCT P_MAPX, P_MAPY, P_ID, P_TITLE, P_STAR
-		FROM PROPERTIES
-		WHERE P_ID IN (1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
-	</select>
-	
-	<!-- 리뷰 순 구현해야함  -->
-	<select id="rivieHigh" parameterType="map" resultType="map">
+
+
+	<!-- 리뷰 순 -->
+	<select id="reviewwHigh" parameterType="map" resultType="map">
 		SELECT P.P_ID, P.P_TITLE, P.P_ADDRESS, P.P_CHECKOUT,
-		WM_CONCAT(DISTINCT B.P_EXTRA) AS P_EXTRA, COALESCE(R.REVIEW_AVERAGE,
-		0) AS REVIEW_AVERAGE,
-		P.P_CHECKIN, P.P_REFUND, MIN(A.ROOM_PRICE) AS ROOM_PRICE,
-		WM_CONCAT(DISTINCT A.ROOM_TYPE) AS ROOM_TYPE, MAX(A.ROOM_OPTION) AS ROOM_OPTION ,
+		WM_CONCAT(DISTINCT B.P_EXTRA) AS P_EXTRA,
+		COALESCE(MAX(R.REVIEW_AVERAGE), 0) AS
+		REVIEW_AVERAGE,
+		P.P_CHECKIN,
+		P.P_REFUND, MIN(A.ROOM_PRICE) AS ROOM_PRICE,
+		WM_CONCAT(DISTINCT
+		A.ROOM_TYPE) AS ROOM_TYPE, MAX(A.ROOM_OPTION) AS ROOM_OPTION ,
 		P.P_STAR
 		FROM PROPERTIES P
-		INNER JOIN P_ROOMTYPE A ON P.ROOM_ID = A.ROOM_ID
+		INNER JOIN P_ROOMTYPE A ON P.ROOM_ID =
+		A.ROOM_ID
 		INNER JOIN P_EXTRAS B ON P.P_ID = B.P_ID
-		LEFT OUTER JOIN RESERVATIONS S ON S.P_ID = P.P_ID
-		LEFT OUTER JOIN REVIEW R ON S.REVIEW_NUMBER = R.REVIEW_NUMBER
+		LEFT OUTER JOIN
+		RESERVATIONS S ON S.P_ID = P.P_ID
+		LEFT OUTER JOIN REVIEW R ON
+		S.REVIEW_NUMBER = R.REVIEW_NUMBER
+		WHERE P.STATUS = 'Y'
 		<if test="P_ADDRESS != null">
-			WHERE P_ADDRESS LIKE '%${P_ADDRESS}%'
+			AND P_ADDRESS LIKE '%${P_ADDRESS}%'
 		</if>
 		<if test="ROOM_CAPACITY != null">
 			AND A.ROOM_CAPACITY >= '${ROOM_CAPACITY}'
@@ -127,21 +193,43 @@
 		<if test="P_EXTRA != null">
 			AND P.P_ID = B.P_ID
 		</if>
-		<if test="P_EXTRA != null">
-			AND B.P_EXTRA LIKE '%${P_EXTRA}%'
+		<if test="P_EXTRA != null and P_EXTRA.size() > 0">
+			AND (
+			<foreach collection="P_EXTRA" item="P_EXTRA"
+				separator=" AND ">
+				P.P_ID IN (
+				SELECT P_ID
+				FROM P_EXTRAS
+				WHERE P_EXTRA =
+				#{P_EXTRA}
+				)
+			</foreach>
+			)
 		</if>
-		<if test="P_STAR">
-			AND P.P_STAR = '${P_STAR}'
+		<if test="P_STAR != null">
+			AND P.P_STAR IN
+			<foreach collection="P_STAR" item="P_STAR" open="(" close=")"
+				separator=",">
+				#{P_STAR}
+			</foreach>
 		</if>
 		GROUP BY P.P_ID, P.P_TITLE, P.P_ADDRESS, P.P_CHECKOUT, P.P_CHECKIN,
-		P.P_REFUND, COALESCE(R.REVIEW_AVERAGE, 0), P.P_STAR
-		 ORDER BY REVIEW_AVERAGE DESC
+		P.P_REFUND, P.P_STAR
+		ORDER BY REVIEW_AVERAGE DESC
 	</select>
-	
-	
-	
+
+
+
 	<select id="noticeList" parameterType="map" resultType="map">
-		SELECT A_NO, A_TITLE, A_CONTENT FROM NOTICE
+		SELECT
+		A_NO, A_TITLE, A_CONTENT FROM NOTICE
 	</select>
-	
+
+	<select id="markList" parameterType="map" resultType="map">
+		SELECT
+		DISTINCT P_MAPX, P_MAPY, P_ID, P_TITLE, P_STAR
+		FROM PROPERTIES
+		WHERE
+		P_ID IN (1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+	</select>
 </mapper>

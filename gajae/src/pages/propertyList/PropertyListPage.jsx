@@ -3,7 +3,7 @@ import Cookies from 'js-cookie';
 import React, { useEffect, useState } from 'react';
 import { Dropdown, DropdownButton } from 'react-bootstrap';
 import ReactPaginate from 'react-paginate';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import Footer from '../../components/footer/Footer';
 import HeaderNav1 from '../../components/header/HeaderNav1';
 import HeaderNav2 from '../../components/header/HeaderNav2';
@@ -14,6 +14,8 @@ import FilterSidebar from '../../components/searchItem/FilterSidebar';
 import { searchListDB } from '../../service/database';
 import { BButton } from '../../style/FormStyle';
 import './propertyList.css';
+import { faMap } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 /**6
  * 사용자가 마이페이지에서 여행지, 체크인&체크아웃 날짜, 인원 수&객실 수를 선택한 데이터를 기준하여 화면을 렌더링한다.
@@ -21,9 +23,9 @@ import './propertyList.css';
  * @returns 검색 결과 페이지 (Search Result)
  */
 const PropertyListPage = () => {
-  const navigate = useNavigate();
-  const [ranksList, setRanksList] = useState([]);
-  const [filterList, setFilterList] = useState([]);
+
+  const [P_STAR, setP_STAR] = useState(null);
+  const [P_EXTRA, setP_EXTRA] = useState(null);
 
   const [showModal, setShowModal] = useState(false); //모달창
 
@@ -76,83 +78,68 @@ const PropertyListPage = () => {
   const P_ADDRESS = Cookies.get('p_address');
   const ROOM_CAPACITY = Cookies.get('res_people');
 
-  //사용자가 정렬조건 선택 시 스프링으로 요청
+////////////////////////////필터/////////////////////////////
+  const checkedFilters = (selectedFilters) => {
+    const filterParams = {
+      orderBy,
+      P_ADDRESS,
+      ROOM_CAPACITY,
+      P_EXTRA: selectedFilters,
+    };
+  
+    axios
+      .post('http://localhost:9999/search/list', filterParams)
+      .then((response) => {
+        setProperty(response.data);
+        setP_EXTRA(selectedFilters)
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+
+////////////////////////////성급/////////////////////////////
+const checkedRanks = (selectedRanks) => {
+  const ranksParams = {
+    orderBy,
+    P_ADDRESS,
+    ROOM_CAPACITY,
+    P_STAR: selectedRanks,
+  };
+
+  axios
+    .post('http://localhost:9999/search/list', ranksParams)
+    .then((response) => {
+      setProperty(response.data);
+      setP_STAR(selectedRanks)
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+};
+  
+  ////////////////////////////정렬조건/////////////////////////////
   useEffect(() => {
+    
+    let data = { orderBy, P_ADDRESS, ROOM_CAPACITY, P_EXTRA, P_STAR  };
     if (orderBy === '가격 낮은순') {
-      axios
-        .post('http://localhost:9999/search/list', { orderBy: 'priceLow', P_ADDRESS, ROOM_CAPACITY })
-        .then((response) => {
-          setProperty(response.data);
-        })
-        .catch((error) => {
-          console.error(error);
-        });
+      data.orderBy = 'priceLow';
     } else if (orderBy === '가격 높은순') {
-      axios
-        .post('http://localhost:9999/search/list', { orderBy: 'priceHigh', P_ADDRESS, ROOM_CAPACITY })
-        .then((response) => {
-          setProperty(response.data);
-        })
-        .catch((error) => {
-          console.error(error);
-        });
+      data.orderBy = 'priceHigh';
     } else if (orderBy === '평점 높은순') {
-      axios
-        .post('http://localhost:9999/search/list', { orderBy: 'reviewHigh', P_ADDRESS, ROOM_CAPACITY })
-        .then((response) => {
-          setProperty(response.data);
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-    }
+      data.orderBy = 'reviewwHigh';
+  }
+    
+    axios
+      .post('http://localhost:9999/search/list', data)
+      .then((response) => {
+        setProperty(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   }, [orderBy]);
-  console.log(orderBy);
-
-  //성급 필터
-  const ranks = (selectRanks) => {
-    const selectedStars = selectRanks.split(','); // 선택한 모든 별점을 ',' 기준으로 분리하여 배열로 만듦
-
-    // 별점 선택에 따라 요청 보내기
-    selectedStars.forEach((P_STAR) => {
-      Cookies.set('P_STAR', P_STAR);
-      axios
-        .post('http://localhost:9999/search/list', { orderBy, P_ADDRESS, ROOM_CAPACITY, P_STAR })
-        .then((response) => {
-          setProperty(response.data);
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-    });
-  };
-
-  useEffect(() => {}, [setRanksList]);
-
-  //부대시설 필터
-  const filters = (selectFilter) => {
-    const selectedFilter = selectFilter.split(','); // ',' 기준으로 분리하여 배열로 만듦
-
-    // 별점 선택에 따라 요청 보내기
-    selectedFilter.forEach((P_EXTRA) => {
-      Cookies.set('P_EXTRA', P_EXTRA);
-      axios
-        .post('http://localhost:9999/search/list', { orderBy, P_ADDRESS, ROOM_CAPACITY, P_EXTRA })
-        .then((response) => {
-          setProperty(response.data);
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-    });
-  };
-
-  useEffect(() => {}, [setFilterList]);
-
-  const handleMap = () => {
-    navigate('/kakaomap');
-  };
-
+  
   //페이징 처리
   const [currentPage, setCurrentPage] = useState(0);
 
@@ -179,33 +166,33 @@ const PropertyListPage = () => {
               <div className="col-lg-3 col-md-12">
                 <SearchBox />
                 <div>
-                  <BButton
-                    id="mapbtn"
-                    type="mapbotton"
-                    className="me-2 mb-2"
-                    data-bs-dismiss="modal"
-                    data-bs-target="#fullScreenModal"
-                    style={{ height: '60px', width: '200px' }}
-                    onClick={openModal}
-                  >
-                    지도에서 보기
-                  </BButton>
+                <BButton
+  id="mapbtn"
+  type="mapbotton"
+  className="me-2 mb-2"
+  data-bs-dismiss="modal"
+  data-bs-target="#fullScreenModal"
+  style={{ height: '60px', width: '200px' }}
+  onClick={openModal}
+>
+  <FontAwesomeIcon icon={faMap} /> 지도에서 보기
+</BButton>
                   <MapModal show={showModal} closeModal={closeModal} />
-                  <FilterSidebar ranks={ranks} filters={filters} />
+                  <FilterSidebar checkedFilters={checkedFilters} checkedRanks={checkedRanks}/>
                 </div>
               </div>
               <div className="col-lg-9 col-md-12">
-                <h4 className="search-hotel" style={{ marginTop: '20px', textAlign: 'end', fontWeight: 'bold', width: 1000 }}>
-                  {params.P_ADDRESS} 검색된 숙소 {property.length}개
+                <h4 className="search-hotel" style={{ marginTop: '20px', textAlign: 'end', fontWeight: 'bold', width: 1000 , fontFamily : 'KOTRA_GOTHIC'}}>
+                  {params.P_ADDRESS} : 검색된 숙소 {property.length}개
                 </h4>
-                <DropdownButton id="dropdown-btn" title={orderBy ? orderBy : '정렬 순서'}>
-                  <Dropdown.Item id="dropdownItem-btn" onClick={() => handleOrder('가격 낮은순')}>
+                <DropdownButton id="dropdown-btn" style={{fontFamily : 'KOTRA_GOTHIC'}} title={orderBy ? orderBy : '정렬 순서'}>
+                  <Dropdown.Item id="dropdownItem-btn"  style={{fontFamily : 'KOTRA_GOTHIC'}} onClick={() => handleOrder('가격 낮은순')}>
                     가격 낮은순
                   </Dropdown.Item>
-                  <Dropdown.Item id="dropdownItem-btn" onClick={() => handleOrder('가격 높은순')}>
+                  <Dropdown.Item id="dropdownItem-btn"  style={{fontFamily : 'KOTRA_GOTHIC'}} onClick={() => handleOrder('가격 높은순')}>
                     가격 높은순
                   </Dropdown.Item>
-                  <Dropdown.Item id="dropdownItem-btn" onClick={() => handleOrder('평점 높은순')}>
+                  <Dropdown.Item id="dropdownItem-btn"  style={{fontFamily : 'KOTRA_GOTHIC'}} onClick={() => handleOrder('평점 높은순')}>
                     평점 높은순
                   </Dropdown.Item>
                 </DropdownButton>
@@ -224,7 +211,7 @@ const PropertyListPage = () => {
                     <PropertyCard key={index} row={row} style={{ marginRight: '10px', marginBottom: '10px' }} />
                   ))}
                   <div className="rounded-box">
-                    <ReactPaginate
+                  <ReactPaginate
                       pageCount={Math.ceil(property.length / propertiesPerPage)}
                       marginPagesDisplayed={2}
                       pageRangeDisplayed={5}
@@ -242,6 +229,7 @@ const PropertyListPage = () => {
           </div>
           <div>
             <hr />
+            <br />
           </div>
         </div>{' '}
         {/*end of the Body*/}

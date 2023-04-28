@@ -48,6 +48,81 @@ export const noticeListDB = (property) => {
     }
   });
 };
+export const qnaListDB = (qna) => {
+  return new Promise((resolve, reject) => {
+    try {
+      const response = axios({
+        method: "post",
+        url: process.env.REACT_APP_SPRING_IP + "qna/list",
+        data: qna,
+      });
+      resolve(response);
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+
+export const qnaInsertDB = (qna) => {
+  return new Promise((resolve, reject) => {
+    try {
+      const response = axios({
+        method: "post",
+        url: process.env.REACT_APP_SPRING_IP + "qna/qnaInsert",
+        data: qna,
+      });
+      resolve(response);
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+
+export const qnaDetailDB = (qna) => {
+  return new Promise((resolve, reject) => {
+    try {
+      const response = axios({
+        method: "post",
+        url: process.env.REACT_APP_SPRING_IP + "qna/qnaDetail",
+        data: qna,
+      });
+      resolve(response);
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+
+export const qnaUpdateDB = (qna) => {
+  console.log(qna)
+  return new Promise((resolve, reject) => {
+    try {
+      const response = axios({
+        method: "post",
+        url: process.env.REACT_APP_SPRING_IP + "qna/qnaUpdate",
+        data: qna,
+      });
+      resolve(response);
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+
+export const qnaDeleteDB = (qna) => {
+  return new Promise((resolve, reject) => {
+    try {
+      const response = axios({
+        method: "post",
+        url: process.env.REACT_APP_SPRING_IP + "qna/qnaDelete",
+        data: qna,
+      });
+      resolve(response);
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
 
 export const memberInsertDB = (member) => {
   return new Promise((resolve, reject) => {
