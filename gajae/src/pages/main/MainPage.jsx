@@ -25,12 +25,12 @@ const MainPage = () => {
     <>
       <HeaderNav1 />
       <MainSearchBar />
+      <CovidInfo />
       <MainAdvertisement />
       <MainRecommandLoc />
       <MainProperty />
-      <MainMailList />
-      <CovidInfo />
       <NextTripCard userName={userName} />
+      <MainMailList />
       <Footer />
       <Popup onClose={handlePopupClose} />
     </>
