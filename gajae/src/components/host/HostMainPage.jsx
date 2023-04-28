@@ -1,4 +1,9 @@
-import { Background, Content, R_CardGroup, Title } from "../../style/HostStyle";
+import {
+  Content,
+  MainBackground,
+  R_CardGroup,
+  Title,
+} from "../../style/HostStyle";
 import { useState } from "react";
 import { useEffect } from "react";
 
@@ -9,7 +14,7 @@ const HostMainPage = () => {
   }, []);
   return (
     <>
-      <Background>
+      <MainBackground>
         <Title>
           Gajae.com에
           <br /> 숙소 <br />
@@ -72,7 +77,7 @@ const HostMainPage = () => {
             </div>
           </div>
         </R_CardGroup>
-      </Background>
+      </MainBackground>
     </>
   );
 };

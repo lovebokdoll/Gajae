@@ -199,7 +199,10 @@ export const HostHotelUpdate = () => {
                 marginBottom: "10px",
               }}
             />
-            <h6>  <i class="fa-solid fa-check"></i>성급</h6>
+            <h6>
+              {" "}
+              <i class="fa-solid fa-check"></i>성급
+            </h6>
             <Textarea
               id="dataset-title"
               type="text"
@@ -223,7 +226,10 @@ export const HostHotelUpdate = () => {
                 marginBottom: "5px",
               }}
             >
-              <h6> <i class="fa-solid fa-check"></i>전화번호</h6>
+              <h6>
+                {" "}
+                <i class="fa-solid fa-check"></i>전화번호
+              </h6>
             </div>
             <Textarea
               id="dataset-bad"
@@ -249,7 +255,10 @@ export const HostHotelUpdate = () => {
                 marginBottom: "5px",
               }}
             >
-              <h6> <i class="fa-solid fa-check"></i>호텔 설명</h6>
+              <h6>
+                {" "}
+                <i class="fa-solid fa-check"></i>호텔 설명
+              </h6>
             </div>
             <Textarea
               id="dataset-bad"
@@ -274,7 +283,10 @@ export const HostHotelUpdate = () => {
                 marginBottom: "5px",
               }}
             >
-              <h6> <i class="fa-solid fa-check"></i>호텔 규모</h6>
+              <h6>
+                {" "}
+                <i class="fa-solid fa-check"></i>호텔 규모
+              </h6>
             </div>
             <Textarea
               id="dataset-bad"
@@ -300,7 +312,7 @@ export const HostHotelUpdate = () => {
               }}
             >
               <h6>
-              <i class="fa-solid fa-check"></i>
+                <i class="fa-solid fa-check"></i>
                 호텔 체크인
               </h6>
             </div>
@@ -327,7 +339,10 @@ export const HostHotelUpdate = () => {
                 marginBottom: "5px",
               }}
             >
-              <h6> <i class="fa-solid fa-check"></i>호텔 체크아웃</h6>
+              <h6>
+                {" "}
+                <i class="fa-solid fa-check"></i>호텔 체크아웃
+              </h6>
             </div>
             <Textarea
               id="dataset-bad"
@@ -352,7 +367,10 @@ export const HostHotelUpdate = () => {
                 marginBottom: "5px",
               }}
             >
-              <h6> <i class="fa-solid fa-check"></i>호텔 환불정책</h6>
+              <h6>
+                {" "}
+                <i class="fa-solid fa-check"></i>호텔 환불정책
+              </h6>
             </div>
             <Textarea
               id="dataset-bad"

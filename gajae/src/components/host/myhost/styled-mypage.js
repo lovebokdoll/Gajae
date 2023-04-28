@@ -1,5 +1,5 @@
-import { Link } from 'react-router-dom';
-import styled from 'styled-components';
+import { Link } from "react-router-dom";
+import styled from "styled-components";
 
 export const MyPageUL = styled.ul`
   diplay: grid;
@@ -89,7 +89,7 @@ export const SignOutButton = styled.button`
 
 export const MSContainer = styled.div`
   width: 1140px;
-  height: 800px;
+  height: auto;
   margin: 0 auto; /* 수평 중앙 정렬 */
   padding-top: 50px;
 `;

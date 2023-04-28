@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
 import { useState } from "react";
-import { Link } from "react-router-dom";
 import { hostHotelListDB, hotelDeleteDB } from "../../../service/hostLogic";
 import HotelListDropdown from "./HotelListDropdown";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Card, ListGroup } from "react-bootstrap";
 /**
  * 호스트페이지에서 등록내역 누르면 뜨는 페이지
  * 등록한 호텔을 보여주는 페이지
@@ -15,7 +15,7 @@ const MyHotelList = ({ hostId }) => {
   const [myhotel, setMyHotel] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const pageNumber = [];
-  const hotelsPerPage = 4;
+  const hotelsPerPage = 3;
   console.log(hostId);
   useEffect(() => {
     const host = {
@@ -49,7 +49,7 @@ const MyHotelList = ({ hostId }) => {
   return (
     <>
       <BackDiv>
-        <h3 style={{ fontWeight: "bold", marginLeft: "20px" }}>
+        <h3 style={{ marginLeft: "20px" }}>
           <i class="fa-solid fa-house"></i>
           &nbsp; MY HOTEL
         </h3>
@@ -62,44 +62,24 @@ const MyHotelList = ({ hostId }) => {
               <BtnWrapper>
                 <HotelListDropdown hotel={hotel} onEdit={onEdit} />
               </BtnWrapper>
-              <ReviewWrapper>
-                <ImageContainer>
-                  <ImageWrapper>
-                    <img
-                      src={hotel.P_PHOTO}
-                      style={{ borderRadius: "30%", scale: "120%" }}
-                      alt="placeholder image"
-                    />
-                  </ImageWrapper>
-                  <ImageDescription>
-                    <p>
-                      <FontAwesomeIcon icon="fa-solid fa-house" />
-                      &nbsp;&nbsp;
-                      {hotel.P_ADDRESS}
-                    </p>
-                    <p>
-                      <FontAwesomeIcon icon="fa-solid fa-phone-volume" />
-                      &nbsp;&nbsp;
-                      {hotel.P_TEL}
-                    </p>
-                    <p>
-                      <FontAwesomeIcon icon="fa-regular fa-calendar-check" />
-                      &nbsp;&nbsp;
-                      {hotel.P_HIREDATE}
-                    </p>
-                  </ImageDescription>
-                </ImageContainer>
-                <ContentWrapper>
-                  <TextWrapper>
-                    <ReviewTitle> {hotel.P_TITLE}</ReviewTitle>
-                    <RText>
-                      <FontAwesomeIcon icon="fa-solid fa-star" />
-                      &nbsp;&nbsp; {hotel.P_STAR}
-                    </RText>
-                    <CardTimestamp> {hotel.P_OVERVIEW}</CardTimestamp>
-                  </TextWrapper>
-                </ContentWrapper>
-              </ReviewWrapper>
+              <Card style={{ width: "18rem" }}>
+                <Card.Img variant="top" src={hotel.P_PHOTO} />
+                <Card.Body>
+                  <Card.Title>{hotel.P_TITLE}</Card.Title>
+                </Card.Body>
+                <ListGroup className="list-group-flush">
+                  <ListGroup.Item> {hotel.P_STAR} 성급</ListGroup.Item>
+                  <ListGroup.Item> {hotel.P_ADDRESS}</ListGroup.Item>
+                  <ListGroup.Item> {hotel.P_TEL}</ListGroup.Item>
+                  <ListGroup.Item> {hotel.P_HIREDATE}</ListGroup.Item>
+                </ListGroup>
+                <Card.Body>
+                  <Card.Link hotel={hotel} onEdit={onEdit} href="#">
+                    수정하기
+                  </Card.Link>
+                  <Card.Link href="#">Another Link</Card.Link>
+                </Card.Body>
+              </Card>
             </ReviewItem>
           ))}
         </ReviewList>
@@ -135,8 +115,7 @@ const BackDiv = styled.div`
   display: block;
   flex-direction: column;
   width: 800px;
-  min-height: 900px;
-  max-height: 1000px;
+  height: auto;
   align-items: center;
   //font-family: "KOTRA_GOTHIC";
 `;
@@ -155,14 +134,14 @@ const ReviewItem = styled.li`
 const ReviewWrapper = styled.div`
   display: flex;
   flex-direction: row;
-  max-width: 800px;
-  height: 300px;
+  max-width: 750px;
+  height: auto;
   position: relative;
   margin: 50px 0 50px 15px;
 `;
 const ImageContainer = styled.div`
   display: flex;
-  margin-left: 80px;
+  margin-left: 60px;
   flex-direction: column;
   flex-basis: 33.333333%;
 `;
@@ -180,7 +159,7 @@ const ImageDescription = styled.div`
   width: 100%;
   padding: 0.5rem; /* 기존 코드: 1rem */
   font-size: 0.8rem;
-  margin-top: 0.25rem;
+  margin-top: 1.5rem;
 `;
 
 const ContentWrapper = styled.div`
@@ -198,7 +177,7 @@ const ReviewTitle = styled.h5`
 `;
 
 const RText = styled.p`
-  margin-top: 10px;
+  margin-top: 20px;
   font-size: 1rem;
 `;
 
@@ -206,12 +185,6 @@ const CardTimestamp = styled.p`
   font-size: 1rem;
   bottom: 0;
   margin-top: auto;
-`;
-
-const ColorDiv = styled.div`
-  background-color: lightgray;
-  height: 1px;
-  with: 100%;
 `;
 
 const BtnWrapper = styled.div`
