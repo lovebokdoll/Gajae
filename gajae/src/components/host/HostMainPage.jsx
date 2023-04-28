@@ -21,7 +21,7 @@ const HostMainPage = () => {
         <R_CardGroup>
           <div
             class="card text-center"
-            style={{ width: "20em", height: "20em" }}
+            style={{ width: "22em", height: "20em" }}
           >
             <div class="card-body">
               <h5

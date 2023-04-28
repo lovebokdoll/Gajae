@@ -53,7 +53,7 @@ export const HostTableItem3 = styled.div`
 export const Background = styled.div`
   background-color: #003580;
   width: 100%;
-  height: 3000px;
+  height: 3300px;
   position: relative;
 `;
 export const Title = styled.div`
@@ -97,7 +97,7 @@ export const R_CardGroup = styled.div`
   width: 100%;
   color: black;
   top: 100%; /* 원하는 위치로 top, left, right, bottom 값을 조정 */
-  transform: translate(60%, 65%); /* 가운데 정렬을 위한 transform 속성 */
+  transform: translate(60%, 80%); /* 가운데 정렬을 위한 transform 속성 */
 `;
 export const R_CardGroup_hotel = styled.div`
   // background-color: #003580;
@@ -270,7 +270,7 @@ export const FormDiv = styled.div`
   border: 2px solid lightGray;
   border-radius: 20px;
   padding: 30px;
-  max-width: 400px;
+  max-width: 360px;
   min-height: 300px;
 `;
 export const HeaderDiv = styled.div`

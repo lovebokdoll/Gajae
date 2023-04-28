@@ -24,13 +24,13 @@ export const SignupForm = styled(LoginForm)`
   height: 100vh;
 `;
 
-export const MyH1 = styled.h1`
-  padding-top: 60px;
+export const MyH1 = styled.div`
+  padding-top: 80px;
   font-size: 30px;
-  margin-bottom: 60px;
-  margin-top: 15px;
+  margin-bottom: 100px;
   font-weight: 15px;
-  text-align: center;
+  position: absolute;
+  text-align: center; /* 가운데 정렬 */
 `;
 
 /* 3번의 하위태그에 대한 설정 */
@@ -89,13 +89,23 @@ export const MyInput = styled.input`
   }
 `;
 
+// export const MyH1 = styled.div`
+//   padding-top: 60px;
+//   font-size: 30px;
+//   margin-bottom: 60px;
+//   margin-top: 15px;
+//   font-weight: 15px;
+//   position: absolute;
+//   text-align: center; /* 가운데 정렬 */
+// `;
+
 export const MyForm = styled.div`
   width: 100%;
-  align-items: center;
+  align-item: center;
   position: relative;
-  top: 40%;
-  left: 40%;
-  //transform: translate(-20%, -50%);
+  top: 200px;
+  left: 39%;
+  //transform: translate(-20%, 70%);
 `;
 
 export const SubmitButton = styled.button`
@@ -315,4 +325,5 @@ export const Title = styled.h1`
 
 export const WholeForm = styled.div`
   background-color: #f5f5f5;
+  height: 800px;
 `;

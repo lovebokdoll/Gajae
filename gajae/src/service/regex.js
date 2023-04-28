@@ -104,15 +104,17 @@ export const regexMobile = (event) => {
 
 export const regexBusinessNum = (event) => {
   console.log("event ===>", event);
-  const regex = /^01([0|1|6|7|8|9]?)([0-9]{4})([0-9]{4})$/;
+  const regex = /^[0-9]{3}-[0-9]{2}-[0-9]{5}$/;
   const businessNum = event.target.value;
 
   if (businessNum.length === 0) {
     return " ";
   } else if (!regex.test(businessNum)) {
-    return "'-'를 제외한 번호를 적어주세요.";
+    return "3자리-2자리-5자리 형식으로 입력해주세요.";
+  } else if (!(regex.test(businessNum) && businessNum.length > 11)) {
+    return "11자리 이상 입력되었습니다 ";
   } else {
-    return "";
+    return "사업자번호 입력 성공";
   }
 };
 

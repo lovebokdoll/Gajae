@@ -25,6 +25,7 @@ import {
 import Footer from "../footer/Footer";
 import HostHeaderNav from "./HostHeaderNav";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Swal from "sweetalert2";
 
 const HostSignUp = () => {
   const navigate = useNavigate();
@@ -43,7 +44,7 @@ const HostSignUp = () => {
     password: "",
     password2: "",
     name: "",
-    mobile: "",
+    tel: "",
     businessNum: "",
   });
 
@@ -53,8 +54,21 @@ const HostSignUp = () => {
     password: "*",
     password2: "*",
     name: "*",
-    mobile: "*",
+    tel: "*",
     host_business_num: "*",
+  });
+
+  //모달 창
+  const Toast = Swal.mixin({
+    toast: true,
+    position: "center-center",
+    showConfirmButton: false,
+    timer: 2000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+      toast.addEventListener("mouseenter", Swal.stopTimer);
+      toast.addEventListener("mouseleave", Swal.resumeTimer);
+    },
   });
 
   useEffect(() => {
@@ -139,20 +153,33 @@ const HostSignUp = () => {
     if (key === "host_email") {
       params = { HOST_EMAIL: hostInfo[key].trim(), type: "overlap" };
       if (params.HOST_EMAIL === "") {
-        dispatch(setToastMessage("이메일을 입력해주세요."));
+        Toast.fire({
+          icon: "info",
+          title: "이메일을 입력해주세요.",
+          timer: 1500,
+          timerProgressBar: false,
+        });
         return;
       } else {
         response = await overlapCheckDB(params);
         console.log(response.data);
         if (response.data === 0) {
-          dispatch(setToastMessage("사용 가능한 이메일 입니다."));
+          Toast.fire({
+            icon: "success", // Alert 타입
+            title: "사용 가능한 이메일 입니다.", // Alert 제목
+            text: "아이디를 입력해주세요", // Alert 내용
+            timer: 900,
+            timerProgressBar: false,
+          });
           setIsIdCheck(true);
         } else if (response.data === 1) {
-          dispatch(
-            setToastMessage(
-              "이미 존재하는 이메일 입니다. 로그인 페이지로 이동합니다"
-            )
-          );
+          Toast.fire({
+            icon: "info", // Alert 타입
+            title: "이미 존재하는 이메일 입니다.", // Alert 제목
+            text: "로그인 페이지로 이동합니다", // Alert 내용
+            timer: 900,
+            timerProgressBar: false,
+          });
           setTimeout(() => {
             navigate("/host/login");
           }, 1000);
@@ -168,16 +195,31 @@ const HostSignUp = () => {
       params = { HOST_ID: hostInfo[key].trim(), type: "overlap" };
       // params = { HOST_ID: hostInfo[key].trim() };
       if (params.HOST_ID === "") {
-        dispatch(setToastMessage("아이디를 입력해주세요."));
+        Toast.fire({
+          icon: "warning",
+          title: "아이디를 입력해주세요.",
+          timer: 900,
+          timerProgressBar: false,
+        });
         return;
       } else {
         response = await overlapCheckDB(params);
         console.log(response.data);
         if (response.data === 0) {
-          dispatch(setToastMessage("사용 가능한 ID 입니다."));
+          Toast.fire({
+            icon: "warning",
+            title: "사용 가능한 ID 입니다.",
+            timer: 900,
+            timerProgressBar: false,
+          });
           setIsIdCheck(true);
         } else if (response.data === 1) {
-          dispatch(setToastMessage("이미 사용중인 ID 입니다."));
+          Toast.fire({
+            icon: "warning",
+            title: "이미 사용중인 ID 입니다.",
+            timer: 900,
+            timerProgressBar: false,
+          });
         }
       }
     }
@@ -250,7 +292,12 @@ const HostSignUp = () => {
       !hostInfo.host_tel ||
       !hostInfo.host_business_num
     ) {
-      dispatch(setToastMessage("필수정보를 모두 입력해주세요."));
+      Toast.fire({
+        icon: "warning", // Alert 타입
+        title: "필수정보를 모두 입력해주세요.", // Alert 제목
+        timer: 900,
+        timerProgressBar: false,
+      });
       return;
     }
     if (isIdCheck) {
@@ -276,7 +323,12 @@ const HostSignUp = () => {
         console.log("error ===>", error);
       }
     } else if (isIdCheck === false) {
-      dispatch(setToastMessage("아이디 중복확인을 먼저 진행해주세요."));
+      Toast.fire({
+        icon: "warning",
+        title: "아이디 중복확인을 먼저 진행해주세요.",
+        timer: 900,
+        timerProgressBar: false,
+      });
     }
   };
 
@@ -286,8 +338,12 @@ const HostSignUp = () => {
   return (
     <>
       <HostHeaderNav />
-
-      <div style={{ display: "flex", justifyContent: "center" }}>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+        }}
+      >
         <div style={{ display: "flex", width: "100%", marginTop: "-90px" }}>
           <SignupForm suggested={false}>
             <div
@@ -485,7 +541,7 @@ const HostSignUp = () => {
                 </MyLabel>
                 <MyLabel>
                   {" "}
-                  전화번호 <span style={{ color: "red" }}>{star.mobile}</span>
+                  전화번호 <span style={{ color: "red" }}>{star.tel}</span>
                   <MyInput
                     type="text"
                     id="host_tel"
@@ -493,10 +549,10 @@ const HostSignUp = () => {
                     placeholder="전화번호를 입력해주세요."
                     onChange={(e) => {
                       changeHostInfo(e);
-                      regex("mobile", e);
+                      regex("tel", e);
                     }}
                   />
-                  <MyLabelAb>{comment.mobile}</MyLabelAb>
+                  <MyLabelAb>{comment.tel}</MyLabelAb>
                 </MyLabel>
               </div>
             </div>
@@ -512,10 +568,9 @@ const HostSignUp = () => {
           </SignupForm>
         </div>
       </div>
-
+      <div className="space" style={{ height: "110px" }}></div>
       <Footer />
     </>
   );
 };
-//};
 export default HostSignUp;
