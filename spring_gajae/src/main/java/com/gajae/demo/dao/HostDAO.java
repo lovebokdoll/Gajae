@@ -50,67 +50,73 @@ public class HostDAO {
 
 	}
 
-//호텔 등록 
-//	public int propertyInsert(Map<String, Object> map) {
 	public int propertyInsert(List<Map<String, Object>> list) {
-		int result = 0;// 입력이 성공했는지 유무를 담는 변수 선언
-		// int p_id=0; // insert시에 시퀀스로 채번된 속성을 담을 변수 선언 - 시퀀스로 채번되는 p_id
-		log.info("map = {}", list);
+		log.info("list = {}", list);
 
-		result = sqlSessionTemplate.update("host.propertyInsert", list);
-		// result가 1인경우 p_id가 null이 아니면
-		/*
-		 * if(result ==1) { if(map.get("p_id")!=null) { p_id =
-		 * Integer.parseInt(map.get("p_id").toString()); } }
-		 * log.info("result={}",result); log.info( "useGeneratedKeys 프로퍼티 속성값 = {}",
-		 * p_id );
-		 */
-		// p_id 리턴
+		int result = sqlSessionTemplate.update("host.propertyInsert", list);
+
+		log.info("result = {}", result);
 		return result;
 	}
 
 	// 룸타입 등록
-	public void roomInsert(List<Map<String, Object>> list) {
+	public int roomInsert(List<Map<String, Object>> list) {
 		log.info("map = {}", list);
+
 		int result = sqlSessionTemplate.insert("host.roomInsert", list);
+
+		log.info("result = {}", result);
+		return result;
 	}
 
 	public int hostfacInsert(Map<String, Object> map) {
-		int result = 0;
-		log.info("map = {}", map);
-		result = sqlSessionTemplate.insert("host.hostfacInsert", map);
+
+		int result = sqlSessionTemplate.insert("host.hostfacInsert", map);
+
+		log.info("result = {}", result);
 		return result;
 	}
 
 	public int hostextraInsert(List<Map<String, Object>> list) {
-		int result = 0;
-		log.info("map = {}", list);
-		result = sqlSessionTemplate.update("host.hostextraInsert", list);
+
+		int result = sqlSessionTemplate.update("host.hostextraInsert", list);
+
+		log.info("result = {}", result);
 		return result;
 	}
 
 	public List<Map<String, Object>> hotelList(Map<String, Object> map) {
-		log.info("map = {}", map);
+
 		List<Map<String, Object>> result = sqlSessionTemplate.selectList("host.hotelList", map);
+
+		log.info("result = {}", result);
+
 		return result;
 	}
 
 	public List<Map<String, Object>> hotelDetail(Map<String, Object> map) {
-		log.info("map = {}", map);
+
 		List<Map<String, Object>> result = sqlSessionTemplate.selectList("host.hotelDetail", map);
+
+		log.info("result = {}", result);
+
 		return result;
 	}
 
-	public List<Map<String, Object>> hotelUpdate(ArrayList<Map<String, Object>> list) {
-		log.info("map = {}", list);
-		List<Map<String, Object>> result = sqlSessionTemplate.selectList("host.hotelUpdate", list);
+	public int hotelUpdate(Map<String, Object> map) {
+
+		int result = sqlSessionTemplate.update("host.hotelUpdate", map);
+
+		log.info("result = {}", result);
+
 		return result;
 	}
 
 	public Map<String, Object> facPidExist(Map<String, Object> map) {
-		Map<String, Object> result = null;
 		log.info("map = {}", map);
-		result = sqlSessionTemplate.selectOne("host.facPidExist", map);
+
+		Map<String, Object> result = sqlSessionTemplate.selectOne("host.facPidExist", map);
+
 		return result;
 	}
 
@@ -122,6 +128,37 @@ public class HostDAO {
 
 		log.info("roomIds = {}", roomIds);
 		return roomIds;
+	}
+
+	public int hotelDelete(Map<String, Object> map) {
+
+		int result = sqlSessionTemplate.delete("host.hotelDelete", map);
+
+		log.info("result = {}", result);
+
+		return result;
+	}
+
+	public int vacancyCreate(int p_id) {
+
+		int result = sqlSessionTemplate.insert("vacancy.vacancyCreate", p_id);
+
+		log.info("result = {}", result);
+		return result;
+	}
+
+	public int vacancyInsert(List<Map<String, Object>> vacancyList) {
+
+		log.info("vacancyList = {}", vacancyList);
+		//Map<String,Object> pmap = new HashMap<>();
+		//pmap.put("p_id", "28");
+		//vacancyList.add(pmap);
+		//log.info("vacancyList = {}", vacancyList);		
+		int result = sqlSessionTemplate.insert("vacancy.vacancyInsert", vacancyList);
+
+		log.info("result = {}", result);
+
+		return result;
 	}
 
 }

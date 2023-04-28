@@ -3,14 +3,14 @@ import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { setToastMessage } from "../../redux/toastStatus/action";
 import {
-  checkPassword,
-  regexBusinessNum,
   regexEmail,
   regexID,
-  regexMobile,
-  regexName,
-  regexNickname,
   regexPassword,
+  checkPassword,
+  regexName,
+  regexMobile,
+  regexBusinessNum,
+  regexNickname,
 } from "../../service/regex";
 import { overlapCheckDB, signupDB } from "../../service/hostLogic";
 import {
@@ -24,6 +24,7 @@ import {
 } from "../../style/FormStyle";
 import Footer from "../footer/Footer";
 import HostHeaderNav from "./HostHeaderNav";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const HostSignUp = () => {
   const navigate = useNavigate();
@@ -43,7 +44,7 @@ const HostSignUp = () => {
     password2: "",
     name: "",
     mobile: "",
-    host_business_num: "",
+    businessNum: "",
   });
 
   const [star, setStar] = useState({
@@ -53,7 +54,7 @@ const HostSignUp = () => {
     password2: "*",
     name: "*",
     mobile: "*",
-    host_business_num: "",
+    host_business_num: "*",
   });
 
   useEffect(() => {
@@ -93,7 +94,7 @@ const HostSignUp = () => {
     } else if (key === "tel") {
       result = regexMobile(event);
       console.log(result);
-    } else if (key === "businessNum ") {
+    } else if (key === "businessNum") {
       result = regexBusinessNum(event);
       console.log(result);
     }
@@ -285,10 +286,9 @@ const HostSignUp = () => {
   return (
     <>
       <HostHeaderNav />
-      <div>이미 파트너로 등록하셨나요?</div>
-      <Link to="/host/login">파트너로 로그인</Link>
+
       <div style={{ display: "flex", justifyContent: "center" }}>
-        <div style={{ display: "flex", width: "100%" }}>
+        <div style={{ display: "flex", width: "100%", marginTop: "-90px" }}>
           <SignupForm suggested={false}>
             <div
               style={{
@@ -296,10 +296,38 @@ const HostSignUp = () => {
                 justifyContent: "center",
                 fontSize: "20px",
                 fontWeight: "bold",
+                marginBottom: "15px",
               }}
             >
-              파트너 계정 등록 - 숙소를 등록하고 관리하려면 계정을 만들어주세요
+              <FontAwesomeIcon
+                icon="fa-solid fa-right-to-bracket"
+                style={{ padding: "5px" }}
+              />
+              파트너 계정 등록
             </div>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                fontSize: "18px",
+                fontWeight: "bold",
+                marginBottom: "20px",
+              }}
+            >
+              이미 파트너로 등록하셨나요?
+            </div>
+            <Link
+              to="/host/login"
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                fontSize: "15px",
+                //   textDecoration: "none",
+                marginBottom: "20px",
+              }}
+            >
+              파트너로 로그인
+            </Link>
             <div
               style={{
                 display: "flex",
@@ -438,7 +466,7 @@ const HostSignUp = () => {
                       regex("businessNum", e);
                     }}
                   />
-                  <MyLabelAb>{comment.host_business_num}</MyLabelAb>
+                  <MyLabelAb>{comment.businessNum}</MyLabelAb>
                 </MyLabel>
                 <MyLabel>
                   {" "}
@@ -457,7 +485,7 @@ const HostSignUp = () => {
                 </MyLabel>
                 <MyLabel>
                   {" "}
-                  전화번호 <span style={{ color: "red" }}>{star.tel}</span>
+                  전화번호 <span style={{ color: "red" }}>{star.mobile}</span>
                   <MyInput
                     type="text"
                     id="host_tel"
@@ -465,10 +493,10 @@ const HostSignUp = () => {
                     placeholder="전화번호를 입력해주세요."
                     onChange={(e) => {
                       changeHostInfo(e);
-                      regex("tel", e);
+                      regex("mobile", e);
                     }}
                   />
-                  <MyLabelAb>{comment.tel}</MyLabelAb>
+                  <MyLabelAb>{comment.mobile}</MyLabelAb>
                 </MyLabel>
               </div>
             </div>
@@ -484,6 +512,7 @@ const HostSignUp = () => {
           </SignupForm>
         </div>
       </div>
+
       <Footer />
     </>
   );

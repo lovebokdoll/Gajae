@@ -1,12 +1,10 @@
-import React from "react";
-import styled from "styled-components";
-import { useState } from "react";
-import { useEffect } from "react";
-import { hostReviewListDB } from "../../../service/hostLogic";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import MyHotelReviewReply from "./MyHotelReviewReply";
-import ReplyForm from "../../review/ReplyForm";
+import React, { useEffect, useState } from "react";
+import styled from "styled-components";
 import { replyListDB } from "../../../service/reviewboardLogic";
+import ReplyForm from "../../review/ReplyForm";
+import MyHotelReviewReply from "./MyHotelReviewReply";
+import { hostReviewListDB } from "../../../service/host/hostReview/hostReview";
 
 const MyHotelReviewList = ({ hostId }) => {
   const [hostReviews, setHostReviews] = useState(); //고객의 리뷰리스트

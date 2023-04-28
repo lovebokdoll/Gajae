@@ -1,8 +1,8 @@
-import Cookies from 'js-cookie';
-import { useCallback, useEffect, useState } from 'react';
-import { Button, Dropdown, Modal } from 'react-bootstrap';
-import { useNavigate } from 'react-router-dom';
-import { Charge_title, TotalPrice } from '../../style/HotelStyle';
+import Cookies from "js-cookie";
+import { useCallback, useEffect, useState } from "react";
+import { Button, Dropdown, Modal } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
+import { Charge_title, TotalPrice } from "../../style/HotelStyle";
 /**
  * HotelPage에서 넘어온 정보를 이용하여 갯수만큼 화면에 뿌려준다.
  * 옵션정보&요금 - 숙소정보
@@ -18,7 +18,7 @@ const HotelAvailabilityRow = ({ row }) => {
   const [totalPrice, setTotalPrice] = useState(0);
   //쿠키에 선택된 룸타입, 갯수저장하는 useState
   const [selectRoom, setSelectRoom] = useState({});
-  //모달창 상태를 담는 변수
+  //쿠키에 선택된 룸Id저장하는 useState
   const [show, setShow] = useState(false);
   //선택한 모달창 담는 useState
   const [selectedModal, setSelectedRoomModal] = useState([]);
@@ -50,6 +50,7 @@ const HotelAvailabilityRow = ({ row }) => {
       selectedRoomIds[hotels[i].ROOM_ID] = num;
     }
     setTotalPrice(totalPrice);
+    //룸타입
     const temp = JSON.stringify(selectedRooms);
     const rooms = JSON.parse(temp);
 
@@ -63,7 +64,6 @@ const HotelAvailabilityRow = ({ row }) => {
         obj[key] = rooms[key];
         return obj;
       }, {});
-
     const selectedRids = Object.keys(rids)
       .filter((rid) => rids[rid] !== 0)
       .reduce((obj, key) => {
@@ -124,7 +124,7 @@ const HotelAvailabilityRow = ({ row }) => {
       Cookies.set('resPrice', totalPrice); // 총액 쿠키에 담음
       navigate('/reservate');
     } else {
-      alert('객실을 선택해주세요');
+      alert("객실을 선택해주세요");
     }
   };
 
@@ -155,7 +155,7 @@ const HotelAvailabilityRow = ({ row }) => {
                     <a
                       href="javascript:void(0);"
                       style={{
-                        textDecoration: 'none',
+                        textDecoration: "none",
                       }}
                       onClick={() => {
                         setSelectedRoomModal(hotel.ROOM_TYPE);
@@ -186,7 +186,7 @@ const HotelAvailabilityRow = ({ row }) => {
                   <td>{hotel.ROOM_PRICE}원</td>
 
                   <td>
-                    {hotel.ROOM_OPTION?.split(',').map((option, index) => (
+                    {hotel.ROOM_OPTION?.split(",").map((option, index) => (
                       <div key={index}>{option}</div>
                     ))}
                   </td>
@@ -195,11 +195,16 @@ const HotelAvailabilityRow = ({ row }) => {
                     <div className="table-wrapper-item2">
                       <Dropdown>
                         <Dropdown.Toggle variant="danger" id="dropdown-basic">
-                          {selectNumber[index] || 0} {/* index값이 존재하지 않을 경우 0으로 보여줌 */}
+                          {selectNumber[index] || 0}{" "}
+                          {/* index값이 존재하지 않을 경우 0으로 보여줌 */}
                         </Dropdown.Toggle>
                         <Dropdown.Menu>
-                          <Dropdown.Item onClick={() => selectNum(index, 0)}>0</Dropdown.Item>
-                          <Dropdown.Item onClick={() => selectNum(index, 1)}>1</Dropdown.Item>
+                          <Dropdown.Item onClick={() => selectNum(index, 0)}>
+                            0
+                          </Dropdown.Item>
+                          <Dropdown.Item onClick={() => selectNum(index, 1)}>
+                            1
+                          </Dropdown.Item>
                           {/* <Dropdown.Item onClick={() => selectNum(index, 2)}>
                             2
                           </Dropdown.Item>
@@ -236,7 +241,11 @@ const HotelAvailabilityRow = ({ row }) => {
             {selectedPriceModal}원
           </Modal.Footer>
           <Modal.Footer>
-            <Button className="btn_close" variant="secondary" onClick={handleClose}>
+            <Button
+              className="btn_close"
+              variant="secondary"
+              onClick={handleClose}
+            >
               닫기
             </Button>
           </Modal.Footer>

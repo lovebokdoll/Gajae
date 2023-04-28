@@ -166,14 +166,44 @@ export const hostextraInsertDB = (information) => {
   });
 };
 
-export const hostReviewListDB = (host) => {
-  console.log(host);
+export const hotelDeleteDB = (review) => {
+  console.log(review);
   return new Promise((resolve, reject) => {
     try {
       const response = axios({
         method: "get",
-        url: process.env.REACT_APP_SPRING_IP + "review/hostReviewList",
-        params: host,
+        url: process.env.REACT_APP_SPRING_IP + "host/hotelDelete",
+        params: review,
+      });
+      resolve(response);
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+export const hotelFACDeleteDB = (review) => {
+  console.log(review);
+  return new Promise((resolve, reject) => {
+    try {
+      const response = axios({
+        method: "get",
+        url: process.env.REACT_APP_SPRING_IP + "host/hotelDelete",
+        params: review,
+      });
+      resolve(response);
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+export const hotelEXTRADeleteDB = (review) => {
+  console.log(review);
+  return new Promise((resolve, reject) => {
+    try {
+      const response = axios({
+        method: "get",
+        url: process.env.REACT_APP_SPRING_IP + "host/hotelDelete",
+        params: review,
       });
       resolve(response);
     } catch (error) {

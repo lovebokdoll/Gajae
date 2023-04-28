@@ -20,16 +20,62 @@
 		AND TO_DATE(RES_DATE, 'YYYY-MM-DD') <![CDATA[ <= ]]> TO_DATE(#{END_DATE}, 'YYYY-MM-DD')
 	</update>
 	
-	<insert id="vacancyInsert">
-	INSERT INTO P_VACANCY_${P_ID} (P_ID, ROOM_ID, RES_DATE, RES_YN)
-	SELECT #{P_ID}, ROOM_ID, TO_CHAR(LEVEL - 1 + DATE '2023-04-24', 'YYYY-MM-DD'), 'N'
-	FROM (
-		<foreach item="item" index="index" collection="roomIds" separator="UNION ALL">
-			SELECT #{item} AS ROOM_ID FROM DUAL
-		</foreach>
-	) ROOMS
-	CONNECT BY LEVEL <![CDATA[ <= ]]>
-	(DATE '2023-07-30' - DATE '2023-04-24' + 1)
+	<!-- 달력create -->
+	<insert id="vacancyCreate" parameterType="int">
+		CREATE TABLE
+		GAJAE.P_VACANCY_${p_id}
+		(
+		P_ID NUMBER(5) NOT NULL,
+		ROOM_ID NUMBER(10) NOT
+		NULL,
+		RES_DATE VARCHAR2(50 BYTE),
+		RES_YN VARCHAR2(2 BYTE) DEFAULT 'N'
+		NOT NULL
+		)
 	</insert>
+
+	<update id="vacancyInsert" parameterType="java.util.List">
+		INSERT ALL
+		<foreach collection="list" item="item" index="index"
+			separator=" ">
+			INTO
+			P_VACANCY_${item.p_id}(
+			P_ID, ROOM_ID, RES_DATE, RES_YN
+			)
+			VALUES(
+			#{item.p_id},
+			#{item.ROOM_ID},
+			TO_CHAR(LEVEL - 1 +
+			TO_DATE('2023-04-24', 'YYYY-MM-DD'), 'YYYY-MM-DD'),
+			'N'
+			)
+		</foreach>
+			WHERE LEVEL  <![CDATA[ <= ]]>
+			(TO_DATE('2023-07-30', 'YYYY-MM-DD') - TO_DATE('2023-04-24',
+			'YYYY-MM-DD') + 1)
+			CONNECT BY LEVEL  <![CDATA[ <= ]]>
+			(TO_DATE('2023-07-30', 'YYYY-MM-DD') - TO_DATE('2023-04-24',
+			'YYYY-MM-DD') + 1)
+		SELECT * FROM dual
+	</update>
+
+	<!-- 달력insert -->
+		<!--<insert id="vacancyInsert" parameterType="java.util.List">
+		INSERT INTO P_VACANCY_${p_id} (P_ID, ROOM_ID, RES_DATE, RES_YN)VALUES
+		<foreach item="item" index="index" collection="list"
+			separator=" ">
+			(
+			SELECT #{item.p_id}, #{item.ROOM_ID}, TO_CHAR(LEVEL - 1 +
+			TO_DATE('2023-04-24', 'YYYY-MM-DD'), 'YYYY-MM-DD'), 'N'
+			FROM DUAL
+			WHERE LEVEL  <![CDATA[ <= ]]>
+			(TO_DATE('2023-07-30', 'YYYY-MM-DD') - TO_DATE('2023-04-24',
+			'YYYY-MM-DD') + 1)
+			CONNECT BY LEVEL  <![CDATA[ <= ]]>
+			(TO_DATE('2023-07-30', 'YYYY-MM-DD') - TO_DATE('2023-04-24',
+			'YYYY-MM-DD') + 1)
+			)
+		</foreach>
+	</insert> -->
 
 </mapper>

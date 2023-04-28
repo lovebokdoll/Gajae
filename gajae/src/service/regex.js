@@ -1,17 +1,3 @@
-export const textRegEx = (event) => {
-  const name = event.target.value; //input onChange
-  const kor = /^[가-힣]+$/;
-  const eng = /^[a-zA-Z]+$/;
-
-  if (name.length === 0) {
-    return " "; // 공백 있음
-  } else if (kor.test(name) || eng.test(name)) {
-    return "";
-  } else {
-    return "부서명은 영어 또는 한글로만 가능합니다.";
-  }
-};
-
 export const regexEmail = (event) => {
   const regex = /^([0-9a-zA-Z_\.-]+)@([0-9a-zA-Z_-]+)(\.[0-9a-zA-Z_-]+){1,2}$/;
   const email = event.target.value;
@@ -47,13 +33,13 @@ export const regexPassword = (event) => {
 
   if (password.length === 0) {
     return " ";
-  } else if (password.length < 8 || password.length > 20) {
+  } else if (password.length < 8 && password.length > 20) {
     return "8자리 ~ 20자리 이내로 입력해주세요.";
   } else if (hangulcheck.test(password)) {
     return "비밀번호에 한글을 사용 할 수 없습니다.";
   } else if (password.search(/\s/) !== -1) {
     return "비밀번호는 공백 없이 입력해주세요.";
-  } else if (num < 0 || eng < 0 || special < 0) {
+  } else if (num < 0 && eng < 0 && special < 0) {
     return "영문, 숫자, 특수문자를 혼합하여 입력해주세요.";
   } else {
     return "";
@@ -118,9 +104,8 @@ export const regexMobile = (event) => {
 
 export const regexBusinessNum = (event) => {
   console.log("event ===>", event);
-  const businessNum = event.target.value;
-
   const regex = /^01([0|1|6|7|8|9]?)([0-9]{4})([0-9]{4})$/;
+  const businessNum = event.target.value;
 
   if (businessNum.length === 0) {
     return " ";

@@ -188,7 +188,7 @@ const ImageDescription = styled.div`
 
 const ContentWrapper = styled.div`
   flex: 0 0 50.666667%;
-  margin-left: 0px;
+  margin-left: 50px;
 `;
 const TextWrapper = styled.div`
   display: flex;

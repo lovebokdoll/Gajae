@@ -84,6 +84,9 @@ public class HostController {
 	        Gson   g    = new Gson();
 	        String temp = g.toJson( hotelList );
 	        log.info("temp = {}", temp);
+	        if(hotelList.size()==0) {
+	        	return null;
+	        }
 	        return temp;
 	}
 	
@@ -100,14 +103,10 @@ public class HostController {
 	}	
 	//나의숙소수정 
 	@PostMapping("hotelUpdate")
-	public String hotelUpdate(@RequestBody Map<String,Object> map) {
+	public int hotelUpdate(@RequestBody Map<String,Object> map) {
 		log.info("map = {}", map);
-		List<Map<String,Object>> bList = null;
-		bList = hostLogic.hotelUpdate(map);
-		Gson g = new Gson();
-		String temp = g.toJson(bList);
-		log.info("temp = {}", temp);
-		return temp;
+		int result = hostLogic.hotelUpdate(map);
+		return result;
 	}	
 
 //	    @PostMapping( "hostpropertyInsert" )
@@ -172,11 +171,12 @@ public class HostController {
 		return result;
 	}
 	
-//시설 P_ID불러오기
-	@GetMapping("facPidExist")
-	public Map<String, Object> facPidExist(@RequestParam Map<String, Object> map) {
-		Map<String, Object> result = null;
-		result = hostLogic.facPidExist(map);
-		return result;
-	}
+	 @GetMapping( "hotelDelete" )
+	    public String hotelDelete( @RequestParam Map<String, Object> pMap ) {
+	        log.info( "pMap = {}", pMap );
+	        
+	        int result = hostLogic.hotelDelete( pMap );
+	        
+	        return String.valueOf( result );
+	    }
 }
