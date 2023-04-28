@@ -1,5 +1,4 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import { ContainerDiv, FormDiv, HeaderDiv } from "../../style/FormStyle";
 import HeaderNav1 from "../../components/header/HeaderNav1";
 import Footer from "../../components/footer/Footer";
 import { useLocation } from "react-router-dom";
@@ -118,173 +117,166 @@ export const ReviewUpdate = () => {
     <>
       <HeaderNav1 />
       <ContainerDiv>
-        <div
-          style={{
-            textAlign: "center",
-            margin: "50px 0",
-            border: "1px solid",
-            padding: "10px",
-            backgroundColor: "white",
-          }}
-        >
-          <span style={{ margin: "10%" }}>
-            <FontAwesomeIcon icon="fa-solid fa-door-open" />
-            다녀왔던 장소에 대한 팁이 있다면? 최근 여행을 평가해주세요
-          </span>
-        </div>
-        <HeaderDiv>
-          <Title>Review Update</Title>
-          <Hr />
-        </HeaderDiv>
-        <FormDiv>
-          <div style={{ width: "100%", maxWidth: "2000px" }}>
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                marginBottom: "3px",
-              }}
-            >
-              <h5>제목</h5>
-              <Custom_btn type="button" onClick={reviewUpdate}>
-                글쓰기
-              </Custom_btn>
-            </div>
-            <Textarea
-              id="dataset-title"
-              type="text"
-              value={title}
-              maxLength="50"
-              placeholder="제목을 입력하세요."
-              style={{
-                width: "100%",
-                height: "40px",
-                border: "1px solid lightGray",
-                marginBottom: "3px",
-              }}
-              onChange={(e) => {
-                handleTitle(e.target.value);
-              }}
-            />
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                marginBottom: "10px",
-              }}
-            />
-            <h5>상세내용</h5>
-            <hr style={{ margin: "10px 0px 20px 0px" }} />
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                marginBottom: "5px",
-              }}
-            >
-              <h6>
-                <i className="fa-regular fa-face-smile"></i>
-                좋았던 점
-              </h6>
-              <h6>20/100</h6>
-            </div>
-            <Textarea
-              id="dataset-good"
-              ref={textareaRef}
-              value={reviewgood}
-              maxLength="50"
-              placeholder="이용하신 상품의 자세한 리뷰를 남겨주세요."
-              style={{
-                width: "100%",
-                height: "100px",
-                border: "1px solid lightGray",
-                marginBottom: "5px",
-              }}
-              onChange={(e) => {
-                handleGood(e.target.value);
-              }}
-              onBlur={handleInputBlur}
-            />
-            <ErrorDiv style={{ marginTop: "5px" }}>{errorMessage}</ErrorDiv>
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                marginBottom: "5px",
-                marginTop: "10px",
-              }}
-            >
-              <h6>
-                <i className="fa-regular fa-face-frown"></i>
-                아쉬운 점
-              </h6>
-              <h6>20자 이상</h6>
-            </div>
-            <Textarea
-              id="dataset-bad"
-              ref={textareaRef}
-              value={reviewbad}
-              maxLength="50"
-              placeholder="이용하신 상품의 자세한 리뷰를 남겨주세요."
-              style={{
-                width: "100%",
-                height: "100px",
-                border: "1px solid lightGray",
-                marginBottom: "10px",
-              }}
-              onChange={(e) => {
-                handleBad(e.target.value);
-              }}
-              onBlur={handleInputBlurBad}
-            />
-            <ErrorDiv>{errorMessageBad}</ErrorDiv>
-            <hr />
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                marginBottom: "5px",
-              }}
-            ></div>
-            <div
-              style={{
-                display: "block",
-                border: "1px solid lightGray",
-                borderRadius: "10px",
-                minHeight: "60px",
-                padding: "5px",
-                transition: "height 0.3s ease-in-out",
-                backgroundColor: "white",
-              }}
-            >
-              {/*----------------------------------첨부파일-------------------------------------*/}
+        <ContentDiv>
+          <TopDiv style={{ backgroundColor: "white" }}>
+            <span style={{ margin: "10%" }}>
+              <FontAwesomeIcon icon="fa-solid fa-door-open" />
+              다녀왔던 장소에 대한 팁이 있다면? 최근 여행을 평가해주세요
+            </span>
+          </TopDiv>
+          <HeaderDiv>
+            <Title>Review Update</Title>
+          </HeaderDiv>
+          <FormDiv>
+            <div style={{ width: "100%", maxWidth: "2000px" }}>
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  marginBottom: "3px",
+                }}
+              >
+                <h5>제목</h5>
+                <Custom_btn type="button" onClick={reviewUpdate}>
+                  글쓰기
+                </Custom_btn>
+              </div>
+              <Textarea
+                id="dataset-title"
+                type="text"
+                value={title}
+                maxLength="50"
+                placeholder="제목을 입력하세요."
+                style={{
+                  width: "100%",
+                  height: "40px",
+                  border: "1px solid lightGray",
+                  marginBottom: "3px",
+                }}
+                onChange={(e) => {
+                  handleTitle(e.target.value);
+                }}
+              />
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  marginBottom: "10px",
+                }}
+              />
+              <h5>상세내용</h5>
+              <hr style={{ margin: "10px 0px 20px 0px" }} />
               <div
                 style={{
                   display: "flex",
                   justifyContent: "space-between",
                   marginBottom: "5px",
-                  alignItems: "center",
+                }}
+              >
+                <h6>
+                  <i className="fa-regular fa-face-smile"></i>
+                  좋았던 점
+                </h6>
+                <h6>20/100</h6>
+              </div>
+              <Textarea
+                id="dataset-good"
+                ref={textareaRef}
+                value={reviewgood}
+                maxLength="50"
+                placeholder="이용하신 상품의 자세한 리뷰를 남겨주세요."
+                style={{
+                  width: "100%",
+                  height: "100px",
+                  border: "1px solid lightGray",
+                  marginBottom: "5px",
+                }}
+                onChange={(e) => {
+                  handleGood(e.target.value);
+                }}
+                onBlur={handleInputBlur}
+              />
+              <ErrorDiv style={{ marginTop: "5px" }}>{errorMessage}</ErrorDiv>
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  marginBottom: "5px",
+                  marginTop: "10px",
+                }}
+              >
+                <h6>
+                  <i className="fa-regular fa-face-frown"></i>
+                  아쉬운 점
+                </h6>
+                <h6>20자 이상</h6>
+              </div>
+              <Textarea
+                id="dataset-bad"
+                ref={textareaRef}
+                value={reviewbad}
+                maxLength="50"
+                placeholder="이용하신 상품의 자세한 리뷰를 남겨주세요."
+                style={{
+                  width: "100%",
+                  height: "100px",
+                  border: "1px solid lightGray",
+                  marginBottom: "10px",
+                }}
+                onChange={(e) => {
+                  handleBad(e.target.value);
+                }}
+                onBlur={handleInputBlurBad}
+              />
+              <ErrorDiv>{errorMessageBad}</ErrorDiv>
+              <hr />
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  marginBottom: "5px",
                 }}
               ></div>
-              <ImageUpload imageUrl={imageUrl} getImage={getImage} />
-              <hr />
-              {/*--------------------------------리뷰점수-------------------------------------  */}
-              <ReviewScore
-                handleReviewScore={handleReviewScore}
-                service={service}
-                setService={setService}
-                facility={facility}
-                setFacility={setFacility}
-                clean={clean}
-                setClean={setClean}
-                cost={cost}
-                setCost={setCost}
-                location={location}
-                setLocation={setLocation}
-              />
+              <div
+                style={{
+                  display: "block",
+                  border: "1px solid lightGray",
+                  borderRadius: "10px",
+                  minHeight: "60px",
+                  padding: "5px",
+                  transition: "height 0.3s ease-in-out",
+                  backgroundColor: "white",
+                }}
+              >
+                {/*----------------------------------첨부파일-------------------------------------*/}
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    marginBottom: "5px",
+                    alignItems: "center",
+                  }}
+                ></div>
+                <ImageUpload imageUrl={imageUrl} getImage={getImage} />
+                <hr />
+                {/*--------------------------------리뷰점수-------------------------------------  */}
+                <ReviewScore
+                  handleReviewScore={handleReviewScore}
+                  service={service}
+                  setService={setService}
+                  facility={facility}
+                  setFacility={setFacility}
+                  clean={clean}
+                  setClean={setClean}
+                  cost={cost}
+                  setCost={setCost}
+                  location={location}
+                  setLocation={setLocation}
+                />
+              </div>
             </div>
-          </div>
-        </FormDiv>
+          </FormDiv>
+        </ContentDiv>
       </ContainerDiv>
       <Footer />
     </>
@@ -292,6 +284,48 @@ export const ReviewUpdate = () => {
 };
 
 export default ReviewUpdate;
+
+const TopDiv = styled.div`
+  text-align: left;
+  width: 850px;
+  margin: 40px 0 10px 0;
+  border: 1px solid;
+  padding: 10px;
+  backgroundcolor: white;
+`;
+const HeaderDiv = styled.div`
+  display: flex;
+  width: 90%;
+  max-width: 1200px;
+  margin-top: 25px;
+  justify-content: center;
+  margin-bottom: 10px;
+`;
+
+const ContainerDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+  font-family: "KOTRA_GOTHIC";
+  margin-bottom: 50px;
+  align-items: center;
+  background-color: #f5f5f5;
+`;
+const ContentDiv = styled.div`
+  max-width: 1000px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 100px;
+`;
+const FormDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  border-radius: 20px;
+  padding: 10px;
+  width: 850px;
+  justify-content: space-between;
+`;
 
 export const Hr = styled.hr`
   border-top: 1px solid black;
@@ -302,7 +336,6 @@ export const Title = styled.h1`
   font-size: 40px;
   font-weight: bold;
   marginleft: "10px";
-  text-decoration: underline;
 `;
 export const ErrorDiv = styled.div`
   color: red;
@@ -333,15 +366,3 @@ align-items: center; /* 수정된 부분 */
   background-color: #007bff;
   color: #fff;
   `;
-
-const TipDiv = styled.div`
-  height: 50px;
-  display: flex;
-  flex-direction: column;
-  font-family: "KOTRA_GOTHIC";
-  justify-content: space-between;
-  align-items: center; /* 수평 중앙 정렬 */
-  width: 90%;
-  margin: 30px;
-  border: 1px solid #e7e7e7;
-`;

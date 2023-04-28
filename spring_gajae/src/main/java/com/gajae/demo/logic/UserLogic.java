@@ -88,6 +88,11 @@ public class UserLogic {
         int result = userDAO.activate( map );
         return result;
     }
+
+	public int profileupload(Map<String, Object> map) {
+		int result = userDAO.profileupload( map );
+        return result;
+	}
     
     public List<Map<String, Object>> pwCheck( Map<String, Object> map ) {
         List<Map<String, Object>> userList = userDAO.pwCheck( map );

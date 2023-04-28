@@ -112,6 +112,13 @@ public class UserDAO {
         
         return result;
     }
+
+	public int profileupload(Map<String, Object> map) {
+		int result = sqlSessionTemplate.update( "user.profileupload", map );     
+        log.info( "result = {}", result );
+        
+        return result;
+	}
     
     public List<Map<String, Object>> afterUpdate( Map<String, Object> map ) {
         

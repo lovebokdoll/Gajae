@@ -149,6 +149,13 @@
 		AND USER_MOBILE =
 		#{USER_MOBILE}
 	</select>
+	
+	<update id="profileupload">
+		UPDATE GAJAE.USERS
+		SET USER_PHOTO = #{USER_PHOTO}
+		WHERE
+		USER_ID = #{USER_ID}
+	</update>
 
 	<select id="afterUpdate" parameterType="map" resultType="map">
 		SELECT

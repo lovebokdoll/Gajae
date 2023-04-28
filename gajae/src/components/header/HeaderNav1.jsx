@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import { Container, Nav, Navbar } from 'react-bootstrap';
-import { useDispatch } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { setModalTrue } from '../../redux/modalStatus/action';
-import MyPageDropDown from '../mypage/MyPageDropDown';
-import './headerNav1.css';
-import { CurrencyButton, NationButton } from './styled-header';
-import { setNationModalTrue } from '../../redux/nationStatus/action';
+import React, { useEffect, useState } from "react";
+import { Container, Nav, Navbar } from "react-bootstrap";
+import { useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
+import { setModalTrue } from "../../redux/modalStatus/action";
+import MyPageDropDown from "../mypage/MyPageDropDown";
+import "./headerNav1.css";
+import { CurrencyButton, NationButton } from "./styled-header";
+import { setNationModalTrue } from "../../redux/nationStatus/action";
 
 const HeaderNav1 = () => {
   const [userId, setUserId] = useState();
@@ -14,10 +14,10 @@ const HeaderNav1 = () => {
   const dispatch = useDispatch();
 
   const handleCurrencyModal = () => {
-    dispatch(setModalTrue('Choose your currency'));
+    dispatch(setModalTrue("Choose your currency"));
   };
   const handleNationModal = () => {
-    dispatch(setNationModalTrue('Choose your nation'));
+    dispatch(setNationModalTrue("Choose your nation"));
   };
 
   useEffect(() => {

@@ -1,17 +1,27 @@
-import React, { useEffect, useState } from 'react';
-import { Image } from 'react-bootstrap';
-import { useDispatch, useSelector } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
-import Footer from '../../components/footer/Footer';
-import HeaderNav1 from '../../components/header/HeaderNav1';
-import HeaderNav2 from '../../components/header/HeaderNav2';
-import { setToastMessage } from '../../redux/toastStatus/action';
-import { googleLogin } from '../../service/authLogic';
-import { signinDB } from '../../service/user/user';
-import { DividerDiv, DividerDiv2, DividerHr, DividerSpan, MyInput, MyLabel, MyP, PwEye, SubmitButton } from '../../style/FormStyle';
-import './loginPage.css';
-import { AuthContainer, SignInForm } from './styled-login';
-import { LoginImage, MGDIV } from './styled-loginpage';
+import React, { useEffect, useState } from "react";
+import { Image } from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import Footer from "../../components/footer/Footer";
+import HeaderNav1 from "../../components/header/HeaderNav1";
+import HeaderNav2 from "../../components/header/HeaderNav2";
+import { setToastMessage } from "../../redux/toastStatus/action";
+import { googleLogin } from "../../service/authLogic";
+import { signinDB } from "../../service/user/user";
+import {
+  DividerDiv,
+  DividerDiv2,
+  DividerHr,
+  DividerSpan,
+  MyInput,
+  MyLabel,
+  MyP,
+  PwEye,
+  SubmitButton,
+} from "../../style/FormStyle";
+import "./loginPage.css";
+import { AuthContainer, SignInForm } from "./styled-login";
+import { LoginImage, MGDIV } from "./styled-loginpage";
 
 /**
  *
@@ -77,6 +87,7 @@ const LoginPage = () => {
       window.localStorage.setItem('userPhoto', jsonDoc[0].USER_PHOTO);
       window.localStorage.setItem('userMobile', jsonDoc[0].USER_MOBILE);
       window.localStorage.setItem('userCreateDate', jsonDoc[0].USER_HIREDATE);
+      window.localStorage.setItem("userPhoto", jsonDoc[0].USER_PHOTO);
       navigate('/');
     } else {
       dispatch(setToastMessage('아이디 또는 비밀번호가 일치하지 않습니다.'));
@@ -209,7 +220,7 @@ const LoginPage = () => {
             >
             <Image src="/images/login/구글로그인.png" />
           </button>
-          <a href="#" style={{ marginRight: '15px' }} onClick={kakaoLogin}>
+          <a href="#" style={{ marginRight: "15px" }} onClick={kakaoLogin}>
             <Image src="/images/login/카카오로그인.png" />
           </a>
         </div>

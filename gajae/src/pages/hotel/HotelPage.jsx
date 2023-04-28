@@ -91,7 +91,7 @@ const HotelPage = () => {
         </Button>
         <Offcanvas show={show} onHide={handleClose} style={{ width: '70%' }} placement="end">
           <OffcanvasBody>
-            <HotelReview property={property} />
+            <HotelReview property={property} handleClose={handleClose} />
           </OffcanvasBody>
         </Offcanvas>
       </div>
@@ -102,7 +102,7 @@ const HotelPage = () => {
       <div ref={availabilityRef}>
         <HotelAvailabilityHeader />
       </div>
-
+      {/* 호텔 데이터 받아오는 부분 */}
       <HotelAvailabilityRow row={property} />
       <div ref={reviewRef}></div>
       <div ref={facilitiesRef}>
