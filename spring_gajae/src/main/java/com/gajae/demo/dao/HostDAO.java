@@ -150,6 +150,10 @@ public class HostDAO {
 	public int vacancyInsert(List<Map<String, Object>> vacancyList) {
 
 		log.info("vacancyList = {}", vacancyList);
+		//Map<String,Object> pmap = new HashMap<>();
+		//pmap.put("p_id", "28");
+		//vacancyList.add(pmap);
+		//log.info("vacancyList = {}", vacancyList);		
 		int result = sqlSessionTemplate.insert("vacancy.vacancyInsert", vacancyList);
 
 		log.info("result = {}", result);

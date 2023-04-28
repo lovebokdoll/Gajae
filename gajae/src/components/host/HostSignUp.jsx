@@ -3,14 +3,14 @@ import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { setToastMessage } from "../../redux/toastStatus/action";
 import {
-  checkPassword,
-  regexBusinessNum,
   regexEmail,
   regexID,
-  regexMobile,
-  regexName,
-  regexNickname,
   regexPassword,
+  checkPassword,
+  regexName,
+  regexMobile,
+  regexBusinessNum,
+  regexNickname,
 } from "../../service/regex";
 import { overlapCheckDB, signupDB } from "../../service/hostLogic";
 import {
@@ -44,7 +44,7 @@ const HostSignUp = () => {
     password2: "",
     name: "",
     mobile: "",
-    host_business_num: "",
+    businessNum: "",
   });
 
   const [star, setStar] = useState({
@@ -94,7 +94,7 @@ const HostSignUp = () => {
     } else if (key === "tel") {
       result = regexMobile(event);
       console.log(result);
-    } else if (key === "businessNum ") {
+    } else if (key === "businessNum") {
       result = regexBusinessNum(event);
       console.log(result);
     }
@@ -466,7 +466,7 @@ const HostSignUp = () => {
                       regex("businessNum", e);
                     }}
                   />
-                  <MyLabelAb>{comment.host_business_num}</MyLabelAb>
+                  <MyLabelAb>{comment.businessNum}</MyLabelAb>
                 </MyLabel>
                 <MyLabel>
                   {" "}
@@ -485,7 +485,7 @@ const HostSignUp = () => {
                 </MyLabel>
                 <MyLabel>
                   {" "}
-                  전화번호 <span style={{ color: "red" }}>{star.tel}</span>
+                  전화번호 <span style={{ color: "red" }}>{star.mobile}</span>
                   <MyInput
                     type="text"
                     id="host_tel"
@@ -493,10 +493,10 @@ const HostSignUp = () => {
                     placeholder="전화번호를 입력해주세요."
                     onChange={(e) => {
                       changeHostInfo(e);
-                      regex("tel", e);
+                      regex("mobile", e);
                     }}
                   />
-                  <MyLabelAb>{comment.tel}</MyLabelAb>
+                  <MyLabelAb>{comment.mobile}</MyLabelAb>
                 </MyLabel>
               </div>
             </div>

@@ -26,18 +26,49 @@
 		)
 	</insert>
 
+	<update id="vacancyInsert" parameterType="java.util.List">
+		INSERT ALL
+		<foreach collection="list" item="item" index="index"
+			separator=" ">
+			INTO
+			P_VACANCY_${item.p_id}(
+			P_ID, ROOM_ID, RES_DATE, RES_YN
+			)
+			VALUES(
+			#{item.p_id},
+			#{item.ROOM_ID},
+			TO_CHAR(LEVEL - 1 +
+			TO_DATE('2023-04-24', 'YYYY-MM-DD'), 'YYYY-MM-DD'),
+			'N'
+			)
+		</foreach>
+			WHERE LEVEL  <![CDATA[ <= ]]>
+			(TO_DATE('2023-07-30', 'YYYY-MM-DD') - TO_DATE('2023-04-24',
+			'YYYY-MM-DD') + 1)
+			CONNECT BY LEVEL  <![CDATA[ <= ]]>
+			(TO_DATE('2023-07-30', 'YYYY-MM-DD') - TO_DATE('2023-04-24',
+			'YYYY-MM-DD') + 1)
+		SELECT * FROM dual
+	</update>
 
 	<!-- 달력insert -->
-	<insert id="vacancyInsert" parameterType="list">
-    <foreach item="vacancy" index="index" collection="list" separator=";">
-        INSERT INTO P_VACANCY_#{vacancy.p_id} (P_ID, ROOM_ID, RES_DATE, RES_YN)
-        SELECT #{vacancy.p_id}, #{vacancy.ROOM_ID}, TO_CHAR(LEVEL - 1 + TO_DATE('2023-04-24', 'YYYY-MM-DD'), 'YYYY-MM-DD'), 'N'
-        FROM DUAL
-        WHERE LEVEL  <![CDATA[ <= ]]> (TO_DATE('2023-07-30', 'YYYY-MM-DD') - TO_DATE('2023-04-24', 'YYYY-MM-DD') + 1)
-        CONNECT BY LEVEL  <![CDATA[ <= ]]> (TO_DATE('2023-07-30', 'YYYY-MM-DD') - TO_DATE('2023-04-24', 'YYYY-MM-DD') + 1);
-    </foreach>
-</insert>
-
+		<!--<insert id="vacancyInsert" parameterType="java.util.List">
+		INSERT INTO P_VACANCY_${p_id} (P_ID, ROOM_ID, RES_DATE, RES_YN)VALUES
+		<foreach item="item" index="index" collection="list"
+			separator=" ">
+			(
+			SELECT #{item.p_id}, #{item.ROOM_ID}, TO_CHAR(LEVEL - 1 +
+			TO_DATE('2023-04-24', 'YYYY-MM-DD'), 'YYYY-MM-DD'), 'N'
+			FROM DUAL
+			WHERE LEVEL  <![CDATA[ <= ]]>
+			(TO_DATE('2023-07-30', 'YYYY-MM-DD') - TO_DATE('2023-04-24',
+			'YYYY-MM-DD') + 1)
+			CONNECT BY LEVEL  <![CDATA[ <= ]]>
+			(TO_DATE('2023-07-30', 'YYYY-MM-DD') - TO_DATE('2023-04-24',
+			'YYYY-MM-DD') + 1)
+			)
+		</foreach>
+	</insert> -->
 
 	<!-- <insert id="vacancyInsert" parameterType="map"> INSERT INTO P_VACANCY_${p_id} 
 		(P_ID, ROOM_ID, RES_DATE, RES_YN) SELECT #{p_id}, ROOM_ID, TO_CHAR(LEVEL 
@@ -45,7 +76,8 @@
 		collection="roomIds" separator="UNION ALL"> SELECT #{item} AS ROOM_ID FROM 
 		DUAL </foreach> ) ROOMS CONNECT BY LEVEL <![CDATA[ <= ]]> (DATE '2023-07-30' 
 		- DATE '2023-04-24' + 1) </insert> -->
-	<insert id="vacancyInsert2" parameterType="map">
+
+<insert id="vacancyInsert2" parameterType="map">
 		INSERT INTO P_VACANCY_${p_id}(
 		P_ID,
 		ROOM_ID,

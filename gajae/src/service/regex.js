@@ -1,17 +1,3 @@
-export const textRegEx = (event) => {
-  const name = event.target.value; //input onChange
-  const kor = /^[가-힣]+$/;
-  const eng = /^[a-zA-Z]+$/;
-
-  if (name.length === 0) {
-    return " "; // 공백 있음
-  } else if (kor.test(name) || eng.test(name)) {
-    return "";
-  } else {
-    return "부서명은 영어 또는 한글로만 가능합니다.";
-  }
-};
-
 export const regexEmail = (event) => {
   const regex = /^([0-9a-zA-Z_\.-]+)@([0-9a-zA-Z_-]+)(\.[0-9a-zA-Z_-]+){1,2}$/;
   const email = event.target.value;
@@ -118,9 +104,8 @@ export const regexMobile = (event) => {
 
 export const regexBusinessNum = (event) => {
   console.log("event ===>", event);
-
-  const businessNum = event.target.value;
   const regex = /^01([0|1|6|7|8|9]?)([0-9]{4})([0-9]{4})$/;
+  const businessNum = event.target.value;
 
   if (businessNum.length === 0) {
     return " ";
