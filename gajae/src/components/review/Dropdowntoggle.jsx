@@ -66,7 +66,8 @@ const Dropdowntoggle = ({ review, onDelete }) => {
 export default Dropdowntoggle;
 
 const Btn = styled.button`
-  font-size: 16px;
+  margin: 10px 10px 0 0;
+  font-size: 26px;
   border: none;
   cursor: pointer;
   border: 1px solid lightgray;

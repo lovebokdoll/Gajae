@@ -78,5 +78,10 @@ public class UserLogic {
         int result = userDAO.activate( map );
         return result;
     }
+
+	public int profileupload(Map<String, Object> map) {
+		int result = userDAO.profileupload( map );
+        return result;
+	}
     
 }

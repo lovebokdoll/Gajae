@@ -92,4 +92,38 @@
 	 	DELETE FROM REVIEW
 	 	WHERE REVIEW_NUMBER = #{REVIEW_NUMBER}
 	 </delete>
+	 
+	 	 <!--나의 리뷰 Detail -->
+	 <select id="hostReviewList" parameterType="java.util.HashMap" resultType="map">
+		SELECT DISTINCT  R.REVIEW_NUMBER, R.REVIEW_TITLE, R.REVIEW_DATE, R.REVIEW_GOOD,
+			   R.REVIEW_BAD, R.REVIEW_PHOTO  
+		FROM REVIEW R   
+		JOIN RESERVATIONS RV ON R.R_NUMBER = RV.R_NUMBER   
+		JOIN PROPERTIES P ON RV.P_ID = P.P_ID   
+		JOIN HOST H ON P.HOST_BUSINESS_NUM = H.HOST_BUSINESS_NUM   
+		WHERE H.HOST_ID = #{HOST_ID}
+	 </select>
+	 
+	 <!-- 댓글 등록  -->
+	 <insert id="replyInsert" parameterType="map">
+		INSERT INTO REPLY(
+			REPLY_NUMBER,
+			REVIEW_NUMBER,
+			HOST_ID,
+			REPLY_CONTENT,
+			REPLY_DATE
+			) VALUES (
+			SEQ_REPLY_NUMBER.NEXTVAL,
+			#{REVIEW_NUMBER},
+			#{HOST_ID},
+			#{REPLY_CONTENT}, 
+			TO_CHAR(SYSDATE, 'YYYY-MM-DD')
+			)
+	 </insert>
+	 <!-- host댓글가져오기 -->
+	 	 <select id="hostreplyList" parameterType="java.util.HashMap" resultType="map">
+		SELECT	REPLY_CONTENT, HOST_ID, REPLY_DATE, REPLY_EXIST_FLAG
+		FROM REPLY 
+		WHERE REVIEW_NUMBER = #{REVIEW_NUMBER}
+	 </select>
 	</mapper>

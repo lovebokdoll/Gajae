@@ -18,8 +18,8 @@ const MapModal = (props) => {
           <MTitle>
             <i className="fa-solid fa-location-dot"></i>&nbsp; 지친 일상에서
             벗어나 여유로운 숙박을 즐겨보세요.
+            <CloseButton onClick={closeModal}></CloseButton>
           </MTitle>
-          <CBtn onClick={closeModal} />
         </MHeader>
         <Modal.Body style={{ display: "flex", alignItems: "center" }}>
           <PropertyMap />
@@ -32,22 +32,16 @@ const MapModal = (props) => {
 export default MapModal;
 
 const MHeader = styled(ModalHeader)`
-  height: 40px;
+  position: relative;
+  height: 60px;
   background-color: white;
 `;
 
 const MTitle = styled(ModalTitle)`
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  padding-right: 35px;
   margin-letf: auto;
-  font-size: 1rem;
-`;
-
-const CBtn = styled(CloseButton)`
-  margin-left: auto;
-  color: white;
-  opacity: 0.5;
-  &:hover {
-    opacity: 1;
-  }
+  font-size: 1.7rem;
 `;

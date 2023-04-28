@@ -157,4 +157,14 @@ public class UserController {
         return result;
     }
     
+    @PostMapping( "profileupload" )
+    public String profileupload( @RequestBody Map<String, Object> map ) {
+        
+        log.info( "map = {}", map );
+        
+        int result = userLogic.profileupload( map );
+        
+        return String.valueOf( result );
+    }
+    
 }

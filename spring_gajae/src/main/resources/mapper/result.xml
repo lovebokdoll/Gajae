@@ -141,7 +141,7 @@
 	
 	
 	<select id="noticeList" parameterType="map" resultType="map">
-		SELECT A_NO, A_TITLE, A_CONTENT, A_DATE FROM NOTICE
+		SELECT A_NO, A_TITLE, A_CONTENT FROM NOTICE
 	</select>
 	
 </mapper>

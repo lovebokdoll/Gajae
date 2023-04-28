@@ -11,7 +11,8 @@
 		USER_EMAIL,
 		USER_BIRTH,
 		USER_AUTH,
-		USER_ACTIVATE
+		USER_ACTIVATE,
+		USER_PHOTO
 		FROM
 		GAJAE.USERS
 		WHERE USER_ID = #{user_id}
@@ -144,5 +145,12 @@
 		AND USER_MOBILE =
 		#{USER_MOBILE}
 	</select>
+	
+	<update id="profileupload">
+		UPDATE GAJAE.USERS
+		SET USER_PHOTO = #{USER_PHOTO}
+		WHERE
+		USER_ID = #{USER_ID}
+	</update>
 
 </mapper>

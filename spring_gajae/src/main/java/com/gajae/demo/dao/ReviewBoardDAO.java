@@ -70,4 +70,26 @@ public class ReviewBoardDAO {
         log.info( rList );
         return rList;
     }
+    // 호스트 호텔의 리뷰리스트
+	public List<Map<String, Object>> hostReviewList(Map<String, Object> pMap) {
+		 log.info( "pMap = {}", pMap );	        
+	     List<Map<String, Object>> hrList = sqlSessionTemplate.selectList( "review.hostReviewList", pMap );	        
+	     log.info( hrList );	        
+	     return hrList;
+	    }
+
+	public int replyInsert(Map<String, Object> pMap) {
+	     log.info( "pMap = {}", pMap );   
+	     int result = sqlSessionTemplate.update( "review.replyInsert", pMap );   
+	     return result;
+	    }
+
+	public List<Map<String, Object>> hostreplyList(Map<String, Object> pMap) {
+		  log.info( "pMap = {}", pMap );
+	        
+	      List<Map<String, Object>> rList = sqlSessionTemplate.selectList( "review.hostreplyList", pMap );
+	        
+	     log.info( rList );
+	     return rList;
+	}
 }

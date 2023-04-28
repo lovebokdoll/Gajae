@@ -1,12 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import {
-  ContainerDiv,
-  Custom_btn,
-  FormDiv,
-  HeaderDiv,
-  Hr,
-  Title,
-} from "../../style/FormStyle";
+import { Custom_btn, Hr, Title } from "../../style/FormStyle";
 import HeaderNav1 from "../../components/header/HeaderNav1";
 import Footer from "../../components/footer/Footer";
 import { useCallback, useState } from "react";
@@ -107,26 +100,18 @@ const ReviewWritePage = () => {
     <>
       <HeaderNav1 />
       <ContainerDiv>
-        <div
-          style={{
-            textAlign: "center",
-            margin: "50px 0",
-            border: "1px solid",
-            padding: "10px",
-            backgroundColor: "white",
-          }}
-        >
-          <span style={{ margin: "10%" }}>
-            <FontAwesomeIcon icon="fa-solid fa-door-open" />
+        <TopDiv style={{ backgroundColor: "white" }}>
+          <span>
+            &nbsp;&nbsp;
+            <FontAwesomeIcon icon="fa-solid fa-door-open" /> &nbsp;&nbsp;
             다녀왔던 장소에 대한 팁이 있다면? 최근 여행을 평가해주세요
           </span>
-        </div>
+        </TopDiv>
         <HeaderDiv>
           <Title>Review</Title>
-          <Hr />
         </HeaderDiv>
-        <FormDiv>
-          <div style={{ width: "100%", maxWidth: "2000px" }}>
+        <ContentDiv>
+          <FormDiv>
             <div
               style={{
                 display: "flex",
@@ -171,8 +156,8 @@ const ReviewWritePage = () => {
               }}
             >
               <h6>
-                <i className="fa-regular fa-face-smile"></i>
-                좋았던 점
+                <i className="fa-regular fa-face-smile"></i>&nbsp;&nbsp; 좋았던
+                점
               </h6>
               <h6>20/100</h6>
             </div>
@@ -202,8 +187,8 @@ const ReviewWritePage = () => {
               }}
             >
               <h6>
-                <i className="fa-regular fa-face-frown"></i>
-                아쉬운 점
+                <i className="fa-regular fa-face-frown"></i>&nbsp;&nbsp; 아쉬운
+                점
               </h6>
               <h6>20자 이상</h6>
             </div>
@@ -269,8 +254,8 @@ const ReviewWritePage = () => {
                 setLocation={setLocation}
               />
             </div>
-          </div>
-        </FormDiv>
+          </FormDiv>
+        </ContentDiv>
       </ContainerDiv>
       <Footer />
     </>
@@ -279,6 +264,47 @@ const ReviewWritePage = () => {
 
 export default ReviewWritePage;
 
+const TopDiv = styled.div`
+  text-align: left;
+  width: 850px;
+  margin: 40px 0 10px 0;
+  border: 1px solid;
+  padding: 10px;
+  backgroundcolor: white;
+`;
+const ContainerDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+  font-family: "KOTRA_GOTHIC";
+  margin-bottom: 50px;
+  align-items: center;
+  background-color: #f5f5f5;
+`;
+
+const ContentDiv = styled.div`
+  max-width: 1000px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 100px;
+`;
+
+const FormDiv = styled.div`
+  display: flex;
+  width: 850px;
+  flex-direction: column;
+  border-radius: 20px;
+  padding: 10px;
+  justify-content: space-between;
+`;
+
+const HeaderDiv = styled.div`
+  display: flex;
+  width: 90%;
+  margin-top: 25px;
+  justify-content: center;
+  margin-bottom: 10px;
+`;
 const ErrorDiv = styled.div`
   color: red;
 `;
@@ -289,7 +315,7 @@ const Textarea = styled.textarea`
   border: 1px solid lightGray;
   padding: 5px;
   &:focus {
-    outline: 5px solid #e7f1ff;
+    outline: 2px solid #2e9afe;
   }
 `;
 

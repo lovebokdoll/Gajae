@@ -84,4 +84,30 @@ public class ReviewBoardController {
         return String.valueOf( result );
     }
     
+    @GetMapping( "hostReviewList" )
+    public String hostReviewList( @RequestParam Map<String, Object> pMap ) {
+        log.info( "pMap = {}", pMap );
+        List<Map<String, Object>> hrList = reviewBoardLoigic.hostReviewList( pMap );
+        Gson                      g     = new Gson();
+        String                    temp  = g.toJson( hrList );
+        return temp;
+    }
+    //댓글 등록
+    @PostMapping( "replyInsert" )
+    public String replyInsert( @RequestBody Map<String, Object> pMap ) {
+        log.info( "pMap = {}", pMap );
+        
+        int result = reviewBoardLoigic.replyInsert( pMap );
+        log.info(result);
+        return String.valueOf( result );
+    }
+    
+    // host의 댓글 
+    @GetMapping( "hostreplyList" )
+    public List<Map<String, Object>> hostreplyList( @RequestParam Map<String, Object> pMap ) {
+        log.info( "pMap = {}", pMap );
+        List<Map<String, Object>> bList = reviewBoardLoigic.hostreplyList( pMap );
+        return bList;
+    }
+    
 }

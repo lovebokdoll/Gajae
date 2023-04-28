@@ -5,7 +5,6 @@ import { useEffect } from "react";
 import { useRef } from "react";
 import { markListDB } from "../../service/database";
 import "bootstrap/dist/css/bootstrap.min.css";
-import styled from "styled-components";
 
 const PropertyMap = () => {
   const mapRef = useRef(null);
@@ -32,7 +31,7 @@ const PropertyMap = () => {
     const container = mapRef.current;
     const options = {
       center: new kakao.maps.LatLng(37.5665, 126.978),
-      level: 10,
+      level: 7,
     };
     const kakaoMap = new kakao.maps.Map(container, options);
 
@@ -40,17 +39,17 @@ const PropertyMap = () => {
     map.forEach((item) => {
       const marker = new kakao.maps.Marker({
         position: new kakao.maps.LatLng(item.P_MAPY, item.P_MAPX),
+        title: item.P_TITLE,
       });
-      console.log(map);
       kakao.maps.event.addListener(marker, "click", function () {
         const infowindow = new kakao.maps.InfoWindow({
           content: `
-          <div style="width:200px; text-align: center; background-color: #F8F8F8; border-radius: 40px; padding: 10px; opacity: 0.9;">
-          <h5 style="font-size: 20px; font-weight: bold;">${item.P_TITLE}</h5>
-          <p style="font-size: 16px;">${item.P_STAR}성급</p>
-          <a href="호텔 홈페이지 주소" style="font-size: 14px; color: blue;">홈페이지</a>
-          </div>
-          `,
+          <div>
+          <h5>${item.P_TITLE}</h5>
+          <p>${item.P_STAR}</p>
+          <a href="/hotel">홈페이지</a>
+        </div>
+        `,
         });
         infowindow.open(kakaoMap, marker);
       });

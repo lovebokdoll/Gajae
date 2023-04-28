@@ -59,7 +59,31 @@ public class ReviewBoardLogic {
 		int result = reviewBoardDao.reviewDelete(pMap);
 		return 0;
 	}
-	
+
+	public List<Map<String, Object>> hostReviewList(Map<String, Object> pMap) {
+		log.info("hostReviewList호출 성공");
+		List<Map<String, Object>> hrList = null;
+		hrList = reviewBoardDao.hostReviewList(pMap);		
+	    return hrList;
+	}
+
+	public int replyInsert(Map<String, Object> pMap) {
+		log.info("replyInsert");
+		 if (pMap.get("REVIEW_NUMBER") == null || pMap.get("REPLY_CONTENT") == null) {
+		    log.error("Missing parameter: REVIEW_NUMBER or REPLY_CONTENT");
+		    return 0;
+		 }		    
+	    int result = reviewBoardDao.replyInsert(pMap);
+	    return result;	
+	    
+	}
+
+	public List<Map<String, Object>> hostreplyList(Map<String, Object> pMap) {
+		log.info("hostreplyList호출 성공");
+		List<Map<String, Object>> rList = null;
+		rList = reviewBoardDao.hostreplyList(pMap);		
+	    return rList;
+	}
 	
 
 }

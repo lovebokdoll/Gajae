@@ -1,5 +1,5 @@
-import { Link } from 'react-router-dom';
-import styled from 'styled-components';
+import { Link } from "react-router-dom";
+import styled from "styled-components";
 
 export const MyPageUL = styled.ul`
   diplay: grid;
@@ -89,9 +89,10 @@ export const SignOutButton = styled.button`
 
 export const MSContainer = styled.div`
   width: 1140px;
-  height: 800px;
+  height: 1500px;
   margin: 0 auto; /* 수평 중앙 정렬 */
   padding-top: 50px;
+  margin-top: 50px;
 `;
 
 export const MSCLeftDIV = styled.div`
@@ -165,6 +166,7 @@ export const EditButton = styled.button`
 export const ProfileImage = styled.img`
   width: 70px;
   height: 70px;
+  border-radius: 50px;
 `;
 
 export const ProfileUploadButton = styled.button`
@@ -172,7 +174,7 @@ export const ProfileUploadButton = styled.button`
   border: none;
   cursor: pointer;
 
- &:hover {
+  &:hover {
     background-color: #ebf3ff;
   }
 `;
