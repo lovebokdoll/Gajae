@@ -25,13 +25,26 @@ public class ReservationDao {
         return resInfoList;
     }
     
-    public int resInsert( Map<String, Object> map ) {
+    public long resInsert( Map<String, Object> map ) {
         
         int result = sqlSessionTemplate.insert( "reservation.resInsert", map );
         
         log.info( "result = {}", result );
         
-        return result;
+        long r_number = 0;
+        
+        if ( result == 1 ) {// insert가 되면
+            
+            if ( map.get( "r_number" ) != null ) {
+                log.info( "r_number ={}", map.get( "r_number" ) );
+                r_number = Long.parseLong( map.get( "r_number" ).toString() );
+                log.info( "r_number ={}", r_number );
+            }
+        }
+        
+        log.info( "result = {}", result );
+        log.info( "useGeneratedKeys 프로퍼티 속성값 = {}", r_number );
+        return r_number;
     }
     
     public int resUpdate( Map<String, Object> map ) {

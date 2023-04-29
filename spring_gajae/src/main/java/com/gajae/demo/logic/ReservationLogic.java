@@ -26,15 +26,17 @@ public class ReservationLogic {
         return resInfoList;
     }
     
-    public int resInsert( Map<String, Object> map ) {
+    public long resInsert( Map<String, Object> map ) {
         
-        int result = reservationDao.resInsert( map );
+        // r_number
+        long result = reservationDao.resInsert( map );
         
-        if ( result == 1 ) {
+        if ( result > 0 ) {
             int vacancyResult = vacancyUpdate( map );
             log.info( "vacancyResult = {}", vacancyResult );
         }
         
+        log.info( "result = {}", result );
         return result;
     }
     

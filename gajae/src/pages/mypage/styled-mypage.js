@@ -1,5 +1,5 @@
-import { Link } from "react-router-dom";
-import styled from "styled-components";
+import { Link } from 'react-router-dom';
+import styled from 'styled-components';
 
 export const MyPageUL = styled.ul`
   diplay: grid;
@@ -173,6 +173,9 @@ export const ProfileUploadButton = styled.button`
   background-color: transparent;
   border: none;
   cursor: pointer;
+  margin-left: 40%; /* 추가 */
+  display: flex;
+  align-items: center;
 
   &:hover {
     background-color: #ebf3ff;

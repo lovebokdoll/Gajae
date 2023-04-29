@@ -19,7 +19,7 @@ const Mypage = () => {
       <HeaderNav2 />
       <>
         <div className="container">
-          <div>
+          <div className="setting">
             <h1>계정 설정</h1>
           </div>
           <div>GAJAE.COM을 더욱 편리하게 이용해보세요!</div>
@@ -32,7 +32,7 @@ const Mypage = () => {
               </MyPageLink>
             </MyPageDIV>
             <MyPageDIV>
-              <MyPageLink to={`/mypage/reservations/${userID}`}>
+              <MyPageLink to={`/mypage/reservations`}>
                 <MyPageH2>예약 내역</MyPageH2>
                 <MyPageLinkDIV>예약 내역을 확인하고 이용후기를 작성해주세요.</MyPageLinkDIV>
                 <MyPageLinkSPAN>예약 내역 관리</MyPageLinkSPAN>

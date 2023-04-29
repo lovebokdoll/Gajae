@@ -50,7 +50,6 @@ const PropertyCard = ({ row }) => {
       timer: 2000,
       timerProgressBar : false
     });
-    
   }
   
   

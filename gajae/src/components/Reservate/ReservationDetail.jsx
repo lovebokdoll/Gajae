@@ -20,47 +20,43 @@ const ReservationDetail = () => {
   const [initialEmail, setInitialEmail] = useState('');
   const [initialNickname, setInitialNickname] = useState('');
 
+  useEffect(() => {
+    setInitialName(localStorage.getItem('userName'));
+    setInitialEmail(localStorage.getItem('userEmail'));
+    setInitialNickname(localStorage.getItem('userNickname'));
+    Cookies.set('resName', localStorage.getItem('userName'));
+    Cookies.set('resEmail', localStorage.getItem('userEmail'));
+  }, []);
+
   const resNameChange = (event) => {
     const resName = event.target.value;
     Cookies.set('resName', resName);
-    setInitialName(resName);
   };
 
   const resEmailChange = (event) => {
     const resEmail = event.target.value;
     Cookies.set('resEmail', resEmail);
-    setInitialEmail(resEmail);
   };
 
-  useEffect(() => {
-    setInitialName(localStorage.getItem('userName'));
-    setInitialEmail(localStorage.getItem('userEmail'));
-    setInitialNickname(localStorage.getItem('userNickname'));
-  }, []);
-
-  const p_title = Cookies.get('p_title');
-  const p_checkin = Cookies.get('p_checkin');
-  const p_checkout = Cookies.get('p_checkout');
-  const resRoomType = Cookies.get('resRoomtype');
-  const selectedRoomNumber = Cookies.get('selectedRoomNumber');
-  const resPrice = Cookies.get('resPrice');
-  const resAddress = Cookies.get('resAddress');
   const resStartDate = Cookies.get('startDate');
   const resEndDate = Cookies.get('endDate');
-  const resPeople = Cookies.get('resPeople');
-  const [startDate, setStartDate] = useState();
-  const [endDate, setEndDate] = useState();
-  const [diffDays, setDiffDays] = useState();
-  const [startAndEndDays, setStartAndEndDays] = useState([]);
   const receivedStartDate = new Date(resStartDate);
   const receivedEndDate = new Date(resEndDate);
 
-  useEffect(() => {
-    setStartDate(convertStartDate(resStartDate));
-    setEndDate(convertEndDate(resEndDate));
-    setDiffDays(countNights(receivedStartDate, receivedEndDate));
-    setStartAndEndDays(dayOfWeek(receivedStartDate, receivedEndDate));
-  }, []);
+  const [paymentSideData, setPaymentSideData] = useState({
+    p_title: Cookies.get('p_title'),
+    p_checkin: Cookies.get('p_checkin'),
+    p_checkout: Cookies.get('p_checkout'),
+    resRoomType: Cookies.get('resRoomType'),
+    selectedRoomNumber: Cookies.get('selectedRoomNumber'),
+    resPrice: Cookies.get('resPrice'),
+    resAddress: Cookies.get('resAddress'),
+    startDate: convertStartDate(Cookies.get('startDate')),
+    endDate: convertEndDate(Cookies.get('endDate')),
+    diffDays: countNights(receivedStartDate, receivedEndDate),
+    startAndEndDays: dayOfWeek(receivedStartDate, receivedEndDate),
+    resPeople: Cookies.get('resPeople'),
+  });
 
   return (
     <>
@@ -68,7 +64,7 @@ const ReservationDetail = () => {
       <HeaderNav2 />
       <br />
       <div style={{ display: 'flex', justifyContent: 'center' }}>
-        <PaymentSide />
+        <PaymentSide paymentSideData={paymentSideData} />
         <div className="card" style={{ width: '60rem', backgroundColor: 'rgb(214,230,245)' }}>
           <PaymentPropertyCard />
           <PaymentLoginStatus />
@@ -126,25 +122,25 @@ const ReservationDetail = () => {
                     <div className="col">
                       <div style={{ fontSize: 20 }}>
                         <div>
-                          체크인: {startDate}, 체크아웃:{endDate}
+                          체크인: {paymentSideData.startDate}, 체크아웃:{paymentSideData.endDate}
                         </div>
                         <div>
-                          {p_checkin}부터, {p_checkout}까지
+                          {paymentSideData.p_checkin}부터, {paymentSideData.p_checkout}까지
                         </div>
                         <div>
                           {' '}
-                          ({startAndEndDays[0]}), ({startAndEndDays[1]}){' '}
+                          ({paymentSideData.startAndEndDays[0]}), ({paymentSideData.startAndEndDays[1]}){' '}
                         </div>
-                        <div>총 숙박 기간: {diffDays}박</div>
+                        <div>총 숙박 기간: {paymentSideData.diffDays}박</div>
                         <hr style={{ width: '47rem' }}></hr>
                         <div>
-                          <div>선택 숙소: {p_title}</div>
-                          <div>선택 객실: {resRoomType}</div>
-                          <div>호텔 주소: {resAddress} </div>
-                          <div>체크인: {p_checkin} </div>
-                          <div>체크아웃: {p_checkout}</div>
-                          <div>객실 수: {selectedRoomNumber}</div>
-                          <div>투숙 인원: 성인 {resPeople} 명</div>
+                          <div>선택 숙소: {paymentSideData.p_title}</div>
+                          <div>선택 객실: {paymentSideData.resRoomType}</div>
+                          <div>호텔 주소: {paymentSideData.resAddress} </div>
+                          <div>체크인: {paymentSideData.p_checkin} </div>
+                          <div>체크아웃: {paymentSideData.p_checkout}</div>
+                          <div>객실 수: {paymentSideData.selectedRoomNumber}</div>
+                          <div>투숙 인원: 성인 {paymentSideData.resPeople} 명</div>
                           <div>선택한 인원에 적합한 객실입니다!</div>
                           {/* 쿠키에서 꺼내오기*/}
                         </div>
@@ -174,7 +170,7 @@ const ReservationDetail = () => {
                   <span style={{ fontSize: 30, fontWeight: 'bold' }}>결제요금내역</span>
                   <br />
                   <span>
-                    결제금액: {resPrice} 원
+                    결제금액: {paymentSideData.resPrice} 원
                     <br /> 추가 요금이 발생할 수 있습니다.
                   </span>
                 </div>

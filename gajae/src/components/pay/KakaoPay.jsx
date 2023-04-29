@@ -1,10 +1,11 @@
 import Cookies from 'js-cookie';
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { paymentInsert } from '../../service/pay/pay';
 import { resInsert } from '../../service/reservation/reservation';
-import { useNavigate } from 'react-router-dom';
 
 const KakaoPay = (effect, deps) => {
+  const tenMinutesFromNow = new Date(Date.now() + 10 * 60 * 1000);
   const navigate = useNavigate();
   const [localID, setLocalId] = useState('');
 
@@ -30,9 +31,9 @@ const KakaoPay = (effect, deps) => {
     resStartDate: resStartDate,
     resEndDate: resEndDate,
     resPeople: resPeople,
-    r_state: '예약확정',
+    r_state: '예약확정', //
     r_eta: '아직 모름',
-    r_ps: 'null',
+    r_ps: '별도 요청 사항 없음',
     p_id: p_id,
     room_id: room_id,
   });
@@ -52,6 +53,27 @@ const KakaoPay = (effect, deps) => {
   }, []);
 
   const onClickPayment = () => {
+    console.log('resInfo ===> ', resInfo);
+    if (
+      !resInfo.resTitle ||
+      !resInfo.resRoomType ||
+      !resInfo.resPrice ||
+      !resInfo.resName ||
+      !resInfo.resEmail ||
+      !resInfo.resMobile ||
+      !resInfo.resStartDate ||
+      !resInfo.resEndDate ||
+      !resInfo.resPeople ||
+      !resInfo.r_state ||
+      !resInfo.r_eta ||
+      !resInfo.r_ps ||
+      !resInfo.p_id ||
+      !resInfo.room_id
+    ) {
+      alert('예약 정보가 충분하지 않습니다. 모든 필수 정보를 입력해주세요.');
+      return;
+    }
+
     const { IMP } = window;
     IMP.init([['imp68150140']]); // 결제 데이터 정의
     const data = {
@@ -127,16 +149,24 @@ const KakaoPay = (effect, deps) => {
           R_PS: resInfo.r_ps,
           R_STATE: resInfo.r_state,
           PAY_NUMBER: paymentData.pay_number,
-          ROOM_ID: resInfo.room_id,
+          ROOM_ID: parseInt(resInfo.room_id),
         };
         console.log('reservationData ===>', reservationData);
 
         const reservationResponse = await resInsert(reservationData);
-        console.log('reservationResponse ===>', reservationResponse.data);
+        console.log('reservationResponse = 예약번호(PK) ===>', reservationResponse.data);
+        console.log('R_NUMBER ===>', reservationResponse.data);
+        console.log('PAY_NUMBER ===>', response.imp_uid);
+        console.log('P_ID ===>', resInfo.p_id);
+        console.log('ROOM_ID ===>', resInfo.room_id);
+
+        Cookies.set('RES_RESNUM', reservationResponse.data, { expires: tenMinutesFromNow });
+        Cookies.set('RES_PAYNUM', response.imp_uid, { expires: tenMinutesFromNow });
+        Cookies.set('RES_PID', resInfo.p_id, { expires: tenMinutesFromNow });
+        Cookies.set('RES_ROOMID', resInfo.room_id, { expires: tenMinutesFromNow });
       };
       payInsert();
-      //navigate('/pay/notification');
-      // window.location.href = '/pay/complete'; // 결제 성공 시 /pay/complete 페이지로 이동
+      //navigate('/reservation/notification');
     } else {
       alert(`결제 실패 : ${error_msg} 다시 시도해주시길바랍니다`);
     }

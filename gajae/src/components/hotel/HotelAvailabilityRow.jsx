@@ -1,8 +1,8 @@
-import Cookies from "js-cookie";
-import { useCallback, useEffect, useState } from "react";
-import { Button, Dropdown, Modal } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
-import { Charge_title, TotalPrice } from "../../style/HotelStyle";
+import Cookies from 'js-cookie';
+import { useCallback, useEffect, useState } from 'react';
+import { Button, Dropdown, Modal } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
+import { Charge_title, TotalPrice } from '../../style/HotelStyle';
 /**
  * HotelPage에서 넘어온 정보를 이용하여 갯수만큼 화면에 뿌려준다.
  * 옵션정보&요금 - 숙소정보
@@ -100,7 +100,7 @@ const HotelAvailabilityRow = ({ row }) => {
         FAC_RECEPTION: item.FAC_RECEPTION,
       };
       list.push(obj);
-      console.log(item.ROOM_DETAIL)
+      console.log(item.ROOM_DETAIL);
     });
     setHotels(list);
   }, [row]);
@@ -125,7 +125,7 @@ const HotelAvailabilityRow = ({ row }) => {
       Cookies.set('resPrice', totalPrice); // 총액 쿠키에 담음
       navigate('/reservate');
     } else {
-      alert("객실을 선택해주세요");
+      alert('객실을 선택해주세요');
     }
   };
 
@@ -137,7 +137,7 @@ const HotelAvailabilityRow = ({ row }) => {
   return (
     <>
       {/* 룸타입별 내용 */}
-      <div className="table-wrapper" style={{width:'1200px'}}>
+      <div className="table-wrapper" style={{ width: '1200px' }}>
         <div className="table-wrapper-item1">
           <table className="table caption-top table-hover ">
             <thead className="table-primary">
@@ -156,16 +156,16 @@ const HotelAvailabilityRow = ({ row }) => {
                     <a
                       href="javascript:void(0);"
                       style={{
-                        textDecoration: "none",
+                        textDecoration: 'none',
                       }}
                       onClick={() => {
                         setSelectedRoomModal(hotel.ROOM_TYPE);
                         setSelectedPriceModal(hotel.ROOM_PRICE);
                         setSelectedFacModal({
-                          ROOM_DETAIL: hotel.ROOM_DETAIL
+                          ROOM_DETAIL: hotel.ROOM_DETAIL,
                         });
                         handleShow();
-                        console.log(hotel)
+                        console.log(hotel);
                       }}
                     >
                       {hotel.ROOM_TYPE}
@@ -175,7 +175,7 @@ const HotelAvailabilityRow = ({ row }) => {
                   <td>{hotel.ROOM_PRICE}원</td>
 
                   <td>
-                    {hotel.ROOM_OPTION?.split(",").map((option, index) => (
+                    {hotel.ROOM_OPTION?.split(',').map((option, index) => (
                       <div key={index}>{option}</div>
                     ))}
                   </td>
@@ -184,16 +184,11 @@ const HotelAvailabilityRow = ({ row }) => {
                     <div className="table-wrapper-item2">
                       <Dropdown>
                         <Dropdown.Toggle variant="danger" id="dropdown-basic">
-                          {selectNumber[index] || 0}{" "}
-                          {/* index값이 존재하지 않을 경우 0으로 보여줌 */}
+                          {selectNumber[index] || 0} {/* index값이 존재하지 않을 경우 0으로 보여줌 */}
                         </Dropdown.Toggle>
                         <Dropdown.Menu>
-                          <Dropdown.Item onClick={() => selectNum(index, 0)}>
-                            0
-                          </Dropdown.Item>
-                          <Dropdown.Item onClick={() => selectNum(index, 1)}>
-                            1
-                          </Dropdown.Item>
+                          <Dropdown.Item onClick={() => selectNum(index, 0)}>0</Dropdown.Item>
+                          <Dropdown.Item onClick={() => selectNum(index, 1)}>1</Dropdown.Item>
                           {/* <Dropdown.Item onClick={() => selectNum(index, 2)}>
                             2
                           </Dropdown.Item>
@@ -230,35 +225,30 @@ const HotelAvailabilityRow = ({ row }) => {
             {selectedPriceModal}원
           </Modal.Footer>
           <Modal.Footer>
-            <Button
-              className="btn_close"
-              variant="secondary"
-              onClick={handleClose}
-            >
+            <Button className="btn_close" variant="secondary" onClick={handleClose}>
               닫기
             </Button>
           </Modal.Footer>
         </Modal>
         {/* 예약버튼 */}
-        <div className="table-wrapper-item3" style={{width:'300px'}}>
-          <Charge_title style={{ textAlign:'left',fontSize: 15 }}>객실 유형 및 요금</Charge_title>
-          
+        <div className="table-wrapper-item3" style={{ width: '300px' }}>
+          <Charge_title style={{ textAlign: 'left', fontSize: 15 }}>객실 유형 및 요금</Charge_title>
+
           <TotalPrice>
             {Object.keys(selectRoom).map((key) => (
-              <div key={key} style={{textAlign:'left' ,width:150}}>
-                선택한 룸타입 : <br/>
+              <div key={key} style={{ textAlign: 'left', width: 150 }}>
+                선택한 룸타입 : <br />
                 {key} {selectRoom[key]}개
               </div>
             ))}
-            <div style={{textAlign:'left',fontWeight:'bold'}}> {totalPrice}원 </div> <br />
+            <div style={{ textAlign: 'left', fontWeight: 'bold' }}> {totalPrice}원 </div> <br />
           </TotalPrice>
           <div className="ReservateButton">
-          <Button variant="outline-info" onClick={onReservation}>
-            지금 바로 <br/>
-            예약하세요!
-          </Button>
+            <Button variant="outline-info" onClick={onReservation}>
+              지금 바로 <br />
+              예약하세요!
+            </Button>
           </div>
-       
         </div>
       </div>
     </>

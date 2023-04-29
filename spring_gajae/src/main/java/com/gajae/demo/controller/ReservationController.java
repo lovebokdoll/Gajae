@@ -44,7 +44,7 @@ public class ReservationController {
         
         log.info( "map = {}", map );
         
-        int result = reservationLogic.resInsert( map );
+        long result = reservationLogic.resInsert( map );
         
         return String.valueOf( result );
     }
@@ -59,8 +59,8 @@ public class ReservationController {
         return String.valueOf( result );
     }
     
-    @GetMapping( "resNotification" )
-    public String resNotification( @RequestParam Map<String, Object> map ) {
+    @PostMapping( "resNotification" )
+    public String resNotification( @RequestBody Map<String, Object> map ) {
         
         log.info( "map = {}", map );
         

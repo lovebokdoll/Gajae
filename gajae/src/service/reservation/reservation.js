@@ -60,3 +60,18 @@ export const vacancyUpdate = (dateInfo) => {
     }
   });
 };
+
+export const resNotification = (resNotificationData) => {
+  return new Promise((resolve, reject) => {
+    try {
+      const response = axios({
+        method: 'post',
+        url: process.env.REACT_APP_SPRING_IP + 'reservation/resNotification',
+        data: resNotificationData,
+      });
+      resolve(response);
+    } catch (error) {
+      reject(error);
+    }
+  });
+};

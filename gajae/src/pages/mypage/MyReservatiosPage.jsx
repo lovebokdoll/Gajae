@@ -1,25 +1,20 @@
-import React from 'react';
-import Footer from '../../components/footer/Footer';
-import HeaderNav1 from '../../components/header/HeaderNav1';
 import { faComment, faCreditCard, faHeart, faHistory, faSignOutAlt, faUser } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import React, { useEffect, useState } from 'react';
+import { Nav } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
+import Footer from '../../components/footer/Footer';
+import HeaderNav1 from '../../components/header/HeaderNav1';
+import MyResList from '../../components/mypage/MyResList';
 import {
   MSCLeftDIV,
   MSCRightDIV,
   MSContainer,
-  MSPTComment,
-  MSPTTitle,
   MyPageLinkMove,
   MySettingsFlexByRow,
   MySettingsPageTitle,
-  MySettingsRow,
-  MySettingsRowLayout,
   SignOutButton,
 } from './styled-mypage';
-import { Nav } from 'react-bootstrap';
-import { useNavigate, useParams } from 'react-router-dom';
-import { useEffect } from 'react';
-import { useState } from 'react';
 const MyReservatiosPage = () => {
   const [localID, setLocalID] = useState('');
   const navigate = useNavigate();
@@ -32,8 +27,7 @@ const MyReservatiosPage = () => {
       setLocalID(tempID);
     }
   }, []);
-  console.log(localID);
-
+  const userId = localStorage.getItem('userId');
   return (
     <>
       <HeaderNav1 />
@@ -82,7 +76,7 @@ const MyReservatiosPage = () => {
         <MSCRightDIV>
           <MySettingsFlexByRow>
             <MySettingsPageTitle>
-              <MSPTTitle>여행 & 예약</MSPTTitle>
+              <MyResList userId={userId} />
             </MySettingsPageTitle>
           </MySettingsFlexByRow>
         </MSCRightDIV>

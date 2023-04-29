@@ -5,42 +5,31 @@ import { Link } from 'react-router-dom';
 import Footer from '../../components/footer/Footer';
 import HeaderNav1 from '../../components/header/HeaderNav1';
 import HeaderNav2 from '../../components/header/HeaderNav2';
-import { resInformation } from '../../service/reservation/reservation';
-import { paymentInformation } from '../../service/pay/pay';
+import { resNotification } from '../../service/reservation/reservation';
+import Cookies from 'js-cookie';
 
 const ReservationNotificationPage = () => {
   const userNickname = localStorage.getItem('userNickname');
-  const pay_number = window.localStorage.getItem('pay_number');
-  const r_number = window.localStorage.getItem('r_number');
-  const [resInfo, setResInfo] = useState();
-  const [paymentInfo, setPaymentInfo] = useState();
+
+  const [resNotificationData, setResNotificationData] = useState();
 
   useEffect(() => {
-    const resInfoParameters = {
-      PAY_NUMBER: 'imp_461239822482',
+    const resNotificationParams = {
+      PAY_NUMBER: Cookies.get('RES_PAYNUM'),
+      R_NUMBER: Cookies.get('RES_RESNUM'),
+      P_ID: Cookies.get('RES_PID'),
+      ROOM_ID: Cookies.get('RES_ROOMID'),
     };
+    console.log(resNotificationParams);
 
-    const paymentParameters = {
-      PAY_NUMBER: 'imp_461239822482',
+    const getResNotification = async () => {
+      const response = await resNotification(resNotificationParams);
+      console.log(response.data);
+      setResNotificationData(response.data);
     };
-
-    const getResInfo = async () => {
-      const reservationResonse = await resInformation(resInfoParameters);
-      console.log(reservationResonse.data);
-      setResInfo(reservationResonse.data);
-    };
-    getResInfo();
-
-    const getPaymentInfo = async () => {
-      const paymentResponse = await paymentInformation(paymentParameters);
-      console.log(paymentResponse.data);
-      setPaymentInfo(paymentResponse.data);
-    };
-    getPaymentInfo();
+    getResNotification();
   }, []);
-  
-  console.log(resInfo);
-  console.log(paymentInfo);
+  console.log(resNotificationData);
   return (
     <>
       <HeaderNav1 />
@@ -77,15 +66,18 @@ const ReservationNotificationPage = () => {
               <Card.Title style={{ display: 'flex', justifyContent: 'flex-end' }}></Card.Title>
               <Card.Text style={{ fontSize: 30 }}>
                 {' '}
-                {paymentInfo[0].MERCHANT_NAME} <br />
+                {resNotificationData[0].P_TITLE}
+                <br />
+                {resNotificationData[0].ROOM_TYPE}
                 객실유형 와야함{' '}
               </Card.Text>
               <Card.Text style={{ fontSize: 25 }}>
                 <FontAwesomeIcon icon="fa-solid fa-location-dot" fade size="xs" style={{ color: '#1c2d4a' }} />
-                숙소주소 와야함
+                {resNotificationData[0].P_ADDRESS}
               </Card.Text>
-              <Card.Text style={{ fontSize: 30 }}> CHECKIN : 체크인 시간 </Card.Text>
-              <Card.Text style={{ fontSize: 30 }}> CHECKOUT : 체크아웃 시간 </Card.Text>
+              <Card.Text style={{ fontSize: 30 }}> CHECKIN : {resNotificationData[0].P_CHECKIN} </Card.Text>
+              <Card.Text style={{ fontSize: 30 }}> CHECKOUT : {resNotificationData[0].P_CHECKOUT} </Card.Text>
+              <div>결제금액: {resNotificationData[0].PAID_AMOUNT}</div>
             </Card.Body>
           </div>
           <div className="button-position" style={{ display: 'flex', justifyContent: 'center', marginTop: '60px', marginLeft: '630px' }}>
@@ -108,13 +100,6 @@ const ReservationNotificationPage = () => {
                 내 예약내역보기
               </Button>
             </Link>
-            {/*  <Link to="/">
-              <Button
-                style={{width: 150,height: 50,backgroundColor: 'rgb(0,88,171)',color: '#fff',fontWeight: 'bold',
-                  transition: 'background-color 0.3s ease',border: 'none',cursor: 'pointer',marginLeft: '10px',}} >
-                메인페이지로
-              </Button>
-            </Link> */}
           </div>
         </Card>
       </div>

@@ -1,0 +1,21 @@
+.resHotelImage {
+  width: 100px;
+  height: 100px;
+  margin-right: 20px;
+}
+
+.resDate {
+  font-size: 0.875rem;
+  color: #006ce3;
+  bottom: 0;
+  margin-top: auto;
+}
+
+.hotelInfoFirst {
+  flex: 0 0 100%;
+  margin-left: 20px;
+}
+
+.hotelInfoDiv {
+  display: flex;
+}
