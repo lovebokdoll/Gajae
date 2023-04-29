@@ -127,18 +127,18 @@ const PaymentPage = () => {
                 <span style={{ fontSize: '0.8rem', color: '#333333' }}>숙박 시설에서 연락을 드릴 수 있습니다.</span>
                 </div>
                 <h3>예약 내역 확인</h3>
-              <p>선택 호텔: {p_title}</p>
-              <p>주소: {resAddress}</p>
-              <p>선택 객실: {resRoomType}</p>
-              <p>
-                체크인: {startDate} {p_checkin} 부터
-              </p>
-              <p>
-                체크아웃: {endDate} {p_checkout} 까지
-              </p>
-              <p>총 숙박 기간: {diffDays}박</p>
-              <p>객실 수: {selectedRoomNumber}</p>
-              <p>투숙 인원: 성인 {resPeople}명</p>
+                <p>선택 호텔: {paymentSideData.p_title}</p>
+                <p>주소: {paymentSideData.resAddress}</p>
+                <p>선택 객실: {paymentSideData.resRoomType}</p>
+                <p>
+                  체크인: {paymentSideData.startDate} {`(${paymentSideData.startAndEndDays[0]})`} {paymentSideData.p_checkin}부터
+                </p>
+                <p>
+                  체크아웃: {paymentSideData.endDate} {`(${paymentSideData.startAndEndDays[1]})`} {paymentSideData.p_checkout}까지
+                </p>
+                <p>총 숙박 기간: {paymentSideData.diffDays}박</p>
+                <p>객실 수: {paymentSideData.selectedRoomNumber}</p>
+                <p>투숙 인원: 성인 {paymentSideData.resPeople}명</p>
             </div>
               </div>
           
@@ -164,7 +164,7 @@ const PaymentPage = () => {
         {agreed && (
           <div>
             <span className="pay-button" style={{ display: 'flex', justifyContent: 'center' }}>
-              <span style={{ fontSize: 30, marginRight: 200, border: '1,solid,black' }}> 결제하실 금액 {resPrice} 원</span>
+              <span style={{ fontSize: 30, marginRight: 200, border: '1,solid,black' }}> 결제하실 금액 {paymentSideData.resPrice} 원</span>
               <span className="Pay" style={{ display: 'flex', justifyContent: 'flex-end', width: 500 }}>
                 <InicisPay />
                 <KakaoPay />
