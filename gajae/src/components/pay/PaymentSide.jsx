@@ -5,8 +5,8 @@ import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 const PaymentSide = ({ paymentSideData }) => {
   console.log('PaymentSide ===>', paymentSideData);
   return (
-    <aside style={{ width: '371.66px', height: '2326px', padding: '24px 12px 0px' }}>
-      <section style={{ width: '347.66px', height: '489px', padding: '16px', boxSizing: 'border-box', border: '1px solid lightgray' }}>
+    <aside style={{ width: '371.66px', height: '1500px'}}>
+      <section style={{ width: '371.66px', height: '489px', boxSizing: 'border-box', border: '1px solid lightgray' }}>
         <div style={{ width: '282.98px', height: '455px' }}>
           <h2>내 예약 정보</h2>
           <div style={{ width: '282.92px', height: '110px', display: 'flex', justifyContent: 'space-between' }}>
@@ -68,7 +68,7 @@ const PaymentSide = ({ paymentSideData }) => {
         </div>
       </section>
 
-      <section style={{ width: '347.66px', height: '401px', padding: '16px', boxSizing: 'border-box', border: '1px solid lightgray' }}>
+      <section style={{ width: '371.66px', height: '401px', padding: '16px', boxSizing: 'border-box', border: '1px solid lightgray' }}>
         <div style={{ width: '282.98px', height: '367px' }}>
           <h2>결제 요금 내역</h2>
           <div>
