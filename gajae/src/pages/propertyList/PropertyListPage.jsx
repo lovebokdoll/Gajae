@@ -172,14 +172,14 @@ const checkedRanks = (selectedRanks) => {
                 <SearchBox />
                 <div>
                 <BButton
-  id="mapbtn"
-  type="mapbotton"
-  className="me-2 mb-2"
-  data-bs-dismiss="modal"
-  data-bs-target="#fullScreenModal"
-  style={{ height: '60px', width: '200px' }}
-  onClick={openModal}
->
+                  id="mapbtn"
+                  type="mapbotton"
+                  className="me-2 mb-2"
+                  data-bs-dismiss="modal"
+                  data-bs-target="#fullScreenModal"
+                  style={{ height: '60px', width: '200px' }}
+                  onClick={openModal}
+                >
   <FontAwesomeIcon icon={faMap} /> 지도에서 보기
 </BButton>
                   <MapModal show={showModal} closeModal={closeModal} />
