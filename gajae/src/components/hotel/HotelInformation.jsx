@@ -20,9 +20,9 @@ const HotelInformation = ({ row }) => {
   return (
     <>
       <div>
-        <div className="hotel-container">
+        <div className="hotelContainer">
           <div className="images-container">
-            <img src="./images/소노벨 변산1.webp" className="hotelImage" />
+            <img className="hotel-Image" src={row.P_PHOTO}></img>
             <button
               id="mapbtn"
               type="mapbotton"

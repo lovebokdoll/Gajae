@@ -20,8 +20,7 @@ export const TotalPrice = styled.span`
   font-family: "KOTRA_GOTHIC";
   //border: 1px solid black;
   font-weight: bold;
-  text-align: center;
-  padding: 10px;
+  text-align: left;
   margin-left: 1em;
 `;
 export const CardContainer = styled.div`

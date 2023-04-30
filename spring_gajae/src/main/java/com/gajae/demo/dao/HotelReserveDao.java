@@ -26,5 +26,13 @@ public class HotelReserveDao {
         
         return hotelDetailList;
     }
+
+	public List<String> checkVacancy(Map<String, Object> pMap) {
+		
+		List<String> checkVacancyList = sqlSessionTemplate.selectList( "hotel.checkVacancy", pMap );
+	        
+	        log.info( "checkVacancyList={}", checkVacancyList );
+		return checkVacancyList;
+	}
     
 }

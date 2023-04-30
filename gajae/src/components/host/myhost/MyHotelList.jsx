@@ -2,9 +2,7 @@ import React, { useEffect } from "react";
 import styled from "styled-components";
 import { useState } from "react";
 import { hostHotelListDB, hotelDeleteDB } from "../../../service/hostLogic";
-import HotelListDropdown from "./HotelListDropdown";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Card, ListGroup } from "react-bootstrap";
+import { Button, Card, ListGroup } from "react-bootstrap";
 /**
  * 호스트페이지에서 등록내역 누르면 뜨는 페이지
  * 등록한 호텔을 보여주는 페이지
@@ -14,6 +12,7 @@ import { Card, ListGroup } from "react-bootstrap";
 const MyHotelList = ({ hostId }) => {
   const [myhotel, setMyHotel] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
+  console.log(myhotel);
   const pageNumber = [];
   const hotelsPerPage = 3;
   console.log(hostId);
@@ -50,39 +49,74 @@ const MyHotelList = ({ hostId }) => {
     <>
       <BackDiv>
         <h3 style={{ marginLeft: "20px" }}>
-          <i class="fa-solid fa-house"></i>
-          &nbsp; MY HOTEL
+          <i class="fa-solid fa-house-user fa-bounce"></i>
+          &nbsp; 호텔의 정보를 관리하세요!
         </h3>
-        <TLineDiv></TLineDiv>
-        <EmtyDiv></EmtyDiv>
-        <ReviewList>
+        <HotelList>
           {myhotel.slice(start, end).map((hotel, index) => (
-            <ReviewItem key={index}>
-              {/* 수정 삭제 버튼이 있는 컴포넌트 */}
-              <BtnWrapper>
-                <HotelListDropdown hotel={hotel} onEdit={onEdit} />
-              </BtnWrapper>
-              <Card style={{ width: "18rem" }}>
-                <Card.Img variant="top" src={hotel.P_PHOTO} />
+            <HotelItem key={index}>
+              <Card
+                style={{
+                  margin: "1rem",
+                  opacity: hotel.STATUS === "N" ? 0.5 : 1,
+                }}
+              >
+                <Card.Img
+                  variant="top"
+                  style={{ width: "260px", height: "250px" }}
+                  src={hotel.P_PHOTO}
+                />
                 <Card.Body>
-                  <Card.Title>{hotel.P_TITLE}</Card.Title>
+                  <Card.Title style={{ width: "215px", height: "30px" }}>
+                    {hotel.P_TITLE}
+                  </Card.Title>
                 </Card.Body>
                 <ListGroup className="list-group-flush">
-                  <ListGroup.Item> {hotel.P_STAR} 성급</ListGroup.Item>
-                  <ListGroup.Item> {hotel.P_ADDRESS}</ListGroup.Item>
-                  <ListGroup.Item> {hotel.P_TEL}</ListGroup.Item>
+                  <ListGroup.Item>
+                    {" "}
+                    <i
+                      class="fa-solid fa-star"
+                      style={{ marginRight: "7px" }}
+                    ></i>
+                    {hotel.P_STAR} 성급
+                  </ListGroup.Item>
+                  <ListGroup.Item>
+                    {" "}
+                    <i
+                      class="fa-solid fa-location-dot"
+                      style={{ marginRight: "7px" }}
+                    ></i>
+                    {hotel.P_ADDRESS}
+                  </ListGroup.Item>
+                  <ListGroup.Item>
+                    {" "}
+                    <i
+                      class="fa-solid fa-mobile-screen"
+                      style={{ marginRight: "7px" }}
+                    ></i>
+                    {hotel.P_TEL}
+                  </ListGroup.Item>
                   <ListGroup.Item> {hotel.P_HIREDATE}</ListGroup.Item>
                 </ListGroup>
                 <Card.Body>
-                  <Card.Link hotel={hotel} onEdit={onEdit} href="#">
+                  <Button
+                    style={{ marginRight: "30px", marginLeft: "23px" }}
+                    variant="warning"
+                    hotel={hotel}
+                    onClick={() => onEdit(hotel.P_ID)}
+                  >
                     수정하기
-                  </Card.Link>
-                  <Card.Link href="#">Another Link</Card.Link>
+                  </Button>{" "}
+                  <Button
+                    variant={hotel.STATUS === "Y" ? "secondary" : "danger"}
+                  >
+                    {hotel.STATUS === "Y" ? "영업중" : "영업중지"}
+                  </Button>{" "}
                 </Card.Body>
               </Card>
-            </ReviewItem>
+            </HotelItem>
           ))}
-        </ReviewList>
+        </HotelList>
         <div>
           <nav>
             <ul className="pagination justify-content-center">
@@ -120,85 +154,15 @@ const BackDiv = styled.div`
   //font-family: "KOTRA_GOTHIC";
 `;
 
-const ReviewList = styled.ul`
+const HotelList = styled.span`
+  display: flex;
+  flex-direction: row;
   margin: 0;
   padding: 0;
 `;
 
-const ReviewItem = styled.li`
-  border: 1px solid lightgrey;
+const HotelItem = styled.li`
   border-radius: 10px;
   margin-bottom: 30px;
   list-style-type: none;
-`;
-const ReviewWrapper = styled.div`
-  display: flex;
-  flex-direction: row;
-  max-width: 750px;
-  height: auto;
-  position: relative;
-  margin: 50px 0 50px 15px;
-`;
-const ImageContainer = styled.div`
-  display: flex;
-  margin-left: 60px;
-  flex-direction: column;
-  flex-basis: 33.333333%;
-`;
-
-const ImageWrapper = styled.div`
-  margin-bottom: 20px;
-  flex: 0 0 33.333333%;
-  img {
-    width: 200px;
-    height: 200px;
-  }
-`;
-const ImageDescription = styled.div`
-  flex: 0 0 33.333333%;
-  width: 100%;
-  padding: 0.5rem; /* 기존 코드: 1rem */
-  font-size: 0.8rem;
-  margin-top: 1.5rem;
-`;
-
-const ContentWrapper = styled.div`
-  flex: 0 0 50.666667%;
-  margin-left: 70px;
-`;
-const TextWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 30px;
-`;
-const ReviewTitle = styled.h5`
-  font-size: 1.25rem;
-  font-weight: bold;
-`;
-
-const RText = styled.p`
-  margin-top: 20px;
-  font-size: 1rem;
-`;
-
-const CardTimestamp = styled.p`
-  font-size: 1rem;
-  bottom: 0;
-  margin-top: auto;
-`;
-
-const BtnWrapper = styled.div`
-  float: right;
-  background-color: white;
-`;
-
-const TLineDiv = styled.div`
-  background-color: #1e3050;
-  height: 1px;
-  margin: 3%;
-  with: 100%;
-`;
-
-const EmtyDiv = styled.div`
-  height: 10px;
 `;

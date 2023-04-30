@@ -2,8 +2,8 @@
 import React, { useEffect, useRef, useState } from "react";
 
 const KakaoMapHotel = ({ p_mapy, p_mapx }) => {
-  const mapx = p_mapx;
-  const mapy = p_mapy;
+  const mapx = p_mapx || 127.0329085;
+  const mapy = p_mapy || 37.4989931;
   console.log(mapx, mapy);
 
   const mapRef = useRef(null);

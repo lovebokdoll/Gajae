@@ -11,7 +11,6 @@ import {
 import { Button, Card, Form } from "react-bootstrap";
 import { hostpropertyInsertDB } from "../../../service/hostLogic";
 import { useDispatch } from "react-redux";
-import { setToastMessage } from "../../../redux/toastStatus/action";
 import { useNavigate } from "react-router-dom";
 import HostZipCode from "./HostZipCode";
 import { useEffect } from "react";
@@ -42,12 +41,12 @@ const RegisterHotel = () => {
   const [selectedRooms, setSelectedRooms] = useState({
     ROOM_ID: "",
   });
+
   const [post, setPost] = useState({
     zipcode: "",
     addr: "",
   });
   const tempBusinessNum = window.localStorage.getItem("hostBusinessNum");
-  console.log(tempBusinessNum);
   const getImage = (imageUrl) => {
     setImageUrl(imageUrl);
     console.log(imageUrl);
@@ -122,9 +121,20 @@ const RegisterHotel = () => {
     setHostHotelTel(e);
     console.log(e);
   }, []);
+  //성급선택
   const handleStar = useCallback((e) => {
-    setHostHotelStar(e);
+    const value = e.target.id;
+    console.log(value);
+    const checked = e.target.checked;
+    console.log(e.target.checked);
+    document.querySelectorAll('input[type="checkbox"]').forEach((checkbox) => {
+      if (checkbox.id !== value) {
+        checkbox.checked = false;
+      }
+    });
+    setHostHotelStar(value);
   }, []);
+  console.log(p_star);
   const handleCheckin = useCallback((e) => {
     setHostHotelCheckin(e);
   }, []);
@@ -160,7 +170,7 @@ const RegisterHotel = () => {
         <Titlehotel> 호텔등록을 시작합니다! </Titlehotel>
         <Titlehotel_content> 호텔 정보를 알려주세요. </Titlehotel_content>
         <R_CardGroup_hotel>
-          <Card style={{ width: "50rem", margin: "5% auto" }}>
+          <Card>
             <Card.Body>
               <Card.Title>
                 <i class="fa-solid fa-check"></i>사업자번호를 입력해주세요
@@ -232,19 +242,26 @@ const RegisterHotel = () => {
             <Card.Body>
               <Card.Title>
                 {" "}
-                <i class="fa-solid fa-check"></i>호텔의 성급을 알려주세요
+                <i class="fa-solid fa-check"></i>호텔의 성급을 선택해주세요
               </Card.Title>
               <hr style={{ border: "1px solid gray" }} />
               <Form>
-                <Form.Group className="mb-3" controlId="formBasicEmail">
-                  <Form.Control
-                    type="text"
-                    placeholder="호텔성급 입력하기"
-                    onChange={(e) => {
-                      handleStar(e.target.value);
-                    }}
-                  />
-                </Form.Group>
+                {[
+                  { label: "5성급", value: "5" },
+                  { label: "4성급", value: "4" },
+                  { label: "3성급", value: "3" },
+                  { label: "2성급", value: "2" },
+                  { label: "1성급", value: "1" },
+                ].map((type) => (
+                  <div key={`P_STAR-${type.value}`} className="mb-1">
+                    <Form.Check
+                      type="checkbox"
+                      id={`${type.value}`}
+                      label={type.label}
+                      onClick={handleStar}
+                    />
+                  </div>
+                ))}
               </Form>
             </Card.Body>
             <Card.Body>

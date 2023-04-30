@@ -76,10 +76,10 @@ hotel_title hotel_address
 .hotel_overview {
   font-size: 18px;
 }
-.refBtn {
+/* .refBtn {
   width: 80%;
   margin: 5px auto;
-}
+} */
 .reserveBtn {
   float: right;
   margin: 40px 10%;
@@ -145,11 +145,11 @@ hotel_title hotel_address
   cursor: pointer;
 }
 
-.headerSearch {
+.hotelHeaderSearch {
   display: flex;
   justify-content: center;
   width: 100%;
-  margin: 0px 26%;
+  margin: 0px 19%;
   position: relative;
   top: 3px;
   height: 60px;
@@ -162,14 +162,14 @@ hotel_title hotel_address
   max-width: 1000px;
 }
 
-.headerIcon {
+.hotelHeaderIcon {
   color: lightgray;
+  text-align: center;
 }
 
-.headerSearchItem {
+.hotelHeaderSearchItem {
   display: flex;
   align-items: center;
-  gap: 10px;
 }
 
 .headerSearchInput {
@@ -177,7 +177,7 @@ hotel_title hotel_address
   outline: none;
 }
 
-.headerSearchText {
+.hotelheaderSearchText {
   color: lightgray;
   cursor: pointer;
 }
@@ -188,7 +188,7 @@ hotel_title hotel_address
   z-index: 2;
 }
 
-.options {
+.hotelOptions {
   z-index: 2;
   position: absolute;
   top: 50px;

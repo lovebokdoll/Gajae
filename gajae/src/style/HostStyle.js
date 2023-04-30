@@ -109,11 +109,8 @@ export const R_CardGroup = styled.div`
   transform: translate(60%, 80%); /* 가운데 정렬을 위한 transform 속성 */
 `;
 export const R_CardGroup_hotel = styled.div`
-  // background-color: #003580;
-  font-family: "Pretendard-Regular";
-  width: 100%;
-  //top: 10%; /* 원하는 위치로 top, left, right, bottom 값을 조정 */
-  // transform: translate(5%, 1%); /* 가운데 정렬을 위한 transform 속성 */
+  width: 50rem;
+  margin: 10% auto;
 `;
 //hostZipCode
 export const LoginForm = styled.form`

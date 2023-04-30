@@ -1,15 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Accordion } from "react-bootstrap";
 import { hostextraInsertDB, hostfacInsertDB } from "../../../service/hostLogic";
-import { useDispatch } from "react-redux";
-import { setToastMessage } from "../../../redux/toastStatus/action";
 import { useLocation, useNavigate } from "react-router-dom";
 import HostFac from "./HostFac";
 import HostHeaderNav from "../HostHeaderNav";
+import Swal from "sweetalert2";
 
 const RegisterRoom = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
   const location = useLocation();
   const params = new URLSearchParams(location.search);
   const p_id = params.get("p_id");
@@ -36,31 +34,53 @@ const RegisterRoom = () => {
     FAC_RECEPTION: "",
     P_EXTRA: "",
   });
+  //모달 창
+  const Toast = Swal.mixin({
+    toast: true,
+    position: "center-center",
+    showConfirmButton: false,
+    timer: 2000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+      toast.addEventListener("mouseenter", Swal.stopTimer);
+      toast.addEventListener("mouseleave", Swal.resumeTimer);
+    },
+  });
   console.log(selectedRooms);
   const hostInsert = async () => {
     //적어도 하나를 선택해야 한다.
     const checked = Object.values(
-      selectedRooms["FAC_ROOM"],
-      selectedRooms["FAC_RESTARUANT"],
-      selectedRooms["FAC_SECURITY"],
-      selectedRooms["FAC_BATHROOM"],
-      selectedRooms["FAC_PARKING"],
-      selectedRooms["FAC_LIVING"],
-      selectedRooms["FAC_MEDIA"],
-      selectedRooms["FAC_INTERNET"],
-      selectedRooms["FAC_SERVICE"],
-      selectedRooms["FAC_GENERAL"],
-      selectedRooms["FAC_LANGUAGE"],
-      selectedRooms["FAC_BED"],
-      selectedRooms["FAC_KITCHEN"],
-      selectedRooms["FAC_RECEPTION"],
-      selectedRooms["P_EXTRA"]
+      selectedRooms["FAC_ROOM"] &&
+        selectedRooms["FAC_RESTARUANT"] &&
+        selectedRooms["FAC_SECURITY"] &&
+        selectedRooms["FAC_BATHROOM"] &&
+        selectedRooms["FAC_PARKING"] &&
+        selectedRooms["FAC_LIVING"] &&
+        selectedRooms["FAC_MEDIA"] &&
+        selectedRooms["FAC_INTERNET"] &&
+        selectedRooms["FAC_SERVICE"] &&
+        selectedRooms["FAC_GENERAL"] &&
+        selectedRooms["FAC_LANGUAGE"] &&
+        selectedRooms["FAC_BED"] &&
+        selectedRooms["FAC_KITCHEN"] &&
+        selectedRooms["FAC_RECEPTION"] &&
+        selectedRooms["P_EXTRA"]
     ).some((value) => value !== "");
     if (!checked) {
-      dispatch(setToastMessage("숙소정보 등록 실패"));
+      Toast.fire({
+        icon: "warning", // Alert 타입
+        title: "숙소정보 등록에 실패하였습니다. <br/>체크박스를 선택해주세요", // Alert 제목
+        timer: 1000,
+        timerProgressBar: false,
+      });
       return;
     } else {
-      dispatch(setToastMessage("숙소정보 등록에 성공하였습니다"));
+      Toast.fire({
+        icon: "success", // Alert 타입
+        title: "숙소정보 등록에 성공하였습니다.", // Alert 제목
+        timer: 1000,
+        timerProgressBar: false,
+      });
     }
     setTempid(p_id);
     setTempUpdate(true);
@@ -93,7 +113,7 @@ const RegisterRoom = () => {
       //숙소시설insert
       await hostfacInsertDB(facilities);
       await hostextraInsertDB(extra);
-      navigate("/host/end");
+      //  navigate("/host/end");
     }
   };
   insertFacilities();

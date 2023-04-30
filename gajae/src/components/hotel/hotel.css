@@ -2,11 +2,11 @@
 hotel_title hotel_address 
 */
 
-.hotel-container {
-  margin: 35px auto 10px;
+.hotelContainer {
   /* border: 1px solid rgb(202, 26, 26); */
   width: 70%;
   /* display: inline-block; */
+  margin-left: 20em;
   display: flex;
   flex-wrap: wrap;
 }
@@ -24,10 +24,10 @@ hotel_title hotel_address
 .hotel_addr_overview {
   /* border: 2px solid rgb(9, 232, 248); */
 }
-.hotelImage {
+.hotel-Image {
   /* border: 1px solid black; */
   /* flex: 1; */
-  /* margin: 10px 200px; */
+  margin: 28px 5px 40px 20px;
   max-width: 100%;
   max-height: 300px;
   object-fit: cover;
@@ -78,7 +78,7 @@ hotel_title hotel_address
 }
 .refBtn {
   width: 80%;
-  margin: 5px auto;
+  margin: 1em 0 0 19em;
 }
 .reserveBtn {
   float: right;
@@ -224,4 +224,14 @@ hotel_title hotel_address
 
 .optionCounterButton:disabled {
   cursor: not-allowed;
+}
+
+.blink {
+  animation: blinker 2s linear infinite;
+}
+
+@keyframes blinker {
+  50% {
+    opacity: 0;
+  }
 }

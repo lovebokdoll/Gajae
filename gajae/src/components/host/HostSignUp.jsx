@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { setToastMessage } from "../../redux/toastStatus/action";
 import {
   regexEmail,
   regexID,
@@ -21,12 +20,11 @@ import {
   PwEye,
   SignupForm,
   SubmitButton,
-} from "../../style/FormStyle";
+} from "../../style/HostSignUp";
 import Footer from "../footer/Footer";
 import HostHeaderNav from "./HostHeaderNav";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Swal from "sweetalert2";
-
 const HostSignUp = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();

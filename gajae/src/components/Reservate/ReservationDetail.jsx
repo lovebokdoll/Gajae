@@ -1,14 +1,19 @@
-import Cookies from 'js-cookie';
-import React, { useEffect, useState } from 'react';
-import { Button } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
-import Footer from '../footer/Footer';
-import HeaderNav1 from '../header/HeaderNav1';
-import HeaderNav2 from '../header/HeaderNav2';
-import { convertEndDate, convertStartDate, countNights, dayOfWeek } from '../../service/reservation/resInformation';
-import PaymentSide from '../pay/PaymentSide';
-import PaymentLoginStatus from '../pay/PaymentLoginStatus';
-import PaymentPropertyCard from '../pay/PaymentPropertyCard';
+import Cookies from "js-cookie";
+import React, { useEffect, useState } from "react";
+import { Button } from "react-bootstrap";
+import { Link } from "react-router-dom";
+import Footer from "../footer/Footer";
+import HeaderNav1 from "../header/HeaderNav1";
+import HeaderNav2 from "../header/HeaderNav2";
+import {
+  convertEndDate,
+  convertStartDate,
+  countNights,
+  dayOfWeek,
+} from "../../service/reservation/resInformation";
+import PaymentSide from "../pay/PaymentSide";
+import PaymentLoginStatus from "../pay/PaymentLoginStatus";
+import PaymentPropertyCard from "../pay/PaymentPropertyCard";
 /*
 DB에서넘어온 정보와, lOGIN에서 넘어온 정보,
 HotelAvailabilityRow 에서 선택한, 
@@ -16,38 +21,38 @@ HotelAvailabilityRow 에서 선택한,
 */
 
 const ReservationDetail = () => {
-  const [initialName, setInitialName] = useState('');
-  const [initialEmail, setInitialEmail] = useState('');
-  const [initialNickname, setInitialNickname] = useState('');
+  const [initialName, setInitialName] = useState("");
+  const [initialEmail, setInitialEmail] = useState("");
+  const [initialNickname, setInitialNickname] = useState("");
 
   const resNameChange = (event) => {
     const resName = event.target.value;
-    Cookies.set('resName', resName);
+    Cookies.set("resName", resName);
     setInitialName(resName);
   };
 
   const resEmailChange = (event) => {
     const resEmail = event.target.value;
-    Cookies.set('resEmail', resEmail);
+    Cookies.set("resEmail", resEmail);
     setInitialEmail(resEmail);
   };
 
   useEffect(() => {
-    setInitialName(localStorage.getItem('userName'));
-    setInitialEmail(localStorage.getItem('userEmail'));
-    setInitialNickname(localStorage.getItem('userNickname'));
+    setInitialName(localStorage.getItem("userName"));
+    setInitialEmail(localStorage.getItem("userEmail"));
+    setInitialNickname(localStorage.getItem("userNickname"));
   }, []);
 
-  const p_title = Cookies.get('p_title');
-  const p_checkin = Cookies.get('p_checkin');
-  const p_checkout = Cookies.get('p_checkout');
-  const resRoomType = Cookies.get('resRoomtype');
-  const selectedRoomNumber = Cookies.get('selectedRoomNumber');
-  const resPrice = Cookies.get('resPrice');
-  const resAddress = Cookies.get('resAddress');
-  const resStartDate = Cookies.get('startDate');
-  const resEndDate = Cookies.get('endDate');
-  const resPeople = Cookies.get('resPeople');
+  const p_title = Cookies.get("p_title");
+  const p_checkin = Cookies.get("p_checkin");
+  const p_checkout = Cookies.get("p_checkout");
+  const resRoomType = Cookies.get("resRoomtype");
+  const selectedRoomNumber = Cookies.get("selectedRoomNumber");
+  const resPrice = Cookies.get("resPrice");
+  const resAddress = Cookies.get("resAddress");
+  const resStartDate = Cookies.get("startDate");
+  const resEndDate = Cookies.get("endDate");
+  const resPeople = Cookies.get("resPeople");
   const [startDate, setStartDate] = useState();
   const [endDate, setEndDate] = useState();
   const [diffDays, setDiffDays] = useState();
@@ -67,23 +72,29 @@ const ReservationDetail = () => {
       <HeaderNav1 />
       <HeaderNav2 />
       <br />
-      <div style={{ display: 'flex', justifyContent: 'center' }}>
+      <div style={{ display: "flex", justifyContent: "center" }}>
         <PaymentSide />
-        <div className="card" style={{ width: '60rem', backgroundColor: 'rgb(214,230,245)' }}>
+        <div
+          className="card"
+          style={{ width: "60rem", backgroundColor: "rgb(214,230,245)" }}
+        >
           <PaymentPropertyCard />
           <PaymentLoginStatus />
-          <div className="card" style={{ width: '60rem', backgroundColor: 'rgb(214,230,245)' }}>
+          <div
+            className="card"
+            style={{ width: "60rem", backgroundColor: "rgb(214,230,245)" }}
+          >
             <span style={{ fontSize: 30 }}>상세정보를 입력하세요</span>
             <div className="card-body">
               <span className="card-title" style={{ fontSize: 20 }}>
-                {' '}
+                {" "}
                 <strong> {initialNickname}</strong>님 거의 마무리가 되었어요!
-              </span>{' '}
+              </span>{" "}
               {/* 별명 출력 */}
               <form>
                 <div className="booker-name">
                   <label className="form-label" style={{ fontSize: 20 }}>
-                    {' '}
+                    {" "}
                     예약자 이름 *
                   </label>
                   <input
@@ -91,13 +102,13 @@ const ReservationDetail = () => {
                     className="form-control"
                     name="name"
                     placeholder="실명을 입력해주세요."
-                    style={{ width: '60%' }}
+                    style={{ width: "60%" }}
                     onChange={resNameChange}
                     value={initialName}
                   />
                 </div>
                 <label className="form-label" style={{ fontSize: 20 }}>
-                  {' '}
+                  {" "}
                   예약자 E-MAIL *
                 </label>
                 <br />
@@ -106,7 +117,7 @@ const ReservationDetail = () => {
                   className="booker-email form-control"
                   id="email"
                   name="email"
-                  style={{ width: '60%' }}
+                  style={{ width: "60%" }}
                   value={initialEmail}
                   onChange={resEmailChange}
                 />
@@ -115,10 +126,13 @@ const ReservationDetail = () => {
           </div>
           <br />
 
-          <div className="card" style={{ width: '60rem', backgroundColor: 'rgb(214,230,245)' }}>
+          <div
+            className="card"
+            style={{ width: "60rem", backgroundColor: "rgb(214,230,245)" }}
+          >
             <div className="card-body">
               {/* end of 상세정보*/}
-              <div className="card" style={{ width: '49rem' }}>
+              <div className="card" style={{ width: "49rem" }}>
                 <div className="card-body">
                   <div style={{ fontSize: 30 }}>예약 정보</div>
                   <hr />
@@ -132,11 +146,11 @@ const ReservationDetail = () => {
                           {p_checkin}부터, {p_checkout}까지
                         </div>
                         <div>
-                          {' '}
-                          ({startAndEndDays[0]}), ({startAndEndDays[1]}){' '}
+                          {" "}
+                          ({startAndEndDays[0]}), ({startAndEndDays[1]}){" "}
                         </div>
                         <div>총 숙박 기간: {diffDays}박</div>
-                        <hr style={{ width: '47rem' }}></hr>
+                        <hr style={{ width: "47rem" }}></hr>
                         <div>
                           <div>선택 숙소: {p_title}</div>
                           <div>선택 객실: {resRoomType}</div>
@@ -154,16 +168,19 @@ const ReservationDetail = () => {
                 </div>
               </div>
               <hr />
-              <div className="card" style={{ width: '49rem' }}>
+              <div className="card" style={{ width: "49rem" }}>
                 <div className="card-body">
-                  <div style={{ fontSize: 30 }}> 별도 요청사항 </div> {/* 사용자가 작성했을시 host에게 전달 되고  2차때 할 예정*/}
+                  <div style={{ fontSize: 30 }}> 별도 요청사항 </div>{" "}
+                  {/* 사용자가 작성했을시 host에게 전달 되고  2차때 할 예정*/}
                   <hr />
                   <div>
-                    별도 요청 사항을 보장해드릴 수는 없으나, 숙소 측에서 서비스 제공을 위해 최선의 노력을 다할 것입니다. 예약을 완료한
-                    후에도 별도 요청 사항을 보내실 수 있으니 참고 바랍니다.{' '}
+                    별도 요청 사항을 보장해드릴 수는 없으나, 숙소 측에서 서비스
+                    제공을 위해 최선의 노력을 다할 것입니다. 예약을 완료한
+                    후에도 별도 요청 사항을 보내실 수 있으니 참고 바랍니다.{" "}
                   </div>
                   <div>
-                    아래에 요청 사항을 작성해 주시기 바랍니다. (<strong>* 선택 사항</strong>)
+                    아래에 요청 사항을 작성해 주시기 바랍니다. (
+                    <strong>* 선택 사항</strong>)
                   </div>
                   <textarea style={{ width: 740 }}>여기에 입력하세요</textarea>
                 </div>
@@ -171,7 +188,9 @@ const ReservationDetail = () => {
               <br />
               <div className="d-flex justify-content-between align-items-center">
                 <div>
-                  <span style={{ fontSize: 30, fontWeight: 'bold' }}>결제요금내역</span>
+                  <span style={{ fontSize: 30, fontWeight: "bold" }}>
+                    결제요금내역
+                  </span>
                   <br />
                   <span>
                     결제금액: {resPrice} 원
@@ -181,7 +200,12 @@ const ReservationDetail = () => {
                 {/* 결제 쿠키에서 꺼내기 */}
                 <Button
                   variant="info"
-                  style={{ textDecoration: 'none', borderBottom: 'none', border: 'none', backgroundColor: 'transparent' }}
+                  style={{
+                    textDecoration: "none",
+                    borderBottom: "none",
+                    border: "none",
+                    backgroundColor: "transparent",
+                  }}
                 >
                   <Link to="/pay">
                     <img src="../images/결제페이지로.png" alt="결제하기" />
