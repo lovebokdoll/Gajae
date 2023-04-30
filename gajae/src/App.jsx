@@ -46,18 +46,27 @@ import Paypage from './pages/pay/Paypage';
 import PropertyListPage from './pages/propertyList/PropertyListPage';
 import ReviewUpdate from './pages/reviewBoard/ReviewUpdate';
 import ReviewWritePage from './pages/reviewBoard/ReviewWritePage';
+import { useState } from 'react';
+import ReservationPush from './components/Reservate/ReservatePush';
 
 const App = () => {
   const toastStatus = useSelector((state) => state.toastStatus);
   const modalStatus = useSelector((state) => state.modalInfo);
   const nationStatus = useSelector((state) => state.nationModalInfo);
+  const [isReservationSuccess, setIsReservationSuccess] = useState(false);
 
+  const handleReservationSuccess = () => {
+    setIsReservationSuccess(true);
+  };
+
+ 
   return (
     <div style={{ height: '100vh' }}>
       {toastStatus.status && <Toast />}
       {/*  */}
       {modalStatus.status && <CurrencyModal />}
       {nationStatus.status && <NationModal />}
+      {isReservationSuccess && <ReservationPush />}
       <Routes>
         <Route path="/" exact="true" element={<MainPage />} />
         {/* signup & signin */}

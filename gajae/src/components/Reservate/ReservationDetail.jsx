@@ -66,6 +66,7 @@ const ReservationDetail = () => {
       <div style={{ display: 'flex', justifyContent: 'center' }}>
         <PaymentSide paymentSideData={paymentSideData} />
       <div className="card1" style={{ width: '958px', backgroundColor: 'rgb(214,230,245)' }}>
+          <div className='space-div'style={{width:'20px'}}></div>
           <PaymentPropertyCard />
           <PaymentLoginStatus />
           <div className="card" style={{ width: '60rem', backgroundColor: 'white' }}>
@@ -73,11 +74,10 @@ const ReservationDetail = () => {
             <div className="card-body" > 
             <div className="card-Detail" 
             style={{ backgroundColor: 'white', borderRadius: '10px', width: '782px', fontSize: '30px',  padding: '20px' }}>
-  <div style={{ fontSize: '30px' }}>상세정보를 입력하세요</div><br />
+  <div style={{ fontSize: '30px' }}>상세정보를 입력하세요</div>
   <hr />
   <span className="card-title" style={{ fontSize: '20px', fontWeight: 'bold' }}>
-
-    <strong> {initialNickname}</strong>님 거의 마무리가 되었어요!
+  <strong> {initialNickname}</strong>님 거의 마무리가 되었어요!
   </span>
   {/* 별명 출력 */}
   <form>
@@ -94,19 +94,18 @@ const ReservationDetail = () => {
     </label>
     <br />
     <input type="text"
-      className="booker-email form-control" id="email" name="email" style={{ width: '60%', fontSize: '20px' }} value={initialEmail} onChange={resEmailChange} />
+      className="booker-email form-control" id="email" name="email" style={{ width: '60%', fontSize: '20px' }}
+       value={initialEmail} onChange={resEmailChange} />
   </form>
 </div>
-
-            </div>
-          </div>
-          </div>
-          <br />
-
-          <div className="card" style={{ width: '60rem', backgroundColor: 'rgb(214,230,245)' }}>
-            <div className="card-body">
-              {/* end of 상세정보*/}
-              <div className="card" style={{ width: '49rem' }}>
+</div>
+</div>
+</div>
+ <br />
+ <div className="card" style={{ width: '60rem', backgroundColor: 'rgb(214,230,245)' }}>
+   <div className="card-body">
+     {/* end of 상세정보*/}
+    <div className="card" style={{ width: '49rem' }}>
                 <div className="card-body">
                   <div style={{ fontSize: 30 }}>예약 정보</div>
                   <hr />
@@ -144,11 +143,11 @@ const ReservationDetail = () => {
               <hr />
               <div className="card" style={{ width: '49rem' }}>
                 <div className="card-body">
-                  <div style={{ fontSize: 30 }}> 별도 요청사항 </div> {/* 사용자가 작성했을시 host에게 전달 되고  2차때 할 예정*/}
+                  <div style={{ fontSize: 30 }}> 별도 요청사항 </div> {/* 사용자가 작성했을시 host에게 전달 되고 2차때 할 예정*/}
                   <hr />
-                  <div>
-                    별도 요청 사항을 보장해드릴 수는 없으나, 숙소 측에서 서비스 제공을 위해 최선의 노력을 다할 것입니다. 예약을 완료한
-                    후에도 별도 요청 사항을 보내실 수 있으니 참고 바랍니다.{' '}
+                  <div className='info'>
+                    별도 요청 사항을 보장해드릴 수는 없으나, 숙소 측에서 서비스 제공을 위해 최선의 노력을 다할 것입니다.<br/>
+                     예약을 완료한 후에도 별도 요청 사항을 보내실 수 있으니 참고 바랍니다.{' '}
                   </div>
                   <div>
                     아래에 요청 사항을 작성해 주시기 바랍니다. (<strong>* 선택 사항</strong>)
@@ -157,14 +156,15 @@ const ReservationDetail = () => {
                 </div>
               </div>
               <br />
+
               <div className="d-flex justify-content-between align-items-center" >
                 <div className='text' style={{width:'300px'}}>
-                  <span style={{ fontSize: 30, fontWeight: 'bold' }}>결제요금내역</span>
+                  <span style={{ fontSize: 40, fontWeight: 'bold' }}>결제요금내역</span>
                   <br />
-                  <span style={{fontSize:'20px',fontWeight:'bold'}}>
+                  <span className='won' style={{fontSize:'30px',fontWeight:'bold'}}>
                     결제금액: {paymentSideData.resPrice} 원
-                    <br /> 추가 요금이 발생할 수 있습니다.
                   </span>
+                  <span><br /> * 추가 요금이 발생할 수 있습니다.</span>
                 </div>
                 {/* 결제 쿠키에서 꺼내기 */}
                 <Button
@@ -176,6 +176,7 @@ const ReservationDetail = () => {
                   </Link>
                 </Button>
               </div>
+
             </div>
           </div>
         </div>

@@ -82,11 +82,14 @@ const PaymentPage = () => {
       <HeaderNav1 />
       <HeaderNav2 />
       <br />
+ 
+
       <div className="Container">
-        <Form className="inner-outter1" style={{ display: 'flex', justifyContent: 'center', height: 700 }} onSubmit={handleSubmit}>
+        <Form className="inner-outter1" style={{ display: 'flex', justifyContent: 'center', height: 800 }} onSubmit={handleSubmit}>
           <PaymentSide paymentSideData={paymentSideData} />
           <Card className="personal-info" style={{ width: '50rem', backgroundColor: 'rgb(214,230,245)' }}>
-            <div className="innner1" style={{ paddingLeft: '40px' }}>
+            <div className="innner1" style={{ paddingLeft: '30px',paddingTop:'10px' }}>
+              <Card className='cardname' style={{paddingLeft:'15px'}}>
               <h3 x style={{ paddingTop: '10px' }}>
                 {' '}
                 개인정보 입력{' '}
@@ -123,16 +126,21 @@ const PaymentPage = () => {
                     borderRadius: '4px',
                     backgroundColor: 'var(--bui_color_white)',
                   }}
-                />
+                  />
                 <div>
                   <span style={{ fontSize: '0.8rem', color: '#333333' }}>숙박 시설에서 연락을 드릴 수 있습니다.</span>
                 </div>
+                  </div>
+                  </Card>
+            
+                <hr />
+
+                <Card className='reservate-check' style={{borderRadius:'10px',padding:'16px'}}> 
                 <h3>예약 내역 확인</h3>
                 <p>선택 호텔: {paymentSideData.p_title}</p>
                 <p>주소: {paymentSideData.resAddress}</p>
                 <p>선택 객실: {paymentSideData.resRoomType}</p>
-                <p>
-                  체크인: {paymentSideData.startDate} {`(${paymentSideData.startAndEndDays[0]})`} {paymentSideData.p_checkin}부터
+                <p> 체크인: {paymentSideData.startDate} {`(${paymentSideData.startAndEndDays[0]})`} {paymentSideData.p_checkin}부터
                 </p>
                 <p>
                   체크아웃: {paymentSideData.endDate} {`(${paymentSideData.startAndEndDays[1]})`} {paymentSideData.p_checkout}까지
@@ -140,24 +148,34 @@ const PaymentPage = () => {
                 <p>총 숙박 기간: {paymentSideData.diffDays}박</p>
                 <p>객실 수: {paymentSideData.selectedRoomNumber}</p>
                 <p>투숙 인원: 성인 {paymentSideData.resPeople}명</p>
-              </div>
+                </Card>
             </div>
           </Card>
         </Form>
         {/* end of inner-outter1 */}
         <br />
 
-        <Form className="inner-outter3" style={{ display: 'flex', justifyContent: 'center', height: 95 }}>
-          <Card className="agree-checkbox" style={{ width: '50rem', alignContent: 'center', backgroundColor: 'rgb(214,230,245)' }}>
-            <h3 style={{ paddingLeft: '40px' }}>개인정보 동의</h3>
-            <div className="innner3" style={{ paddingLeft: '40px' }}>
-              <input type="checkbox" id="agreed" checked={agreed} onChange={handleAgreeChange} required />
-              <label htmlFor="agreed">개인정보 수집에 동의합니다.</label>
-              <br />
-              <span style={{ fontWeight: 'bold' }}> 동의버튼을 누르셔야만 결제버튼이 생깁니다.</span>
-            </div>
-          </Card>
-        </Form>
+ {/* 개인정보 동의 */}
+  <Form className="inner-outter3" style={{ height: 95 }}>
+  <Card className="agree-checkbox" style={{ 
+    width: '50rem', 
+    alignContent: 'center', 
+    backgroundColor: 'rgb(214,230,245)',
+    margin: 'auto',
+    marginRight: '50px' // 오른쪽으로 50px 이동
+  }}>
+    <h3 style={{ paddingLeft: '40px' }}>개인정보 동의</h3>
+    <div className="innner3" style={{ paddingLeft: '40px' }}>
+      <input type="checkbox" id="agreed" checked={agreed} onChange={handleAgreeChange} required />
+      <label htmlFor="agreed">개인정보 수집에 동의합니다.</label>
+      <br />
+      <span style={{ fontWeight: 'bold' }}> 동의버튼을 누르셔야만 결제버튼이 생깁니다.</span>
+    </div> 
+     </Card>
+    </Form>
+
+
+
         {/* inner-outter3 */}
 
         <br />

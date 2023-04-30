@@ -6,7 +6,7 @@ const PaymentLoginStatus = () => {
     <>
       <div className="card" style={{ width: '60rem', height: '8rem', backgroundColor: 'rgb(214,230,245)' }}>
         <div className="card-body">
-        <div className="Login-text" style={{ display: 'flex', alignItems: 'center', width: '658px', height: '82px', backgroundColor: 'white', borderRadius: '10px' }}>
+        <div className="Login-text" style={{ display: 'flex', alignItems: 'center', width: '780px', height: '82px', backgroundColor: 'white', borderRadius: '10px' }}>
          <img src="./images/newlogo.png" alt="" width="120px" height="90px" style={{ marginRight: '22px' }} />
          <div style={{ fontSize: '20px' }}>
          <FontAwesomeIcon icon="fa-solid fa-user" style={{color: "#1a61db",}} />
@@ -14,7 +14,6 @@ const PaymentLoginStatus = () => {
            <div >loveseesee@naver.com </div>
          </div>
         </div>
-
         </div>
       </div>
       <br />

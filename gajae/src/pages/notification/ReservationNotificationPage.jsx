@@ -6,6 +6,7 @@ import Footer from '../../components/footer/Footer';
 import HeaderNav1 from '../../components/header/HeaderNav1';
 import HeaderNav2 from '../../components/header/HeaderNav2';
 import { resNotification } from '../../service/reservation/reservation';
+import ReservationPush from '../../components/Reservate/ReservatePush';
 
 
 const ReservationNotificationPage = () => {
@@ -41,6 +42,7 @@ const ReservationNotificationPage = () => {
     <>
       <HeaderNav1 />
       <HeaderNav2 />
+      <ReservationPush/>
       {resNotificationData && (
         <>
           <br />
