@@ -1,14 +1,14 @@
-import React from 'react'
+import React from 'react';
 
-const PaymentNotificationPage = () => {
-
+const ReservationNotification = ({ reservationTime, reservationName }) => {
   
-
   return (
-    <>
-      <div> 결제성공 </div>
-    </>
-  )
-}
+    <div className="reservation-notification">
+      <h3>예약이 완료되었습니다!</h3>
+      <p>예약 시간: {reservationTime}</p>
+      <p>예약자 이름: {reservationName}</p>
+    </div>
+  );
+};
 
-export default PaymentNotificationPage
+export default ReservationNotification;

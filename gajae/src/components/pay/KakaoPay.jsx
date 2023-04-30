@@ -5,7 +5,7 @@ import { paymentInsert } from '../../service/pay/pay';
 import { resInsert } from '../../service/reservation/reservation';
 
 const KakaoPay = (effect, deps) => {
-  const tenMinutesFromNow = new Date(Date.now() + 10 * 60 * 1000);
+  const thirtyMinutesFromNow = new Date(Date.now() + 10 * 60 * 3000);
   const navigate = useNavigate();
   const [localID, setLocalId] = useState('');
 
@@ -160,13 +160,13 @@ const KakaoPay = (effect, deps) => {
         console.log('P_ID ===>', resInfo.p_id);
         console.log('ROOM_ID ===>', resInfo.room_id);
 
-        Cookies.set('RES_RESNUM', reservationResponse.data, { expires: tenMinutesFromNow });
-        Cookies.set('RES_PAYNUM', response.imp_uid, { expires: tenMinutesFromNow });
-        Cookies.set('RES_PID', resInfo.p_id, { expires: tenMinutesFromNow });
-        Cookies.set('RES_ROOMID', resInfo.room_id, { expires: tenMinutesFromNow });
+        Cookies.set('RES_RESNUM', reservationResponse.data, { expires: thirtyMinutesFromNow });
+        Cookies.set('RES_PAYNUM', response.imp_uid, { expires: thirtyMinutesFromNow });
+        Cookies.set('RES_PID', resInfo.p_id, { expires: thirtyMinutesFromNow });
+        Cookies.set('RES_ROOMID', resInfo.room_id, { expires: thirtyMinutesFromNow });
       };
       payInsert();
-      //navigate('/reservation/notification');
+      navigate('/reservation/notification');
     } else {
       alert(`결제 실패 : ${error_msg} 다시 시도해주시길바랍니다`);
     }
