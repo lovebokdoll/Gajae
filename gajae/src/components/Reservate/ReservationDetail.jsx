@@ -65,41 +65,57 @@ const ReservationDetail = () => {
       <br />
       <div style={{ display: 'flex', justifyContent: 'center' }}>
         <PaymentSide paymentSideData={paymentSideData} />
-      <div className="card1" style={{ width: '958px', backgroundColor: 'rgb(214,230,245)' }}>
+        <div className="card1" style={{ width: '958px', backgroundColor: 'rgb(214,230,245)', margin: '0px 0px 0px 20px' }}>
           <PaymentPropertyCard />
-          <PaymentLoginStatus />
+          <PaymentLoginStatus initialEmail={initialEmail} />
           <div className="card" style={{ width: '60rem', backgroundColor: 'white' }}>
-          <div className="card-inner" style={{ width: '60rem', backgroundColor: 'rgb(214,230,245)' }}>
-            <div className="card-body" > 
-            <div className="card-Detail" 
-            style={{ backgroundColor: 'white', borderRadius: '10px', width: '782px', fontSize: '30px',  padding: '20px' }}>
-  <div style={{ fontSize: '30px' }}>상세정보를 입력하세요</div><br />
-  <hr />
-  <span className="card-title" style={{ fontSize: '20px', fontWeight: 'bold' }}>
-
-    <strong> {initialNickname}</strong>님 거의 마무리가 되었어요!
-  </span>
-  {/* 별명 출력 */}
-  <form>
-    <div className="booker-name">
-      <label className="form-label" style={{ fontSize: '20px' }}>
-        {' '}
-        예약자 이름 *
-      </label>
-      <input type="text" className="form-control" name="name" placeholder="실명을 입력해주세요." style={{ width: '60%', fontSize: '20px' }} onChange={resNameChange} value={initialName} />
-    </div>
-    <label className="form-label" style={{ fontSize: '20px' }}>
-      {' '}
-      예약자 E-MAIL *
-    </label>
-    <br />
-    <input type="text"
-      className="booker-email form-control" id="email" name="email" style={{ width: '60%', fontSize: '20px' }} value={initialEmail} onChange={resEmailChange} />
-  </form>
-</div>
-
+            <div className="card-inner" style={{ width: '60rem', backgroundColor: 'rgb(214,230,245)' }}>
+              <div className="card-body">
+                <div
+                  className="card-Detail"
+                  style={{ backgroundColor: 'white', borderRadius: '10px', width: '782px', fontSize: '30px', padding: '20px' }}
+                >
+                  <div style={{ fontSize: '30px' }}>상세정보를 입력하세요</div>
+                  <br />
+                  <hr />
+                  <span className="card-title" style={{ fontSize: '20px', fontWeight: 'bold' }}>
+                    <strong> {initialNickname}</strong>님 거의 마무리가 되었어요!
+                  </span>
+                  {/* 별명 출력 */}
+                  <form>
+                    <div className="booker-name">
+                      <label className="form-label" style={{ fontSize: '20px' }}>
+                        {' '}
+                        예약자 이름 *
+                      </label>
+                      <input
+                        type="text"
+                        className="form-control"
+                        name="name"
+                        placeholder="실명을 입력해주세요."
+                        style={{ width: '60%', fontSize: '20px' }}
+                        onChange={resNameChange}
+                        value={initialName}
+                      />
+                    </div>
+                    <label className="form-label" style={{ fontSize: '20px' }}>
+                      {' '}
+                      예약자 E-MAIL *
+                    </label>
+                    <br />
+                    <input
+                      type="text"
+                      className="booker-email form-control"
+                      id="email"
+                      name="email"
+                      style={{ width: '60%', fontSize: '20px' }}
+                      value={initialEmail}
+                      onChange={resEmailChange}
+                    />
+                  </form>
+                </div>
+              </div>
             </div>
-          </div>
           </div>
           <br />
 
@@ -157,11 +173,11 @@ const ReservationDetail = () => {
                 </div>
               </div>
               <br />
-              <div className="d-flex justify-content-between align-items-center" >
-                <div className='text' style={{width:'300px'}}>
+              <div className="d-flex justify-content-between align-items-center">
+                <div className="text" style={{ width: '300px' }}>
                   <span style={{ fontSize: 30, fontWeight: 'bold' }}>결제요금내역</span>
                   <br />
-                  <span style={{fontSize:'20px',fontWeight:'bold'}}>
+                  <span style={{ fontSize: '20px', fontWeight: 'bold' }}>
                     결제금액: {paymentSideData.resPrice} 원
                     <br /> 추가 요금이 발생할 수 있습니다.
                   </span>

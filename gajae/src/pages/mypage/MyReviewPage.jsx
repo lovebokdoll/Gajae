@@ -4,7 +4,7 @@ import React from 'react';
 import { Nav } from 'react-bootstrap';
 import Footer from '../../components/footer/Footer';
 import HeaderNav1 from '../../components/header/HeaderNav1';
-import MyReviewList from '../../components/review/MyReviewList'
+import MyReviewList from '../../components/review/MyReviewList';
 import {
   MSCLeftDIV,
   MSCRightDIV,
@@ -17,11 +17,11 @@ import {
 
 const MyReviewPage = () => {
   const userId = localStorage.getItem('userId');
-  
+
   return (
     <>
       <HeaderNav1 />
-      <MSContainer className="container">
+      <MSContainer>
         <MSCLeftDIV>
           {' '}
           <Nav defaultActiveKey="/home" className="flex-column">

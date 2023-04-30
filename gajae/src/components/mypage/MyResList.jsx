@@ -1,16 +1,21 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useEffect, useState } from 'react';
-import DropdownToggle from 'react-bootstrap/esm/DropdownToggle';
-import '../mypage/mypage_css/myRes.css';
-import { BackDiv, BtnWrapper, EmtyDiv, ReviewItem, ReviewList, ReviewWrapper, TLineDiv } from './mypage_css/styled-myres';
 import { myReservation } from '../../service/mypage/mypage';
+import '../mypage/mypage_css/myRes.css';
+import MyResRow from './MyResRow';
+import { ResDiv, ResEmtyDiv, ResTLineDiv } from './mypage_css/styled-myres';
 
 const MyResList = ({ userId }) => {
-  const [currentPage, setCurrentPage] = useState(1);
   const [reservationList, setReservationList] = useState();
-  const pageNumber = [];
+  const [currentPage, setCurrentPage] = useState(1);
   const resPerPage = 5;
+  const pageNumber = [];
 
+  if (reservationList) {
+    for (let i = 1; i <= Math.ceil(reservationList.length / resPerPage); i++) {
+      pageNumber.push(i);
+    }
+  }
   useEffect(() => {
     const tempID = window.localStorage.getItem('userId');
     if (tempID != null) {
@@ -22,33 +27,39 @@ const MyResList = ({ userId }) => {
       const getMyReservation = async () => {
         const response = await myReservation(myResParam);
         console.log(response.data);
+        setReservationList(response.data);
       };
       getMyReservation();
     }
   }, []);
-  //페이징 처리
-  for (let i = 1; i <= Math.ceil(reservationList?.length / resPerPage); i++) {
-    pageNumber.push(i);
-  }
 
-  const indexOfLastReview = currentPage * resPerPage;
-  const indexOfFirstReview = indexOfLastReview - resPerPage;
-  const start = indexOfFirstReview;
-  const end = indexOfLastReview;
-
-  const resDelete = async () => {};
   return (
     <>
-      <FontAwesomeIcon icon="fa-solid fa-house" />
-      <FontAwesomeIcon icon="fa-regular fa-calendar-check" />
-      <BackDiv>
+      <div className="myResListDiv">
         <h3 style={{ fontWeight: 'bold' }}>
           <FontAwesomeIcon icon="fa-solid fa-pen-to-square" style={{ color: '#1e3050' }} />
           &nbsp; 여행 & 예약
+          <ResTLineDiv></ResTLineDiv>
         </h3>
-        <TLineDiv></TLineDiv>
-        <EmtyDiv></EmtyDiv>
-      </BackDiv>
+        <ResEmtyDiv></ResEmtyDiv>
+        {reservationList &&
+          reservationList
+            .slice((currentPage - 1) * resPerPage, currentPage * resPerPage)
+            .map((reservation) => <MyResRow key={reservation.R_NUMBER} reservation={reservation} />)}
+        <div>
+          <nav>
+            <ul className="pagination justify-content-center">
+              {pageNumber.map((page) => (
+                <li key={page} className={page === currentPage ? 'page-item active' : 'page-item'}>
+                  <a href="#" className="page-link" onClick={() => setCurrentPage(page)}>
+                    {page}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        </div>
+      </div>
     </>
   );
 };

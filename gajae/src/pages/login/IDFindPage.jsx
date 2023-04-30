@@ -50,45 +50,66 @@ const IDFindPage = () => {
     <>
       <HeaderNav1 />
       <HeaderNav2 />
-        
-      <div className="containerBig" style={{width:'1900px',height:'800px', backgroundSize: 'cover', display:'flex', justifyContent: 'center', alignItems: 'center'}}>
-  <div className="containerSmall" style={{ marginTop:'40px',marginBottom:'40px',width:'650px', height:'650px',  borderRadius:'20px', backgroundColor:'rgba(255,255,255,0.5)', position: 'relative' }}>
-  <div className='image-cover'>
-  <div className='image-container' style={{ backgroundImage: "url('/images/LoginLogo.png')" }} />
-</div>
-    <MGDIV></MGDIV>
-      <FormContainer>
-        <Form onSubmit={handleSubmit}>
-          <FormGroup>
-            <InputLabel htmlFor="name">이름</InputLabel>
-            <Input type="text" id="name" value={name} onChange={(e) => setName(e.target.value)} />
-        
-          </FormGroup>
-          <FormGroup>
-            <InputLabel htmlFor="email">이메일</InputLabel>
-            <Input type="text" id="email" value={email} onChange={(e) => setEmail(e.target.value)} />
-          </FormGroup>
+
+      <div
+        className="containerBig"
+        style={{
+          width: '1900px',
+          height: '800px',
+          backgroundSize: 'cover',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      >
+        <div
+          className="containerSmall"
+          style={{
+            marginTop: '40px',
+            marginBottom: '40px',
+            width: '650px',
+            height: '650px',
+            borderRadius: '20px',
+            backgroundColor: 'rgba(255,255,255,0.5)',
+            position: 'relative',
+          }}
+        >
+          <div className="image-cover">
+            <div className="idFindImage-container" style={{ backgroundImage: "url('/images/LoginLogo.png')" }} />
+          </div>
           <MGDIV></MGDIV>
-          <ButtonContainer>
-            <Button type="submit">아이디 찾기</Button>
-          </ButtonContainer>
-          {result && <ResultText> {result}</ResultText>}
-        </Form>
-      </FormContainer>
-      <DividerDiv>
-    
-        <DividerSpan>
-          <CenteredContainer>
-            <p>
-              <FindLink to="/login/findpw" className="text-decoration-none">
-                비밀번호 찾기
-              </FindLink>
-            </p>
-          </CenteredContainer>
-        </DividerSpan>
-      </DividerDiv>
-      </div>{/* find-idcontainer */}
-      </div>{/* Big-find-idcontainer */}
+          <FormContainer>
+            <Form onSubmit={handleSubmit}>
+              <FormGroup>
+                <InputLabel htmlFor="name">이름</InputLabel>
+                <Input type="text" id="name" value={name} onChange={(e) => setName(e.target.value)} />
+              </FormGroup>
+              <FormGroup>
+                <InputLabel htmlFor="email">이메일</InputLabel>
+                <Input type="text" id="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+              </FormGroup>
+              <MGDIV></MGDIV>
+              <ButtonContainer>
+                <Button type="submit">아이디 찾기</Button>
+              </ButtonContainer>
+              {result && <ResultText> {result}</ResultText>}
+            </Form>
+          </FormContainer>
+          <DividerDiv>
+            <DividerSpan>
+              <CenteredContainer>
+                <p>
+                  <FindLink to="/login/findpw" className="text-decoration-none">
+                    비밀번호 찾기
+                  </FindLink>
+                </p>
+              </CenteredContainer>
+            </DividerSpan>
+          </DividerDiv>
+        </div>
+        {/* find-idcontainer */}
+      </div>
+      {/* Big-find-idcontainer */}
     </>
   );
 };
@@ -134,7 +155,6 @@ const Button = styled.button`
     background-color: skyblue;
   }
 `;
-
 
 const ResultText = styled.p`
   margin-top: 1rem;

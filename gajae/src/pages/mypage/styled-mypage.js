@@ -2,6 +2,8 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 export const MyPageUL = styled.ul`
+  margin: 10px 0px 0px 0px;
+  padding: 0px 0px 0px 0px;
   diplay: grid;
   list-style: none;
 `;
@@ -24,7 +26,7 @@ export const MyPageLinkSPAN = styled.span`
 export const MyPageDIV = styled.div`
   width: 542px;
   height: 116px;
-  margin: 1em;
+  margin: 0.8em;
   padding: 1em;
   border: 1px solid lightgrey;
 `;

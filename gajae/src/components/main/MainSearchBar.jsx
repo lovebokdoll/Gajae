@@ -1,9 +1,9 @@
 import { faBed, faCalendarDays, faCar, faHotel, faPerson, faPlane, faSuitcaseRolling, faTaxi } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import axios from 'axios';
-import { format } from 'date-fns';
+import { addDays, format } from 'date-fns';
 import Cookies from 'js-cookie';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { DateRange } from 'react-date-range';
 import 'react-date-range/dist/styles.css'; // main css file
 import 'react-date-range/dist/theme/default.css'; // theme css file
@@ -12,19 +12,35 @@ import { useNavigate } from 'react-router-dom';
 import { setToastMessage } from '../../redux/toastStatus/action';
 import { BButton } from '../../style/FormStyle';
 import './mainSearchBar.css';
-import Swal from 'sweetalert2';
+import moment from 'moment/moment';
+import { Checkbox } from '@material-ui/core';
 
-const MainSearchBar = ({ type }) => {
+const MainSearchBar = ({ type, destination }) => {
+  console.log('type ===>', type);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   //쿠키 1주일 설정하는 변수
   const oneWeekFromNow = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
 
-  //사용자가 선택했던 목적지(쿠키)
-  const [destination, setDestination] = useState(Cookies.get('destination') || '');
   //지역 입력
   const [p_address, setP_Address] = useState('');
+  console.log('destination prop value:', destination);
+  useEffect(() => {
+    if (destination === undefined) {
+      console.log('destination is undefined, initializing to default value');
+      destination = '어디로 떠나시나요?';
+    }
+    setP_Address(destination);
+  }, [destination]);
+
+  console.log(p_address);
+  const handleInputChange = (event) => {
+    const { value } = event.target;
+    Cookies.set('destination', value); // set destination in a cookie
+    setP_Address(value);
+    console.log(p_address);
+  };
   //인원수, 객실수 입력
   const [room_capacity, setRoom_Capacity] = useState({
     adult: 1,
@@ -35,7 +51,7 @@ const MainSearchBar = ({ type }) => {
   const [date, setDate] = useState([
     {
       startDate: new Date(),
-      endDate: new Date(),
+      endDate: addDays(new Date(), 1),
       key: 'selection',
     },
   ]);
@@ -49,19 +65,6 @@ const MainSearchBar = ({ type }) => {
       };
     });
   };
-
-  //지역 입력 안했을 시 모달 창
-  const Toast = Swal.mixin({
-    toast: true,
-    position: 'center-center',
-    showConfirmButton: false,
-    timer: 2000,
-    timerProgressBar: true,
-    didOpen: (toast) => {
-      toast.addEventListener('mouseenter', Swal.stopTimer);
-      toast.addEventListener('mouseleave', Swal.resumeTimer);
-    },
-  });
 
   const handleSearch = (e) => {
     const roomCapacity = parseInt(room_capacity.adult);
@@ -140,15 +143,15 @@ const MainSearchBar = ({ type }) => {
               새로운 모험, 새로운 경험, 그리고 새로운 나를 만나다
             </h4>
             <br />
-            <div className="headerSearch" style={{ right: 248 }}>
+            <div className="headerSearch">
               <div className="headerSearchText">
                 <form onSubmit={handleSearch}>
                   <FontAwesomeIcon icon={faSuitcaseRolling} style={{ marginRight: '10px' }} className="headerIcon" />
                   <input
-                    type="text"
+                    type={type}
+                    onChange={handleInputChange}
                     placeholder={`어디로 떠나시나요?`}
                     className="headerSearchInput"
-                    onChange={(e) => setP_Address(e.target.value)}
                     onKeyPress={(e) => {
                       if (e.key === 'Enter') {
                         e.preventDefault();
@@ -159,10 +162,10 @@ const MainSearchBar = ({ type }) => {
               </div>
               <div className="headerSearchDate">
                 <FontAwesomeIcon icon={faCalendarDays} style={{ marginRight: '10px' }} className="headerIcon" />
-                <span onClick={() => setOpenDate(!openDate)} className="headerSearchText">{`${format(
-                  date[0].startDate,
-                  'MM/dd/yyyy'
-                )} to ${format(date[0].endDate, 'MM/dd/yyyy')}`}</span>
+                <span onClick={() => setOpenDate(!openDate)} className="headerSearchText">
+                  {' '}
+                  {`${moment(date[0].startDate).format('M월 D일 (ddd)')} - ${moment(date[0].endDate).format('M월 D일 (ddd)')}`}
+                </span>
                 {openDate && (
                   <DateRange
                     editableDateInputs={true}
@@ -173,17 +176,17 @@ const MainSearchBar = ({ type }) => {
                     moveRangeOnFirstSelection={false}
                     ranges={date}
                     className="date"
-                    minDate={new Date()}
+                    minDate={new Date()} // set minDate to today's date
                   />
                 )}
               </div>
               <div className="headerSearchAdult">
                 <FontAwesomeIcon icon={faPerson} style={{ marginRight: '10px' }} className="headerIcon" />
-                <span onClick={() => setOpenOptions(!openOptions)} className="headerSearchText">{`${room_capacity.adult} adult`}</span>
+                <span onClick={() => setOpenOptions(!openOptions)} className="headerSearchText">{`성인 ${room_capacity.adult}명 `}</span>
                 {openOptions && (
                   <div className="options" style={{ left: '65%' }}>
                     <div className="optionItem">
-                      <span className="optionText">Adult</span>
+                      <span className="optionText">성인</span>
                       <div className="optionCounter">
                         <button
                           disabled={room_capacity.adult <= 1}
@@ -205,8 +208,8 @@ const MainSearchBar = ({ type }) => {
                 <BButton className="headerBtn" style={{ backgroundColor: '#0077C0', width: '50px' }} type="button" onClick={handleSearch}>
                   검색
                 </BButton>
-              </div>
-            </div>
+              </div>{' '}
+            </div>{' '}
           </>
         )}
       </div>

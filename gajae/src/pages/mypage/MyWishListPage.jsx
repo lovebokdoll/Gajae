@@ -33,7 +33,7 @@ const MyWishListPage = () => {
   return (
     <>
       <HeaderNav1 />
-      <MSContainer className="container">
+      <MSContainer >
         <MSCLeftDIV>
           {' '}
           <Nav defaultActiveKey="/home" className="flex-column">

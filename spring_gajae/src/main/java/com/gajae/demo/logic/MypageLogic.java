@@ -1,5 +1,6 @@
 package com.gajae.demo.logic;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,20 +23,25 @@ public class MypageLogic {
         
         List<Map<String, Object>> myResList = mypageDAO.myReservation( map );
         
-        List<Map<String, Object>> myResJoinList = myReservationJoin( myResList );
+        List<Map<String, Object>> myResJoinList = new ArrayList<>();
+        
+        for ( Map<String, Object> myRes : myResList ) {
+            List<Map<String, Object>> myResJoin = myReservationJoin( myRes );
+            myResJoinList.addAll( myResJoin );
+        }
         
         return myResJoinList;
     }
     
-    private List<Map<String, Object>> myReservationJoin( List<Map<String, Object>> myResList ) {
+    private List<Map<String, Object>> myReservationJoin( Map<String, Object> myRes ) {
         
-        log.info( "myResList = {}", myResList );
+        log.info( "myRes = {}", myRes );
         
         Map<String, Object> tempMap = new HashMap<>();
-        tempMap.put( "ROOM_ID", myResList.get( 0 ).get( "ROOM_ID" ) );
-        tempMap.put( "P_ID", myResList.get( 0 ).get( "P_ID" ) );
-        tempMap.put( "USER_ID", myResList.get( 0 ).get( "USER_ID" ) );
-        
+        tempMap.put( "ROOM_ID", myRes.get( "ROOM_ID" ) );
+        tempMap.put( "R_NUMBER", myRes.get( "R_NUMBER" ) );
+        tempMap.put( "P_ID", myRes.get( "P_ID" ) );
+        tempMap.put( "USER_ID", myRes.get( "USER_ID" ) );
         log.info( "tempMap = {}", tempMap );
         
         List<Map<String, Object>> myResJoinList = mypageDAO.myReservationJoin( tempMap );

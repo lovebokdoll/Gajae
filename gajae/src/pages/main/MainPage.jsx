@@ -10,13 +10,20 @@ import MainSearchBar from '../../components/main/MainSearchBar';
 import Popup from './Popup';
 import CovidInfo from '../../components/main/CovidInfo';
 import NextTripCard from '../../components/main/NextTripCard';
+import Cookies from 'js-cookie';
 
 const MainPage = () => {
   const [userName, setUserName] = useState();
+  const [destination, setDestination] = useState('');
+
   useEffect(() => {
+    const destinationValue = Cookies.get('destination');
+    console.log('destinationValue ===>', destinationValue);
+    setDestination(destinationValue);
     setUserName(window.localStorage.getItem('userName'));
   }, []);
 
+  console.log('destination ===>', destination);
   const handlePopupClose = () => {
     // do something when popup is closed
   };
@@ -24,13 +31,14 @@ const MainPage = () => {
   return (
     <>
       <HeaderNav1 />
-      <MainSearchBar />
+      <MainSearchBar destination={destination} />
       <CovidInfo />
       <MainAdvertisement />
       <MainRecommandLoc />
       <MainProperty />
       <NextTripCard userName={userName} />
       <MainMailList />
+      <div style={{}}></div>
       <Footer />
       <Popup onClose={handlePopupClose} />
     </>

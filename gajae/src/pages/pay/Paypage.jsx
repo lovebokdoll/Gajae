@@ -85,7 +85,7 @@ const PaymentPage = () => {
       <div className="Container">
         <Form className="inner-outter1" style={{ display: 'flex', justifyContent: 'center', height: 700 }} onSubmit={handleSubmit}>
           <PaymentSide paymentSideData={paymentSideData} />
-          <Card className="personal-info" style={{ width: '50rem', backgroundColor: 'rgb(214,230,245)' }}>
+          <Card className="personal-info" style={{ width: '50rem', backgroundColor: 'rgb(214,230,245)', margin: '0px 0px 0px 20px' }}>
             <div className="innner1" style={{ paddingLeft: '40px' }}>
               <h3 x style={{ paddingTop: '10px' }}>
                 {' '}

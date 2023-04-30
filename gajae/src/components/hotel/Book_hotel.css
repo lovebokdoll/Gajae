@@ -145,7 +145,7 @@ hotel_title hotel_address
   cursor: pointer;
 }
 
-.headerSearch {
+.hotelHeaderSearch {
   display: flex;
   justify-content: center;
   width: 100%;

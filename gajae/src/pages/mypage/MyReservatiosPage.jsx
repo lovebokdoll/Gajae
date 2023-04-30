@@ -31,7 +31,7 @@ const MyReservatiosPage = () => {
   return (
     <>
       <HeaderNav1 />
-      <MSContainer className="container">
+      <MSContainer>
         <MSCLeftDIV>
           {' '}
           <Nav defaultActiveKey="/home" className="flex-column">
@@ -79,8 +79,8 @@ const MyReservatiosPage = () => {
               <MyResList userId={userId} />
             </MySettingsPageTitle>
           </MySettingsFlexByRow>
-        </MSCRightDIV>
-      </MSContainer>
+        </MSCRightDIV>{' '}
+      </MSContainer>{' '}
       <Footer />
     </>
   );

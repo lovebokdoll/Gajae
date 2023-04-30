@@ -50,41 +50,62 @@ const PWFindPage = () => {
     <>
       <HeaderNav1 />
       <HeaderNav2 />
-         <div className="containerBig" style={{width:'1900px',height:'800px', backgroundSize: 'cover', display:'flex', justifyContent: 'center', alignItems: 'center'}}>
-  <div className="containerSmall" style={{ marginTop:'40px',marginBottom:'40px',width:'650px', height:'650px',  borderRadius:'20px', backgroundColor:'rgba(255,255,255,0.5)', position: 'relative' }}>
-  <div className='image-cover'>
-  <div className='image-container' style={{ backgroundImage: "url('/images/LoginLogo.png')" }} />
-</div>
-      <FormContainer>
-        <Form onSubmit={handleSubmit}>
-          <FormGroup>
-            <InputLabel htmlFor="id">아이디</InputLabel>
-            <Input type="text" id="id" value={id} onChange={(e) => setId(e.target.value)} style={{width:'300px'}}/>
-          </FormGroup>
-          <FormGroup>
-            <InputLabel htmlFor="mobile">핸드폰번호</InputLabel>
-            <Input type="text" id="mobile" value={mobile} onChange={(e) => setMobile(e.target.value)} />
-          </FormGroup>
-          <MGDIV></MGDIV>
-          <ButtonContainer>
-            <Button type="submit">비밀번호 찾기</Button>{' '}
-          </ButtonContainer>
-          {result && <ResultText> {result}</ResultText>}
-        </Form>
-      </FormContainer>
-      <DividerDiv>
-        
-        <DividerSpan>
-          <CenteredContainer>
-            <p>
-              <FindLink to="/login" className="text-decoration-none">
-                로그인
-              </FindLink>
-            </p>
-          </CenteredContainer>
-        </DividerSpan>
-      </DividerDiv>
-      </div></div>
+      <div
+        className="containerBig"
+        style={{
+          width: '1900px',
+          height: '800px',
+          backgroundSize: 'cover',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      >
+        <div
+          className="containerSmall"
+          style={{
+            marginTop: '40px',
+            marginBottom: '40px',
+            width: '650px',
+            height: '650px',
+            borderRadius: '20px',
+            backgroundColor: 'rgba(255,255,255,0.5)',
+            position: 'relative',
+          }}
+        >
+          <div className="image-cover">
+            <div className="pwFindImage-container" style={{ backgroundImage: "url('/images/LoginLogo.png')" }} />
+          </div>
+          <FormContainer>
+            <Form onSubmit={handleSubmit}>
+              <FormGroup>
+                <InputLabel htmlFor="id">아이디</InputLabel>
+                <Input type="text" id="id" value={id} onChange={(e) => setId(e.target.value)} style={{ width: '300px' }} />
+              </FormGroup>
+              <FormGroup>
+                <InputLabel htmlFor="mobile">핸드폰번호</InputLabel>
+                <Input type="text" id="mobile" value={mobile} onChange={(e) => setMobile(e.target.value)} />
+              </FormGroup>
+              <MGDIV></MGDIV>
+              <ButtonContainer>
+                <Button type="submit">비밀번호 찾기</Button>{' '}
+              </ButtonContainer>
+              {result && <ResultText> {result}</ResultText>}
+            </Form>
+          </FormContainer>
+          <DividerDiv>
+            <DividerSpan>
+              <CenteredContainer>
+                <p>
+                  <FindLink to="/login" className="text-decoration-none">
+                    로그인
+                  </FindLink>
+                </p>
+              </CenteredContainer>
+            </DividerSpan>
+          </DividerDiv>
+        </div>
+      </div>
     </>
   );
 };

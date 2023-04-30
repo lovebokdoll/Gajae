@@ -11,8 +11,8 @@ const CovidInfo = () => {
 
   return (
     <>
-      <div  className='covid19-outter' style={{ width: '100%', display: 'flex', justifyContent: 'center', padding: '20px' }}>
-        <div className='covid19-inner' style={{ width: '1098px', border: '1px solid lightgrey', padding: '15px' }}>
+      <div className="covid19-outter" style={{ width: '100%', display: 'flex', justifyContent: 'center', padding: '65px 0px 30px 0px' }}>
+        <div className="covid19-inner" style={{ width: '1000px', border: '1px solid lightgrey', padding: '15px' }}>
           <div style={{ display: 'flex', alignItems: 'center' }}>
             <span>
               <FontAwesomeIcon icon={faCheckCircle} style={{ color: '#00CC99' }} />

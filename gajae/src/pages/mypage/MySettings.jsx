@@ -413,7 +413,7 @@ const MySettings = () => {
                     style={{
                       display: 'inline-block',
                       textAlign: 'left',
-                      paddingLeft: '100px',
+                      paddingLeft: '93px',
                       marginRight: 'auto',
                     }}
                   >
@@ -454,7 +454,7 @@ const MySettings = () => {
                 <span style={{ width: '50px' }}>닉네임</span>
                 <span
                   style={{
-                    marginLeft: '10px',
+                    marginLeft: '4px',
                     paddingLeft: '89px',
                     marginRight: 'auto',
                   }}

@@ -45,20 +45,17 @@ const Footer = () => {
           </ul>
         </div>
         <div className="footerText" style={{ fontSize: 18, display: 'flex', alignItems: 'center' }}>
-  <span style={{ marginRight: 20 }}>Copyright © 2023 
-    <span style={{ fontWeight: 'bold' }}>GAJAE.COM</span>
-  </span>
-  <div style={{ display: 'flex', alignItems: 'center' }}>
-    <img src="/images/부킹닷컴.png" alt="" style={{ marginRight: 10, width: 120 }} />
-    <img src="/images/priceline.png" alt="" style={{ marginRight: 10, width: 120 }} />
-    <img src="/images/카약.png" alt="" style={{ marginRight: 10, width: 120 }} />
-    <img src="/images/아고다.png" alt="" style={{ width: 120 }} />
-  </div>
-</div>
-
-
-        
-
+          <span style={{ marginRight: 20 }}>
+            Copyright © 2023
+            <span style={{ fontWeight: 'bold' }}>GAJAE.COM</span>
+          </span>
+          <div style={{ display: 'flex', alignItems: 'center' }}>
+            <img src="/images/부킹닷컴.png" alt="" style={{ marginRight: 10, width: 120 }} />
+            <img src="/images/priceline.png" alt="" style={{ marginRight: 10, width: 120 }} />
+            <img src="/images/카약.png" alt="" style={{ marginRight: 10, width: 120 }} />
+            <img src="/images/아고다.png" alt="" style={{ width: 120 }} />
+          </div>
+        </div>
       </div>
     </div>
   );

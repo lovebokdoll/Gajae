@@ -127,6 +127,7 @@
   width: 100%;
   right: 10%;
   max-width: 1000px;
+  transform: translateY(176.8px); /* 추가된 속성 */
 }
 .headerIcon {
   color: lightgray;

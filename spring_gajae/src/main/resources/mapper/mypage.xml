@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="mypage">
-	
+
 	<select id="myReservation" parameterType="map" resultType="map">
 		SELECT
 		PAY.PAY_NUMBER,
@@ -12,6 +12,7 @@
 		PAY.RECEIPT_URL,
 		PAY.STATUS,
 		PAY.CURRENCY,
+		RES.R_NUMBER,
 		RES.USER_ID,
 		RES.R_DATE,
 		RES.R_START_DATE,
@@ -23,6 +24,7 @@
 		RES.R_ETA,
 		RES.R_PS,
 		RES.R_STATE,
+		RES.R_DATE,
 		PRO.P_ID,
 		PRO.P_TITLE,
 		PRO.ROOM_ID,
@@ -35,20 +37,26 @@
 		PRO.P_MAPY,
 		PRO.P_MAPX,
 		PRO.HOST_BUSINESS_NUM,
+		PRO.P_PHOTO,
 		RT.ROOM_TYPE,
 		RT.ROOM_OPTION,
 		RT.ROOM_CAPACITY
 		FROM PAYMENT PAY
-		INNER JOIN RESERVATIONS RES ON PAY.PAY_NUMBER = RES.PAY_NUMBER
-		INNER JOIN PROPERTIES PRO ON RES.P_ID = PRO.P_ID
-		INNER JOIN P_ROOMTYPE RT ON RES.ROOM_ID = RT.ROOM_ID
+		INNER JOIN
+		RESERVATIONS RES ON PAY.PAY_NUMBER = RES.PAY_NUMBER
+		INNER JOIN
+		PROPERTIES PRO ON RES.P_ID = PRO.P_ID
+		INNER JOIN P_ROOMTYPE RT ON
+		RES.ROOM_ID = RT.ROOM_ID
 		WHERE RES.USER_ID = #{USER_ID}
+		AND RES.R_NUMBER
+		= #{R_NUMBER}
 		AND PRO.P_ID = #{P_ID} AND PRO.ROOM_ID = #{ROOM_ID}
-</select>
+	</select>
 
 
 	<select id="myResFirst" parameterType="map" resultType="map">
-	SELECT * FROM GAJAE.RESERVATIONS WHERE USER_ID=#{USER_ID}
+		SELECT * FROM GAJAE.RESERVATIONS WHERE USER_ID=#{USER_ID}
 	</select>
-	
+
 </mapper>

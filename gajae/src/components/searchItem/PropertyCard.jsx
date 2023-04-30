@@ -4,7 +4,7 @@ import './propertyCard.css';
 import { FaHeart, FaRegHeart, FaShareAlt } from 'react-icons/fa';
 import Cookies from 'js-cookie';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import Swal from "sweetalert2";
+import Swal from 'sweetalert2';
 
 const PropertyCard = ({ row }) => {
   console.log(row);
@@ -27,7 +27,6 @@ const PropertyCard = ({ row }) => {
     navigate('/hotel');
   };
 
-
   const Toast = Swal.mixin({
     toast: true,
     position: 'center-center',
@@ -48,11 +47,10 @@ const PropertyCard = ({ row }) => {
       icon: 'success',
       title: 'Copy가 완료되었습니다.',
       timer: 2000,
-      timerProgressBar : false
+      timerProgressBar: false,
     });
-  }
-  
-  
+  };
+
   return (
     <>
       <div style={{ position: 'relative' }}></div>
@@ -75,19 +73,22 @@ const PropertyCard = ({ row }) => {
               cursor: 'pointer',
             }}
           >
-            {isLiked ? <FaHeart size={27} color="red" /> : <FaRegHeart size={27} color="#8c8c8c" />}
+            {isLiked ? <FaHeart size={27} color="red" /> : <FaRegHeart size={27} style={{ color: 'rgba(0, 0, 0, 0.5)' }} />}
           </button>
         </div>
         <div className="siDesc">
           <Link to="./hotel" style={{ textDecoration: 'none' }} />
 
           <Link to="./hotel" style={{ textDecoration: 'none' }}>
-          <h1 className="siTitle"> {row.P_TITLE}{Array.from({ length: parseInt(row.P_STAR) }, (_, i) => (
-            <span key={i} role="img" aria-label="star">
-          <FontAwesomeIcon icon="fa-solid fa-star" style={{color: "#FEBB02",}} />
-            </span>
-          ))}
-          </h1>
+            <h1 className="siTitle">
+              {' '}
+              {row.P_TITLE}
+              {Array.from({ length: parseInt(row.P_STAR) }, (_, i) => (
+                <span key={i} role="img" aria-label="star">
+                  <FontAwesomeIcon icon="fa-solid fa-star" style={{ color: '#FEBB02' }} />
+                </span>
+              ))}
+            </h1>
           </Link>
           <span className="siCheck">
             {' '}
@@ -103,19 +104,18 @@ const PropertyCard = ({ row }) => {
         </div>
         <div className="siDetails">
           <div className="siRanking">
-            <button id="rankigbtn" >{row.REVIEW_AVERAGE}</button>
-
+            <button id="rankigbtn">{row.REVIEW_AVERAGE}</button>
           </div>
           <div className="siDetailTexts">
             <div>
-            <button id = 'copybtn' onClick={copyPageUrl}>
-              <FaShareAlt />
-            </button>
+              <button id="copybtn" onClick={copyPageUrl}>
+                <FaShareAlt />
+              </button>
             </div>
             <span className="siPrice">{Number(row.ROOM_PRICE).toLocaleString() + '원'}</span>
             <span className="siTaxes ">세금 및 수수료 포함</span>
             <button className="siCheckButton" onClick={handleHotel}>
-              예    약    하    기
+              예 약 하 기
             </button>
           </div>
         </div>

@@ -1,31 +1,28 @@
 import styled from 'styled-components';
 
-export const BackDiv = styled.div`
+export const ResDiv = styled.div`
   margin-right: 0%;
   display: block;
   flex-direction: column;
-  margin-left: 20px;
-  max-width: 1000px;
-  min-height: 900px;
-  max-height: 1000px;
+  width: 806px;
   align-items: center;
+  height: 350px;
 `;
 
-export const ReviewList = styled.ul`
+export const ResList = styled.ul`
   margin: 0;
   padding: 0;
 `;
 
-export const ReviewItem = styled.li`
-  width: 750px;
-  height: 356px;
+export const ResItem = styled.li`
+  width: 805px;
+  height: 332px;
   border: 1px solid lightgrey;
   border-radius: 10px;
-  margin-bottom: 30px;
   list-style-type: none;
 `;
 
-export const ReviewWrapper = styled.div`
+export const ResWrapper = styled.div`
   display: flex;
   flex-direction: row;
   max-width: 800px;
@@ -65,12 +62,13 @@ export const TextWrapper = styled.div`
   flex-direction: column;
 `;
 
-export const ReviewTitle = styled.h5`
+export const ResTitle = styled.h5`
+  margin-left: 20px;
   font-size: 1.25rem;
   font-weight: bold;
 `;
 
-export const RText = styled.p`
+export const ResText = styled.p`
   margin-top: 10px;
   font-size: 1rem;
 `;
@@ -88,17 +86,18 @@ export const ColorDiv = styled.div`
   with: 100%;
 `;
 
-export const BtnWrapper = styled.div`
+export const ResBtnWrapper = styled.div`
   float: right;
   background-color: white;
+  margin: 2.1px 2.1px 0px 0px;
 `;
 
-export const TLineDiv = styled.div`
+export const ResTLineDiv = styled.div`
   background-color: #1e3050;
   height: 7px;
   with: 100%;
 `;
 
-export const EmtyDiv = styled.div`
-  height: 50px;
+export const ResEmtyDiv = styled.div`
+  height: 10px;
 `;
