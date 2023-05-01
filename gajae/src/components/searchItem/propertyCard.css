@@ -152,14 +152,40 @@
 }
 
 .heart-icon.active {
-  filter: invert(53%) sepia(100%) saturate(7500%) hue-rotate(330deg)
-    brightness(104%) contrast(122%);
+  filter: invert(53%) sepia(100%) saturate(7500%) hue-rotate(330deg) brightness(104%) contrast(122%);
 }
 
-#copybtn{
+#copybtn {
   background: none;
   border: none;
   color: black;
   font-size: 24px;
   justify-content: flex-end;
+}
+
+.wishlistButton {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+.wishlistButton:hover::before {
+  content: '저장';
+  display: block;
+  position: absolute;
+  bottom: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 50px;
+  height: 25px;
+  background-color: whitesmoke;
+  color: gery;
+  text-align: center;
+  font-size: 0.8rem;
+  padding-top: 2px;
+  z-index: 1;
+  border-radius: 5px;
 }

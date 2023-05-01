@@ -18,33 +18,55 @@ public class WishListDAO {
     @Autowired
     private SqlSessionTemplate sqlSessionTemplate;
     
-    public int wishInsert( Map<String, Object> map ) {
+    public int wishlistInsert( Map<String, Object> map ) {
         
-        int result = sqlSessionTemplate.insert( "wishlist.wishInsert", map );
+        int result = sqlSessionTemplate.insert( "wishlist.wishlistInsert", map );
         
         return result;
     }
     
-    public List<WishListVO> getWishlist( Map<String, Object> map ) {
+    public int checkWishlist( Map<String, Object> map ) {
         
-        List<WishListVO> wishlist = sqlSessionTemplate.selectList( "wishlist.getWistlist", map );
+        int count = sqlSessionTemplate.selectOne( "wishlist.checkWishlist", map );
+        
+        return count;
+    }
+    
+    public List<Map<String, Object>> wishlistInformation( Map<String, Object> map ) {
+        
+        List<Map<String, Object>> wishlist = sqlSessionTemplate.selectList( "wishlist.wishlistInformation", map );
         
         log.info( "wishlist = {}", wishlist );
         
         return wishlist;
     }
     
-    public int wishUpdate( Map<String, Object> map ) {
-        
-        int result = sqlSessionTemplate.update( "wishlist.wishUpdate", map );
-        
-        return result;
-    }
-    
-    public int wishDelete( Map<String, Object> map ) {
-        int result = sqlSessionTemplate.delete( "wishlist.wishDelete", map );
+    public int wishlistActivate( Map<String, Object> map ) {
+        int result = sqlSessionTemplate.update( "wishlist.wishlistActivate", map );
         
         return result;
     }
     
+    public int wishlistDeactivate( Map<String, Object> map ) {
+        
+        int result = sqlSessionTemplate.update( "wishlist.wishlistDeactivate", map );
+        
+        return result;
+    }
+    
+    public int wishlistUpdate( Map<String, Object> map ) {
+        
+        int result = sqlSessionTemplate.update( "wishlist.wishlistUpdate", map );
+        
+        return result;
+    }
+    
+    public List<Map<String, Object>> checkActivate( Map<String, Object> map ) {
+        
+        List<Map<String, Object>> activate = sqlSessionTemplate.selectList( "wishlist.checkActivate", map );
+        
+        log.info( "activate = {}", activate );
+        
+        return activate;
+    }
 }

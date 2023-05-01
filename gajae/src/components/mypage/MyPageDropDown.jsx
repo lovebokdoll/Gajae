@@ -1,7 +1,9 @@
 import React from 'react';
 import { Dropdown } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUser, faCalendarAlt, faCreditCard, faPen, faHeart, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
+import '../mypage/mypage_css/myPageDropDown.css';
 const MyPageDropDown = () => {
   const signOut = () => {
     console.log('signOut');
@@ -11,42 +13,32 @@ const MyPageDropDown = () => {
 
   return (
     <Dropdown>
-      <Dropdown.Toggle
-        variant="success"
-        id="dropdown-basic"
-        style={{ backgroundColor: '#003580', border: 'none', fontWeight: 'bold', borderRadius: '5px', padding: '0px 0px 0px 10px' ,fontSize:'1.0em'}}
-      >
-        MYPAGE
+      <Dropdown.Toggle className="mypageDropdownToggle" variant="success" id="dropdown-basic">
+        {/* {window.localStorage.getItem('userNickname')} */}MYPAGE
       </Dropdown.Toggle>
-
-      <Dropdown.Menu style={{ backgroundColor: '#f5f5f5', padding: '10px', borderRadius: '5px', minWidth: '100px', textAlign: 'center' }}>
-        <Link to="/mypage" style={{ color: '#333', textDecoration: 'none', display: 'block', marginBottom: '5px' }}>
+      <Dropdown.Menu className="mypageDropdownMenu">
+        <Link className="mypageLink" to="/mypage">
+          <FontAwesomeIcon icon={faUser} style={{ width: '20px', marginRight: '13px' }} />
           계정 관리
         </Link>
-        <Link to="/mypage/reservations" style={{ color: '#333', textDecoration: 'none', display: 'block', marginBottom: '5px' }}>
+        <Link className="mypageLink" to="/mypage/reservations">
+          <FontAwesomeIcon icon={faCalendarAlt} style={{ width: '20px', marginRight: '13px' }} />
           여행 & 예약
         </Link>
-        <Link to="/mypage/payment" style={{ color: '#333', textDecoration: 'none', display: 'block', marginBottom: '5px' }}>
+        <Link className="mypageLink" to="/mypage/payment">
+          <FontAwesomeIcon icon={faCreditCard} style={{ width: '20px', marginRight: '13px' }} />
           결제정보
         </Link>
-        <Link to="/mypage/review" style={{ color: '#333', textDecoration: 'none', display: 'block', marginBottom: '5px' }}>
+        <Link className="mypageLink" to="/mypage/review">
+          <FontAwesomeIcon icon={faPen} style={{ width: '20px', marginRight: '13px' }} />
           이용후기
         </Link>
-        <Link to="/mypage/wishlist" style={{ color: '#333', textDecoration: 'none', display: 'block', marginBottom: '5px' }}>
+        <Link className="mypageLink" to="/mypage/wishlist">
+          <FontAwesomeIcon icon={faHeart} style={{ width: '20px', marginRight: '13px' }} />
           위시리스트
         </Link>
-        <button
-          onClick={signOut}
-          style={{
-            backgroundColor: 'transparent',
-            border: 'none',
-            color: '#333',
-            textDecoration: 'none',
-            cursor: 'pointer',
-            display: 'block',
-            margin: '0 auto',
-          }}
-        >
+        <button onClick={signOut} className="mypageLogout">
+          <FontAwesomeIcon icon={faSignOutAlt} style={{ width: '20px', marginRight: '13px' }} />
           LOGOUT
         </button>
       </Dropdown.Menu>

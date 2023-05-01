@@ -5,9 +5,10 @@ import { Button, Nav } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import Footer from '../../components/footer/Footer';
 import HeaderNav1 from '../../components/header/HeaderNav1';
+import MyCardList from '../../components/mypage/MyCardList';
+import { cardInformation, cardInsert } from '../../service/card/card';
 import './paymentpage.css';
 import {
-  AbsoluteDIV,
   MSCLeftDIV,
   MSCRightDIV,
   MSContainer,
@@ -16,7 +17,7 @@ import {
   MyPageLinkMove,
   MySettingsFlexByRow,
   MySettingsPageTitle,
-  SignOutButton,
+  SignOutButton
 } from './styled-mypage';
 import {
   CardButton,
@@ -26,11 +27,8 @@ import {
   CardInput,
   CardLabel,
   CardSaveButton,
-  CardSettingsRow,
-  MyCardRow,
+  CardSettingsRow
 } from './styled-payment';
-import MyCardList from '../../components/mypage/MyCardList';
-import { cardInformation, cardInsert } from '../../service/card/card';
 
 const MyPaymentPage = () => {
   const [isCardAdd, setIsCardAdd] = useState(false);

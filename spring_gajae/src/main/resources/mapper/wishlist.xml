@@ -2,6 +2,67 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="wishlist">
 
-	<select id="getWishlist"></select>
+	<select id="checkWishlist" parameterType="map" resultType="int">
+		SELECT
+		COUNT(*)
+		FROM GAJAE.WISHLIST
+		WHERE USER_ID = #{USER_ID}
+		AND P_ID = #{P_ID}
+	</select>
+	
+	<select id="checkActivate" parameterType="map" resultType="map">
+		SELECT
+		WL_ACTIVATE
+		FROM GAJAE.WISHLIST
+		WHERE USER_ID = #{USER_ID}
+		AND P_ID = #{P_ID}
+	</select>
+
+	<select id="wishlistInformation" parameterType="map" resultType="map">
+		SELECT
+		WL_ID,
+		USER_ID ,
+		P_ID ,
+		WL_DATE,
+		WL_ACTIVATE
+		FROM GAJAE.WISHLIST
+		WHERE USER_ID = #{USER_ID}
+	</select>
+	
+	<insert id="wishlistInsert" parameterType="map">
+		INSERT INTO
+		GAJAE.WISHLIST
+		(
+		WL_ID ,
+		USER_ID ,
+		P_ID ,
+		WL_DATE,
+		WL_ACTIVATE
+		)
+		VALUES(
+		SEQ_WISHLIST_NUMBER.NEXTVAL,
+		#{USER_ID},
+		#{P_ID},
+		TO_CHAR(
+		SYSDATE, 'YYYY-MM-DD HH24:MI:SS'),
+		'Y'
+		)
+	</insert>
+
+	<update id="wishlistActivate" parameterType="map">
+		UPDATE GAJAE.WISHLIST
+		SET
+		WL_ACTIVATE = 'Y'
+		WHERE USER_ID=#{USER_ID}
+		AND P_ID= #{P_ID}
+	</update>
+	
+	<update id="wishlistDeactivate" parameterType="map">
+		UPDATE GAJAE.WISHLIST
+		SET
+		WL_ACTIVATE = 'N'
+		WHERE USER_ID=#{USER_ID}
+		AND P_ID= #{P_ID}
+	</update>
 
 </mapper>

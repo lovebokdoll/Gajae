@@ -32,7 +32,7 @@ import IDFindPage from './pages/login/IDFindPage';
 import LoginPage from './pages/login/LoginPage';
 import PWFindPage from './pages/login/PWFindPage';
 import UserActivatePage from './pages/login/UserActivatePage';
-import WelcomePage from './pages/login/WelcomePage';
+import WelcomePage from './pages/login/SignupWelcomePage';
 import MainPage from './pages/main/MainPage';
 import MyNotificationsPage from './pages/mypage/MyNotificationsPage';
 import MyPaymentPage from './pages/mypage/MyPaymentPage';
@@ -46,6 +46,7 @@ import Paypage from './pages/pay/Paypage';
 import PropertyListPage from './pages/propertyList/PropertyListPage';
 import ReviewUpdate from './pages/reviewBoard/ReviewUpdate';
 import ReviewWritePage from './pages/reviewBoard/ReviewWritePage';
+import SignupWelcomePage from './pages/login/SignupWelcomePage';
 
 const App = () => {
   const toastStatus = useSelector((state) => state.toastStatus);
@@ -62,9 +63,8 @@ const App = () => {
         <Route path="/" exact="true" element={<MainPage />} />
         {/* signup & signin */}
         <Route path="/signup" exact={true} element={<SignUpTest />} />
-        <Route path="/signup/succession" exact={true} element={<WelcomePage />} />
+        <Route path="/signup/welcome" exact={true} element={<SignupWelcomePage />} />
         <Route path="/login" element={<LoginPage />} />
-
         <Route path="/login/activate" element={<UserActivatePage />} />
         <Route path="/login/findid" element={<IDFindPage />} />
         <Route path="/login/findpw" element={<PWFindPage />} />

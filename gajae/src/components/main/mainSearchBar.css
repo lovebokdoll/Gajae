@@ -136,6 +136,7 @@
 .headerSearchItem {
   display: flex;
   align-items: center;
+  border: 3px solid #febb02;
   gap: 10px;
 }
 
@@ -145,7 +146,12 @@
 }
 
 .headerSearchText {
-  color: lightgray;
+  color: gray;
+  cursor: pointer;
+}
+
+.headerSearchDate {
+  color: gray;
   cursor: pointer;
 }
 

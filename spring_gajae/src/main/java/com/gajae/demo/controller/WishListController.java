@@ -25,10 +25,10 @@ public class WishListController {
     @Autowired
     private WishListLogic wishListLogic;
     
-    @GetMapping( "getWishlist" )
-    public String getWishlist( @RequestParam Map<String, Object> map ) {
+    @GetMapping( "wishlistInformation" )
+    public String wishlistInformation( @RequestParam Map<String, Object> map ) {
         
-        List<WishListVO> wishlist = wishListLogic.getWishlist( map );
+        List<Map<String, Object>> wishlist = wishListLogic.wishlistInformation( map );
         
         Gson   gson = new Gson();
         String temp = gson.toJson( wishlist );
@@ -36,32 +36,32 @@ public class WishListController {
         return temp;
     }
     
-    @PostMapping( "wishInsert" )
-    public String wishInsert( @RequestBody Map<String, Object> map ) {
+    @PostMapping( "wishlistInsert" )
+    public String wishlistInsert( @RequestBody Map<String, Object> map ) {
         
         log.info( "map = {}", map );
         
-        int result = wishListLogic.wishInsert( map );
+        int result = wishListLogic.wishlistInsert( map );
         
         return String.valueOf( result );
     }
     
-    @PostMapping( "wishUpdate" )
-    public String wishUpdate( @RequestBody Map<String, Object> map ) {
+    @GetMapping( "wishlistDeactivate" )
+    public String wishlistDeactivate( @RequestParam Map<String, Object> map ) {
         
         log.info( "map = {}", map );
         
-        int result = wishListLogic.wishUpdate( map );
+        int result = wishListLogic.wishlistDeactivate( map );
         
         return String.valueOf( result );
     }
     
-    @GetMapping( "wishDelete" )
-    public String wishDelete( @RequestParam Map<String, Object> map ) {
+    @PostMapping( "wishlistUpdate" )
+    public String wishlistUpdate( @RequestBody Map<String, Object> map ) {
         
         log.info( "map = {}", map );
         
-        int result = wishListLogic.wishDelete( map );
+        int result = wishListLogic.wishlistUpdate( map );
         
         return String.valueOf( result );
     }

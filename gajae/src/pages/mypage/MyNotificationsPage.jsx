@@ -1,22 +1,10 @@
 import React from 'react';
+import { Nav } from 'react-bootstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faComment, faCreditCard, faHeart, faHistory, faSignOutAlt, faUser } from '@fortawesome/free-solid-svg-icons';
 import Footer from '../../components/footer/Footer';
 import HeaderNav1 from '../../components/header/HeaderNav1';
-import {
-  MSCLeftDIV,
-  MSCRightDIV,
-  MSContainer,
-  MSPTComment,
-  MSPTTitle,
-  MyPageLinkMove,
-  MySettingsFlexByRow,
-  MySettingsPageTitle,
-  MySettingsRow,
-  MySettingsRowLayout,
-  SignOutButton,
-  UserDeactivateButton,
-} from './styled-mypage';
-import { Nav } from 'react-bootstrap';
-
+import { MSCLeftDIV, MSCRightDIV, MSContainer, MyPageLinkMove, SignOutButton } from './styled-mypage';
 const MyNotificationsPage = () => {
   return (
     <>
@@ -27,24 +15,39 @@ const MyNotificationsPage = () => {
           <Nav defaultActiveKey="/home" className="flex-column">
             <MyPageLinkMove to="/mypage/settings">
               <span style={{ paddingRight: '5px' }}>
-                <img src="/images/korea.svg.png"></img>
+                <FontAwesomeIcon icon={faUser} />
               </span>
               개인 정보
             </MyPageLinkMove>
             <MyPageLinkMove to="/mypage/reservations">
-              <span></span>예약내역
+              <span style={{ paddingRight: '5px' }}>
+                <FontAwesomeIcon icon={faHistory} />
+              </span>
+              예약내역
             </MyPageLinkMove>
             <MyPageLinkMove to="/mypage/review">
-              <span></span>이용후기
+              <span style={{ paddingRight: '5px' }}>
+                <FontAwesomeIcon icon={faComment} />
+              </span>
+              이용후기
             </MyPageLinkMove>
             <MyPageLinkMove to="/mypage/payment">
-              <span></span>결제정보
+              <span style={{ paddingRight: '5px' }}>
+                <FontAwesomeIcon icon={faCreditCard} />
+              </span>
+              결제정보
             </MyPageLinkMove>
             <MyPageLinkMove to="/mypage/wishlist">
-              <span></span>위시리스트
+              <span style={{ paddingRight: '5px' }}>
+                <FontAwesomeIcon icon={faHeart} />
+              </span>
+              위시리스트
             </MyPageLinkMove>
             <SignOutButton>
-              <span></span>로그아웃
+              <span style={{ paddingRight: '5px' }}>
+                <FontAwesomeIcon icon={faSignOutAlt} />
+              </span>
+              로그아웃
             </SignOutButton>
           </Nav>
         </MSCLeftDIV>
@@ -58,7 +61,7 @@ const MyNotificationsPage = () => {
               <div style={{ display: 'flex', alignItems: 'center' }}>
                 <div style={{ width: '150px' }}>이메일 수신 설정</div>
                 <div style={{ marginLeft: '10px' }}>
-                  <span>loveseesee@naver.com </span>
+                  <span>{window.localStorage.getItem('userEmail')} </span>
                   <br />
                   예약완료 시 예약확정 이메일이 이곳으로 전송됩니다.
                 </div>

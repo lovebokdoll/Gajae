@@ -54,7 +54,7 @@ const MainAdvertisement = () => {
   };
 
   return (
-    <div className="featured-Container">
+    <div className="featured-Container" style={{ zIndex: '0' }}>
       <Carousel
         interval={2000}
         pauseOnHover={true}

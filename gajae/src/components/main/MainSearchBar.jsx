@@ -1,8 +1,19 @@
-import { faBed, faCalendarDays, faCar, faHotel, faPerson, faPlane, faSuitcaseRolling, faTaxi } from '@fortawesome/free-solid-svg-icons';
+import {
+  faBed,
+  faCalendarDays,
+  faCar,
+  faHotel,
+  faPerson,
+  faPlane,
+  faSuitcaseRolling,
+  faTaxi,
+  faCaretDown,
+} from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import axios from 'axios';
-import { addDays, format } from 'date-fns';
+import { addDays } from 'date-fns';
 import Cookies from 'js-cookie';
+import moment from 'moment/moment';
 import { useEffect, useState } from 'react';
 import { DateRange } from 'react-date-range';
 import 'react-date-range/dist/styles.css'; // main css file
@@ -12,8 +23,6 @@ import { useNavigate } from 'react-router-dom';
 import { setToastMessage } from '../../redux/toastStatus/action';
 import { BButton } from '../../style/FormStyle';
 import './mainSearchBar.css';
-import moment from 'moment/moment';
-import { Checkbox } from '@material-ui/core';
 
 const MainSearchBar = ({ type, destination }) => {
   console.log('type ===>', type);
@@ -57,18 +66,36 @@ const MainSearchBar = ({ type, destination }) => {
   ]);
 
   const [openOptions, setOpenOptions] = useState(false);
-  const handleOption = (name, operation) => {
+  const [options, setOptions] = useState({
+    adult: 1,
+    room: 1,
+  });
+  /*   const handleOption = (name, operation) => {
     setRoom_Capacity((prev) => {
       return {
         ...prev,
         [name]: operation === 'i' ? room_capacity[name] + 1 : room_capacity[name] - 1,
       };
     });
+  }; */
+  const handleOption = (name, operation) => {
+    setOptions((prev) => {
+      return {
+        ...prev,
+        [name]: operation === 'i' ? options[name] + 1 : options[name] - 1,
+      };
+    });
   };
 
   const handleSearch = (e) => {
-    const roomCapacity = parseInt(room_capacity.adult);
+    console.log('options.adult ===>', options.adult);
+    console.log('options.room ===>', options.room);
 
+    if (date[0].startDate === date[0].endDate) {
+      dispatch(setToastMessage('다른 날짜를 선택해주세요!'));
+      return;
+    }
+    const roomCapacity = parseInt(options.room);
     const startDate = date[0].startDate;
     const formattedStartDate = `${startDate.getFullYear()}-${(startDate.getMonth() + 1).toString().padStart(2, '0')}-${startDate
       .getDate()
@@ -85,7 +112,7 @@ const MainSearchBar = ({ type, destination }) => {
     console.log('Formatted end date:', formattedEndDate);
 
     if (p_address === '') {
-      dispatch(setToastMessage('여행을 떠나실 곳을 선택해주세요.'));
+      dispatch(setToastMessage('여행을 떠나실 곳을 선택해주세요!'));
       return;
     }
 
@@ -146,7 +173,7 @@ const MainSearchBar = ({ type, destination }) => {
             <div className="headerSearch">
               <div className="headerSearchText">
                 <form onSubmit={handleSearch}>
-                  <FontAwesomeIcon icon={faSuitcaseRolling} style={{ marginRight: '10px' }} className="headerIcon" />
+                  <FontAwesomeIcon icon={faSuitcaseRolling} style={{ marginRight: '10px', color: 'grey' }} className="headerIcon" />
                   <input
                     type={type}
                     onChange={handleInputChange}
@@ -160,9 +187,9 @@ const MainSearchBar = ({ type, destination }) => {
                   />
                 </form>
               </div>
-              <div className="headerSearchDate">
-                <FontAwesomeIcon icon={faCalendarDays} style={{ marginRight: '10px' }} className="headerIcon" />
-                <span onClick={() => setOpenDate(!openDate)} className="headerSearchText">
+              <div className="headerSearchDate" style={{ zIndex: 9999 }}>
+                <FontAwesomeIcon icon={faCalendarDays} style={{ marginRight: '5px', color: 'grey' }} className="headerIcon" />
+                <span onClick={() => setOpenDate(!openDate)} className="headerSearchDate">
                   {' '}
                   {`${moment(date[0].startDate).format('M월 D일 (ddd)')} - ${moment(date[0].endDate).format('M월 D일 (ddd)')}`}
                 </span>
@@ -181,31 +208,47 @@ const MainSearchBar = ({ type, destination }) => {
                 )}
               </div>
               <div className="headerSearchAdult">
-                <FontAwesomeIcon icon={faPerson} style={{ marginRight: '10px' }} className="headerIcon" />
-                <span onClick={() => setOpenOptions(!openOptions)} className="headerSearchText">{`성인 ${room_capacity.adult}명 `}</span>
+                <FontAwesomeIcon style={{ color: 'grey' }} icon={faPerson} className="headerIcon" />
+                <span style={{ color: 'gray' }} onClick={() => setOpenOptions(!openOptions)} className="headerSearchText">
+                  &nbsp;&nbsp;{`성인 ${options.adult}명 · 객실 ${options.room}개`}
+                </span>
                 {openOptions && (
-                  <div className="options" style={{ left: '65%' }}>
+                  <div className="options">
                     <div className="optionItem">
                       <span className="optionText">성인</span>
                       <div className="optionCounter">
-                        <button
-                          disabled={room_capacity.adult <= 1}
-                          className="optionCounterButton"
-                          onClick={() => handleOption('adult', 'd')}
-                        >
+                        <button disabled={options.adult <= 1} className="optionCounterButton" onClick={() => handleOption('adult', 'd')}>
                           -
                         </button>
-                        <span className="optionCounterNumber">{room_capacity.adult}</span>
+                        <span className="optionCounterNumber">{options.adult}</span>
                         <button className="optionCounterButton" onClick={() => handleOption('adult', 'i')}>
+                          +
+                        </button>
+                      </div>
+                    </div>
+                    <div className="optionItem">
+                      <span className="optionText">객실</span>
+                      <div className="optionCounter">
+                        <button disabled={options.room <= 1} className="optionCounterButton" onClick={() => handleOption('room', 'd')}>
+                          -
+                        </button>
+                        <span className="optionCounterNumber">{options.room}</span>
+                        <button className="optionCounterButton" onClick={() => handleOption('room', 'i')}>
                           +
                         </button>
                       </div>
                     </div>
                   </div>
                 )}
+                <FontAwesomeIcon style={{ margin: '0px 0px 0px 10px' }} icon={faCaretDown} size="sm" color="gray" />
               </div>
               <div className="SearchBtn">
-                <BButton className="headerBtn" style={{ backgroundColor: '#0077C0', width: '50px' }} type="button" onClick={handleSearch}>
+                <BButton
+                  className="headerBtn"
+                  style={{ backgroundColor: '#0077C0', width: '50px', margin: '0px 0px 0px 0px' }}
+                  type="button"
+                  onClick={handleSearch}
+                >
                   검색
                 </BButton>
               </div>{' '}

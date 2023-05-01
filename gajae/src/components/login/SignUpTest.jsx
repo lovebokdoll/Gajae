@@ -15,7 +15,7 @@ import {
   regexPassword,
 } from '../../service/regex';
 import { idCheck, nicknameCheck, siginupSubmitDB } from '../../service/user/user';
-import { MyButton, MyInput, MyLabel, MyLabelAb, PwEye, SubmitButton } from '../../style/FormStyle';
+import { MyInput, MyLabel, MyLabelAb, PwEye, SubmitButton } from '../../style/FormStyle';
 import Footer from '../footer/Footer';
 import HeaderNav1 from '../header/HeaderNav1';
 import HeaderNav2 from '../header/HeaderNav2';
@@ -244,7 +244,6 @@ const SignUpTest = () => {
   };
 
   const signup = async () => {
-    
     if (
       !userInfo.user_id.trim() ||
       !userInfo.user_pw.trim() ||
@@ -284,7 +283,7 @@ const SignUpTest = () => {
         if (response.data !== 1) {
           return '회원가입 실패';
         } else if (response.data == 1) {
-          navigate('/signup/succession');
+          navigate('/signup/welcome');
         }
       } catch (error) {
         console.log('error ===>', error);
@@ -304,7 +303,7 @@ const SignUpTest = () => {
     <>
       <HeaderNav1 />
       <HeaderNav2 />
-      <div style={{ display: 'flex', justifyContent: 'center' }}>
+      <div className="signUpContainer" style={{ display: 'flex', justifyContent: 'center', margin: '50px 0px 0px 0px' }}>
         <div style={{ display: 'flex', width: '100%' }}>
           <SignUpForm suggested={false}>
             <div
@@ -314,7 +313,7 @@ const SignUpTest = () => {
                 justifyContent: 'center',
               }}
             >
-              <div style={{ padding: '30px 30px 0px 30px' }}>
+              <div style={{ padding: '0px 0px 0px 0px' }}>
                 {googleEmail ? (
                   <>
                     <MyLabel>
@@ -357,14 +356,6 @@ const SignUpTest = () => {
                     />
                     <MyLabelAb>{comment.id}</MyLabelAb>
                   </MyLabel>
-                  <MyButton
-                    type="button"
-                    onClick={() => {
-                      overlap('user_id');
-                    }}
-                  >
-                    중복확인
-                  </MyButton>
                 </div>
                 <MyLabel>
                   {' '}
@@ -456,14 +447,6 @@ const SignUpTest = () => {
                     />
                     <MyLabelAb>{comment.nickname}</MyLabelAb>
                   </MyLabel>
-                  <MyButton
-                    type="button"
-                    onClick={() => {
-                      overlap('user_nickname');
-                    }}
-                  >
-                    중복확인
-                  </MyButton>
                 </div>
                 <MyLabel>
                   {' '}
@@ -498,8 +481,8 @@ const SignUpTest = () => {
               </div>
             </div>
             <div style={{ marginBottom: '20px' }}>
-              <input type="checkbox" checked={agree} onChange={handleAgree} />
-              <label>약관에 동의합니다.</label>
+              <label>약관에 동의합니다.&nbsp;</label>
+              <input type="checkbox" checked={agree} onChange={handleAgree} style={{ margin: '0px 0px 0px 0px' }} />
             </div>
             <SubmitButton
               type="button"
@@ -516,7 +499,7 @@ const SignUpTest = () => {
               onRequestClose={closeModal}
               style={{
                 content: {
-                  width: '1000px',
+                  width: '840px',
                   height: '70vh',
                   top: '50%',
                   left: '50%',
@@ -834,6 +817,24 @@ const SignUpTest = () => {
           </SignUpForm>
         </div>
       </div>
+      <button
+        className="idOverlapButton"
+        type="button"
+        onClick={() => {
+          overlap('user_id');
+        }}
+      >
+        중복확인
+      </button>
+      <button
+        className="nickOverlapButton"
+        type="button"
+        onClick={() => {
+          overlap('user_nickname');
+        }}
+      >
+        중복확인
+      </button>
       <div style={{ margin: '40px 0' }}></div>
       <Footer />
     </>

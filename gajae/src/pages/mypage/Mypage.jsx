@@ -19,13 +19,13 @@ const Mypage = () => {
       <HeaderNav2 />
       <>
         <div style={{ margin: '30px 0px 0px 0px' }}></div>
-        <div className="mypageContainer" style={{ width: '980px', margin: '0 auto' }}>
+        <div className="mypageContainer" style={{ width: '1060px', margin: '0 auto' }}>
           <div className="setting">
-            <h1 className="mypageH1" style={{ margin: '0px 0px 0x 0px' }}>
+            <h1 className="mypageH1" style={{ margin: '0px 0px 0px 10px' }}>
               계정 설정
             </h1>
           </div>
-          <div style={{ margin: '0px 0px 0x 0px' }}>GAJAE.COM을 더욱 편리하게 이용해보세요!</div>
+          <div style={{ margin: '0px 0px 0px 10px' }}>GAJAE.COM을 더욱 편리하게 이용해보세요!</div>
           <MyPageUL>
             <div
               className="mypageLine1"
@@ -105,6 +105,7 @@ const Mypage = () => {
           </MyPageUL>
         </div>
       </>
+      <div className="mypageAbsoluteDiv" style={{ height: '70px' }}></div>
       <Footer />
     </>
   );

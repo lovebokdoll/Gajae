@@ -21,10 +21,10 @@ const Footer = () => {
             <li className="fListItem">게스트하우스</li>
           </ul>
           <ul className="fList">
-            <li className="fListItem">Unique places to stay </li>
             <li className="fListItem">이용후기</li>
-            <li className="fListItem">Unpacked: Travel articles </li>
             <li className="fListItem">여행 커뮤니티 </li>
+            <li className="fListItem">Unique places to stay </li>
+            <li className="fListItem">Unpacked: Travel articles </li>
             <li className="fListItem">Seasonal and holiday deals </li>
           </ul>
           <ul className="fList">
@@ -44,18 +44,19 @@ const Footer = () => {
             <li className="fListItem">Terms & conditions</li>
           </ul>
         </div>
-        <div className="footerText" style={{ fontSize: 18, display: 'flex', alignItems: 'center' }}>
-          <span style={{ marginRight: 20 }}>
-            Copyright © 2023
-            <span style={{ fontWeight: 'bold' }}>GAJAE.COM</span>
-          </span>
-          <div style={{ display: 'flex', alignItems: 'center' }}>
-            <img src="/images/부킹닷컴.png" alt="" style={{ marginRight: 10, width: 120 }} />
-            <img src="/images/priceline.png" alt="" style={{ marginRight: 10, width: 120 }} />
-            <img src="/images/카약.png" alt="" style={{ marginRight: 10, width: 120 }} />
-            <img src="/images/아고다.png" alt="" style={{ width: 120 }} />
-          </div>
-        </div>
+        <div className="footerText" style={{ fontSize: 18, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+  <span style={{ marginRight: 10 }}>
+    Copyright ©2023
+    <span style={{}}>GAJAE.COM</span>
+  </span>
+  <div style={{ display: 'flex' }}>
+    <img src="/images/부킹닷컴.png" alt="" style={{ marginRight: 10 }} />
+    <img src="/images/priceline.png" alt="" style={{ marginRight: 10 }} />
+    <img src="/images/카약.png" alt="" style={{ marginRight: 10 }} />
+    <img src="/images/아고다.png" alt="" />
+  </div>
+</div>
+
       </div>
     </div>
   );

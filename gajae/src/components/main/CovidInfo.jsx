@@ -26,7 +26,12 @@ const CovidInfo = () => {
           <div style={{ maxHeight: isOpen ? '1000px' : '0px', overflow: 'hidden', transition: 'ease-in-out', paddingLeft: '21px' }}>
             <div style={{ paddingTop: '3px' }}>코로나19(COVID-19)와 관련하여 최근 발표된 제한 조치 및 권고사항을 여행 전에 확인하세요.</div>
             <div style={{ marginTop: '5px' }}>
-              <a href="https://www.0404.go.kr/dev/main.mofa" target="_blank" rel="noopener noreferrer">
+              <a
+                href="https://www.0404.go.kr/dev/main.mofa"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ textDecorationLine: 'none' }}
+              >
                 더 알아보기
               </a>
             </div>

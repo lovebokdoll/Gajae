@@ -5,15 +5,48 @@ import { FaHeart, FaRegHeart, FaShareAlt } from 'react-icons/fa';
 import Cookies from 'js-cookie';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Swal from 'sweetalert2';
+import { wishlistDeactivate, wishlistInsert } from '../../service/wishlist/wishlist';
+import { useDispatch } from 'react-redux';
+import { setToastMessage } from '../../redux/toastStatus/action';
 
 const PropertyCard = ({ row }) => {
+  const dispatch = useDispatch();
   console.log(row);
   const navigate = useNavigate();
   const [isLiked, setIsLiked] = useState(false);
 
   const handleLike = () => {
     setIsLiked(!isLiked);
+    console.log('row.P_ID ===>', row.P_ID);
     console.log(isLiked);
+
+    // false이면 wishlist Insert / true wishlist delete
+    if (isLiked === true) {
+      console.log('isLiked is true');
+      const wishlistParameter = {
+        USER_ID: window.localStorage.getItem('userId'),
+        P_ID: row.P_ID,
+      };
+      const wlDeactivate = async () => {
+        const wlDeactivateResponse = await wishlistDeactivate(wishlistParameter);
+        console.log('wlDeactivateResponse ===>', wlDeactivateResponse);
+        dispatch(setToastMessage('위시리스트에서 삭제되었습니다.'));
+      };
+      wlDeactivate();
+    } else if (isLiked === false) {
+      console.log('isLiked is false');
+      const wishlistParameter = {
+        USER_ID: window.localStorage.getItem('userId'),
+        P_ID: row.P_ID,
+      };
+      console.log('wishlistParameter ===>', wishlistParameter);
+      const wlInsert = async () => {
+        const wishlistResponse = await wishlistInsert(wishlistParameter);
+        console.log('wishlistResponse ===>', wishlistResponse);
+        dispatch(setToastMessage('위시리스트에 저장되었습니다.'));
+      };
+      wlInsert();
+    }
   };
 
   //예약하기를 눌렀을 때 해당 숙소 이름, 인원 수, 주소, 체크인아웃, 가격, ID 담아서 이동
@@ -61,18 +94,7 @@ const PropertyCard = ({ row }) => {
             alt=""
             className="siImg"
           />
-          <button
-            onClick={handleLike}
-            style={{
-              position: 'absolute',
-              top: '5px',
-              right: '5px',
-              background: 'none',
-              border: 'none',
-              fontSize: '1.5rem',
-              cursor: 'pointer',
-            }}
-          >
+          <button className="wishlistButton" onClick={handleLike}>
             {isLiked ? <FaHeart size={27} color="red" /> : <FaRegHeart size={27} style={{ color: 'rgba(0, 0, 0, 0.5)' }} />}
           </button>
         </div>

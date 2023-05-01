@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const LoginForm = styled.form`
   display: flex;
@@ -55,7 +55,7 @@ export const MyLabel = styled.label`
   font-size: 14px;
   color: #414149;
   display: block;
-  margin-bottom: 40px;
+  margin-bottom: 30px;
   width: 350;
 `;
 
@@ -68,7 +68,7 @@ export const MyLabelAb = styled(MyLabel)`
 export const MyInput = styled.input`
   width: 300px;
   display: block;
-  height: 50px;
+  height: 45px;
   border: none;
   border-bottom: 1px solid #dddddd;
   font-size: 15px;
@@ -307,7 +307,7 @@ export const Hr = styled.hr`
 export const Title = styled.h1`
   font-size: 40px;
   font-weight: bold;
-  marginleft: "10px";
+  marginleft: '10px';
 `;
 
 export const WholeForm = styled.div`
