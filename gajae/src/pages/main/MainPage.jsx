@@ -34,9 +34,9 @@ const MainPage = () => {
       <MainSearchBar destination={destination} />
       <CovidInfo />
       <MainAdvertisement />
-      <MainRecommandLoc />
       <MainProperty />
       <NextTripCard userName={userName} />
+      <MainRecommandLoc />
       <MainMailList />
       <div style={{}}></div>
       <Footer />

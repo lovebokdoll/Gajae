@@ -2,7 +2,6 @@ import {
   faComment,
   faHistory,
   faSignOutAlt,
-  faUser,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
@@ -21,10 +20,17 @@ import {
 import MyHotelReviewList from "../../components/host/myhost/MyHotelReviewList";
 import Footer from "../../components/footer/Footer";
 import HostHeaderNav from "../../components/host/HostHeaderNav";
+import { useNavigate } from "react-router-dom";
 
 const MyHotelReviewPage = () => {
+  const navigate = useNavigate();
   const hostId = localStorage.getItem("hostId");
-
+  console.log(hostId);
+  const signOut = () => {
+    console.log("signOut");
+    window.localStorage.clear();
+    navigate("/host");
+  };
   return (
     <>
       <HostHeaderNav />
@@ -32,6 +38,12 @@ const MyHotelReviewPage = () => {
         <MSCLeftDIV>
           {" "}
           <Nav defaultActiveKey="/home" className="flex-column">
+            <MyPageLinkMove to="/host/myhostpage">
+              <span style={{ paddingRight: "5px" }}>
+                <i class="fa-solid fa-minus"></i>
+              </span>
+              메인
+            </MyPageLinkMove>
             <MyPageLinkMove to="/host/myhotelpage">
               <span style={{ paddingRight: "5px" }}>
                 <FontAwesomeIcon icon={faHistory} />
@@ -45,7 +57,7 @@ const MyHotelReviewPage = () => {
               내 호텔후기
             </MyPageLinkMove>
 
-            <SignOutButton>
+            <SignOutButton onClick={signOut}>
               <span style={{ paddingRight: "5px" }}>
                 <FontAwesomeIcon icon={faSignOutAlt} />
               </span>

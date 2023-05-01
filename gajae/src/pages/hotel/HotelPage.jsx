@@ -135,17 +135,3 @@ const HotelPage = () => {
 };
 
 export default HotelPage;
-
-const Rating = styled.button`
-  background-color: #003580;
-  margin-left: 30px;
-  color: white;
-  padding: 5px;
-
-  font-weight: bold;
-  border: none;
-`;
-
-const StyledOffcanvasTitle = styled(Offcanvas.Title)`
-  margin-left: 10px;
-`;

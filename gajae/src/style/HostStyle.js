@@ -1,5 +1,9 @@
 import styled from "styled-components";
 
+export const TableTitle = styled.div`
+  font-size: 18px;
+  margin-bottom: 1em;
+`;
 export const CardTime = styled.div`
   width: 90%;
   margin: auto;
@@ -35,12 +39,12 @@ export const HostTable = styled.div`
   flex-basis: 50%;
 `;
 export const HostTableItem1 = styled.div`
-  flex-basis: 30%;
+  flex-basis: 35%;
   padding: 15px;
   box-sizing: border-box;
 `;
 export const HostTableItem2 = styled.div`
-  flex-basis: 30%;
+  flex-basis: 45%;
   padding: 10px;
   box-sizing: border-box;
 `;
@@ -86,10 +90,10 @@ export const Titlehotel_content = styled.div`
 `;
 export const Titlehotelfac = styled.div`
   color: white;
-  font-size: 30px;
+  font-size: 35px;
   position: relative; /* Title 컴포넌트는 position: absolute */
   left: 30%;
-  margin-top: 1.5em;
+  margin-top: 2em;
 `;
 export const Titlehotel = styled.div`
   font-family: "TheJamsil5Bold";
