@@ -84,11 +84,11 @@ const PaymentPage = () => {
       <br />
  
 
-      <div className="Container">
+      <div className="Container" style={{height:'auto'}}>
         <Form className="inner-outter1" style={{ display: 'flex', justifyContent: 'center', height: 800 }} onSubmit={handleSubmit}>
           <PaymentSide paymentSideData={paymentSideData} />
           <Card className="personal-info" style={{ width: '50rem', backgroundColor: 'rgb(214,230,245)' }}>
-            <div className="innner1" style={{ paddingLeft: '30px',paddingTop:'10px' }}>
+            <div className="innner1" style={{ paddingLeft: '70px',paddingTop:'10px',width:'730px' }}>
               <Card className='cardname' style={{paddingLeft:'15px'}}>
               <h3 x style={{ paddingTop: '10px' }}>
                 {' '}
@@ -150,13 +150,12 @@ const PaymentPage = () => {
                 <p>투숙 인원: 성인 {paymentSideData.resPeople}명</p>
                 </Card>
             </div>
-          </Card>
-        </Form>
         {/* end of inner-outter1 */}
         <br />
 
  {/* 개인정보 동의 */}
-  <Form className="inner-outter3" style={{ height: 95 }}>
+ <Form className="inner-outter3" style={{ height: 95 }}>
+  <div className="cardFamily" style={{backgroundColor:'white'}}>
   <Card className="agree-checkbox" style={{ 
     width: '50rem', 
     alignContent: 'center', 
@@ -165,20 +164,11 @@ const PaymentPage = () => {
     marginRight: '50px' // 오른쪽으로 50px 이동
   }}>
     <h3 style={{ paddingLeft: '40px' }}>개인정보 동의</h3>
-    <div className="innner3" style={{ paddingLeft: '40px' }}>
+    <div className="inner3" style={{ paddingLeft: '20px', display: 'flex', alignItems: 'center' }}>
       <input type="checkbox" id="agreed" checked={agreed} onChange={handleAgreeChange} required />
-      <label htmlFor="agreed">개인정보 수집에 동의합니다.</label>
-      <br />
-      <span style={{ fontWeight: 'bold' }}> 동의버튼을 누르셔야만 결제버튼이 생깁니다.</span>
+      <label htmlFor="agreed" style={{ marginLeft: '10px' }}>개인정보 수집에 동의합니다.</label>
     </div> 
-     </Card>
-    </Form>
-
-
-
-        {/* inner-outter3 */}
-
-        <br />
+    <span style={{ fontWeight: 'bold', paddingLeft: '40px' }}>동의버튼을 누르셔야만 결제버튼이 생깁니다.</span>
         {agreed && (
           <div>
             <span className="pay-button" style={{ display: 'flex', justifyContent: 'center' }}>
@@ -190,9 +180,21 @@ const PaymentPage = () => {
             </span>
           </div>
         )}
+  </Card>
+    </div>
+</Form>
+    </Card>
+  </Form>
+
+
+
+
+
+        {/* inner-outter3 */}
+
+        <br />
       </div>
-      <MGDIV></MGDIV>
-      <MGDIV></MGDIV>
+    <div style={{height:'100px'}}></div>
 
       <Footer />
     </>

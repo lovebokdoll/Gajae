@@ -8,7 +8,7 @@ const PaymentSide = ({ paymentSideData }) => {
     <aside style={{ width: '371.66px', height: '1500px'}}>
       <section style={{ width: '371.66px', height: '489px', boxSizing: 'border-box', border: '1px solid lightgray' }}>
         <div style={{ width: '282.98px', height: '455px' }}>
-          <h2>내 예약 정보</h2>
+          <h2 className='res-info'>내 예약 정보</h2>
           <div style={{ width: '282.92px', height: '110px', display: 'flex', justifyContent: 'space-between' }}>
             <div style={{ width: '156.83px', height: '92px', padding: '0px 16px 0px 0px' }}>
               <div style={{ fontSize: '1.05em' }}>체크인</div>

@@ -110,34 +110,32 @@ const ReservationDetail = () => {
                   <div style={{ fontSize: 30 }}>예약 정보</div>
                   <hr />
                   <div className="row">
-                    <div className="col">
-                      <div style={{ fontSize: 20 }}>
-                        <div>
-                          체크인: {paymentSideData.startDate}, 체크아웃:{paymentSideData.endDate}
-                        </div>
-                        <div>
-                          {paymentSideData.p_checkin}부터, {paymentSideData.p_checkout}까지
-                        </div>
-                        <div>
-                          {' '}
-                          ({paymentSideData.startAndEndDays[0]}), ({paymentSideData.startAndEndDays[1]}){' '}
-                        </div>
-                        <div>총 숙박 기간: {paymentSideData.diffDays}박</div>
-                        <hr style={{ width: '47rem' }}></hr>
-                        <div>
-                          <div>선택 숙소: {paymentSideData.p_title}</div>
-                          <div>선택 객실: {paymentSideData.resRoomType}</div>
-                          <div>호텔 주소: {paymentSideData.resAddress} </div>
-                          <div>체크인: {paymentSideData.p_checkin} </div>
-                          <div>체크아웃: {paymentSideData.p_checkout}</div>
-                          <div>객실 수: {paymentSideData.selectedRoomNumber}</div>
-                          <div>투숙 인원: 성인 {paymentSideData.resPeople} 명</div>
-                          <div>선택한 인원에 적합한 객실입니다!</div>
-                          {/* 쿠키에서 꺼내오기*/}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+  <div className="col">
+    <div className='rev-infocard' style={{ fontSize: 20 }}>
+      <ul>
+        <li>
+          체크인: {paymentSideData.startDate} {paymentSideData.p_checkin} ({paymentSideData.startAndEndDays[0]}) 부터<br/> 
+          체크아웃:{paymentSideData.endDate} {paymentSideData.p_checkout} ({paymentSideData.startAndEndDays[1]})까지
+        </li>
+        <li>
+          ({paymentSideData.startAndEndDays[0]}) ~ ({paymentSideData.startAndEndDays[1]}){' '}
+        </li>
+        <li>총 숙박 기간: {paymentSideData.diffDays}박</li>
+        <hr style={{ width: '47rem' }} />
+        <li>선택 숙소: {paymentSideData.p_title}</li>
+        <li>선택 객실: {paymentSideData.resRoomType}</li>
+        <li>호텔 주소: {paymentSideData.resAddress} </li>
+        <li>체크인: {paymentSideData.p_checkin} </li>
+        <li>체크아웃: {paymentSideData.p_checkout}</li>
+        <li>객실 수: {paymentSideData.selectedRoomNumber}</li>
+        <li>투숙 인원: 성인 {paymentSideData.resPeople} 명</li>
+        <li>선택한 인원에 적합한 객실입니다!</li>
+        {/* 쿠키에서 꺼내오기*/}
+      </ul>
+    </div>
+  </div>
+</div>
+
                 </div>
               </div>
               <hr />

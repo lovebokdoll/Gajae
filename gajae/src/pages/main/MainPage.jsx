@@ -18,7 +18,7 @@ const MainPage = () => {
   }, []);
 
   const handlePopupClose = () => {
-    // do something when popup is closed
+    
   };
 
   return (

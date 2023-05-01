@@ -63,20 +63,21 @@ const Popup = ({ imageUrl, onClose }) => {
       {showPopup && (
         <div
         ref={popupRef}
-          style={{
-            position: 'fixed',
-            top: position.y,
-            left: position.x,
-            transform: 'translate(-50%, -50%)',
-            zIndex: '999',
-            width: '700px',
-            height: '700px',
-            backgroundColor: '#ffffff',
-            border: '2px solid black',
-            borderRadius: '20px',
-          }}
-          onMouseDown={handleMouseDown}
-        >
+        style={{
+          position: 'fixed',
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+          zIndex: '999',
+          width: '700px',
+          height: '700px',
+          backgroundColor: '#ffffff',
+          border: '2px solid black',
+          borderRadius: '20px',
+        }}
+        onMouseDown={handleMouseDown}
+      >
+      
           <img
             src={"/images/eventPopup.png"}
             alt="Popup Image"
