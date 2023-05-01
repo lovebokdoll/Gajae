@@ -63,7 +63,7 @@ const MyHotelList = ({ hostId }) => {
               >
                 <Card.Img
                   variant="top"
-                  style={{ width: "260px", height: "250px" }}
+                  style={{ width: "250px", height: "250px" }}
                   src={hotel.P_PHOTO}
                 />
                 <Card.Body>
@@ -100,7 +100,7 @@ const MyHotelList = ({ hostId }) => {
                 </ListGroup>
                 <Card.Body>
                   <Button
-                    style={{ marginRight: "30px", marginLeft: "23px" }}
+                    style={{ marginRight: "30px", marginLeft: "13px" }}
                     variant="warning"
                     hotel={hotel}
                     onClick={() => onEdit(hotel.P_ID)}
@@ -109,6 +109,7 @@ const MyHotelList = ({ hostId }) => {
                   </Button>{" "}
                   <Button
                     variant={hotel.STATUS === "Y" ? "secondary" : "danger"}
+                    style={{ pointerEvents: "none" }}
                   >
                     {hotel.STATUS === "Y" ? "영업중" : "영업중지"}
                   </Button>{" "}
@@ -164,5 +165,6 @@ const HotelList = styled.span`
 const HotelItem = styled.li`
   border-radius: 10px;
   margin-bottom: 30px;
+
   list-style-type: none;
 `;

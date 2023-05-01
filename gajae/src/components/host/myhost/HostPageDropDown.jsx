@@ -1,6 +1,6 @@
 import React from "react";
 import { Dropdown } from "react-bootstrap";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 import MyHotelPage from "./MyHotelPage";
 
 const HostPageDropDown = () => {
@@ -9,6 +9,7 @@ const HostPageDropDown = () => {
     console.log("signOut");
     window.localStorage.clear();
     navigate("/host");
+    window.location.reload();
   };
 
   return (
@@ -36,7 +37,7 @@ const HostPageDropDown = () => {
         }}
       >
         <Link
-          to="/host/myhotelpage"
+          to="/host/myhostpage"
           style={{
             color: "#333",
             textDecoration: "none",

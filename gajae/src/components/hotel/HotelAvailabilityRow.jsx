@@ -195,9 +195,9 @@ const HotelAvailabilityRow = ({ row }) => {
       {/* 룸타입별 내용 */}
       <div
         className="table-wrapper"
-        style={{ width: "1200px", display: "flex", flexDirection: "row" }}
+        style={{ width: "70%", display: "flex", flexDirection: "row" }}
       >
-        <span className="table-wrapper-item1" style={{ flexGrow: "1" }}>
+        <span className="table-wrapper-item1" style={{ flex: "300" }}>
           <table className="table caption-top table-hover ">
             <thead className="table-primary">
               <tr>
@@ -240,7 +240,7 @@ const HotelAvailabilityRow = ({ row }) => {
                   </td>
                   <td>
                     {/* 금액선택 토글 */}
-                    <div className="table-wrapper-item2">
+                    <div className="table-wrapper-item2" style={{ flex: "1" }}>
                       <Dropdown>
                         <Dropdown.Toggle variant="danger" id="dropdown-basic">
                           {selectNumber[index] || 0}{" "}
@@ -301,7 +301,7 @@ const HotelAvailabilityRow = ({ row }) => {
             flexGrow: "0.5",
           }}
         >
-          <Alert variant="warning">
+          <Alert variant="secondary">
             <Alert.Heading>객실유형 및 요금을 확인하세요.</Alert.Heading>
             <TotalPrice>
               {Object.keys(selectRoom).map((key) => (

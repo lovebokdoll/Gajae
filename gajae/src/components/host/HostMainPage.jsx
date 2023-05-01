@@ -78,6 +78,7 @@ const HostMainPage = () => {
           </div>
         </R_CardGroup>
       </MainBackground>
+      <div className="myhostpageAbsoluteDiv" style={{ height: "200px" }} />
     </>
   );
 };

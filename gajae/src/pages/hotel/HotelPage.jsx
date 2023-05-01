@@ -76,46 +76,59 @@ const HotelPage = () => {
     <>
       <HeaderNav1 />
       <HeaderNav2 />
-      <div className="refBtn">
-        <Button variant="outline-success" onClick={onMoveToAvailability}>
-          옵션정보
-        </Button>
-        <Button variant="outline-success" onClick={onMoveToFacilities}>
-          시설
-        </Button>{" "}
-        <Button variant="outline-success" onClick={onMoveToPolicies}>
-          정책
-        </Button>{" "}
-        <Button variant="outline-info" onClick={handleShow}>
-          고객후기를 확인하세요!
-        </Button>
-        <Offcanvas
-          show={show}
-          onHide={handleClose}
-          style={{ width: "70%" }}
-          placement="end"
-        >
-          <OffcanvasBody>
-            <HotelReview property={property} handleClose={handleClose} />
-          </OffcanvasBody>
-        </Offcanvas>
+      <div className="out-line-Hotel">
+        <div className="refBtn">
+          <Button
+            variant="light"
+            onClick={onMoveToAvailability}
+            style={{ marginRight: "0.7em" }}
+          >
+            옵션정보
+          </Button>
+          <Button
+            variant="light"
+            onClick={onMoveToFacilities}
+            style={{ marginRight: "0.5em" }}
+          >
+            시설
+          </Button>{" "}
+          <Button
+            variant="light"
+            onClick={onMoveToPolicies}
+            style={{ marginRight: "0.5em" }}
+          >
+            정책
+          </Button>{" "}
+          <Button variant="outline-warning" onClick={handleShow}>
+            고객후기를 확인하세요!
+          </Button>
+          <Offcanvas
+            show={show}
+            onHide={handleClose}
+            style={{ width: "70%" }}
+            placement="end"
+          >
+            <OffcanvasBody>
+              <HotelReview property={property} handleClose={handleClose} />
+            </OffcanvasBody>
+          </Offcanvas>
+        </div>
+        <HotelInformation row={property[0]} />
+        {/* 이동할 컴포넌트에 ref로 넘겨준다 */}
+        <div ref={availabilityRef}>
+          <HotelAvailabilityHeader />
+        </div>
+        {/* 호텔 데이터 받아오는 부분 */}
+        <HotelAvailabilityRow row={property} />
+        <div ref={reviewRef}></div>
+        <div ref={facilitiesRef}>
+          <HotelFacilities row={property[0]} />
+        </div>
+        <div ref={policiesRef}>
+          <HotelPolicies row={property[0]} />
+        </div>
       </div>
-
-      <HotelInformation row={property[0]} />
-
-      {/* 이동할 컴포넌트에 ref로 넘겨준다 */}
-      <div ref={availabilityRef}>
-        <HotelAvailabilityHeader />
-      </div>
-      {/* 호텔 데이터 받아오는 부분 */}
-      <HotelAvailabilityRow row={property} />
-      <div ref={reviewRef}></div>
-      <div ref={facilitiesRef}>
-        <HotelFacilities row={property[0]} />
-      </div>
-      <div ref={policiesRef}>
-        <HotelPolicies row={property[0]} />
-      </div>
+      <div className="hotelpageAbsoluteDiv" style={{ height: "200px" }}></div>
       <Footer />
     </>
   );

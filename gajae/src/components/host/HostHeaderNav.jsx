@@ -60,7 +60,11 @@ const HostHeaderNav = () => {
                   {hostId ? <HostPageDropDown /> : <></>}
                   <Link
                     to="/host"
-                    style={{ color: "white", marginRight: "10px" }}
+                    style={{
+                      color: "white",
+                      marginRight: "10px",
+                      width: "80px",
+                    }}
                     className="nav-link"
                   >
                     숙소등록

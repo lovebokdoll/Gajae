@@ -10,7 +10,6 @@ import {
 } from "../../../style/HostStyle";
 import { Button, Card, Form } from "react-bootstrap";
 import { hostpropertyInsertDB } from "../../../service/hostLogic";
-import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import HostZipCode from "./HostZipCode";
 import { useEffect } from "react";
@@ -21,7 +20,6 @@ import Swal from "sweetalert2";
 
 const RegisterHotel = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
   //시퀀스로 받아온 p_id 저장하기
   const [tempid, setTempid] = useState("");
   const [p_title, setHostHotelTitle] = useState("");
@@ -406,7 +404,6 @@ const RegisterHotel = () => {
             </Card.Body>
             <div className="d-grid gap-2 col-6 mx-auto">
               {/*HostZipCode의 내용이 버튼을 누를때 insert되어야 한다. */}
-
               <button
                 type="button"
                 class="btn btn-warning"
@@ -419,6 +416,7 @@ const RegisterHotel = () => {
           </Card>
         </R_CardGroup_hotel>
       </Background>
+      <div className="myhostpageAbsoluteDiv" style={{ height: "200px" }}></div>
       <Footer />
     </>
   );

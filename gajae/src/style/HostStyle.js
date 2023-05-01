@@ -60,7 +60,7 @@ export const Background = styled.div`
 export const MainBackground = styled.div`
   background-color: #003580;
   width: 100%;
-  height: 860px;
+  height: 1000px;
   position: relative;
   padding: 10px;
 `;
@@ -79,9 +79,17 @@ export const Titlehotel_content = styled.div`
   color: white;
   font-size: 20px;
   position: relative; /* Title 컴포넌트는 position: absolute */
-  top: 5%; /* 원하는 위치로 top, left, right, bottom 값을 조정 */
-  left: 15%;
+  top: 25%; /* 원하는 위치로 top, left, right, bottom 값을 조정 */
+  left: 30%;
+  margin-top: 8em;
   //   transform: translate(-50%, -50%); /* 가운데 정렬을 위한 transform 속성 */
+`;
+export const Titlehotelfac = styled.div`
+  color: white;
+  font-size: 30px;
+  position: relative; /* Title 컴포넌트는 position: absolute */
+  left: 30%;
+  margin-top: 1.5em;
 `;
 export const Titlehotel = styled.div`
   font-family: "TheJamsil5Bold";
@@ -89,7 +97,7 @@ export const Titlehotel = styled.div`
   font-size: 50px;
   position: absolute; /* Title 컴포넌트는 position: absolute */
   top: 5%; /* 원하는 위치로 top, left, right, bottom 값을 조정 */
-  left: 15%;
+  left: 30%;
   //   transform: translate(-50%, -50%); /* 가운데 정렬을 위한 transform 속성 */
 `;
 export const Content = styled.div`
@@ -105,12 +113,11 @@ export const R_CardGroup = styled.div`
   font-family: "Pretendard-Regular";
   width: 100%;
   color: black;
-  top: 100%; /* 원하는 위치로 top, left, right, bottom 값을 조정 */
-  transform: translate(60%, 80%); /* 가운데 정렬을 위한 transform 속성 */
+  transform: translate(60%, 90%); /* 가운데 정렬을 위한 transform 속성 */
 `;
 export const R_CardGroup_hotel = styled.div`
   width: 50rem;
-  margin: 10% auto;
+  margin: 2% auto;
 `;
 //hostZipCode
 export const LoginForm = styled.form`

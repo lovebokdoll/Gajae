@@ -51,18 +51,7 @@ hotel_title hotel_address
   width: 70%;
   /* background-color: #f5f5f5; */
 }
-/*호텔 타이틀*/
-.hotel_title {
-  /* border: 1px solid black; */
-  flex: 2;
-  /* display: inline-block; span 요소를 블록 요소처럼 처리 */
-  margin: 0 5%; /* 좌우 여백을 10%로 설정 */
-  /* text-align: center; 가운데 정렬 */
-  width: 80%; /* 가로 폭을 80%로 설정 */
-  font-family: "TheJamsil5Bold";
-  font-size: 40px;
-  font-weight: bold;
-}
+
 .hotel_address,
 .hotel_overview {
   /* border: 1px solid black; */
