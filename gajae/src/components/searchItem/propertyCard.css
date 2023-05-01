@@ -1,9 +1,9 @@
-.searchItem {
+.pc_searchItem {
   border: 1px solid lightgray;
-  width: 832px;
+  width: 814px;
+  height:316px;
   padding: 10px;
   border-radius: 5px;
-  width: 1100.8px;
   display: flex;
   justify-content: space-between;
   gap: 20px;
@@ -107,7 +107,7 @@
   text-align: right;
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: 1px;
 }
 
 .siPrice {
@@ -137,9 +137,10 @@
   border-radius: 5px;
 }
 
-.image-container {
+.pc_image-container {
   position: relative;
   display: inline-block;
+  height: 250px;
 }
 
 .heart-icon {

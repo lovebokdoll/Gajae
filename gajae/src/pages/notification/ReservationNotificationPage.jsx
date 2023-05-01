@@ -6,7 +6,8 @@ import Footer from '../../components/footer/Footer';
 import HeaderNav1 from '../../components/header/HeaderNav1';
 import HeaderNav2 from '../../components/header/HeaderNav2';
 import { resNotification } from '../../service/reservation/reservation';
-import Cookies from 'js-cookie';
+import ReservationPush from '../../components/Reservate/ReservatePush';
+
 
 const ReservationNotificationPage = () => {
   const userNickname = localStorage.getItem('userNickname');
@@ -40,21 +41,27 @@ const ReservationNotificationPage = () => {
     <>
       <HeaderNav1 />
       <HeaderNav2 />
+      <ReservationPush/>
       {resNotificationData && (
         <>
           <br />
           <div className="resThankYou" style={{ width: '100%', marginBottom: 10, fontSize: '1.7rem', color: 'black', textAlign: 'center' }}>
-            <strong> {userNickname} </strong>님 감사합니다
-            <br />
+            <strong> {userNickname} </strong>님 감사합니다.
             아래와 같이 예약이 완료되었습니다.
           </div>
           <div style={{ display: 'flex', justifyContent: 'center' }}>
             <br />
             <Card
-              style={{ width: '1000px', height: '600px', background: '#f2f2f2', border: '4px solid rgb(251, 217, 21)', maxHeight: '600px' }}
+style={{
+  width: '1000px',
+  height: '600px',
+  background: 'white',
+  maxHeight: '600px',
+  boxShadow: '2px 2px 10px rgba(0, 0, 0, 0.3)',
+}}
             >
               <div className="bottom-logo" style={{ position: 'absolute', bottom: '0', left: '50%', transform: 'translateX(-50%)' }}>
-                <img src="../images/bottomlogo.png" alt="bottomlogo" />
+                <img src="../images/LoginLogo.png" alt="bottomlogo" />
               </div>
               <div className="cardtop" style={{ display: 'flex', alignItems: 'center' }}>
                 <Card.Img
@@ -84,7 +91,7 @@ const ReservationNotificationPage = () => {
                   </Card.Text>
                   <Card.Text style={{ fontSize: 30 }}> CHECKIN : {resNotificationData[0].P_CHECKIN} </Card.Text>
                   <Card.Text style={{ fontSize: 30 }}> CHECKOUT : {resNotificationData[0].P_CHECKOUT} </Card.Text>
-                  <div>결제금액: {resNotificationData[0].PAID_AMOUNT}</div>
+                  <div style={{fontSize:'30px', fontWeight:'bold'}}>결제금액: {resNotificationData[0].PAID_AMOUNT} 원 </div>
                 </Card.Body>
               </div>
               <div
@@ -97,8 +104,9 @@ const ReservationNotificationPage = () => {
                     style={{
                       width: 150,
                       height: 50,
-                      backgroundColor: 'rgb(0,88,171)',
-                      color: '#fff',
+                     /*  backgrou2ndColor: 'rgb(0,88,171)', */
+                     backgroundColor:'#ffc007', 
+                     color: '#fff',
                       fontWeight: 'bold',
                       transition: 'background-color 0.3s ease',
                       border: 'none',

@@ -75,13 +75,13 @@ const PaymentSide = ({ paymentSideData }) => {
         className="paySidePriceSection"
         style={{ width: '371.66px', height: '401px', padding: '24px', boxSizing: 'border-box', border: '1px solid lightgray' }}
       >
-        <div style={{ width: '322.98px', height: '367px' }}>
+        <div style={{ width: '345.98px', height: '367px' }}>
           <h2 style={{ margin: '0px 0px 10px 0px' }}>결제 요금 내역</h2>
           <div>
             <div style={{ width: '322.98px', height: '48px' }}>
               <li
                 style={{
-                  width: '322.98px',
+                  width: '328.98px',
                   height: '20px',
                   listStyle: 'none',
                   display: 'flex',
@@ -89,13 +89,13 @@ const PaymentSide = ({ paymentSideData }) => {
                   margin: '0px 0px 5px 0px',
                 }}
               >
-                <div style={{ margin: '0px 0px 0px 0px' }}>기존요금</div>
-                <div>{Math.round(paymentSideData.resPrice * 1.1)}</div>
+                <div>기존요금</div>
+                <div>{Math.round(paymentSideData.resPrice * 1.1).toLocaleString()}</div>
               </li>
 
-              <li style={{ width: '322.98px', height: '20px', listStyle: 'none', display: 'flex', justifyContent: 'space-between' }}>
+              <li style={{ width: '328.98px', height: '20px', listStyle: 'none', display: 'flex', justifyContent: 'space-between' }}>
                 <div>GAJAE.COM에서 부담</div>
-                <div>{Math.round(paymentSideData.resPrice * 0.1)}</div>
+                <div>{Math.round(paymentSideData.resPrice * 0.1).toLocaleString()}</div>
               </li>
             </div>
             <div style={{ width: '314.98px', height: '1px' }}></div>
@@ -114,7 +114,7 @@ const PaymentSide = ({ paymentSideData }) => {
             >
               <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                 <div style={{ marginRight: 'auto' }}>&nbsp;&nbsp;결제금액</div>
-                <div style={{ marginLeft: 'auto' }}> {paymentSideData.resPrice.toLocaleString()}</div>
+                <div style={{ marginLeft: 'auto' }}>{Number(paymentSideData.resPrice).toLocaleString()}</div>
               </div>
               <div style={{ textAlign: 'right' }}>
                 {' '}
@@ -122,16 +122,16 @@ const PaymentSide = ({ paymentSideData }) => {
                 &nbsp;추가 요금이 발생할 수 있습니다.
               </div>
             </div>
-            <h2 style={{ margin: '10px 0px 0px 0px' }}>요금 정보</h2>
+            <h2 style={{ margin: '15px 0px 0px 0px' }}>요금 정보</h2>
             <div style={{ width: '282.98px', height: '123px' }}>
-              <div className="64div" style={{ width: '282.98px', height: '64px' }}>
+              <div className="64div" style={{ width: '282.98px', height: '50px' }}>
                 {' '}
-                <div style={{ width: '246.98px', height: '48px', display: 'flex', alignItems: 'center', margin: '0px 0px 0px 3px' }}>
+                <div style={{ width: '322.98px', height: '48px', display: 'flex', alignItems: 'center', margin: '5px 0px 0px 3px' }}>
                   <div style={{ flex: 1 }}>
                     <div style={{ height: '24px', display: 'flex', alignItems: 'center' }}>세금 및 기타비용 포함</div>
                     <div style={{ height: '24px', display: 'flex', alignItems: 'center' }}>
                       <div style={{ flex: 1, fontSize: '0.9em' }}>10% 부가가치세(VAT)</div>
-                      <div style={{ flex: 'none', marginLeft: '16px' }}>{Math.round(paymentSideData.resPrice * 0.1)}</div>
+                      <div style={{ flex: 'none', marginLeft: '16px' }}>{Math.round(paymentSideData.resPrice * 0.1).toLocaleString()}</div>
                     </div>
                   </div>
                 </div>

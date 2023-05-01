@@ -160,8 +160,8 @@ const PropertyListPage = () => {
         {/*end of the Header */}
         <div className="body">
           <div className="container" style={{ display: 'flex', justifyContent: 'center' }}>
-            <div className="row">
-              <div className="col-lg-3 col-md-12">
+            <div className="row" style={{ width: '1140px' }}>
+              <div className="col-lg-3 col-md-12" style={{ padding: '0px 0px 0px 0px' }}>
                 <SearchBox />
                 <div>
                   <BButton
@@ -170,20 +170,17 @@ const PropertyListPage = () => {
                     className="me-2 mb-2"
                     data-bs-dismiss="modal"
                     data-bs-target="#fullScreenModal"
-                    style={{ height: '60px', width: '200px' }}
+                    style={{ height: '60px', width: '200px', margin: '30px 0px 0px 50px' }}
                     onClick={openModal}
                   >
-                    <FontAwesomeIcon icon={faMap} /> 지도에서 보기
+                    <FontAwesomeIcon style={{}} icon={faMap} /> 지도에서 보기
                   </BButton>
                   <MapModal show={showModal} closeModal={closeModal} />
                   <FilterSidebar checkedFilters={checkedFilters} checkedRanks={checkedRanks} />
                 </div>
               </div>
-              <div className="col-lg-9 col-md-12" >
-                <h4
-                  className="search-hotel"
-                  style={{ marginTop: '20px', textAlign: 'end', fontWeight: 'bold', width: 1000, fontFamily: 'KOTRA_GOTHIC' }}
-                >
+              <div className="col-lg-9 col-md-12" style={{ width: '850px' }}>
+                <h4 className="search-hotel" style={{ marginTop: '39px', fontSize: '1.9em', fontWeight: 'bold' }}>
                   {params.P_ADDRESS} : 검색된 숙소 {property.length}개
                 </h4>
                 <DropdownButton id="dropdown-btn" style={{ fontFamily: 'KOTRA_GOTHIC' }} title={orderBy ? orderBy : '정렬 순서'}>
@@ -203,7 +200,6 @@ const PropertyListPage = () => {
                   style={{
                     display: 'flex',
                     flexWrap: 'wrap',
-                    justifyContent: 'center',
                     alignItems: 'center',
                     width: '1000px',
                   }}

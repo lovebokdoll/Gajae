@@ -1,10 +1,12 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Route, Routes } from 'react-router-dom';
 import './App.css';
 import KakaoProfile from './api/kakao/KakaoProfile';
 import KakaoRedirectHandler from './api/kakao/KakaoRedirectHandler';
 import NaverPay from './api/naver/NaverPay';
+import ReservationPush from './components/Reservate/ReservatePush';
 import ReservationDetail from './components/Reservate/ReservationDetail';
 import HostEndPage from './components/host/HostEndPage';
 import HostLogin from './components/host/HostLogin';
@@ -31,8 +33,8 @@ import HotelPage from './pages/hotel/HotelPage';
 import IDFindPage from './pages/login/IDFindPage';
 import LoginPage from './pages/login/LoginPage';
 import PWFindPage from './pages/login/PWFindPage';
+import SignupWelcomePage from './pages/login/SignupWelcomePage';
 import UserActivatePage from './pages/login/UserActivatePage';
-import WelcomePage from './pages/login/SignupWelcomePage';
 import MainPage from './pages/main/MainPage';
 import MyNotificationsPage from './pages/mypage/MyNotificationsPage';
 import MyPaymentPage from './pages/mypage/MyPaymentPage';
@@ -46,19 +48,25 @@ import Paypage from './pages/pay/Paypage';
 import PropertyListPage from './pages/propertyList/PropertyListPage';
 import ReviewUpdate from './pages/reviewBoard/ReviewUpdate';
 import ReviewWritePage from './pages/reviewBoard/ReviewWritePage';
-import SignupWelcomePage from './pages/login/SignupWelcomePage';
 
 const App = () => {
   const toastStatus = useSelector((state) => state.toastStatus);
   const modalStatus = useSelector((state) => state.modalInfo);
   const nationStatus = useSelector((state) => state.nationModalInfo);
+  const [isReservationSuccess, setIsReservationSuccess] = useState(false);
 
+  const handleReservationSuccess = () => {
+    setIsReservationSuccess(true);
+  };
+
+ 
   return (
     <div style={{ height: '100vh' }}>
       {toastStatus.status && <Toast />}
       {/*  */}
       {modalStatus.status && <CurrencyModal />}
       {nationStatus.status && <NationModal />}
+      {isReservationSuccess && <ReservationPush />}
       <Routes>
         <Route path="/" exact="true" element={<MainPage />} />
         {/* signup & signin */}

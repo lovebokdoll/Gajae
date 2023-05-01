@@ -25,7 +25,7 @@ const MainPage = () => {
 
   console.log('destination ===>', destination);
   const handlePopupClose = () => {
-    // do something when popup is closed
+    
   };
 
   return (

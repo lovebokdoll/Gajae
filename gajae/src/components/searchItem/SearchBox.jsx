@@ -63,45 +63,42 @@ const SearchBox = () => {
     <>
       <div
         id="leftbox"
-        style={{ backgroundColor: '#FFFFFF', border: 'px solid #000000', marginTop: '10px', padding: '20px 10px', width: '200px' }}
+        style={{ backgroundColor: '#FFFFFF', border: 'px solid #000000', marginTop: '0px 0px 0px 0px', padding: '30px 0px 0px 50px', width: '200px' }}
       >
         <div style={{ marginTop: '10px' }}>
-        <FontAwesomeIcon icon={faLocationDot} style={{marginRight: '10px', color: "#0058ab"}} />
-          <label style={{ fontSize: '15px', marginBottom: '10px', fontFamily: 'KOTRA_GOTHIC', color: '#333'}}>
-            지역 이름
-          </label>
+          <FontAwesomeIcon icon={faLocationDot} style={{ marginRight: '10px', color: '#0058ab' }} />
+          <label style={{ fontSize: '15px', marginBottom: '10px', fontFamily: 'KOTRA_GOTHIC', color: '#333' }}>지역 이름</label>
           <br />
           <input
             className="addressbox"
-            style={{ paddingLeft: '15px', fontSize: '15px'}}
+            style={{ paddingLeft: '15px', fontSize: '15px' }}
             defaultValue={ADDRESS}
             onChange={(e) => setP_Address(e.target.value)}
             type="text"
           />
-
         </div>
 
         <div style={{ marginTop: '10px' }}>
-        <FontAwesomeIcon icon={faCalendarCheck} style={{marginRight: '10px'}}/>
+          <FontAwesomeIcon icon={faCalendarCheck} style={{ marginRight: '10px' }} />
           <label style={{ fontSize: '15px', marginBottom: '10px', fontFamily: 'KOTRA_GOTHIC', color: '#333' }}>체크인 날짜</label>
           <br />
           <input className="databox" type="date" name="" id="" />
         </div>
         <div style={{ marginTop: '10px' }}>
-        <FontAwesomeIcon icon={faCalendarCheck} style={{marginRight: '10px'}}/>
+          <FontAwesomeIcon icon={faCalendarCheck} style={{ marginRight: '10px' }} />
           <label style={{ fontSize: '15px', marginBottom: '10px', fontFamily: 'KOTRA_GOTHIC', color: '#333' }}>체크아웃 날짜</label>
           <br />
           <input className="databox" type="date" />
         </div>
 
         <div className="headerSearchItem">
-        <FontAwesomeIcon icon="fa-solid fa-user" style={{color: "gray"}}/>
-          <span onClick={() => setOpenOptions(!openOptions)} className="headerSearchText" >{`${ROOM_CAPACITY.adult} 명`}</span>
+          <FontAwesomeIcon icon="fa-solid fa-user" style={{ color: 'gray' }} />
+          <span onClick={() => setOpenOptions(!openOptions)} className="headerSearchText">{`${ROOM_CAPACITY.adult} 명`}</span>
           {openOptions && (
-                  <div className="optionsBar" style={{marginLeft:'50px'}}>
-                  <div className="optionItem">
-                    <span className="optionText">인원</span>
-                    <div className="optionCounter">
+            <div className="optionsBar" style={{ marginLeft: '50px' }}>
+              <div className="optionItem">
+                <span className="optionText">인원</span>
+                <div className="optionCounter">
                   <button disabled={ROOM_CAPACITY.adult <= 1} className="optionCounterButton" onClick={() => handleOption('adult', 'd')}>
                     -
                   </button>

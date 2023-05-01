@@ -87,8 +87,8 @@ const PropertyCard = ({ row }) => {
   return (
     <>
       <div style={{ position: 'relative' }}></div>
-      <div className="searchItem">
-        <div class="image-container">
+      <div className="pc_searchItem">
+        <div class="pc_image-container">
           <img
             src="https://cf.bstatic.com/xdata/images/hotel/square600/261707778.webp?k=fa6b6128468ec15e81f7d076b6f2473fa3a80c255582f155cae35f9edbffdd78&o=&s=1"
             alt=""
@@ -104,7 +104,7 @@ const PropertyCard = ({ row }) => {
           <Link to="./hotel" style={{ textDecoration: 'none' }}>
             <h1 className="siTitle">
               {' '}
-              {row.P_TITLE}
+              {row.P_TITLE}&nbsp;
               {Array.from({ length: parseInt(row.P_STAR) }, (_, i) => (
                 <span key={i} role="img" aria-label="star">
                   <FontAwesomeIcon icon="fa-solid fa-star" style={{ color: '#FEBB02' }} />
@@ -114,28 +114,30 @@ const PropertyCard = ({ row }) => {
           </Link>
           <span className="siCheck">
             {' '}
-            체크인 : {row.P_CHECKIN} <br />
-            {/* 텍스트 정렬안되서 수정*/}
-            체크아웃 : {row.P_CHECKOUT}
+            체크인 : {row.P_CHECKIN}부터, 체크아웃 : {row.P_CHECKOUT}까지
           </span>
-          <span className="siP_ADDRESS">{row.P_ADDRESS}</span>
-          <span className="siTaxiOp">Free taxi</span>
+          <span className="siP_ADDRESS">
+            {row.P_ADDRESS}
+          </span>
           <span className="siROOM_TYPE">{row.ROOM_TYPE}</span>
           <span className="siROOM_OPTION">{row.ROOM_OPTION}</span>
           <span className="siP_REFUND">{row.P_REFUND}</span>
+          <span className="siTaxiOp">Free taxi</span>
         </div>
         <div className="siDetails">
           <div className="siRanking">
-            <button id="rankigbtn">{row.REVIEW_AVERAGE}</button>
-          </div>
-          <div className="siDetailTexts">
             <div>
               <button id="copybtn" onClick={copyPageUrl}>
                 <FaShareAlt />
               </button>
-            </div>
+            </div>{' '}
+            <button id="rankigbtn" style={{ width: '39px', height: '39px',padding:'0px 0px 0px 0px', margin:'0px 0px 0px 5px' }}>
+              {row.REVIEW_AVERAGE}
+            </button>
+          </div>
+          <div className="siDetailTexts">
+            <span className="siTaxes ">세금(TAX) 및 수수료 포함</span>
             <span className="siPrice">{Number(row.ROOM_PRICE).toLocaleString() + '원'}</span>
-            <span className="siTaxes ">세금 및 수수료 포함</span>
             <button className="siCheckButton" onClick={handleHotel}>
               예 약 하 기
             </button>

@@ -19,7 +19,7 @@ const NextTripCard = ({ userName }) => {
         <div
           className="nextTrip1098"
           style={{
-            width: '1098px',
+            width: '1500px',
             height: '285.47px',
             border: '1px solid lightgrey',
             padding: '16px',

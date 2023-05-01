@@ -19,7 +19,8 @@ const ReservationDetail = () => {
   const [initialName, setInitialName] = useState('');
   const [initialEmail, setInitialEmail] = useState('');
   const [initialNickname, setInitialNickname] = useState('');
-
+  const [email, setEmail] = useState('');
+  const [name, setName] = useState('');
   useEffect(() => {
     setInitialName(localStorage.getItem('userName'));
     setInitialEmail(localStorage.getItem('userEmail'));
@@ -29,12 +30,18 @@ const ReservationDetail = () => {
   }, []);
 
   const resNameChange = (event) => {
+    setName(event.target.value);
     const resName = event.target.value;
+    console.log('name ===>', name);
+    console.log('resName ===>', resName);
     Cookies.set('resName', resName);
   };
 
   const resEmailChange = (event) => {
+    setEmail(event.target.value);
     const resEmail = event.target.value;
+    console.log('email ===>', email);
+    console.log('resEmail ===>', resEmail);
     Cookies.set('resEmail', resEmail);
   };
 
@@ -65,7 +72,8 @@ const ReservationDetail = () => {
       <br />
       <div style={{ display: 'flex', justifyContent: 'center' }}>
         <PaymentSide paymentSideData={paymentSideData} />
-        <div className="card1" style={{ width: '958px', backgroundColor: 'rgb(214,230,245)', margin: '0px 0px 0px 20px' }}>
+        <div className="card1" style={{ width: '958px', backgroundColor: 'rgb(214,230,245)', margin: '0px 0px 0px 12.5px' }}>
+          <div className="space-div" style={{ width: '20px' }}></div>
           <PaymentPropertyCard />
           <PaymentLoginStatus initialEmail={initialEmail} />
           <div className="card" style={{ width: '60rem', backgroundColor: 'white' }}>
@@ -94,8 +102,8 @@ const ReservationDetail = () => {
                         name="name"
                         placeholder="실명을 입력해주세요."
                         style={{ width: '60%', fontSize: '20px' }}
+                        value={name || initialName}
                         onChange={resNameChange}
-                        value={initialName}
                       />
                     </div>
                     <label className="form-label" style={{ fontSize: '20px' }}>
@@ -109,7 +117,7 @@ const ReservationDetail = () => {
                       id="email"
                       name="email"
                       style={{ width: '60%', fontSize: '20px' }}
-                      value={initialEmail}
+                      value={email || initialEmail}
                       onChange={resEmailChange}
                     />
                   </form>
@@ -128,30 +136,28 @@ const ReservationDetail = () => {
                   <hr />
                   <div className="row">
                     <div className="col">
-                      <div style={{ fontSize: 20 }}>
-                        <div>
-                          체크인: {paymentSideData.startDate}, 체크아웃:{paymentSideData.endDate}
-                        </div>
-                        <div>
-                          {paymentSideData.p_checkin}부터, {paymentSideData.p_checkout}까지
-                        </div>
-                        <div>
-                          {' '}
-                          ({paymentSideData.startAndEndDays[0]}), ({paymentSideData.startAndEndDays[1]}){' '}
-                        </div>
-                        <div>총 숙박 기간: {paymentSideData.diffDays}박</div>
-                        <hr style={{ width: '47rem' }}></hr>
-                        <div>
-                          <div>선택 숙소: {paymentSideData.p_title}</div>
-                          <div>선택 객실: {paymentSideData.resRoomType}</div>
-                          <div>호텔 주소: {paymentSideData.resAddress} </div>
-                          <div>체크인: {paymentSideData.p_checkin} </div>
-                          <div>체크아웃: {paymentSideData.p_checkout}</div>
-                          <div>객실 수: {paymentSideData.selectedRoomNumber}</div>
-                          <div>투숙 인원: 성인 {paymentSideData.resPeople} 명</div>
-                          <div>선택한 인원에 적합한 객실입니다!</div>
+                      <div className="rev-infocard" style={{ fontSize: 20 }}>
+                        <ul>
+                          <li>
+                            체크인: {paymentSideData.startDate} {paymentSideData.p_checkin} ({paymentSideData.startAndEndDays[0]}) 부터
+                            <br />
+                            체크아웃:{paymentSideData.endDate} {paymentSideData.p_checkout} ({paymentSideData.startAndEndDays[1]})까지
+                          </li>
+                          <li>
+                            ({paymentSideData.startAndEndDays[0]}) ~ ({paymentSideData.startAndEndDays[1]}){' '}
+                          </li>
+                          <li>총 숙박 기간: {paymentSideData.diffDays}박</li>
+                          <hr style={{ width: '47rem' }} />
+                          <li>선택 숙소: {paymentSideData.p_title}</li>
+                          <li>선택 객실: {paymentSideData.resRoomType}</li>
+                          <li>호텔 주소: {paymentSideData.resAddress} </li>
+                          <li>체크인: {paymentSideData.p_checkin} </li>
+                          <li>체크아웃: {paymentSideData.p_checkout}</li>
+                          <li>객실 수: {paymentSideData.selectedRoomNumber}</li>
+                          <li>투숙 인원: 성인 {paymentSideData.resPeople} 명</li>
+                          <li>선택한 인원에 적합한 객실입니다!</li>
                           {/* 쿠키에서 꺼내오기*/}
-                        </div>
+                        </ul>
                       </div>
                     </div>
                   </div>
@@ -160,11 +166,12 @@ const ReservationDetail = () => {
               <hr />
               <div className="card" style={{ width: '49rem' }}>
                 <div className="card-body">
-                  <div style={{ fontSize: 30 }}> 별도 요청사항 </div> {/* 사용자가 작성했을시 host에게 전달 되고  2차때 할 예정*/}
+                  <div style={{ fontSize: 30 }}> 별도 요청사항 </div> {/* 사용자가 작성했을시 host에게 전달 되고 2차때 할 예정*/}
                   <hr />
-                  <div>
-                    별도 요청 사항을 보장해드릴 수는 없으나, 숙소 측에서 서비스 제공을 위해 최선의 노력을 다할 것입니다. 예약을 완료한
-                    후에도 별도 요청 사항을 보내실 수 있으니 참고 바랍니다.{' '}
+                  <div className="info">
+                    별도 요청 사항을 보장해드릴 수는 없으나, 숙소 측에서 서비스 제공을 위해 최선의 노력을 다할 것입니다.
+                    <br />
+                    예약을 완료한 후에도 별도 요청 사항을 보내실 수 있으니 참고 바랍니다.{' '}
                   </div>
                   <div>
                     아래에 요청 사항을 작성해 주시기 바랍니다. (<strong>* 선택 사항</strong>)
@@ -173,13 +180,16 @@ const ReservationDetail = () => {
                 </div>
               </div>
               <br />
+
               <div className="d-flex justify-content-between align-items-center">
                 <div className="text" style={{ width: '300px' }}>
-                  <span style={{ fontSize: 30, fontWeight: 'bold' }}>결제요금내역</span>
+                  <span style={{ fontSize: 40, fontWeight: 'bold' }}>결제요금 </span>
                   <br />
-                  <span style={{ fontSize: '20px', fontWeight: 'bold' }}>
-                    결제금액: {paymentSideData.resPrice} 원
-                    <br /> 추가 요금이 발생할 수 있습니다.
+                  <span className="won" style={{ fontSize: '30px', fontWeight: 'bold' }}>
+                    {Number(paymentSideData.resPrice).toLocaleString() + '원'}
+                  </span>
+                  <span>
+                    <br /> * 추가 요금이 발생할 수 있습니다.
                   </span>
                 </div>
                 {/* 결제 쿠키에서 꺼내기 */}
