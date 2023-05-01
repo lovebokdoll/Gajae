@@ -34,22 +34,25 @@
 	 </insert>
 	 
 	 <select id="propertyList" parameterType="java.util.HashMap" resultType="map">
-		SELECT R.R_NUMBER,
-		       R.USER_ID,
-		       U.USER_NICKNAME,
-		       U.USER_PHOTO,
-		       R.R_PEOPLE,
-		       RV.REVIEW_AVERAGE, 
-		       TO_DATE(R.R_START_DATE, 'YYYY-MM-DD') AS CHECKIN_DATE,
-		       TO_DATE(R.R_END_DATE, 'YYYY-MM-DD') AS CHECKOUT_DATE,
-		       TO_DATE(R.R_END_DATE, 'YYYY-MM-DD') - TO_DATE(R.R_START_DATE, 'YYYY-MM-DD') AS NUM_NIGHTS,
-		       RV.REVIEW_TITLE, RV.REVIEW_DATE, RV.REVIEW_GOOD, RV.REVIEW_BAD, RV.REVIEW_SERVICE, RV.REVIEW_FACILITY,
-		       RV.REVIEW_CLEAN, RV.REVIEW_COST, REVIEW_LOCATION
-		  FROM RESERVATIONS R
-		  JOIN REVIEW RV
-		    ON R.R_NUMBER = RV.R_NUMBER
-		  JOIN USERS U ON R.USER_ID = U.USER_ID
-		 WHERE R.P_ID = #{P_ID}  
+		 SELECT R.R_NUMBER,
+               R.USER_ID,
+               U.USER_NICKNAME,
+               U.USER_PHOTO,
+               R.R_PEOPLE,
+               RV.REVIEW_AVERAGE, 
+               TO_DATE(R.R_START_DATE, 'YYYY-MM-DD') AS CHECKIN_DATE,
+               TO_DATE(R.R_END_DATE, 'YYYY-MM-DD') AS CHECKOUT_DATE,
+               TO_DATE(R.R_END_DATE, 'YYYY-MM-DD') - TO_DATE(R.R_START_DATE, 'YYYY-MM-DD') AS NUM_NIGHTS,
+               RV.REVIEW_TITLE, RV.REVIEW_DATE, RV.REVIEW_GOOD, RV.REVIEW_BAD, RV.REVIEW_PHOTO, RV.REVIEW_SERVICE, RV.REVIEW_FACILITY,
+               RV.REVIEW_CLEAN, RV.REVIEW_COST, REVIEW_LOCATION,
+               RP.REPLY_CONTENT, RP.REPLY_DATE
+          FROM RESERVATIONS R
+          JOIN REVIEW RV
+            ON R.R_NUMBER = RV.R_NUMBER
+          JOIN USERS U ON R.USER_ID = U.USER_ID
+          JOIN REPLY RP
+             ON RV.REVIEW_NUMBER = RP.REVIEW_NUMBER
+         WHERE R.P_ID = #{P_ID} 
 	 </select>
 	 
 	 <!-- 나의 리뷰 리스트  -->
@@ -71,7 +74,7 @@
       		   R.REVIEW_SERVICE, R.REVIEW_FACILITY, R.REVIEW_CLEAN, R.REVIEW_LOCATION, R.REVIEW_COST
 		  FROM REVIEW R
 		  INNER JOIN RESERVATIONS RS ON R.R_NUMBER = RS.R_NUMBER
-		  WHERE RS.USER_ID=#{USER_ID}
+		  WHERE RS.REVIEW_NUMBER=#{REVIEW_NUMBER}
 	 </select>
 	 
 	 <update id="reviewUpdate" parameterType="map">
@@ -83,7 +86,8 @@
 			REVIEW_DATE = TO_CHAR( SYSDATE, 'YYYY-MM-DD'), 
 			REVIEW_SERVICE = #{REVIEW_SERVICE}, 
 			REVIEW_FACILITY =#{REVIEW_FACILITY}, 
-			REVIEW_CLEAN = #{REVIEW_CLEAN}, 
+			REVIEW_CLEAN = #{REVIEW_CLEAN},
+			REVIEW_PHOTO = #{REVIEW_PHOTO}, 
 			REVIEW_LOCATION = #{REVIEW_LOCATION},
 			REVIEW_COST = #{REVIEW_COST}
 	  WHERE REVIEW_NUMBER = #{REVIEW_NUMBER} 	
@@ -120,10 +124,17 @@
 			TO_CHAR(SYSDATE, 'YYYY-MM-DD')
 			)
 	 </insert>
+	<update id="hostreplyUpdate" parameterType="map">
+	 	UPDATE REPLY
+	 	   SET
+			REPLY_CONTENT = #{REPLY_CONTENT}, 
+			REPLY_DATE = TO_CHAR( SYSDATE, 'YYYY-MM-DD')
+	  WHERE REPLY_NUMBER = #{REPLY_NUMBER} 	
+	 </update>
 	 <!-- host댓글가져오기 -->
-	 	 <select id="hostreplyList" parameterType="java.util.HashMap" resultType="map">
-		SELECT	REPLY_CONTENT, HOST_ID, REPLY_DATE, REPLY_EXIST_FLAG
+	 <select id="hostreplyList" parameterType="java.util.HashMap" resultType="map">
+		SELECT	REPLY_NUMBER, REPLY_CONTENT, HOST_ID, REPLY_DATE, REPLY_EXIST_FLAG
 		FROM REPLY 
-		WHERE REVIEW_NUMBER = #{REVIEW_NUMBER}
+		WHERE REVIEW_NUMBER = #{REVIEW_NUMBER} 
 	 </select>
 	</mapper>

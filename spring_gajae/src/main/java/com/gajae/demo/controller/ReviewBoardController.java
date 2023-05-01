@@ -76,7 +76,7 @@ public class ReviewBoardController {
     }
     
     @GetMapping( "reviewDelete" )
-    public String reviewDelete( @RequestBody Map<String, Object> pMap ) {
+    public String reviewDelete( @RequestParam Map<String, Object> pMap ) {
         log.info( "pMap = {}", pMap );
         
         int result = reviewBoardLoigic.reviewDelete( pMap );
@@ -108,6 +108,15 @@ public class ReviewBoardController {
         log.info( "pMap = {}", pMap );
         List<Map<String, Object>> bList = reviewBoardLoigic.hostreplyList( pMap );
         return bList;
+    }
+    @PostMapping( "hostreplyUpdate" )
+    public Object hostreplyUpdate( @RequestBody Map<String, Object> pMap ) {
+        
+        log.info( "pMap = {}", pMap );
+        
+        int result = reviewBoardLoigic.hostreplyUpdate( pMap );
+        
+        return String.valueOf( result );
     }
     
 }

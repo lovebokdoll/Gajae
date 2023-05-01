@@ -6,11 +6,10 @@ import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ReviewProgressBar from "../review/ReviewProgressBar";
 import { CloseButton } from "react-bootstrap";
-import ReplyForm from "../review/ReplyForm";
+import HotelReviewReply from "./HotelReviewReply";
+import HotelReviewEmpty from "./HotelReviewEmpty";
 
 const HotelReview = ({ property, handleClose }) => {
-  console.log(property);
-  console.log(property[0].P_ID);
   const [review, setReview] = useState();
   const [totalscore, setTotalscore] = useState();
   const [totalReviews, setTotalReviews] = useState(0);
@@ -45,80 +44,97 @@ const HotelReview = ({ property, handleClose }) => {
 
   return (
     <>
-      <TitleContainer>
-        <BtnClose onClick={handleClose}></BtnClose>
-        <RatingWrapper>
-          <TRating>{totalscore}</TRating>
-          <p>{totalReviews}개 이용후기</p>
-        </RatingWrapper>
-        <Title>100% 실제 이용후기 제공을 목표로 합니다 </Title>
-      </TitleContainer>
-      <hr />
-      <BackDiv>
-        <ReviewProgressBar review={review} />
-        <ReviewList>
-          {review &&
-            review.map((review, index) => (
-              <li key={index}>
-                <ReviewWrapper>
-                  <ImageContainer>
-                    {/* 사용자 정보 가져오기 */}
-                    <ImageWrapper>
-                      {review.USER_PHOTO ? (
-                        <UserImg src={review.USER_PHOTO} />
-                      ) : (
-                        <UserImg src="../images/default.png" />
-                      )}
-                    </ImageWrapper>
-                    <UserInfo>
-                      <p>
-                        <FontAwesomeIcon icon="fa-solid fa-user" />
-                        &nbsp;&nbsp;
-                        {review.USER_NICKNAME}&nbsp;
-                        <img
-                          src="/images/Flag_of_South_Korea.png"
-                          style={{ border: "1px solid black", height: "20px" }}
-                        ></img>
-                      </p>
-                      <p>
-                        <FontAwesomeIcon icon="fa-regular fa-calendar" />
-                        &nbsp;&nbsp;{review.NUM_NIGHTS}박
-                      </p>
-                      <p>
-                        <i className="fa-solid fa-people-group"></i>
-                        &nbsp;&nbsp;{review.R_PEOPLE}명
-                      </p>
-                    </UserInfo>
-                  </ImageContainer>
-                  <ContentWrapper>
-                    <ReviewTitle>{review.REVIEW_TITLE}</ReviewTitle>
-                    <RText>
-                      <FontAwesomeIcon
-                        icon="fa-regular fa-face-smile"
-                        style={{ color: "#99ff00" }}
-                      />
-                      {review.REVIEW_GOOD}
-                    </RText>
-                    <RText>
-                      <i className="fa-regular fa-face-frown"></i>&nbsp;&nbsp;
-                      {review.REVIEW_BAD}
-                    </RText>
-                    <CardTimestamp>{review.REVIEW_DATE}</CardTimestamp>
-                    {/* host의 댓글 */}
-                    <ReplyWrapper>
-                      <ReplyForm />
-                    </ReplyWrapper>
-                    <ButtonContainer>
-                      <ButtonWrapper>
-                        <Rating>{review.REVIEW_AVERAGE}</Rating>
-                      </ButtonWrapper>
-                    </ButtonContainer>
-                  </ContentWrapper>
-                </ReviewWrapper>
-              </li>
-            ))}
-        </ReviewList>
-      </BackDiv>
+      {review && review.length > 0 ? (
+        <>
+          <TitleContainer>
+            <BtnClose onClick={handleClose}></BtnClose>
+            <RatingWrapper>
+              <TRating>{totalscore}</TRating>&nbsp;
+              <p>{totalReviews}개 이용후기</p>
+            </RatingWrapper>
+            <Title>100% 실제 이용후기 제공을 목표로 합니다 </Title>
+          </TitleContainer>
+          <hr />
+          <BackDiv>
+            <ReviewProgressBar review={review} />
+            <ReviewList>
+              {review &&
+                review.map((review, index) => (
+                  <li key={index}>
+                    <ReviewWrapper>
+                      <ImageContainer>
+                        {/* 사용자 정보 가져오기 */}
+                        <ImageWrapper>
+                          {review.USER_PHOTO ? (
+                            <UserImg src={review.USER_PHOTO} />
+                          ) : (
+                            <UserImg src="../images/default.png" />
+                          )}
+                        </ImageWrapper>
+                        <UserInfo>
+                          <p>
+                            <FontAwesomeIcon icon="fa-solid fa-user" />
+                            &nbsp;&nbsp;
+                            {review.USER_NICKNAME}&nbsp;
+                            <img
+                              src="/images/Flag_of_South_Korea.png"
+                              style={{
+                                border: "1px solid black",
+                                height: "20px",
+                              }}
+                            ></img>
+                          </p>
+                          <p>
+                            <FontAwesomeIcon icon="fa-regular fa-calendar" />
+                            &nbsp;&nbsp;{review.NUM_NIGHTS}박
+                          </p>
+                          <p>
+                            <i className="fa-solid fa-people-group"></i>
+                            &nbsp;&nbsp;{review.R_PEOPLE}명
+                          </p>
+                        </UserInfo>
+                      </ImageContainer>
+                      <ContentWrapper>
+                        <ReviewTitle>{review.REVIEW_TITLE}</ReviewTitle>
+                        <RText>
+                          <FontAwesomeIcon
+                            icon="fa-regular fa-face-smile"
+                            style={{ color: "#99ff00" }}
+                          />
+                          &nbsp;&nbsp;
+                          {review.REVIEW_GOOD}
+                        </RText>
+                        <RText>
+                          <i className="fa-regular fa-face-frown"></i>
+                          &nbsp;&nbsp;
+                          {review.REVIEW_BAD}
+                        </RText>
+                        <ReviewImg>
+                          <img
+                            src={review.REVIEW_PHOTO}
+                            style={{ width: "100%" }}
+                          />
+                        </ReviewImg>
+                        <CardTimestamp>{review.REVIEW_DATE}</CardTimestamp>
+                        {/* host의 댓글 */}
+                        <ReplyWrapper>
+                          <HotelReviewReply review={review} />
+                        </ReplyWrapper>
+                        <ButtonContainer>
+                          <ButtonWrapper>
+                            <Rating>{review.REVIEW_AVERAGE}</Rating>
+                          </ButtonWrapper>
+                        </ButtonContainer>
+                      </ContentWrapper>
+                    </ReviewWrapper>
+                  </li>
+                ))}
+            </ReviewList>
+          </BackDiv>
+        </>
+      ) : (
+        <HotelReviewEmpty handleClose={handleClose} />
+      )}
     </>
   );
 };
@@ -140,12 +156,14 @@ const TitleContainer = styled.div`
 const Title = styled.div`
   text-align: left;
   margin-left: 80px;
-  font-size: 15px;
+  font-size: 18px;
   font-weight: bold;
   color: #286a42;
   flex-grow: 1;
 `;
 const TRating = styled.button`
+  width: 50px;
+  height: 50px;
   font-weight: bold;
   background-color: #003580;
   color: white;
@@ -169,9 +187,8 @@ const ReviewWrapper = styled.div`
   display: flex;
   flex-direction: row;
   max-width: 1000px;
-  max-height: 1000px;
   width: 900px;
-  height: 500px;
+  height: 600px;
   position: relative;
   margin: 0;
   padiing: 0;
@@ -196,7 +213,7 @@ const ImageContainer = styled.div`
 const ImageWrapper = styled.div`
   flex: 0 0 30.333333%;
   display: flex;
-  width: 200px;
+  width: 160px;
   height: 200px;
   margin-top: 30px;
 `;
@@ -204,6 +221,7 @@ const ImageWrapper = styled.div`
 const UserImg = styled.img`
   width: 100%;
   margin-bottom: 5px;
+  border-radius: 50%;
 `;
 const UserInfo = styled.div`
   margin-top: 30px;
@@ -223,13 +241,16 @@ const ReviewTitle = styled.h5`
 `;
 
 const RText = styled.p`
-  margin-top: 30px;
+  margin-top: 20px;
   font-size: 1.2rem;
 `;
 
 const CardTimestamp = styled.p`
-  font-size: 0.875rem;
-  color: gray;
+  font-size: 1rem;
+  color: #006ce3;
+  margin-top: 4px;
+  margin-bottom: auto;
+  text-align: right;
 `;
 
 const ButtonWrapper = styled.div`
@@ -239,8 +260,8 @@ const ButtonWrapper = styled.div`
 
 const ButtonContainer = styled.div`
   position: absolute;
-  top: 8px;
-  right: 8px;
+  top: 12px;
+  right: 10px;
   display: flex;
   align-items: center;
   padding-right: 2px; /* 버튼과 콘텐츠 사이의 간격을 띄우기 위해 추가 */
@@ -259,9 +280,14 @@ const Rating = styled.button`
 `;
 
 const ReplyWrapper = styled.div`
-  margin-top: 50px;
+  margin-top: 20px;
   width: 100%;
   bottom: 0;
   display: flex;
   justify-content: center;
+`;
+
+const ReviewImg = styled.div`
+  height: 200px;
+  width: 200px;
 `;

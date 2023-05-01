@@ -9,8 +9,49 @@ import "bootstrap/dist/css/bootstrap.min.css";
 const PropertyMap = () => {
   const mapRef = useRef(null);
   const [map, setMap] = useState([]);
+  console.log(mapRef);
 
   useEffect(() => {
+    const mapContainer = mapRef.current;
+
+    const options = {
+      center: new kakao.maps.LatLng(37.5111, 127.0216),
+      level: 7,
+    };
+
+    const kakaoMap = new kakao.maps.Map(mapContainer, options);
+
+    kakao.maps.event.addListener(kakaoMap, "idle", function () {
+      mapContainer.style.width = "100%";
+      mapContainer.style.height = "100%";
+      kakaoMap.relayout();
+    });
+    // 마커 생성 및 추가
+
+    const infowindow = new kakao.maps.InfoWindow();
+    map.forEach((item) => {
+      const marker = new kakao.maps.Marker({
+        position: new kakao.maps.LatLng(item.P_MAPY, item.P_MAPX),
+      });
+
+      kakao.maps.event.addListener(marker, "click", function () {
+        const infowindow = new kakao.maps.InfoWindow({
+          content: `
+          <div>
+          <h5>${item.P_TITLE}</h5>
+          <p>${item.P_STAR}</p>
+        </div>
+        `,
+        });
+        infowindow.open(kakaoMap, marker);
+      });
+      marker.setMap(kakaoMap);
+      kakaoMap.relayout();
+    });
+  }, [map]);
+
+  useEffect(() => {
+    console.log("마커 생성중");
     const getMapList = async () => {
       const response = await markListDB();
       const markList = response.data.map((item) => {
@@ -27,54 +68,13 @@ const PropertyMap = () => {
     getMapList();
   }, []);
 
-  useEffect(() => {
-    const container = mapRef.current;
-    const options = {
-      center: new kakao.maps.LatLng(37.5665, 126.978),
-      level: 7,
-    };
-    const kakaoMap = new kakao.maps.Map(container, options);
-
-    // 마커 생성 및 추가
-    map.forEach((item) => {
-      const marker = new kakao.maps.Marker({
-        position: new kakao.maps.LatLng(item.P_MAPY, item.P_MAPX),
-        title: item.P_TITLE,
-      });
-      kakao.maps.event.addListener(marker, "click", function () {
-        const infowindow = new kakao.maps.InfoWindow({
-          content: `
-          <div>
-          <h5>${item.P_TITLE}</h5>
-          <p>${item.P_STAR}</p>
-          <a href="/hotel">홈페이지</a>
-        </div>
-        `,
-        });
-        infowindow.open(kakaoMap, marker);
-      });
-
-      marker.setMap(kakaoMap);
-    });
-
-    kakao.maps.event.addListener(kakaoMap, "idle", function () {
-      container.style.width = "100%";
-      container.style.height = "100%";
-      kakaoMap.relayout();
-    });
-  }, [map]);
-
   return (
     <div>
       <div
-        id="map-container"
+        id="searchMap-container"
         style={{
-          width: "950px",
-          height: "950px",
-          marginBottom: "20px",
-          border: "2px solid lightgray",
-          borderRadius: "20px",
-          boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.5)",
+          width: "400px",
+          height: "400px",
         }}
       >
         <div

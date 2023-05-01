@@ -1,5 +1,6 @@
 package com.gajae.demo.logic;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -80,10 +81,22 @@ public class ReviewBoardLogic {
 
 	public List<Map<String, Object>> hostreplyList(Map<String, Object> pMap) {
 		log.info("hostreplyList호출 성공");
-		List<Map<String, Object>> rList = null;
-		rList = reviewBoardDao.hostreplyList(pMap);		
-	    return rList;
+	    List<Map<String, Object>> rList = reviewBoardDao.hostreplyList(pMap);
+	    if(rList == null || rList.isEmpty()) {
+	        return new  ArrayList<Map<String, Object>>();
+	    }
+	    Map<String, Object> replyMap = rList.get(0);
+	    String replyExistFlag = (String)replyMap.get("REPLY_EXIST_FLAG");
+	    if("Y".equals(replyExistFlag)) {
+	    	return rList;
+	    }else {
+	    	return new  ArrayList<Map<String, Object>>();
+	    }
 	}
-	
+
+	public int hostreplyUpdate(Map<String, Object> pMap) {
+		int result = reviewBoardDao.hostreplyUpdate(pMap);
+		return result;
+	}
 
 }
