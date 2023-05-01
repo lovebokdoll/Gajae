@@ -21,5 +21,12 @@ public class HotelReservLogic {
         
         return hotelDetailList;
     }
+
+	public List<String> checkVacancy(Map<String, Object> pMap) {
+		
+		List<String> checkVacancyList = hotelReserveDao.checkVacancy( pMap );
+		
+		return checkVacancyList;
+	}
     
 }

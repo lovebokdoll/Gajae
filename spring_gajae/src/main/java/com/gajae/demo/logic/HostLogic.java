@@ -71,10 +71,10 @@ public class HostLogic {
 			return -1;
 		}
 		// p_id에 해당하는 달력테이블 생성
-		vacancyCreate(p_id);
+		//vacancyCreate(p_id);
 
 		// p_id화 room_id받아와서 달력insert
-		ArrayList<Map<String, Object>> vacancyList = new ArrayList<>();
+	/*	ArrayList<Map<String, Object>> vacancyList = new ArrayList<>();
 		Map<String, Object> vacancyMap = null;
 		for (int i = 0; i < rids.length; i++) {
 			vacancyMap = new HashMap<>();
@@ -85,7 +85,7 @@ public class HostLogic {
 		}
 		log.info("vacancyList={}", vacancyList);
 
-		vacancyInsert(vacancyList);
+		vacancyInsert(vacancyList);*/
 
 		for (int i = 0; i < rids.length; i++) {
 			pMap = new HashMap<>();

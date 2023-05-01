@@ -21,9 +21,20 @@ const HotelInformation = ({ row }) => {
   return (
     <>
       <div>
-        <div className="hotel-container">
+        <div className="hotelContainer">
           <div className="images-container">
-            <img src={row.P_PHOTO} style={{ width: "500px" }} />
+            <img className="hotel-Image" src={row.P_PHOTO}></img>
+            <button
+              id="mapbtn"
+              type="mapbotton"
+              className="me-2 mb-2"
+              data-bs-dismiss="modal"
+              data-bs-target="#fullScreenModal"
+              style={{ height: "60px", width: "200px" }}
+              onClick={openModal}
+            >
+              지도에서 보기
+            </button>
             <HotelDetailMapModal
               show={showModal}
               closeModal={closeModal}

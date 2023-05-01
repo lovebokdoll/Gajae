@@ -1,5 +1,5 @@
-import { Link } from 'react-router-dom';
-import styled from 'styled-components';
+import { Link } from "react-router-dom";
+import styled from "styled-components";
 
 export const MyPageUL = styled.ul`
   diplay: grid;
@@ -22,9 +22,11 @@ export const MyPageLinkSPAN = styled.span`
 `;
 
 export const MyPageDIV = styled.div`
-  width: 542px;
+  width: 700px;
   height: 116px;
   margin: 1em;
+  margin-top: 2em;
+  margin-left: 10em;
   padding: 1em;
   border: 1px solid lightgrey;
 `;
@@ -89,9 +91,10 @@ export const SignOutButton = styled.button`
 
 export const MSContainer = styled.div`
   width: 1140px;
-  height: 800px;
+  height: 1000px;
   margin: 0 auto; /* 수평 중앙 정렬 */
   padding-top: 50px;
+  margin-top: 50px;
 `;
 
 export const MSCLeftDIV = styled.div`
@@ -118,6 +121,7 @@ export const MySettingsFlexByRow = styled.div`
 export const MySettingsPageTitle = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
 `;
 export const MSPTTitle = styled.div`
   font-size: 2em;
@@ -130,6 +134,7 @@ export const MSPTComment = styled.div`
   display: flex;
   flex-direction: column;
 `;
+
 export const MySettingsRow = styled.div`
   width: 100%;
   padding: 16px 0px;
@@ -158,4 +163,24 @@ export const EditButton = styled.button`
   border-radius: 4px;
   font-size: 1.2em;
   cursor: pointer;
+`;
+
+export const ProfileImage = styled.img`
+  width: 70px;
+  height: 70px;
+  border-radius: 50px;
+`;
+
+export const ProfileUploadButton = styled.button`
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #ebf3ff;
+  }
+`;
+
+export const AbsoluteDIV = styled.div`
+  margin-top: "30px";
 `;

@@ -5,18 +5,17 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import HostHeaderNav from "./HostHeaderNav";
 import Footer from "../footer/Footer";
-import { setToastMessage } from "../../redux/toastStatus/action";
 import {
   MyForm,
   MyH1,
   MyInput,
   MyLabel,
-  MyP,
   PwEye,
   SubmitButton,
   WholeForm,
-} from "../../style/FormStyle";
+} from "../../style/HostLogin";
 import { loginDB } from "../../service/hostLogic";
+import Swal from "sweetalert2";
 /**
  *
  * @returns 로그인 페이지
@@ -31,9 +30,29 @@ const HostLogin = () => {
     host_pw: "",
   });
 
+  //모달 창
+  const Toast = Swal.mixin({
+    toast: true,
+    position: "center-center",
+    showConfirmButton: false,
+    timer: 2000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+      toast.addEventListener("mouseenter", Swal.stopTimer);
+      toast.addEventListener("mouseleave", Swal.resumeTimer);
+    },
+  });
+
   const signin = async () => {
     if (!tempUser.host_id || !tempUser.host_pw) {
-      dispatch(setToastMessage("아이디와 비밀번호를 입력해주세요."));
+      //  dispatch(setToastMessage("아이디와 비밀번호를 입력해주세요."));
+
+      Toast.fire({
+        icon: "info", // Alert 타입
+        title: "아이디와 비밀번호를 입력해주세요", // Alert 제목
+        timer: 900,
+        timerProgressBar: false,
+      });
     }
     const response = await loginDB(tempUser);
     console.log(response);
@@ -54,10 +73,22 @@ const HostLogin = () => {
         "hostCompanyName",
         jsonDoc[0].HOST_COMPANY_NAME
       );
-      dispatch(setToastMessage("로그인 성공"));
-      navigate("/host/registerHotel");
+
+      Toast.fire({
+        icon: "success",
+        title: "파트너 로그인 성공!",
+        timer: 900,
+        timerProgressBar: false,
+      });
+      navigate("/host/registerhotel");
     } else {
-      dispatch(setToastMessage("아이디 또는 비밀번호가 일치하지 않습니다."));
+      Toast.fire({
+        icon: "warning",
+        title: "아이디 또는 비밀번호가 일치하지 않습니다.",
+        timer: 900,
+        timerProgressBar: false,
+      });
+      // dispatch(setToastMessage("아이디 또는 비밀번호가 일치하지 않습니다."));
     }
   };
 

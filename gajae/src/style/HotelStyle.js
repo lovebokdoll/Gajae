@@ -20,8 +20,7 @@ export const TotalPrice = styled.span`
   font-family: "KOTRA_GOTHIC";
   //border: 1px solid black;
   font-weight: bold;
-  text-align: center;
-  padding: 10px;
+  text-align: left;
   margin-left: 1em;
 `;
 export const CardContainer = styled.div`
@@ -30,14 +29,13 @@ export const CardContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
   background-color: #ebf3ff;
+  padding: 0.5em;
 `;
 export const CustomCard = styled.span`
   flex-grow: 1;
   flex-shrink: 0;
   flex-basis: calc(30% - 10px);
-  margin: 5px;
-  // border: 1px solid #dee2e6;
-  border-radius: 0.25rem;
+  margin: 0px 0px -30px 0px;
   text-align: left;
   padding: 2%;
 `;

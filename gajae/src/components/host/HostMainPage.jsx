@@ -1,4 +1,9 @@
-import { Background, Content, R_CardGroup, Title } from "../../style/HostStyle";
+import {
+  Content,
+  MainBackground,
+  R_CardGroup,
+  Title,
+} from "../../style/HostStyle";
 import { useState } from "react";
 import { useEffect } from "react";
 
@@ -9,7 +14,7 @@ const HostMainPage = () => {
   }, []);
   return (
     <>
-      <Background>
+      <MainBackground>
         <Title>
           Gajae.com에
           <br /> 숙소 <br />
@@ -21,7 +26,7 @@ const HostMainPage = () => {
         <R_CardGroup>
           <div
             class="card text-center"
-            style={{ width: "20em", height: "20em" }}
+            style={{ width: "22em", height: "20em" }}
           >
             <div class="card-body">
               <h5
@@ -48,7 +53,7 @@ const HostMainPage = () => {
               )}
               {hostId ? (
                 <a
-                  href="/host/registerHotel"
+                  href="/host/registerhotel"
                   class="btn btn-warning"
                   style={{
                     fontSize: "20px",
@@ -72,7 +77,8 @@ const HostMainPage = () => {
             </div>
           </div>
         </R_CardGroup>
-      </Background>
+      </MainBackground>
+      <div className="myhostpageAbsoluteDiv" style={{ height: "200px" }} />
     </>
   );
 };

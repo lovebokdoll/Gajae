@@ -1,12 +1,16 @@
 /*
 hotel_title hotel_address 
 */
-
-.hotel-container {
-  margin: 35px auto 10px;
+.out-line-Hotel {
+  width: 80%;
+  margin: 0% auto;
+}
+.hotelContainer {
   /* border: 1px solid rgb(202, 26, 26); */
-  width: 70%;
+  width: 75%;
   /* display: inline-block; */
+  margin-top: 3em;
+  margin-left: 15em;
   display: flex;
   flex-wrap: wrap;
 }
@@ -24,10 +28,10 @@ hotel_title hotel_address
 .hotel_addr_overview {
   /* border: 2px solid rgb(9, 232, 248); */
 }
-.hotelImage {
+.hotel-Image {
   /* border: 1px solid black; */
   /* flex: 1; */
-  /* margin: 10px 200px; */
+  margin: 28px 5px 40px 20px;
   max-width: 100%;
   max-height: 300px;
   object-fit: cover;
@@ -56,7 +60,7 @@ hotel_title hotel_address
   /* border: 1px solid black; */
   flex: 2;
   /* display: inline-block; span 요소를 블록 요소처럼 처리 */
-  margin: 0 5%; /* 좌우 여백을 10%로 설정 */
+  margin: 0 6%; /* 좌우 여백을 10%로 설정 */
   /* text-align: center; 가운데 정렬 */
   width: 80%; /* 가로 폭을 80%로 설정 */
   font-family: "TheJamsil5Bold";
@@ -78,7 +82,7 @@ hotel_title hotel_address
 }
 .refBtn {
   width: 80%;
-  margin: 5px auto;
+  margin: 1em 0 0 16em;
 }
 .reserveBtn {
   float: right;
@@ -98,8 +102,8 @@ hotel_title hotel_address
   flex-wrap: wrap;
 }
 
-.table-wrapper-item1 {
-  flex-basis: 70%;
+/* .table-wrapper-item1 {
+  flex-basis: 60%;
   padding: 10px;
   box-sizing: border-box;
 }
@@ -108,7 +112,7 @@ hotel_title hotel_address
   flex-basis: 10%;
   padding: 10px;
   box-sizing: border-box;
-}
+} */
 
 .table-wrapper-item3 {
   flex-basis: 20%;
@@ -224,4 +228,14 @@ hotel_title hotel_address
 
 .optionCounterButton:disabled {
   cursor: not-allowed;
+}
+
+.blink {
+  animation: blinker 2s linear infinite;
+}
+
+@keyframes blinker {
+  50% {
+    opacity: 0;
+  }
 }

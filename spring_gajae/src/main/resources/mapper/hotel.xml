@@ -42,10 +42,28 @@
 		INNER JOIN P_ROOMTYPE R ON
 		P.ROOM_ID =
 		R.ROOM_ID
-		INNER JOIN PRO_FACILITIES F ON
+		INNER JOIN
+		PRO_FACILITIES F ON
 		P.P_ID = F.P_ID
 		<if test='P_ID!=null and P_ID.length()>0'>
 			WHERE P.P_ID = #{P_ID}
 		</if>
 	</select>
+
+
+
+	<select id="checkVacancy" parameterType="map" resultType="map">
+		SELECT RES_YN
+		FROM GAJAE.P_VACANCY_${P_ID}
+		<where>
+			<if test='ROOM_ID!=null and ROOM_ID.length()>0'>
+				AND ROOM_ID = ${ROOM_ID}
+			</if>
+			AND TO_DATE(RES_DATE, 'YYYY-MM-DD') <![CDATA[  >=]]>
+			TO_DATE('2023-05-01', 'YYYY-MM-DD')
+			AND TO_DATE(RES_DATE, 'YYYY-MM-DD') <![CDATA[  <=]]>
+			TO_DATE('2023-05-03', 'YYYY-MM-DD')
+		</where>
+	</select>
+
 </mapper>

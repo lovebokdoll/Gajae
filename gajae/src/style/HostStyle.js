@@ -53,15 +53,24 @@ export const HostTableItem3 = styled.div`
 export const Background = styled.div`
   background-color: #003580;
   width: 100%;
-  height: 3000px;
+  height: auto;
   position: relative;
+  padding: 10px;
 `;
+export const MainBackground = styled.div`
+  background-color: #003580;
+  width: 100%;
+  height: 1000px;
+  position: relative;
+  padding: 10px;
+`;
+
 export const Title = styled.div`
   font-family: "TheJamsil5Bold";
   color: white;
   font-size: 70px;
   position: absolute; /* Title 컴포넌트는 position: absolute */
-  top: 8%; /* 원하는 위치로 top, left, right, bottom 값을 조정 */
+  top: 29%; /* 원하는 위치로 top, left, right, bottom 값을 조정 */
   left: 20%;
   //   transform: translate(-50%, -50%); /* 가운데 정렬을 위한 transform 속성 */
 `;
@@ -70,9 +79,17 @@ export const Titlehotel_content = styled.div`
   color: white;
   font-size: 20px;
   position: relative; /* Title 컴포넌트는 position: absolute */
-  top: 5%; /* 원하는 위치로 top, left, right, bottom 값을 조정 */
-  left: 15%;
+  top: 25%; /* 원하는 위치로 top, left, right, bottom 값을 조정 */
+  left: 30%;
+  margin-top: 8em;
   //   transform: translate(-50%, -50%); /* 가운데 정렬을 위한 transform 속성 */
+`;
+export const Titlehotelfac = styled.div`
+  color: white;
+  font-size: 30px;
+  position: relative; /* Title 컴포넌트는 position: absolute */
+  left: 30%;
+  margin-top: 1.5em;
 `;
 export const Titlehotel = styled.div`
   font-family: "TheJamsil5Bold";
@@ -80,7 +97,7 @@ export const Titlehotel = styled.div`
   font-size: 50px;
   position: absolute; /* Title 컴포넌트는 position: absolute */
   top: 5%; /* 원하는 위치로 top, left, right, bottom 값을 조정 */
-  left: 15%;
+  left: 30%;
   //   transform: translate(-50%, -50%); /* 가운데 정렬을 위한 transform 속성 */
 `;
 export const Content = styled.div`
@@ -96,15 +113,11 @@ export const R_CardGroup = styled.div`
   font-family: "Pretendard-Regular";
   width: 100%;
   color: black;
-  top: 100%; /* 원하는 위치로 top, left, right, bottom 값을 조정 */
-  transform: translate(60%, 65%); /* 가운데 정렬을 위한 transform 속성 */
+  transform: translate(60%, 90%); /* 가운데 정렬을 위한 transform 속성 */
 `;
 export const R_CardGroup_hotel = styled.div`
-  // background-color: #003580;
-  font-family: "Pretendard-Regular";
-  width: 100%;
-  //top: 10%; /* 원하는 위치로 top, left, right, bottom 값을 조정 */
-  // transform: translate(5%, 1%); /* 가운데 정렬을 위한 transform 속성 */
+  width: 50rem;
+  margin: 2% auto;
 `;
 //hostZipCode
 export const LoginForm = styled.form`
@@ -270,7 +283,7 @@ export const FormDiv = styled.div`
   border: 2px solid lightGray;
   border-radius: 20px;
   padding: 30px;
-  max-width: 400px;
+  max-width: 360px;
   min-height: 300px;
 `;
 export const HeaderDiv = styled.div`

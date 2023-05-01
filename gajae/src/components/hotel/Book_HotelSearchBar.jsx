@@ -1,13 +1,16 @@
-import { faCalendarDays, faPerson } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { addDays, format } from 'date-fns';
-import { useState } from 'react';
-import { DateRange } from 'react-date-range';
-import 'react-date-range/dist/styles.css'; // main css file
-import 'react-date-range/dist/theme/default.css'; // theme css file
-import { useNavigate } from 'react-router-dom';
-import './Book_hotel.css';
-import moment from 'moment';
+import {
+  faBed,
+  faCalendarDays,
+  faPerson,
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { DateRange } from "react-date-range";
+import { useState } from "react";
+import "react-date-range/dist/styles.css"; // main css file
+import "react-date-range/dist/theme/default.css"; // theme css file
+import { addDays, format } from "date-fns";
+import { useNavigate } from "react-router-dom";
+import "./Book_hotel.css";
 /**
  * 1.사용자는 조건에 맞게 정보를 들고 온 상태임
  * 2.사용자가 날짜, 객실을 변경하면 그 데이터를 기준으로 객실유형영역의 화면을 랜더링한다(날짜마다 숙박요금 달라야함...사용자가 날자 변경할때마다 방 타입은 그대로 -> 요금은 바뀌어야 할듯..데이터를 어)
@@ -38,10 +41,12 @@ const HotelSearchBar = ({ selectDate, selectOptions }) => {
   //인원수 선택하기 위한 option상태 사용
   const [options, setOptions] = useState({
     adult: 1,
-    children: 0,
-    room: 1,
   });
-
+  // useEffect =
+  //   (() => {
+  //     //사용자가 서치바 조건 변경 할 때 상태변경..DB에서 받아오기
+  //   },
+  //   [searchOption]);
   const handleSearch = () => {};
   //검색버튼 누르면 페이지 이동
 
@@ -53,17 +58,19 @@ const HotelSearchBar = ({ selectDate, selectOptions }) => {
       };
     });
   };
-  //페이지로 이동하면서 상태 전달-> 리로딩되면서 상태 전달되는걸로 바꾸면 될듯
 
   return (
     <>
-      <div className="hotelHeaderSearch">
-        <div className="headerSearchDate">
-          <FontAwesomeIcon icon={faCalendarDays} style={{ marginRight: '10px' }} className="headerIcon" />
-          <span onClick={() => setOpenDate(!openDate)} className="headerSearchText">
-            {' '}
-            {`${moment(date[0].startDate).format('M월 D일 (ddd)')} - ${moment(date[0].endDate).format('M월 D일 (ddd)')}`}
-          </span>
+      <div className="hotelHeaderSearch"  >
+        <div className="hotelHeaderSearchItem">
+          <FontAwesomeIcon icon={faCalendarDays} className="headerIcon" />
+          <span
+            onClick={() => setOpenDate(!openDate)}
+            className="headerSearchText"
+          >{`${format(date[0].startDate, "MM/dd/yyyy")} to ${format(
+            date[0].endDate,
+            "MM/dd/yyyy"
+          )}`}</span>
           {openDate && (
             <DateRange
               editableDateInputs={true}
@@ -78,14 +85,14 @@ const HotelSearchBar = ({ selectDate, selectOptions }) => {
             />
           )}
         </div>
-        <div className="headerSearchItem">
+        <div className="hotelHeaderSearchItem">
           <FontAwesomeIcon icon={faPerson} className="headerIcon" />
           <span
             onClick={() => setOpenOptions(!openOptions)}
-            className="headerSearchText"
-          >{`${options.adult} adult · ${options.children} children · ${options.room} room`}</span>
+            className="hotelheaderSearchText"
+          >{`${options.adult} adult`}</span>
           {openOptions && (
-            <div className="options">
+            <div className="hotelOptions">
               <div className="optionItem">
                 <span className="optionText">Adult</span>
                 <div className="optionCounter">
@@ -101,11 +108,20 @@ const HotelSearchBar = ({ selectDate, selectOptions }) => {
               <div className="optionItem">
                 <span className="optionText">Children</span>
                 <div className="optionCounter">
-                  <button disabled={options.children <= 0} className="optionCounterButton" onClick={() => handleOption('children', 'd')}>
+                  <button
+                    disabled={options.children <= 0}
+                    className="optionCounterButton"
+                    onClick={() => handleOption("children", "d")}
+                  >
                     -
                   </button>
-                  <span className="optionCounterNumber">{options.children}</span>
-                  <button className="optionCounterButton" onClick={() => handleOption('children', 'i')}>
+                  <span className="optionCounterNumber">
+                    {options.children}
+                  </span>
+                  <button
+                    className="optionCounterButton"
+                    onClick={() => handleOption("children", "i")}
+                  >
                     +
                   </button>
                 </div>
@@ -113,11 +129,18 @@ const HotelSearchBar = ({ selectDate, selectOptions }) => {
               <div className="optionItem">
                 <span className="optionText">Room</span>
                 <div className="optionCounter">
-                  <button disabled={options.room <= 1} className="optionCounterButton" onClick={() => handleOption('room', 'd')}>
+                  <button
+                    disabled={options.room <= 1}
+                    className="optionCounterButton"
+                    onClick={() => handleOption("room", "d")}
+                  >
                     -
                   </button>
                   <span className="optionCounterNumber">{options.room}</span>
-                  <button className="optionCounterButton" onClick={() => handleOption('room', 'i')}>
+                  <button
+                    className="optionCounterButton"
+                    onClick={() => handleOption("room", "i")}
+                  >
                     +
                   </button>
                 </div>
@@ -125,7 +148,7 @@ const HotelSearchBar = ({ selectDate, selectOptions }) => {
             </div>
           )}
         </div>
-        <div className="headerSearchItem">
+        <div className="hotelHeaderSearchItem">
           <button className="headerBtn" onClick={handleSearch}>
             검색변경
           </button>

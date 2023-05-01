@@ -127,7 +127,14 @@ const HostZipCode = ({
                 handleAddr(e.target.value);
               }}
             />
-            <Button onClick={clickAddr}>주소검색</Button>
+            <button
+              onClick={clickAddr}
+              type="button"
+              class="btn btn-warning"
+              style={{ marginTop: "10%" }}
+            >
+              주소검색하기
+            </button>
           </div>
         </FormDiv>
       </ContainerDiv>

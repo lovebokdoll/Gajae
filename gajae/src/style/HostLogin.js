@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const LoginForm = styled.form`
   display: flex;
@@ -24,13 +24,13 @@ export const SignupForm = styled(LoginForm)`
   height: 100vh;
 `;
 
-export const MyH1 = styled.h1`
-  padding-top: 60px;
+export const MyH1 = styled.div`
+  padding-top: 80px;
   font-size: 30px;
-  margin-bottom: 60px;
-  margin-top: 15px;
+  margin-bottom: 100px;
   font-weight: 15px;
-  text-align: center;
+  position: absolute;
+  text-align: center; /* 가운데 정렬 */
 `;
 
 /* 3번의 하위태그에 대한 설정 */
@@ -56,7 +56,7 @@ export const MyLabel = styled.label`
   font-size: 14px;
   color: #414149;
   display: block;
-  margin-bottom: 30px;
+  margin-bottom: 40px;
   width: 350;
 `;
 
@@ -69,7 +69,7 @@ export const MyLabelAb = styled(MyLabel)`
 export const MyInput = styled.input`
   width: 300px;
   display: block;
-  height: 45px;
+  height: 50px;
   border: none;
   border-bottom: 1px solid #dddddd;
   font-size: 15px;
@@ -89,13 +89,23 @@ export const MyInput = styled.input`
   }
 `;
 
+// export const MyH1 = styled.div`
+//   padding-top: 60px;
+//   font-size: 30px;
+//   margin-bottom: 60px;
+//   margin-top: 15px;
+//   font-weight: 15px;
+//   position: absolute;
+//   text-align: center; /* 가운데 정렬 */
+// `;
+
 export const MyForm = styled.div`
   width: 100%;
-  align-items: center;
+  align-item: center;
   position: relative;
-  top: 40%;
-  left: 40%;
-  //transform: translate(-20%, -50%);
+  top: 200px;
+  left: 39%;
+  //transform: translate(-20%, 70%);
 `;
 
 export const SubmitButton = styled.button`
@@ -310,9 +320,10 @@ export const Hr = styled.hr`
 export const Title = styled.h1`
   font-size: 40px;
   font-weight: bold;
-  marginleft: '10px';
+  marginleft: "10px";
 `;
 
 export const WholeForm = styled.div`
   background-color: #f5f5f5;
+  height: 800px;
 `;
