@@ -1,9 +1,9 @@
-import React, { useEffect } from 'react';
-import styled from 'styled-components';
-import { useState } from 'react';
-import { reviewDeleteDB, reviewListDB } from '../../service/reviewboardLogic';
-import Dropdowntoggle from '../../components/review/Dropdowntoggle';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import React, { useEffect } from "react";
+import styled from "styled-components";
+import { useState } from "react";
+import { reviewDeleteDB, reviewListDB } from "../../service/reviewboardLogic";
+import Dropdowntoggle from "../../components/review/Dropdowntoggle";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const MyReviewList = ({ userId }) => {
   const [myreview, setMyreview] = useState([]);
@@ -27,12 +27,16 @@ const MyReviewList = ({ userId }) => {
   }, [userId]);
 
   const onDelete = async (reviw_number) => {
+    console.log("넘어왔따");
     try {
       const deleteReview = {
         REVIEW_NUMBER: reviw_number,
       };
       const res = await reviewDeleteDB(deleteReview);
-      const updatedReviews = myreview.filter((review) => review.REVIEW_NUMBER !== reviw_number);
+      console.log(res);
+      const updatedReviews = myreview.filter(
+        (review) => review.REVIEW_NUMBER !== reviw_number
+      );
       setMyreview(updatedReviews);
     } catch (error) {}
   };
@@ -50,8 +54,11 @@ const MyReviewList = ({ userId }) => {
   return (
     <>
       <BackDiv>
-        <h3 style={{ fontWeight: 'bold' }}>
-          <FontAwesomeIcon icon="fa-solid fa-pen-to-square" style={{ color: '#1e3050' }} />
+        <h3 style={{ fontWeight: "bold" }}>
+          <FontAwesomeIcon
+            icon="fa-solid fa-pen-to-square"
+            style={{ color: "#1e3050" }}
+          />
           &nbsp; 이용후기
         </h3>
         <TLineDiv></TLineDiv>
@@ -66,7 +73,7 @@ const MyReviewList = ({ userId }) => {
               <ReviewWrapper>
                 <ImageContainer>
                   <ImageWrapper>
-                    <img src="../images/오션뷰.jpg" alt="placeholder image" />
+                    <img src={review.P_PHOTO} />
                   </ImageWrapper>
                   <ImageDescription>
                     <p>
@@ -97,7 +104,14 @@ const MyReviewList = ({ userId }) => {
                       &nbsp;&nbsp;
                       {review.REVIEW_BAD}
                     </RText>
-                    <img src={review.REVIEW_PHOTO} />
+                    {review.REVIEW_PHOTO && (
+                      <ReviewImg>
+                        <img
+                          src={review.REVIEW_PHOTO}
+                          style={{ width: "100%" }}
+                        />
+                      </ReviewImg>
+                    )}
                     <CardTimestamp>{review.REVIEW_DATE}</CardTimestamp>
                   </TextWrapper>
                 </ContentWrapper>
@@ -105,7 +119,7 @@ const MyReviewList = ({ userId }) => {
             </ReviewItem>
           ))}
         </ReviewList>
-        <div>
+        <PageDiv>
           <nav>
             <ul className="pagination justify-content-center">
               {pageNumber.map((page) => (
@@ -126,7 +140,7 @@ const MyReviewList = ({ userId }) => {
               ))}
             </ul>
           </nav>
-        </div>
+        </PageDiv>
       </BackDiv>
     </>
   );
@@ -135,13 +149,13 @@ export default MyReviewList;
 
 const BackDiv = styled.div`
   display: block;
+  position: relative;
   flex-direction: column;
   margin-left: 50px;
   max-width: 1000px;
-  min-height: 900px;
   max-height: 1000px;
   align-items: center;
-  font-family: 'KOTRA_GOTHIC';
+  font-family: "KOTRA_GOTHIC";
 `;
 
 const ReviewList = styled.ul`
@@ -153,15 +167,17 @@ const ReviewItem = styled.li`
   border: 1px solid lightgrey;
   border-radius: 10px;
   margin-bottom: 30px;
+  height: 400px;
+  min-height: 480px;
   list-style-type: none;
 `;
 const ReviewWrapper = styled.div`
   display: flex;
   flex-direction: row;
   max-width: 800px;
-  height: 300px;
   position: relative;
   margin: 50px 0 50px 0;
+  min-height: 200px;
 `;
 const ImageContainer = styled.div`
   display: flex;
@@ -187,13 +203,13 @@ const ImageDescription = styled.div`
 `;
 
 const ContentWrapper = styled.div`
-  flex: 0 0 50.666667%;
-  margin-left: 50px;
+  flex: 0 0 60.666667%;
+  margin-left: 0px;
 `;
 const TextWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  margin-bottom: 30px;
+  margin-bottom: 10px;
 `;
 const ReviewTitle = styled.h5`
   font-size: 1.25rem;
@@ -201,21 +217,15 @@ const ReviewTitle = styled.h5`
 `;
 
 const RText = styled.p`
-  margin-top: 10px;
+  margin-top: 8px;
   font-size: 1rem;
 `;
 
 const CardTimestamp = styled.p`
   font-size: 0.875rem;
   color: #006ce3;
-  bottom: 0;
   margin-top: auto;
-`;
-
-const ColorDiv = styled.div`
-  background-color: lightgray;
-  height: 1px;
-  with: 100%;
+  text-align: right;
 `;
 
 const BtnWrapper = styled.div`
@@ -226,9 +236,18 @@ const BtnWrapper = styled.div`
 const TLineDiv = styled.div`
   background-color: #1e3050;
   height: 7px;
-  with: 100%;
+  width: 100%;
 `;
 
 const EmtyDiv = styled.div`
   height: 50px;
+`;
+
+const ReviewImg = styled.div`
+  height: 200px;
+  width: 180px;
+`;
+
+const PageDiv = styled.div`
+  bottom: 0;
 `;

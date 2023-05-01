@@ -20,6 +20,7 @@ const Dropdowntoggle = ({ review, onDelete }) => {
   };
 
   const handleDeleteClick = () => {
+    console.log("삭제클릭함");
     onDelete(review.REVIEW_NUMBER);
     handleClose();
   };
@@ -39,7 +40,7 @@ const Dropdowntoggle = ({ review, onDelete }) => {
             className={isDropdownOpen ? "dropdown-menu show" : "dropdown-menu"}
           >
             <DropdownItem onClick={handleEditClick}>수정</DropdownItem>
-            <DropdownItem onClick={() => handleShow()}>삭제</DropdownItem>
+            <DropdownItem onClick={handleShow}>삭제</DropdownItem>
           </div>
         )}
       </div>

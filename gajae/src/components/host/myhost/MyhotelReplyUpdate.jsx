@@ -1,34 +1,15 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useState } from "react";
-import { Modal, ModalFooter, ModalHeader } from "react-bootstrap";
-import styled from "styled-components";
-import { replyInsertDB } from "../../../service/reviewboardLogic";
+/* 
 
-const MyHotelReviewReply = ({
-  handleClose,
-  showModal,
-  hostReviews,
-  hostId,
-  handleReply,
-}) => {
+const MyhotelReplyUpdate = ({ handleClose }) => {
   const [content, setContent] = useState("");
 
   const handleContent = (value) => {
     setContent(value);
   };
-  const reviewNumber = hostReviews[0].REVIEW_NUMBER;
 
-  const replyInsert = async () => {
-    const reply = {
-      HOST_ID: hostId,
-      REPLY_CONTENT: content,
-      REVIEW_NUMBER: reviewNumber,
-    };
-    const res = await replyInsertDB(reply);
-    console.log(res.data);
-    handleClose();
-  };
-
+  const replyOne= async()=>{
+    
+  }
   return (
     <>
       <AlertModal show={showModal} onHide={handleClose}>
@@ -45,6 +26,7 @@ const MyHotelReviewReply = ({
               className="form-control"
               placeholder="Leave a comment here"
               id="floatingTextarea"
+              value={content}
               style={{ width: "430px", height: "400px" }}
               onChange={(e) => {
                 handleContent(e.target.value);
@@ -64,7 +46,7 @@ const MyHotelReviewReply = ({
   );
 };
 
-export default MyHotelReviewReply;
+export default MyhotelReplyUpdate;
 
 const AlertModal = styled(Modal)`
   position: fixed;
@@ -118,3 +100,4 @@ const CancelButton = styled.button`
   padding: 8px 16px;
   border-radius: 4px;
 `;
+ */

@@ -1,30 +1,28 @@
-import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { replyListDB } from "../../service/reviewboardLogic";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const ReplyForm = ({ reply }) => {
-  console.log(reply);
   return (
     <>
       {reply &&
-        reply.length > 0 &&
-        reply.map((res, index) => (
+        reply.map((comment, index) => (
           <SpeechBubbleDiv key={index}>
-            <div style={{ color: "#086eb8" }}>
+            <div
+              style={{
+                color: "#086eb8",
+                marginBottom: "0.3rem",
+                fontSize: "1.3rem",
+              }}
+            >
               <FontAwesomeIcon icon="fa-regular fa-comment-dots" />
               &nbsp;호텔 답변 :
             </div>
-            <div>{res.REPLY_CONTENT}</div>
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                width: "100%",
-              }}
+            <div>{comment.REPLY_CONTENT}</div>
+            <p
+              style={{ marginTop: "12%", textAlign: "right", color: "#006ce3" }}
             >
-              <div style={{ marginTop: "12%" }}>{res.REPLY_DATE}</div>
-            </div>
+              {comment.REPLY_DATE}
+            </p>
           </SpeechBubbleDiv>
         ))}
     </>
@@ -36,13 +34,12 @@ export default ReplyForm;
 const SpeechBubbleDiv = styled.div`
   /* layout */
   position: relative;
-  width: 600px;
-  height: 200px;
+  width: 580px;
+  height: 180px;
 
   /* looks */
   background-color: #f5f5f5;
   padding: 1.125em 1.5em;
-  font-size: 1.25em;
   border-radius: 1rem;
 
   &::before {

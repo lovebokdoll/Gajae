@@ -83,13 +83,19 @@ public class ReviewBoardDAO {
 	     int result = sqlSessionTemplate.update( "review.replyInsert", pMap );   
 	     return result;
 	    }
-
+	//호스트 댓글 가져오기
 	public List<Map<String, Object>> hostreplyList(Map<String, Object> pMap) {
+	     log.info( "hostreplyList" );	
+	     List<Map<String, Object>> rList = sqlSessionTemplate.selectList( "review.hostreplyList", pMap );	        
+	     log.info( rList );	        
+	     return rList;
+	}
+
+	public int hostreplyUpdate(Map<String, Object> pMap) {
 		  log.info( "pMap = {}", pMap );
 	        
-	      List<Map<String, Object>> rList = sqlSessionTemplate.selectList( "review.hostreplyList", pMap );
+	      int result = sqlSessionTemplate.update( "review.hostreplyUpdate", pMap );
 	        
-	     log.info( rList );
-	     return rList;
+	      return result;
 	}
 }

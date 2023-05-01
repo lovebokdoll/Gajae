@@ -25,7 +25,6 @@ import QnADetailPage from './components/qna/QnADetailPage';
 import QnAListPage from './components/qna/QnAListPage';
 import QnAUpdatePage from './components/qna/QnAUpdatePage';
 import QnAWritePage from './components/qna/QnAWritePage';
-import ReplyForm from './components/review/ReplyForm';
 import Toast from './components/toast/Toast';
 import HostPage from './pages/host/HostPage';
 import MyHotelReviewPage from './pages/host/MyHotelReviewPage';
@@ -61,7 +60,7 @@ const App = () => {
 
  
   return (
-    <div style={{ height: '100vh' }}>
+    <div style={{ height: "100vh" }}>
       {toastStatus.status && <Toast />}
       {/*  */}
       {modalStatus.status && <CurrencyModal />}
@@ -85,32 +84,71 @@ const App = () => {
         <Route path="/qna/update/*" element={<QnAUpdatePage />} />
         <Route path="/hotel" element={<HotelPage />} />
         <Route path="/review/write" element={<ReviewWritePage />} />
-        <Route path="/auth/kakao/callback" exact={true} element={<KakaoRedirectHandler />} />
+        <Route
+          path="/auth/kakao/callback"
+          exact={true}
+          element={<KakaoRedirectHandler />}
+        />
         <Route path="/kakaoprofile" exact={true} element={<KakaoProfile />} />
         <Route path="/naverpay" exact={true} element={<NaverPay />} />
         <Route path="/mypage" exact={true} element={<Mypage />} />
         <Route path="/mypage/settings" exact={true} element={<MySettings />} />
-        <Route path="/mypage/notifications" exact={true} element={<MyNotificationsPage />} />
-        <Route path="/mypage/reservations" exact={true} element={<MyReservatiosPage />} />
+        <Route
+          path="/mypage/notifications"
+          exact={true}
+          element={<MyNotificationsPage />}
+        />
+        <Route
+          path="/mypage/reservations"
+          exact={true}
+          element={<MyReservatiosPage />}
+        />
         <Route path="/mypage/review" exact={true} element={<MyReviewPage />} />
-        <Route path="/mypage/payment" exact={true} element={<MyPaymentPage />} />
-        <Route path="/mypage/wishlist" exact={true} element={<MyWishListPage />} />
+        <Route
+          path="/mypage/payment"
+          exact={true}
+          element={<MyPaymentPage />}
+        />
+        <Route
+          path="/mypage/wishlist"
+          exact={true}
+          element={<MyWishListPage />}
+        />
         <Route path="/reservate" element={<ReservationDetail />} />
         <Route path="/pay" exact={true} element={<Paypage />} />
-        <Route path="/reservation/notification" exact={true} element={<ReservationNotificationPage />} />
+        <Route
+          path="/reservation/notification"
+          exact={true}
+          element={<ReservationNotificationPage />}
+        />
         <Route path="/inicis" exact={true} element={<InicisPay />} />
         <Route path="/host" exact={true} element={<HostPage />} />
         <Route path="/host/end" exact={true} element={<HostEndPage />} />
         <Route path="/host/signup" exact={true} element={<HostSignUp />} />
         <Route path="/host/login" exact={true} element={<HostLogin />} />
-        <Route path="/host/registerHotel" exact={true} element={<RegisterHotel />} />
-        <Route path="/host/registerRoom/:p_id?" exact={true} element={<RegisterRoom />} />
+        <Route
+          path="/host/registerHotel"
+          exact={true}
+          element={<RegisterHotel />}
+        />
+        <Route
+          path="/host/registerRoom/:p_id?"
+          exact={true}
+          element={<RegisterRoom />}
+        />
         <Route path="/host/myhostpage" exact={true} element={<MyHostpage />} />
-        <Route path="/host/myhotelpage" exact={true} element={<MyHotelPage />} />
-        <Route path="/host/myhotelreview" exact={true} element={<MyHotelReviewPage />} />
+        <Route
+          path="/host/myhotelpage"
+          exact={true}
+          element={<MyHotelPage />}
+        />
+        <Route
+          path="/host/myhotelreview"
+          exact={true}
+          element={<MyHotelReviewPage />}
+        />
         <Route path="/host/update" exact={true} element={<HostHotelUpdate />} />
         <Route path="/review/update" exact={true} element={<ReviewUpdate />} />
-        <Route path="/test" exact={true} element={<ReplyForm />} />
       </Routes>
     </div>
   );

@@ -1,6 +1,6 @@
 import { faComment, faCreditCard, faHeart, faHistory, faSignOutAlt, faUser } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React from 'react';
+import { React } from 'react';
 import { Nav } from 'react-bootstrap';
 import Footer from '../../components/footer/Footer';
 import HeaderNav1 from '../../components/header/HeaderNav1';

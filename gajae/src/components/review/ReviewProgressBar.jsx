@@ -90,7 +90,7 @@ const GridContainer = styled.div`
   grid-template-columns: repeat(3, 1fr); // 3개의 열, 각 열은 같은 너비
   grid-template-rows: repeat(5, 1fr); // 5개의 행, 각 행은 같은 높이
   gap: 10px; // 디브간의 간격
-  width: 800px;
+  width: 900px;
   height: 180px;
 `;
 

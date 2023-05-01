@@ -2,7 +2,7 @@ import { faMap } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import axios from 'axios';
 import Cookies from 'js-cookie';
-import React, { useEffect, useState } from 'react';
+import { React, useEffect, useState } from 'react';
 import { Dropdown, DropdownButton } from 'react-bootstrap';
 import ReactPaginate from 'react-paginate';
 import { useLocation } from 'react-router-dom';
@@ -63,7 +63,6 @@ const PropertyListPage = () => {
     };
     propertyList();
   }, []);
-  console.log(params);
 
   //쿠키에 검색정보 저장
   Cookies.set('p_address', params.P_ADDRESS);
@@ -197,6 +196,7 @@ const PropertyListPage = () => {
                 <div className="row align-items-center mb-3"></div>
 
                 <div
+                  className="pcContainerDiv"
                   style={{
                     display: 'flex',
                     flexWrap: 'wrap',
