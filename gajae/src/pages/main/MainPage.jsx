@@ -24,15 +24,14 @@ const MainPage = () => {
   }, []);
 
   console.log('destination ===>', destination);
-  const handlePopupClose = () => {
-    
-  };
+  const handlePopupClose = () => {};
 
   return (
     <>
       <HeaderNav1 />
       <MainSearchBar destination={destination} />
       <CovidInfo />
+  
       <MainAdvertisement />
       <MainProperty />
       <NextTripCard userName={userName} />

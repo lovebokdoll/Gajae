@@ -25,3 +25,31 @@
 .container-fluid {
   width: 1000px;
 }
+
+.tooltip_hotelInsert {
+  position: relative;
+}
+
+.tooltip-text_hotelInsert {
+  display: none;
+  position: absolute;
+  bottom: -32px;
+  left: 50%;
+  transform: translateX(-43%);
+  width: 70px;
+  height: 25px;
+  background-color: black;
+  color: white;
+  text-align: center;
+  font-size: 0.8rem;
+  padding-top: 2px;
+  z-index: 1;
+  border-radius: 5px;
+}
+
+.tooltip_hotelInsert:hover .tooltip-text_hotelInsert {
+  display: block;
+}
+
+
+
