@@ -33,9 +33,9 @@ const MainPage = () => {
       <CovidInfo />
   
       <MainAdvertisement />
+      <MainRecommandLoc />
       <MainProperty />
       <NextTripCard userName={userName} />
-      <MainRecommandLoc />
       <MainMailList />
       <div style={{}}></div>
       <Footer />

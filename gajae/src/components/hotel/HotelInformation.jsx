@@ -24,6 +24,17 @@ const HotelInformation = ({ row }) => {
         <div className="hotelContainer">
           <div className="images-container">
             <img className="hotel-Image" src={row.P_PHOTO}></img>
+            <button
+              id="mapbtn"
+              type="mapbotton"
+              className="me-2 mb-2"
+              data-bs-dismiss="modal"
+              data-bs-target="#fullScreenModal"
+              style={{ height: "60px", width: "200px" }}
+              onClick={openModal}
+            >
+              지도에서 보기
+            </button>
             <HotelDetailMapModal
               show={showModal}
               closeModal={closeModal}
@@ -48,15 +59,10 @@ const HotelInformation = ({ row }) => {
                   className="me-2 mb-2"
                   data-bs-dismiss="modal"
                   data-bs-target="#fullScreenModal"
-                  style={{
-                    height: "40px",
-                    width: "80px",
-                    textAlign: "center",
-                    border: "none",
-                  }}
+                  style={{ height: "40px", width: "80px", textAlign: "center" }}
                   onClick={openModal}
                 >
-                  <FontAwesomeIcon icon="fa-solid fa-map-location-dot" />
+                  <FontAwesomeIcon icon={faMap} />
                 </button>
               </div>
               <div className="hotel_overview">
