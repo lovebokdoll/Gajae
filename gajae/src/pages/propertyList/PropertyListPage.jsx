@@ -50,10 +50,14 @@ const PropertyListPage = () => {
   const params = {
     P_ADDRESS: searchParams.get('P_ADDRESS'),
     ROOM_CAPACITY: searchParams.get('ROOM_CAPACITY'),
+    P_CHECKIN: searchParams.get('P_CHECKIN'),
+    P_CHECKOUT: searchParams.get('P_CHECKOUT'),
   };
 
   console.log(params.P_ADDRESS);
   console.log(params.ROOM_CAPACITY);
+  console.log(params.P_CHECKIN);
+  console.log(params.P_CHECKOUT);
 
   //사용자가 검색한 결과에 대한 배열
   useEffect(() => {
@@ -66,6 +70,7 @@ const PropertyListPage = () => {
 
   //쿠키에 검색정보 저장
   Cookies.set('p_address', params.P_ADDRESS);
+  Cookies.set('resPeople', params.ROOM_CAPACITY);
 
   //정렬조건
   const handleOrder = (orderBy) => {

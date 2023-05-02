@@ -6,6 +6,11 @@
 		SELECT
 		QNA_NO, QNA_TITLE, QNA_CONTENT, QNA_TYPE, QNA_DATE,USER_ID
 		FROM qna
+		<where>
+			<if test='QNA_NO !=null'>
+				AND QNA_NO = #{QNA_NO}
+			</if>
+		</where>
 		ORDER BY QNA_NO DESC
 	</select>
 
@@ -32,16 +37,16 @@
 	<update id="qnaUpdate" parameterType="map">
 		UPDATE qna
 		SET
-		<if test='qna_title!=null'>
+		<if test='QNA_TITLE !=null'>
 			QNA_TITLE=#{QNA_TITLE},
 		</if>
-		<if test='qna_content!=null'>
+		<if test='QNA_CONTENT !=null'>
 			QNA_CONTENT=#{QNA_CONTENT},
 		</if>
-		<if test='qna_type!=null'>
+		<if test='QNA_TYPE !=null'>
 			QNA_TYPE=#{QNA_TYPE},
 		</if>
-			QNA_DATE=TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI:SS')
+			QNA_DATE=TO_CHAR(SYSDATE, 'YYYY-MM-DD')
 			WHERE USER_ID=#{USER_ID}
 	</update>
 

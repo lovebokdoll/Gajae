@@ -42,6 +42,9 @@ public class ResultController {
             else if ( orderBy.equals( "priceHigh" ) ) {
                 resultList = searchLogic.priceHigh( pMap, orderBy );
             }
+            else if ( orderBy.equals( "reviewwHigh" ) ) {
+            	resultList = searchLogic.reviewwHigh( pMap, orderBy );
+            }
         }
         
         // 정렬조건이 없다면
