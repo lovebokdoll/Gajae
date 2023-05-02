@@ -10,7 +10,7 @@ const MyReviewList = ({ userId }) => {
   const [currentPage, setCurrentPage] = useState(1);
 
   const pageNumber = [];
-  const reviewsPerPage = 5;
+  const reviewsPerPage = 2; // 페이지 당 리뷰 개수
 
   useEffect(() => {
     const reviewList = async () => {
@@ -151,7 +151,6 @@ const BackDiv = styled.div`
   display: block;
   position: relative;
   flex-direction: column;
-  margin-left: 50px;
   max-width: 1000px;
   max-height: 1000px;
   align-items: center;
@@ -166,7 +165,7 @@ const ReviewList = styled.ul`
 const ReviewItem = styled.li`
   border: 1px solid lightgrey;
   border-radius: 10px;
-  margin-bottom: 30px;
+  margin-bottom: 15px;
   height: 400px;
   min-height: 480px;
   list-style-type: none;
@@ -176,7 +175,7 @@ const ReviewWrapper = styled.div`
   flex-direction: row;
   max-width: 800px;
   position: relative;
-  margin: 50px 0 50px 0;
+  margin-top: 1.9rem;
   min-height: 200px;
 `;
 const ImageContainer = styled.div`
@@ -217,7 +216,7 @@ const ReviewTitle = styled.h5`
 `;
 
 const RText = styled.p`
-  margin-top: 8px;
+  margin: 0.5rem 0 0 0;
   font-size: 1rem;
 `;
 
@@ -231,6 +230,7 @@ const CardTimestamp = styled.p`
 const BtnWrapper = styled.div`
   float: right;
   background-color: white;
+  margin: 2.5px 2.5px 0 0;
 `;
 
 const TLineDiv = styled.div`
@@ -240,12 +240,18 @@ const TLineDiv = styled.div`
 `;
 
 const EmtyDiv = styled.div`
-  height: 50px;
+  height: 20px;
 `;
 
 const ReviewImg = styled.div`
+  margin-top: 0.5rem;
   height: 200px;
-  width: 180px;
+  width: 200px;
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
 `;
 
 const PageDiv = styled.div`

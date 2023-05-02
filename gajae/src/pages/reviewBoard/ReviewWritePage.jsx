@@ -29,6 +29,10 @@ const ReviewWritePage = () => {
   const textareaRef = useRef(null);
   const [imageUrl, setImageUrl] = useState("");
 
+  const queryString = window.location.search;
+  const urlParams = new URLSearchParams(queryString);
+  const r_number = urlParams.get("r_number");
+
   useEffect(() => {
     textareaRef.current.focus();
   }, []);
@@ -59,7 +63,7 @@ const ReviewWritePage = () => {
   const reviewInsert = async () => {
     const review = {
       REVIEW_NUMBER: 0,
-      R_NUMBER: 0,
+      R_NUMBER: r_number,
       REVIEW_TITLE: title,
       REVIEW_GOOD: reviewgood,
       REVIEW_BAD: reviewbad,

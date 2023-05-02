@@ -76,7 +76,7 @@ const ReviewProgressBar = ({ review }) => {
               {avgLocationScore}
             </LabelWrapper>
           </ItemContentWrapper>
-          <ProgressBar variant="warning" now={avgLocationScore * 10} />
+          <ProgressBar variant="ProgressBar" now={avgLocationScore * 10} />
         </GridItem>
       </GridContainer>
     </>

@@ -152,7 +152,6 @@ const BackDiv = styled.div`
   width: 800px;
   height: auto;
   align-items: center;
-  //font-family: "KOTRA_GOTHIC";
 `;
 
 const HotelList = styled.span`
@@ -165,6 +164,5 @@ const HotelList = styled.span`
 const HotelItem = styled.li`
   border-radius: 10px;
   margin-bottom: 30px;
-
   list-style-type: none;
 `;
