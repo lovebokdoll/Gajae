@@ -54,7 +54,6 @@
 		AND PRO.P_ID = #{P_ID} AND PRO.ROOM_ID = #{ROOM_ID}
 	</select>
 
-
 	<select id="myResFirst" parameterType="map" resultType="map">
 		SELECT * FROM GAJAE.RESERVATIONS WHERE USER_ID=#{USER_ID}
 	</select>
