@@ -32,7 +32,6 @@ const HotelInformation = ({ row }) => {
           </div>
           <div className="hotel-informations">
             <div className="hotel_title">{row.P_TITLE}</div>
-
             <div className="hotel_addr_">
               <div className="hotel_address">
                 <FontAwesomeIcon

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import {
@@ -27,15 +27,13 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Swal from "sweetalert2";
 const HostSignUp = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
-
+  const [isEmailCheck, setIsEmailCheck] = useState(false);
   const [isIdCheck, setIsIdCheck] = useState(false);
   const [submitButton, setSubmitButton] = useState({
     disabled: true,
     bgColor: "rgb(175, 210, 244)",
     hover: false,
   });
-
   const [comment, setComment] = useState({
     id: "",
     email: "",
@@ -44,16 +42,6 @@ const HostSignUp = () => {
     name: "",
     tel: "",
     businessNum: "",
-  });
-
-  const [star, setStar] = useState({
-    id: "*",
-    email: "*",
-    password: "*",
-    password2: "*",
-    name: "*",
-    tel: "*",
-    host_business_num: "*",
   });
 
   //모달 창
@@ -68,20 +56,6 @@ const HostSignUp = () => {
       toast.addEventListener("mouseleave", Swal.resumeTimer);
     },
   });
-
-  useEffect(() => {
-    let check = true;
-
-    Object.keys(star).forEach((key) => {
-      if (star[key] === "*") check = false;
-    });
-
-    if (check) {
-      setSubmitButton({ disabled: false, bgColor: "rgb(105, 175, 245)" });
-    } else {
-      setSubmitButton({ disabled: true, bgColor: "rgb(175, 210, 244)" });
-    }
-  }, [star]);
 
   const regex = (key, event) => {
     let result;
@@ -111,19 +85,7 @@ const HostSignUp = () => {
       console.log(result);
     }
     setComment({ ...comment, [key]: result });
-    if (result) {
-      if (result === " ") {
-        setStar({ ...star, [key]: "" });
-      } else {
-        setStar({ ...star, [key]: "*" });
-      }
-    } else {
-      setStar({ ...star, [key]: "" });
-    }
   };
-
-  const type = "host";
-
   const [hostInfo, setHostInfo] = useState({
     host_id: "",
     host_pw: "",
@@ -133,7 +95,6 @@ const HostSignUp = () => {
     host_tel: "",
     host_business_num: "",
   });
-
   /**
    * 아이디, 닉네임 중복체크 함수
    * 입력 받은 아이디가 공백이면 toast message로 '아이디를 입력해주세요' 출력
@@ -165,22 +126,21 @@ const HostSignUp = () => {
           Toast.fire({
             icon: "success", // Alert 타입
             title: "사용 가능한 이메일 입니다.", // Alert 제목
-            text: "아이디를 입력해주세요", // Alert 내용
             timer: 900,
             timerProgressBar: false,
           });
-          setIsIdCheck(true);
+          setIsEmailCheck(true);
         } else if (response.data === 1) {
           Toast.fire({
             icon: "info", // Alert 타입
             title: "이미 존재하는 이메일 입니다.", // Alert 제목
             text: "로그인 페이지로 이동합니다", // Alert 내용
-            timer: 900,
+            timer: 1000,
             timerProgressBar: false,
           });
           setTimeout(() => {
             navigate("/host/login");
-          }, 1000);
+          }, 1200);
         }
       }
     }
@@ -205,7 +165,7 @@ const HostSignUp = () => {
         console.log(response.data);
         if (response.data === 0) {
           Toast.fire({
-            icon: "warning",
+            icon: "success", // Alert 타입
             title: "사용 가능한 ID 입니다.",
             timer: 900,
             timerProgressBar: false,
@@ -298,7 +258,7 @@ const HostSignUp = () => {
       });
       return;
     }
-    if (isIdCheck) {
+    if (isIdCheck && isEmailCheck) {
       try {
         const hostRecord = {
           HOST_ID: hostInfo.host_id,
@@ -320,6 +280,13 @@ const HostSignUp = () => {
       } catch (error) {
         console.log("error ===>", error);
       }
+    } else if (isEmailCheck === false) {
+      Toast.fire({
+        icon: "warning",
+        title: "이메일 중복확인을 먼저 진행해주세요.",
+        timer: 900,
+        timerProgressBar: false,
+      });
     } else if (isIdCheck === false) {
       Toast.fire({
         icon: "warning",
@@ -393,7 +360,7 @@ const HostSignUp = () => {
                 <div style={{ display: "flex", flexWrap: "wrap" }}>
                   <MyLabel>
                     {" "}
-                    이메일 <span style={{ color: "red" }}>{star.email}</span>
+                    이메일 <span style={{ color: "red" }}>*</span>
                     <MyInput
                       type="email"
                       id="host_email"
@@ -418,7 +385,7 @@ const HostSignUp = () => {
                 <div style={{ display: "flex" }}>
                   <MyLabel>
                     {" "}
-                    아이디 <span style={{ color: "red" }}>{star.id}</span>
+                    아이디 <span style={{ color: "red" }}>*</span>
                     <MyInput
                       type="text"
                       id="host_id"
@@ -442,7 +409,7 @@ const HostSignUp = () => {
                 </div>
                 <MyLabel>
                   {" "}
-                  비밀번호 <span style={{ color: "red" }}>{star.password}</span>
+                  비밀번호 <span style={{ color: "red" }}>*</span>
                   <MyInput
                     type={passwordType[0].type}
                     id="host_pw"
@@ -479,8 +446,7 @@ const HostSignUp = () => {
                 </MyLabel>
                 <MyLabel>
                   {" "}
-                  비밀번호 확인{" "}
-                  <span style={{ color: "red" }}>{star.password2}</span>
+                  비밀번호 확인 <span style={{ color: "red" }}>*</span>
                   <MyInput
                     type={passwordType[1].type}
                     id="host_pw2"
@@ -508,8 +474,7 @@ const HostSignUp = () => {
                 </MyLabel>
                 <MyLabel>
                   {" "}
-                  사업자번호{" "}
-                  <span style={{ color: "red" }}>{star.host_business_num}</span>
+                  사업자번호 <span style={{ color: "red" }}>*</span>
                   <MyInput
                     type="text"
                     id="host_business_num"
@@ -524,7 +489,7 @@ const HostSignUp = () => {
                 </MyLabel>
                 <MyLabel>
                   {" "}
-                  이름 <span style={{ color: "red" }}>{star.name}</span>
+                  이름 <span style={{ color: "red" }}>*</span>
                   <MyInput
                     type="text"
                     id="host_name"
@@ -539,7 +504,7 @@ const HostSignUp = () => {
                 </MyLabel>
                 <MyLabel>
                   {" "}
-                  전화번호 <span style={{ color: "red" }}>{star.tel}</span>
+                  전화번호 <span style={{ color: "red" }}>*</span>
                   <MyInput
                     type="text"
                     id="host_tel"

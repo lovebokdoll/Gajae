@@ -2,8 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="host">
 
-	
-
 	<!-- 중복확인 -->
 	<select id="overlapCheck" parameterType="map" resultType="map">
 		SELECT
@@ -24,9 +22,7 @@
 		HOST_ID,
 		HOST_PW,
 		HOST_NAME,
-		HOST_BUSINESS_NUM,
-		HOST_COMPANY_NAME
-
+		HOST_BUSINESS_NUM
 		FROM
 		GAJAE.HOST
 		WHERE
