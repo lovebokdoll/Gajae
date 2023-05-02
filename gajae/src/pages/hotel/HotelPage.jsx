@@ -105,7 +105,7 @@ const HotelPage = () => {
           <Offcanvas
             show={show}
             onHide={handleClose}
-            style={{ width: "70%" }}
+            style={{ width: "50%" }}
             placement="end"
           >
             <OffcanvasBody>

@@ -24,17 +24,6 @@ const HotelInformation = ({ row }) => {
         <div className="hotelContainer">
           <div className="images-container">
             <img className="hotel-Image" src={row.P_PHOTO}></img>
-            <button
-              id="mapbtn"
-              type="mapbotton"
-              className="me-2 mb-2"
-              data-bs-dismiss="modal"
-              data-bs-target="#fullScreenModal"
-              style={{ height: "60px", width: "200px" }}
-              onClick={openModal}
-            >
-              지도에서 보기
-            </button>
             <HotelDetailMapModal
               show={showModal}
               closeModal={closeModal}
@@ -54,12 +43,12 @@ const HotelInformation = ({ row }) => {
                 />
                 {row.P_ADDRESS} &nbsp;&nbsp;
                 <button
-                  id="mapbtn"
-                  type="mapbotton"
-                  className="me-2 mb-2"
-                  data-bs-dismiss="modal"
-                  data-bs-target="#fullScreenModal"
-                  style={{ height: "40px", width: "80px", textAlign: "center" }}
+                  className="HifBtn_map"
+                  style={{
+                    backgroundColor: "white",
+                    color: "#003580",
+                    border: "none",
+                  }}
                   onClick={openModal}
                 >
                   <FontAwesomeIcon icon={faMap} />

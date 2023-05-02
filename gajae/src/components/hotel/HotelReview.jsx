@@ -23,6 +23,7 @@ const HotelReview = ({ property, handleClose }) => {
             `review/p_reviewList?P_ID=${property[0].P_ID}`
         );
         setReview(res.data);
+        console.log(res.data);
       } catch (error) {
         console.error(error);
       }
@@ -36,7 +37,7 @@ const HotelReview = ({ property, handleClose }) => {
     if (review) {
       const scores = review.map((review) => review.REVIEW_AVERAGE);
       const sum = scores.reduce((a, b) => a + b, 0);
-      const avg = sum / scores.length;
+      const avg = (sum / scores.length).toFixed(1);
       setTotalscore(avg);
       setTotalReviews(review.length);
     }
@@ -168,8 +169,7 @@ const TRating = styled.button`
   background-color: #003580;
   color: white;
   padding: 5px;
-  font-weight: bold;
-  font-size: 20px;
+  font-size: 1.2em;
   border-radius: 10px;
 `;
 
@@ -187,10 +187,10 @@ const ReviewWrapper = styled.div`
   display: flex;
   flex-direction: row;
   max-width: 1000px;
-  width: 900px;
+  width: 800px;
   height: 600px;
   position: relative;
-  margin: 0;
+  margin: 0 0 1.5rem 0;
   padiing: 0;
   align-items: stretch;
   border-radius: 10px;
@@ -198,16 +198,17 @@ const ReviewWrapper = styled.div`
 `;
 
 const ReviewList = styled.ul`
-  margin: 60px 0 0 0;
+  margin: 60px 0 0;
   padding: 0;
   list-style-type: none;
 `;
 
 const ImageContainer = styled.div`
+  margin-top: 2rem;
   margin-left: 30px;
   display: flex;
   flex-direction: column;
-  flex-basis: 33.333333%;
+  flex-basis: 34%;
   font-size: 1rem;
 `;
 const ImageWrapper = styled.div`
@@ -215,9 +216,8 @@ const ImageWrapper = styled.div`
   display: flex;
   width: 160px;
   height: 200px;
-  margin-top: 30px;
+  margin: 1rem;
 `;
-
 const UserImg = styled.img`
   width: 100%;
   margin-bottom: 5px;
@@ -228,11 +228,9 @@ const UserInfo = styled.div`
 `;
 
 const ContentWrapper = styled.div`
-  flex: 0 0 66.666667%;
-  padding: 0;
-  height: 200px;
-  margin-top: 30px;
-  margin-right: 45px;
+  flex: 70%;
+  width: 350px;
+  margin: 3rem 2rem 0 1rem;
 `;
 
 const ReviewTitle = styled.h5`
@@ -280,7 +278,7 @@ const Rating = styled.button`
 `;
 
 const ReplyWrapper = styled.div`
-  margin-top: 20px;
+  margin-top: 10%;
   width: 100%;
   bottom: 0;
   display: flex;
@@ -288,6 +286,6 @@ const ReplyWrapper = styled.div`
 `;
 
 const ReviewImg = styled.div`
-  height: 200px;
-  width: 200px;
+  height: 150px;
+  width: 150px;
 `;
