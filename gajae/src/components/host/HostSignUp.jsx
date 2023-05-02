@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import {
   regexEmail,
@@ -218,7 +217,6 @@ const HostSignUp = () => {
 
   const passwordView = (event) => {
     const id = event.currentTarget.id;
-
     if (id === "password") {
       if (!passwordType[0].visible) {
         setPasswordType([{ type: "text", visible: true }, passwordType[1]]);
@@ -415,6 +413,7 @@ const HostSignUp = () => {
                     id="host_pw"
                     autoComplete="off"
                     placeholder="비밀번호를 입력해주세요."
+                    maxLength={15}
                     onKeyUp={(e) => {
                       setComment({
                         ...comment,
@@ -451,6 +450,7 @@ const HostSignUp = () => {
                     type={passwordType[1].type}
                     id="host_pw2"
                     autoComplete="off"
+                    maxLength={15}
                     placeholder="비밀번호를 한번 더 입력해주세요."
                     onChange={(e) => {
                       changeHostInfo(e);
@@ -480,6 +480,7 @@ const HostSignUp = () => {
                     id="host_business_num"
                     defaultValue={hostInfo.host_business_num}
                     placeholder="사업자번호를 입력해주세요."
+                    maxLength={12}
                     onChange={(e) => {
                       changeHostInfo(e);
                       regex("businessNum", e);

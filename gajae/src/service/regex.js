@@ -1,12 +1,12 @@
 export const regexEmail = (event) => {
-  const regex = /^([0-9a-zA-Z_\.-]+)@([0-9a-zA-Z_-]+)(\.[0-9a-zA-Z_-]+){1,2}$/;
+  const regex = /^([0-9a-zA-Z_\.-]+)@([0-9a-zA-Z_-]+)\.(com|net)$/;
   const email = event.target.value;
   if (email === "") {
-    return " ";
+    return "이메일을 입력하세요";
   } else if (!regex.test(email)) {
     return "이메일 형식이 아닙니다.";
   } else {
-    return "";
+    return "올바른 이메일입니다.";
   }
 };
 
@@ -15,7 +15,7 @@ export const regexID = (event) => {
   const regex = /^[a-z]+[a-z0-9]{5,15}$/g;
   const id = event.target.value;
   if (id === "") {
-    return " ";
+    return "아이디를 입력하세요";
   } else if (!regex.test(id)) {
     return "영어 또는 숫자 6~15자리를 입력해주세요.";
   } else {
@@ -30,19 +30,18 @@ export const regexPassword = (event) => {
   const eng = password.search(/[a-z]/gi);
   const special = password.search(/[`~!@@#$%^&*|₩₩₩'₩";:₩/?]/gi);
   const hangulcheck = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
-
   if (password.length === 0) {
-    return " ";
-  } else if (password.length < 8 && password.length > 20) {
-    return "8자리 ~ 20자리 이내로 입력해주세요.";
+    return "비밀번호를 입력해주세요";
+  } else if (!/^\S*$/.test(password)) {
+    return "비밀번호는 공백 없이 입력해주세요.";
   } else if (hangulcheck.test(password)) {
     return "비밀번호에 한글을 사용 할 수 없습니다.";
-  } else if (password.search(/\s/) !== -1) {
-    return "비밀번호는 공백 없이 입력해주세요.";
-  } else if (num < 0 && eng < 0 && special < 0) {
+  } else if (password.length < 8 || password.length > 15) {
+    return "8자리 ~ 15자리 이내로 입력해주세요.";
+  } else if (num < 0 || eng < 0 || special < 0) {
     return "영문, 숫자, 특수문자를 혼합하여 입력해주세요.";
   } else {
-    return "";
+    return "올바른 비밀번호 입니다.";
   }
 };
 
@@ -50,12 +49,12 @@ export const checkPassword = (password, password2) => {
   console.log(password, password2);
   if (password2) {
     if (password === password2) {
-      return "";
+      return "비밀번호가 일치합니다.";
     } else {
       return "비밀번호가 일치하지 않습니다.";
     }
   } else {
-    return " ";
+    return "";
   }
 };
 
@@ -106,13 +105,13 @@ export const regexBusinessNum = (event) => {
   console.log("event ===>", event);
   const regex = /^[0-9]{3}-[0-9]{2}-[0-9]{5}$/;
   const businessNum = event.target.value;
-
+  const hangulcheck = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
   if (businessNum.length === 0) {
     return " ";
+  } else if (hangulcheck.test(businessNum)) {
+    return "사업자번호에 한글을 사용 할 수 없습니다.";
   } else if (!regex.test(businessNum)) {
     return "3자리-2자리-5자리 형식으로 입력해주세요.";
-  } else if (!(regex.test(businessNum) && businessNum.length > 11)) {
-    return "11자리 이상 입력되었습니다 ";
   } else {
     return "사업자번호 입력 성공";
   }
