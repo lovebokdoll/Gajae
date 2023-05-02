@@ -182,6 +182,7 @@ const MainSearchBar = ({ type, destination }) => {
                     onKeyPress={(e) => {
                       if (e.key === 'Enter') {
                         e.preventDefault();
+                        handleSearch()
                       }
                     }}
                   />
