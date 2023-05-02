@@ -77,7 +77,7 @@ const SearchBox = () => {
     <>
       <div
         id="leftbox"
-        style={{ backgroundColor: '#FFFFFF', border: 'px solid #000000', marginTop: '10px', padding: '20px 10px', width: '200px' }}
+        style={{ backgroundColor: '#FFFFFF', marginTop: '10px', padding: '20px 10px', width: '200px' }}
       >
         <div style={{ marginTop: '10px' }}>
         <FontAwesomeIcon icon={faLocationDot} style={{marginRight: '10px', color: "#0058ab"}} />
@@ -87,7 +87,7 @@ const SearchBox = () => {
           <br />
           <input
             className="addressbox"
-            style={{ paddingLeft: '15px', fontSize: '15px'}}
+            style={{ paddingLeft: '15px', fontSize: '15px', width: '180px'}}
             defaultValue={ADDRESS}
             onChange={(e) => setP_Address(e.target.value)}
             type="text"
@@ -95,17 +95,17 @@ const SearchBox = () => {
 
         </div>
 
-        <div style={{ marginTop: '10px' }}>
+        <div style={{ marginTop: '10px'}}>
         <FontAwesomeIcon icon={faCalendarCheck} style={{marginRight: '10px'}}/>
           <label style={{ fontSize: '15px', marginBottom: '10px', fontFamily: 'KOTRA_GOTHIC', color: '#333' }}>체크인 날짜</label>
           <br />
-          <input className="databox" type="date" defaultValue={CHECKIN}  onChange={(e) => setStartDate(e.target.value)}/>
+          <input className="databox" style={{width: '180px'}} type="date" defaultValue={CHECKIN}  onChange={(e) => setStartDate(e.target.value)}/>
         </div>
         <div style={{ marginTop: '10px' }}>
         <FontAwesomeIcon icon={faCalendarCheck} style={{marginRight: '10px'}}/>
           <label style={{ fontSize: '15px', marginBottom: '10px', fontFamily: 'KOTRA_GOTHIC', color: '#333' }}>체크아웃 날짜</label>
           <br />
-          <input className="databox" type="date" defaultValue={CHECKOUT} onChange={(e) => setEndDate(e.target.value)}/>
+          <input className="databox" style={{width: '180px'}} type="date" defaultValue={CHECKOUT} onChange={(e) => setEndDate(e.target.value)}/>
         </div>
 
         <div className="headerSearchItem">

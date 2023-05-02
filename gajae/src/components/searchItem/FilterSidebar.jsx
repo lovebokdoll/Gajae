@@ -53,7 +53,7 @@ const FilterSidebar = ({ checkedFilters = () => {}, checkedRanks = () => {} }) =
 
   return (
     <>
-      <div className="filter-group" style={{ margin: '30px 0px 0px 50px', width: '200px' }}>
+      <div className="filter-group" style={{ margin: '30px 0px 0px 10px', width: '200px'}}>
         <label>
           <div className="filter">객실 내 시설</div>{' '}
         </label>
