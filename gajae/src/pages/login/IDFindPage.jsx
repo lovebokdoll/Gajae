@@ -49,7 +49,7 @@ const IDFindPage = () => {
   return (
     <>
       <HeaderNav1 />
-     
+      <HeaderNav2 />
 
       <div
         className="containerBig"
@@ -67,7 +67,6 @@ const IDFindPage = () => {
           style={{
             marginTop: '40px',
             marginBottom: '40px',
-            marginRight:'350px',
             width: '650px',
             height: '650px',
             borderRadius: '20px',

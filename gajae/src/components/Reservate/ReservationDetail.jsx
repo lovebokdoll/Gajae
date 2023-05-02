@@ -89,6 +89,7 @@ const ReservationDetail = () => {
                   style={{ backgroundColor: 'white', borderRadius: '10px', width: '782px', fontSize: '30px', padding: '20px' }}
                 >
                   <div style={{ fontSize: '30px' }}>상세정보를 입력하세요</div>
+                  <br />
                   <hr />
                   <span className="card-title" style={{ fontSize: '20px', fontWeight: 'bold' }}>
                     <strong> {initialNickname}</strong>님 거의 마무리가 되었어요!

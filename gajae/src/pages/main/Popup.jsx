@@ -60,8 +60,8 @@ const Popup = ({ imageUrl, onClose }) => {
 
   return (
     <>
-    {showPopup && (
-      <div
+      {showPopup && (
+        <div
         ref={popupRef}
         style={{
           position: 'fixed',
@@ -69,55 +69,53 @@ const Popup = ({ imageUrl, onClose }) => {
           left: '50%',
           transform: 'translate(-50%, -50%)',
           zIndex: '999',
-          width: '500px',
-          height: '500px',
+          width: '700px',
+          height: '700px',
           backgroundColor: '#ffffff',
+          border: '2px solid black',
           borderRadius: '20px',
         }}
         onMouseDown={handleMouseDown}
       >
-        <a href="http://localhost:3000/propertylist/?P_ADDRESS=%EC%A0%9C%EC%A3%BC&ROOM_CAPACITY=1&startdate=2023-05-09&enddate=2023-05-11">
+      
           <img
             src={"/images/eventPopup.png"}
             alt="Popup Image"
             style={{ width: '100%', height: '100%', objectFit: 'contain' }}
           />
-        </a>
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            position: 'absolute',
-            bottom: '20px',
-            left: '50%',
-            transform: 'translateX(-50%)',
-            width: '90%',
-          }}
-        >
-          <label style={{ marginRight: '10px' }}>
-            <input type="checkbox" checked={hideForDay} onChange={handleCheckboxChange} />
-            하루동안 보지 않기
-          </label>
-          <button
-            type="button"
-            onClick={handleClose}
+          <div
             style={{
-              cursor: 'pointer',
-              backgroundColor: '#ffffff',
-              border: 'none',
-              outline: 'none',
-              fontSize: '1.5rem',
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              position: 'absolute',
+              bottom: '20px',
+              left: '50%',
+              transform: 'translateX(-50%)',
+              width: '90%',
             }}
           >
-            X
-          </button>
+            <label style={{ marginRight: '10px' }}>
+              <input type="checkbox" checked={hideForDay} onChange={handleCheckboxChange} />
+              하루동안 보지 않기
+            </label>
+            <button
+              type="button"
+              onClick={handleClose}
+              style={{
+                cursor: 'pointer',
+                backgroundColor: '#ffffff',
+                border: 'none',
+                outline: 'none',
+                fontSize: '1.5rem',
+              }}
+            >
+              X
+            </button>
+          </div>
         </div>
-          <a  href="http://localhost:3000/propertylist/?P_ADDRESS=%EC%A0%9C%EC%A3%BC&ROOM_CAPACITY=1&startdate=2023-05-09&enddate=2023-05-11" style={{textStyle:'none'}}> 링크로 이동하기  </a>
-      </div>
-    )}
-  </>
-  
+      )}
+    </>
   );
 };
 
