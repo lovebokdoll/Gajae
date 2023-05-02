@@ -2,16 +2,19 @@ import React from 'react'
 import { useEffect } from 'react';
 import { useCallback } from 'react';
 import { useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { BButton, ContainerDiv, FormDiv, HeaderDiv } from '../../style/FormStyle';
 import MyFilter from './MyFilter';
-import { qnaUpdateDB } from '../../service/database';
+import { qnaListDB, qnaUpdateDB } from '../../service/database';
 import Swal from 'sweetalert2';
 
 const QnAUpdatePage = () => {
-  const {QNA_NO} = useParams()
+  const location = useLocation();
+  const path = location.pathname;
+  const QNA_NO = path.substring(path.lastIndexOf('/') + 1);
+
   const navigate = useNavigate()
-  console.log(QNA_NO); //글 번호를 가져오는지 체크
+  
   const [QNA_TITLE, setTitle] = useState(""); //사용자가 입력한 제목 담기
   const [QNA_CONTENT, setContent] = useState(""); //사용자가 입력한 내용 담기
   const [QNA_TYPE, setTitleType] = useState("");
@@ -27,7 +30,7 @@ console.log(userId)
       const qna = {
         QNA_NO : QNA_NO,
       }
-      const res = await qnaUpdateDB(qna)
+      const res = await qnaListDB(qna)
       console.log(res.data)
       const temp = JSON.stringify(res.data) //문자열로 전환
       const jsonDoc = JSON.parse(temp) //배열로 접근

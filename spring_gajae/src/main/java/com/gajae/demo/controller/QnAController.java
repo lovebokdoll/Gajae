@@ -24,7 +24,7 @@ public class QnAController {
 	    private QnALogic qnaLogic;
 	    
 	    @PostMapping( "list" )
-	     public String qnalist( @RequestParam Map<String, Object> pMap ) {
+	     public String qnalist(@RequestBody Map<String, Object> pMap ) {
 	    	List<Map<String, Object>> qList = null;
 			qList = qnaLogic.qnalist(pMap);
 			Gson g = new Gson();

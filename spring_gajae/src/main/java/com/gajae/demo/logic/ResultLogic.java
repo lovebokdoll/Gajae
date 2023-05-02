@@ -42,6 +42,15 @@ public class ResultLogic {
         return resultList;
     }
     
+    public List<Map<String, Object>> reviewwHigh( Map<String, Object> pMap, String orderBy ) {
+    	
+    	log.info( "pMap = {}", pMap );
+    	log.info( "orderby = {}", orderBy );
+    	List<Map<String, Object>> resultList = searchDao.reviewwHigh( pMap, orderBy );
+    	
+    	return resultList;
+    }
+    
     // 지도
     public List<Map<String, Object>> markList() {
         List<Map<String, Object>> mList = searchDao.markList();
