@@ -263,7 +263,9 @@ const HostFac = () => {
       //숙소시설insert
       await hostfacInsertDB(facilities);
       await hostextraInsertDB(extra);
-      //  navigate("/host/end");
+      setTimeout(() => {
+        navigate("/host/myhostpage");
+      }, 1500);
     }
   };
   insertFacilities();
@@ -302,7 +304,8 @@ const HostFac = () => {
     } else {
       Toast.fire({
         icon: "success", // Alert 타입
-        title: "숙소정보 등록에 성공하였습니다.", // Alert 제목
+        title:
+          "숙소정보 등록에 성공하였습니다. <br/>마이호스트페이지로 이동합니다.", // Alert 제목
         timer: 1000,
         timerProgressBar: false,
       });

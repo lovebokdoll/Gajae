@@ -130,52 +130,6 @@
 		</foreach>
 		SELECT * FROM dual
 	</update>
-	<insert id="propertyInsert2" parameterType="map"
-		useGeneratedKeys="true" keyColumn="p_id" keyProperty="p_id">
-		INSERT INTO GAJAE.PROPERTIES (
-		P_ID,
-		ROOM_ID,
-		P_TITLE,
-		P_STAR,
-		P_POSTAL,
-		P_TEL,
-		P_ADDRESS,
-		P_OVERVIEW,
-		P_SCALE,
-		P_CHECKIN,
-		P_CHECKOUT,
-		P_REFUND,
-		P_HIREDATE,
-		HOST_BUSINESS_NUM
-		)
-		VALUES (
-		SEQ_PROPERTY_NUMBER.nextval,
-		<foreach collection="room_id" item="item" separator="),("
-			open="(" close=")"> #{item} </foreach>
-		,
-		#{p_title},
-		#{p_star},
-		#{p_postal},
-		#{p_tel},
-		#{p_address},
-		#{p_overview},
-		#{p_scale},
-		#{p_checkin},
-		#{p_checkout},
-		#{p_refund},
-		TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI:SS'),
-		#{host_business_num}
-		)
-	</insert>
-
-	<!-- <insert id="propertyInsert" parameterType="map" useGeneratedKeys="true" 
-		keyColumn="p_id" keyProperty="p_id"> INSERT INTO GAJAE.PROPERTIES ( P_ID, 
-		ROOM_ID, P_TITLE, P_STAR, P_POSTAL, P_TEL, P_ADDRESS, P_OVERVIEW, P_SCALE 
-		, P_CHECKIN, P_CHECKOUT, P_REFUND, P_HIREDATE, HOST_BUSINESS_NUM ) VALUES 
-		( SEQ_PROPERTY_NUMBER.nextval, #{room_id}, #{p_title}, #{p_star}, #{p_postal}, 
-		#{p_tel}, #{p_address}, #{p_overview}, #{p_scale}, #{p_checkin}, #{p_checkout}, 
-		#{p_refund}, TO_DATE( SYSDATE, 'YYYY-MM-DD HH24:MI:SS'), #{host_business_num} 
-		) </insert> -->
 
 	<!-- 시설등록 -->
 	<insert id="hostfacInsert" parameterType="map">
