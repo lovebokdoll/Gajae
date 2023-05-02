@@ -38,21 +38,24 @@ const HeaderNav1 = () => {
                 <div className="GiveGap" style={{ width: 266.5 }}></div> {/* 로고랑 KRW사이 GAP지우면 안됨*/}
                 <div className="header-reduxitem" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                   <CurrencyButton onClick={handleCurrencyModal}>
-                    <span>KRW</span>
+                    <span className="headerCurrencySpan" style={{ margin: '0px 0px 0px 0px' }}>
+                      KRW
+                    </span>
                   </CurrencyButton>
                   <NationButton onClick={handleNationModal}>
                     <img src="/images/Flag_of_South_Korea.png"></img>
                   </NationButton>
                   <Link
                     to="/host"
-                    style={{ color: 'white', textAlign: 'center', width: '79px', margin: '0px 0px 0px 0px', padding: '0px 0px 0px 15px' }}
-                    className="nav-link"
+                    style={{ color: 'white', textAlign: 'center', width: '75px', margin: '0px 0px 0px 0px', padding: '0px 0px 0px 10px' }}
+                    className="nav-link tooltip_hotelInsert"
                   >
                     숙소등록
+                    <span className="tooltip-text_hotelInsert">숙소등록</span>
                   </Link>
                   <Link
                     to="/qnalist"
-                    style={{ color: 'white', textAlign: 'center', width: '80px', margin: '0px 0px 0px 0px', padding: '0px 0px 0px 15px' }}
+                    style={{ color: 'white', textAlign: 'center', width: '80px', margin: '0px 0px 0px 0px', padding: '0px 0px 0px 0px' }}
                     className="nav-link"
                   >
                     1:1 문의
@@ -63,14 +66,14 @@ const HeaderNav1 = () => {
                     <>
                       <Link
                         to="/signup"
-                        style={{ color: 'white', width: '70px', margin: '0px 0px 0px 0px', padding: '0px 0px 0px 5px' }}
+                        style={{ color: 'white', width: '70px', margin: '0px 0px 0px 0px', padding: '0px 0px 0px 2px' }}
                         className="nav-link"
                       >
                         가입하기
                       </Link>
                       <Link
                         to="/login"
-                        style={{ color: 'white', width: '50px', margin: '0px 0px 0px 0px', padding: '0px 0px 0px 5px' }}
+                        style={{ color: 'white', width: '60px', margin: '0px 0px 0px 0px', padding: '0px 0px 0px 6px' }}
                         className="nav-link"
                       >
                         로그인
