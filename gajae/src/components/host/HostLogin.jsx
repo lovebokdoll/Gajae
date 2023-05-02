@@ -145,65 +145,67 @@ const HostLogin = () => {
   };
 
   return (
-    <>
-      <WholeForm>
-        <HostHeaderNav />
-        <Form className="container">
-          <MyH1>
-            반갑습니다!
-            <br /> 파트너로 로그인 해주세요
-          </MyH1>
-          <MyForm>
-            <MyLabel htmlFor="email">
-              {" "}
-              아이디
-              <MyInput
-                type="text"
-                id="HOST_ID"
-                name="HOST_ID"
-                placeholder="아이디를 입력해주세요."
-                onChange={(e) => changeUser(e)}
-              />
-            </MyLabel>
-            <MyLabel htmlFor="password">
-              {" "}
-              비밀번호
-              <MyInput
-                type={passwordType.type}
-                autoComplete="off"
-                id="HOST_PW"
-                name="HOST_PW"
-                placeholder="비밀번호를 입력해주세요."
-                onChange={(e) => changeUser(e)}
-              />
-              <div
-                id="password"
-                onClick={(e) => {
-                  passwordView(e);
-                }}
-                style={{
-                  color: `${passwordType.visible ? "gray" : "lightgray"}`,
-                }}
-              >
-                <PwEye className="fa fa-eye fa-lg"></PwEye>
-              </div>
-            </MyLabel>
-            <SubmitButton
-              type="button"
-              style={{ backgroundColor: submitButton.bgColor }}
-              onMouseEnter={toggleHover}
-              onMouseLeave={toggleHover}
-              onClick={() => {
-                signin();
-              }}
-            >
-              로그인
-            </SubmitButton>
-          </MyForm>
-        </Form>
-      </WholeForm>
-      <Footer />
-    </>
+<>
+  <WholeForm style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+    <HostHeaderNav />
+    <MyH1 style={{ textAlign: "center" ,marginTop:'25px' }}>
+      반갑습니다!
+      <br /> 파트너로 로그인 해주세요
+    </MyH1>
+    <MyForm className="formfrom-host" style={{marginRight:'240px'}}>
+      <MyLabel htmlFor="email">
+        아이디
+        <MyInput
+          type="text"
+          id="HOST_ID"
+          name="HOST_ID"
+          placeholder="아이디를 입력해주세요."
+          onChange={(e) => changeUser(e)}
+          style={{ paddingLeft: "10px" }}
+        />
+      </MyLabel>
+      <MyLabel htmlFor="password">
+        비밀번호
+        <MyInput
+          type={passwordType.type}
+          autoComplete="off"
+          id="HOST_PW"
+          name="HOST_PW"
+          placeholder="비밀번호를 입력해주세요."
+          onChange={(e) => changeUser(e)}
+          style={{ paddingLeft: "10px" }}
+        />
+        <div
+          id="password"
+          onClick={(e) => {
+            passwordView(e);
+          }}
+          style={{
+            color: `${passwordType.visible ? "gray" : "lightgray"}`,
+          }}
+        >
+          <PwEye className="fa fa-eye fa-lg"></PwEye>
+        </div>
+      </MyLabel>
+      <SubmitButton
+        type="button"
+        style={{ backgroundColor: submitButton.bgColor }}
+        onMouseEnter={toggleHover}
+        onMouseLeave={toggleHover}
+        onClick={() => {
+          signin();
+        }}
+      >
+        로그인
+      </SubmitButton>
+    </MyForm>
+  </WholeForm>
+  <div className="mighthydiv" style={{ height: '100px' }}></div>
+  <Footer />
+</>
+
+
+
   );
 };
 

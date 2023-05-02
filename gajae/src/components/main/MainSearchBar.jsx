@@ -166,9 +166,10 @@ const MainSearchBar = ({ type, destination }) => {
         </div>
         {type !== 'list' && (
           <>
-            <h4 className="headerTitle" style={{ textAlign: 'center', color: '#FFFFFF', marginTop: '30px' }}>
-              새로운 모험, 새로운 경험, 그리고 새로운 나를 만나다
-            </h4>
+            <h4 className="headerTitle" style={{ color: 'black', marginTop: '30px', fontWeight: 'bold', fontSize: '46px', fontFamily: 'Noto Sans KR, sans-serif' }}>
+          새로운 모험, 새로운 경험, 그리고 새로운 나를 만나다
+          </h4>
+
             <br />
             <div className="headerSearch">
               <div className="headerSearchText">

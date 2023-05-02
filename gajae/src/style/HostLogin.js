@@ -27,7 +27,7 @@ export const SignupForm = styled(LoginForm)`
 export const MyH1 = styled.div`
   padding-top: 80px;
   font-size: 30px;
-  margin-bottom: 100px;
+  margin-bottom: 50px;
   font-weight: 15px;
   position: absolute;
   text-align: center; /* 가운데 정렬 */

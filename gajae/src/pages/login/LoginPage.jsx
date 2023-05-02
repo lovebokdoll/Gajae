@@ -149,10 +149,8 @@ const LoginPage = () => {
   return (
     <>
       <HeaderNav1 />
-      <HeaderNav2 />
-        
-      <div className="big-container" style={{width:'1900px',height:'800px',backgroundImage: 'url(./images/몽롱한사진.jpg)', backgroundSize: 'cover', display:'flex', justifyContent: 'center', alignItems: 'center'}}>
-  <div className="login-container" style={{ marginTop:'40px',marginBottom:'40px',width:'750px', height:'750px',  borderRadius:'20px', backgroundColor:'rgba(255,255,255,0.5)', position: 'relative' }}>
+  <div className="big-container" style={{width:'1900px',height:'800px',backgroundImage: 'url(./images/몽롱한사진.jpg)', backgroundSize: 'cover', display:'flex', justifyContent: 'center', alignItems: 'center'}}>
+  <div className="login-container" style={{ marginTop:'40px',marginBottom:'40px',width:'750px', height:'750px',  borderRadius:'20px', backgroundColor:'rgba(255,255,255,0.5)', marginRight:'18%' }}>
     <div className='Login-logo' style={{position: 'absolute', left: '50%', transform: 'translateX(-50%)'}}>
       <img src="./images/LoginLogo.png" alt="" style={{ width: '100%', height: '100%' }} />
     </div>

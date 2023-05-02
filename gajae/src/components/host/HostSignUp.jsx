@@ -336,13 +336,15 @@ const HostSignUp = () => {
   return (
     <>
       <HostHeaderNav />
-      <div
+
+      <div className="HostDanaka"
         style={{
           display: "flex",
           justifyContent: "center",
+          
         }}
-      >
-        <div style={{ display: "flex", width: "100%", marginTop: "-90px" }}>
+        >
+        <div style={{ display: "flex", width: "100%", marginTop: "-90px",backGroundColor: '#003580' }}>
           <SignupForm suggested={false}>
             <div
               style={{
@@ -352,7 +354,7 @@ const HostSignUp = () => {
                 fontWeight: "bold",
                 marginBottom: "15px",
               }}
-            >
+              >
               <FontAwesomeIcon
                 icon="fa-solid fa-right-to-bracket"
                 style={{ padding: "5px" }}
@@ -379,7 +381,7 @@ const HostSignUp = () => {
                 //   textDecoration: "none",
                 marginBottom: "20px",
               }}
-            >
+              >
               파트너로 로그인
             </Link>
             <div
@@ -389,7 +391,16 @@ const HostSignUp = () => {
                 justifyContent: "center",
               }}
             >
-              <div style={{ padding: "30px 30px 0px 30px" }}>
+
+<div 
+  className="host-form-container" 
+  style={{ 
+    padding: "30px 30px 0px 30px", 
+    borderRadius: "10px", 
+    marginBottom: "20px", 
+    width: "480px", 
+    boxShadow: "5px 5px 5px rgba(0,0,0.5,0.5)" 
+  }}>
                 <div style={{ display: "flex", flexWrap: "wrap" }}>
                   <MyLabel>
                     {" "}
@@ -402,7 +413,7 @@ const HostSignUp = () => {
                         changeHostInfo(e);
                         regex("email", e);
                       }}
-                    />
+                      />
                     <MyLabelAb>{comment.email}</MyLabelAb>
                   </MyLabel>
                   <MyButton
@@ -410,7 +421,7 @@ const HostSignUp = () => {
                     onClick={() => {
                       overlapEmail("host_email");
                     }}
-                  >
+                    >
                     중복확인
                   </MyButton>
                 </div>
@@ -436,7 +447,7 @@ const HostSignUp = () => {
                     onClick={() => {
                       overlapId("host_id");
                     }}
-                  >
+                    >
                     중복확인
                   </MyButton>
                 </div>
@@ -454,14 +465,14 @@ const HostSignUp = () => {
                         host_pw: checkPassword(
                           e.target.value,
                           hostInfo.host_pw
-                        ),
-                      });
-                    }}
-                    onChange={(e) => {
-                      changeHostInfo(e);
-                      regex("password", e);
-                    }}
-                  />
+                          ),
+                        });
+                      }}
+                      onChange={(e) => {
+                        changeHostInfo(e);
+                        regex("password", e);
+                      }}
+                      />
                   <div
                     id="password"
                     onClick={(e) => {
@@ -490,7 +501,7 @@ const HostSignUp = () => {
                       changeHostInfo(e);
                       regex("password2", e.target.value);
                     }}
-                  />
+                    />
                   <div
                     id="password2"
                     onClick={(e) => {
@@ -501,7 +512,7 @@ const HostSignUp = () => {
                         passwordType[1].visible ? "gray" : "lightgray"
                       }`,
                     }}
-                  >
+                    >
                     <PwEye className="fa fa-eye fa-lg"></PwEye>
                   </div>
                   <MyLabelAb>{comment.password2}</MyLabelAb>
@@ -519,7 +530,7 @@ const HostSignUp = () => {
                       changeHostInfo(e);
                       regex("businessNum", e);
                     }}
-                  />
+                    />
                   <MyLabelAb>{comment.businessNum}</MyLabelAb>
                 </MyLabel>
                 <MyLabel>
@@ -534,7 +545,7 @@ const HostSignUp = () => {
                       changeHostInfo(e);
                       regex("name", e);
                     }}
-                  />
+                    />
                   <MyLabelAb>{comment.name}</MyLabelAb>
                 </MyLabel>
                 <MyLabel>
@@ -552,22 +563,26 @@ const HostSignUp = () => {
                   />
                   <MyLabelAb>{comment.tel}</MyLabelAb>
                 </MyLabel>
-              </div>
-            </div>
+              </div>{/* 여기 */}
+            
+
+           
+    <div className="spacediv" style={{height:'40px'}}></div>
             <SubmitButton
-              type="button"
-              style={{ backgroundColor: submitButton.bgColor }}
-              onClick={handleSignup}
-              onMouseEnter={toggleHover}
-              onMouseLeave={toggleHover}
+            type="button"
+            style={{ backgroundColor: submitButton.bgColor }}
+            onClick={handleSignup}
+            onMouseEnter={toggleHover}
+            onMouseLeave={toggleHover}
             >
-              {"가입하기"}
-            </SubmitButton>
+            {"가입하기"}
+          </SubmitButton>
+            </div>
           </SignupForm>
         </div>
       </div>
-      <div className="space" style={{ height: "110px" }}></div>
-      <Footer />
+      <div className="space" style={{ height: "600px"}}></div>
+            <Footer />
     </>
   );
 };

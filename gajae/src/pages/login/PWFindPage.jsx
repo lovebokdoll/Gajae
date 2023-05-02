@@ -49,7 +49,7 @@ const PWFindPage = () => {
   return (
     <>
       <HeaderNav1 />
-      <HeaderNav2 />
+    
       <div
         className="containerBig"
         style={{
@@ -65,6 +65,7 @@ const PWFindPage = () => {
           className="containerSmall"
           style={{
             marginTop: '40px',
+            marginRight:'300px',
             marginBottom: '40px',
             width: '650px',
             height: '650px',

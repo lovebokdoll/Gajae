@@ -76,8 +76,8 @@ const PaymentPage = () => {
       <div className="Container">
         <Form className="inner-outter1" style={{ display: 'flex', justifyContent: 'center', height: 800 }} onSubmit={handleSubmit}>
           <PaymentSide paymentSideData={paymentSideData} />
-          <Card className="personal-info" style={{ width: '50rem', backgroundColor: 'rgb(214,230,245)', margin: '0px 0px 0px 12.5px' }}>
-            <div className="innner1" style={{ paddingLeft: '30px', paddingTop: '10px' }}>
+          <Card className="personal-info" style={{ width: '820px', backgroundColor: 'rgb(214,230,245)', margin: '0px 0px 0px 12.5px' }}>
+            <div className="innner1" style={{ width:'750px',paddingLeft: '50px', paddingTop: '10px' }}>
               <Card className="cardname" style={{ paddingLeft: '15px' }}>
                 <h3 x style={{ paddingTop: '10px' }}>
                   {' '}
@@ -148,11 +148,11 @@ const PaymentPage = () => {
           <Card
             className="agree-checkbox"
             style={{
-              width: '50rem',
+              width: '820px',
               alignContent: 'center',
               backgroundColor: 'rgb(214,230,245)',
               margin: 'auto',
-              marginRight: '50px', // 오른쪽으로 50px 이동
+              marginRight: '155px', // 오른쪽으로 50px 이동
             }}
           >
             <h3 style={{ paddingLeft: '40px' }}>개인정보 동의</h3>
@@ -169,7 +169,8 @@ const PaymentPage = () => {
         {agreed && (
           <div>
             <span className="pay-button" style={{ display: 'flex', justifyContent: 'center' }}>
-              <span style={{ fontSize: 30, marginRight: 200, border: '1,solid,black' }}> 결제하실 금액 {paymentSideData.resPrice} 원</span>
+              <span className='cost' style={{ fontSize: 30, marginRight: 200, border: '1,solid,black' }}> 결제하실 금액 {paymentSideData.resPrice} 원</span>
+              <span style={{width:'200px'}}> </span>
               <span className="Pay" style={{ display: 'flex', justifyContent: 'flex-end', width: 500 }}>
                 <InicisPay />
                 <KakaoPay />

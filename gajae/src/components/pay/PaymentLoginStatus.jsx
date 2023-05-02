@@ -11,7 +11,7 @@ const PaymentLoginStatus = ({ initialEmail }) => {
             style={{
               display: 'flex',
               alignItems: 'center',
-              width: '658px',
+              width: '782px',
               height: '82px',
               backgroundColor: 'white',
               borderRadius: '10px',

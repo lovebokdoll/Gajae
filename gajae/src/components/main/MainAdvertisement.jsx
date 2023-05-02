@@ -6,19 +6,19 @@ const MainAdvertisement = () => {
   const featuredItems = [
     {
       imageSrc: './images/침대.jpg',
-      title: 'Seoul',
+      title: 'Pusan',
       link: '/propertylist/?P_ADDRESS=서울&ROOM_CAPACITY=1&startdate=2023-05-01&enddate=2023-05-01',
     },
 
     {
       imageSrc: './images/제주배경.jpg',
-      title: 'Pusan',
+      title: 'Jeju',
       link: '/propertylist/?P_ADDRESS=부산&ROOM_CAPACITY=1&startdate=2023-05-01&enddate=2023-05-01',
     },
 
     {
       imageSrc: './images/한옥.png',
-      title: 'Jeju ',
+      title: 'Seoul ',
       link: '/propertylist/?P_ADDRESS=제주&ROOM_CAPACITY=1&startdate=2023-05-01&enddate=2023-05-01',
     },
   ];

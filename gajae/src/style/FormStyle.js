@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const LoginForm = styled.form`
   display: flex;
@@ -104,7 +104,7 @@ export const SubmitButton = styled.button`
   font-size: 16px;
   font-weight: bold;
   border-radius: 24px;
-  margin-bottom: 100px;
+  margin-bottom: 50px;
   border: 1.5px solid rgb(105, 175, 245);
   color: white;
   cursor: pointer;
@@ -310,7 +310,7 @@ export const Hr = styled.hr`
 export const Title = styled.h1`
   font-size: 40px;
   font-weight: bold;
-  marginleft: '10px';
+  marginleft: "10px";
 `;
 
 export const WholeForm = styled.div`
