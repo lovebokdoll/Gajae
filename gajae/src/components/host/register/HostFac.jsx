@@ -7,12 +7,14 @@ import {
   HostTableItem1,
   HostTableItem2,
   HostTableItem3,
+  TableTitle,
 } from "../../../style/HostStyle";
 import { useCallback } from "react";
 import { useEffect } from "react";
 import { R_CardGroup_hotel } from "../../../style/HostStyle";
 import Swal from "sweetalert2";
 import { useLocation, useNavigate } from "react-router";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const HostFac = () => {
   const navigate = useNavigate();
@@ -261,7 +263,10 @@ const HostFac = () => {
       //숙소시설insert
       await hostfacInsertDB(facilities);
       await hostextraInsertDB(extra);
-      //  navigate("/host/end");
+      //navigate("/host/end");
+      setTimeout(() => {
+        navigate("/host/myhostpage");
+      }, 1500);
     }
   };
   insertFacilities();
@@ -300,7 +305,8 @@ const HostFac = () => {
     } else {
       Toast.fire({
         icon: "success", // Alert 타입
-        title: "숙소정보 등록에 성공하였습니다.", // Alert 제목
+        title:
+          "숙소정보 등록에 성공하였습니다. <br/>마이호스트페이지로 이동합니다.", // Alert 제목
         timer: 1000,
         timerProgressBar: false,
       });
@@ -313,12 +319,21 @@ const HostFac = () => {
       <R_CardGroup_hotel>
         <Card style={{ width: "55rem", margin: " 0" }}>
           <Card.Body>
-            <Card.Title>
-              이 객실에는 어떤 시설/용품이 구비되어 있나요?
+            <Card.Title style={{ marginTop: "1em", marginLeft: "2.5em" }}>
+              <i class="fa-solid fa-check"></i>이 호텔에는 어떤 시설/용품이
+              구비되어 있나요?
             </Card.Title>
+            <hr style={{ border: "1px solid black" }} />
+
             <HostTable>
               <HostTableItem1>
-                <div>객실 내 시설</div>
+                <TableTitle>
+                  <FontAwesomeIcon
+                    icon="fa-solid fa-caret-right"
+                    style={{ marginRight: "0.7em" }}
+                  />
+                  객실 내 시설
+                </TableTitle>
                 <Form>
                   {[
                     "침대 옆 콘센트",
@@ -333,24 +348,31 @@ const HostFac = () => {
                         id={`${type}`}
                         label={type}
                         onClick={handleFacRoom}
+                        style={{ marginLeft: "1.5em", padding: "0.1em" }}
                       />
                     </div>
                   ))}
                 </Form>
               </HostTableItem1>
               <HostTableItem2>
-                <div>식음료</div>
+                <TableTitle>
+                  <FontAwesomeIcon
+                    icon="fa-solid fa-caret-right"
+                    style={{ marginRight: "0.7em" }}
+                  />
+                  식음료
+                </TableTitle>
                 <Form>
                   {[
                     "과일(유료)",
                     "와인/샴페인(유료)",
                     "키즈밀(유료)",
-                    "특별 식단 메뉴(요청 시)",
                     "스낵 바",
                     "객실 내 조식 서비스",
                     "레스토랑",
                     "커피숍(숙소 부지 내)",
                     "전통 찻집",
+                    "BBQ",
                   ].map((type) => (
                     <div key={`FAC_RESTARUANT-${type}`} className="mb-2">
                       <Form.Check
@@ -358,22 +380,28 @@ const HostFac = () => {
                         id={`${type}`}
                         label={type}
                         onClick={handleFacRestaruant}
+                        style={{ marginLeft: "1.5em", padding: "0.1em" }}
                       />
                     </div>
                   ))}
                 </Form>
               </HostTableItem2>
               <HostTableItem3>
-                <div>보안</div>
+                <TableTitle>
+                  <FontAwesomeIcon
+                    icon="fa-solid fa-caret-right"
+                    style={{ marginRight: "0.7em" }}
+                  />
+                  보안
+                </TableTitle>
+
                 <Form>
                   {[
                     "소화기",
                     "CCTV",
                     "화염 경보",
                     "보안 알람",
-                    "화염경보",
                     "카드키 출입",
-                    "열쇠 출입",
                     "안전 금고",
                     "숙소 외부 CCTV",
                   ].map((type) => (
@@ -383,16 +411,24 @@ const HostFac = () => {
                         id={`${type}`}
                         label={type}
                         onClick={handleFacSecurity}
+                        style={{ marginLeft: "1.5em", padding: "0.1em" }}
                       />
                     </div>
                   ))}
                 </Form>
               </HostTableItem3>
             </HostTable>
+            <hr style={{ border: "1px solid gray" }} />
 
             <HostTable>
               <HostTableItem1>
-                <div>화장실</div>
+                <TableTitle>
+                  <FontAwesomeIcon
+                    icon="fa-solid fa-caret-right"
+                    style={{ marginRight: "0.7em" }}
+                  />
+                  화장실
+                </TableTitle>
                 <Form>
                   {[
                     "화장지",
@@ -417,7 +453,13 @@ const HostFac = () => {
                 </Form>
               </HostTableItem1>
               <HostTableItem2>
-                <div>주차여부</div>
+                <TableTitle>
+                  <FontAwesomeIcon
+                    icon="fa-solid fa-caret-right"
+                    style={{ marginRight: "0.7em" }}
+                  />
+                  주차여부
+                </TableTitle>
                 <Form>
                   {[
                     "주차가 불가능합니다.",
@@ -437,7 +479,13 @@ const HostFac = () => {
                 </Form>
               </HostTableItem2>
               <HostTableItem3>
-                <div>침실시설</div>
+                <TableTitle>
+                  <FontAwesomeIcon
+                    icon="fa-solid fa-caret-right"
+                    style={{ marginRight: "0.7em" }}
+                  />
+                  침실시설
+                </TableTitle>
                 <Form>
                   {[
                     "린넨",
@@ -451,15 +499,23 @@ const HostFac = () => {
                         id={`${type}`}
                         label={type}
                         onClick={handleFacBed}
+                        style={{ marginLeft: "1.5em", padding: "0.1em" }}
                       />
                     </div>
                   ))}
                 </Form>
               </HostTableItem3>
             </HostTable>
+            <hr style={{ border: "1px solid gray" }} />
             <HostTable>
               <HostTableItem1>
-                <div>거실시설</div>
+                <TableTitle>
+                  <FontAwesomeIcon
+                    icon="fa-solid fa-caret-right"
+                    style={{ marginRight: "0.7em" }}
+                  />
+                  거실시설
+                </TableTitle>
                 <Form>
                   {["업무용 책상", "스탠드"].map((type) => (
                     <div key={`FAC_LIVING-${type}`} className="mb-7">
@@ -468,13 +524,20 @@ const HostFac = () => {
                         id={`${type}`}
                         label={type}
                         onClick={handleFacLiving}
+                        style={{ marginLeft: "1.5em", padding: "0.1em" }}
                       />
                     </div>
                   ))}
                 </Form>
               </HostTableItem1>
               <HostTableItem2>
-                <div>미디어</div>
+                <TableTitle>
+                  <FontAwesomeIcon
+                    icon="fa-solid fa-caret-right"
+                    style={{ marginRight: "0.7em" }}
+                  />
+                  미디어
+                </TableTitle>
                 <Form>
                   {[
                     "평면TV",
@@ -491,13 +554,20 @@ const HostFac = () => {
                         id={`${type}`}
                         label={type}
                         onClick={handleFacMedia}
+                        style={{ marginLeft: "1.5em", padding: "0.1em" }}
                       />
                     </div>
                   ))}
                 </Form>
               </HostTableItem2>
               <HostTableItem3>
-                <div>인터넷</div>
+                <TableTitle>
+                  <FontAwesomeIcon
+                    icon="fa-solid fa-caret-right"
+                    style={{ marginRight: "0.7em" }}
+                  />
+                  인터넷
+                </TableTitle>
                 <Form>
                   {[
                     "유선 인터넷 호텔 객실 내에서 무료입니다.",
@@ -510,15 +580,23 @@ const HostFac = () => {
                         id={`${type}`}
                         label={type}
                         onClick={handleFacInternet}
+                        style={{ marginLeft: "1.5em", padding: "0.1em" }}
                       />
                     </div>
                   ))}
                 </Form>
               </HostTableItem3>
             </HostTable>
+            <hr style={{ border: "1px solid gray" }} />
             <HostTable>
               <HostTableItem1>
-                <div>서비스</div>
+                <TableTitle>
+                  <FontAwesomeIcon
+                    icon="fa-solid fa-caret-right"
+                    style={{ marginRight: "0.7em" }}
+                  />
+                  서비스
+                </TableTitle>
                 <Form>
                   {[
                     "하우스키핑 (매일)",
@@ -538,13 +616,20 @@ const HostFac = () => {
                         id={`${type}`}
                         label={type}
                         onClick={handleFacService}
+                        style={{ marginLeft: "1.5em", padding: "0.1em" }}
                       />
                     </div>
                   ))}
                 </Form>
               </HostTableItem1>
               <HostTableItem2>
-                <div>일반</div>
+                <TableTitle>
+                  <FontAwesomeIcon
+                    icon="fa-solid fa-caret-right"
+                    style={{ marginRight: "0.7em" }}
+                  />
+                  일반
+                </TableTitle>
                 <Form>
                   {[
                     "에어컨",
@@ -568,7 +653,13 @@ const HostFac = () => {
                 </Form>
               </HostTableItem2>
               <HostTableItem3>
-                <div>언어</div>
+                <TableTitle>
+                  <FontAwesomeIcon
+                    icon="fa-solid fa-caret-right"
+                    style={{ marginRight: "0.7em" }}
+                  />
+                  언어
+                </TableTitle>
                 <Form>
                   {["한국어", "영어", "일본어", "중국어"].map((type) => (
                     <div key={`FAC_LANGUAGE-${type}`} className="mb-12">
@@ -577,15 +668,23 @@ const HostFac = () => {
                         id={`${type}`}
                         label={type}
                         onClick={handleFacLanguage}
+                        style={{ marginLeft: "1.5em", padding: "0.1em" }}
                       />
                     </div>
                   ))}
                 </Form>
               </HostTableItem3>
             </HostTable>
+            <hr style={{ border: "1px solid gray" }} />
             <HostTable>
               <HostTableItem1>
-                <div>부엌</div>
+                <TableTitle>
+                  <FontAwesomeIcon
+                    icon="fa-solid fa-caret-right"
+                    style={{ marginRight: "0.7em" }}
+                  />
+                  부엌
+                </TableTitle>
                 <Form>
                   {[
                     "커피 포트",
@@ -603,13 +702,20 @@ const HostFac = () => {
                         id={`${type}`}
                         label={type}
                         onClick={handleFacKitchen}
+                        style={{ marginLeft: "1.5em", padding: "0.1em" }}
                       />
                     </div>
                   ))}
                 </Form>
               </HostTableItem1>
               <HostTableItem2>
-                <div>리셉션</div>
+                <TableTitle>
+                  <FontAwesomeIcon
+                    icon="fa-solid fa-caret-right"
+                    style={{ marginRight: "0.7em" }}
+                  />
+                  리셉션
+                </TableTitle>
                 <Form>
                   {[
                     "사물함",
@@ -625,6 +731,7 @@ const HostFac = () => {
                         id={`${type}`}
                         label={type}
                         onClick={handleFacReception}
+                        style={{ marginLeft: "1.5em", padding: "0.1em" }}
                       />
                     </div>
                   ))}
@@ -633,8 +740,13 @@ const HostFac = () => {
             </HostTable>
           </Card.Body>
           <Card.Body>
-            <Card.Title>이 객실에는 어떤 부대시설이 있나요?</Card.Title>
-            <Form>
+            <Card.Title style={{ marginTop: "1em", marginLeft: "2.5em" }}>
+              {" "}
+              <i class="fa-solid fa-check"></i>이 호텔에는 어떤 부대시설이
+              있나요?
+            </Card.Title>
+            <hr style={{ border: "1px solid black" }} />
+            <Form style={{ marginTop: "1em", marginLeft: "3.7em" }}>
               {[
                 "바베큐장",
                 "수영장",
@@ -656,6 +768,7 @@ const HostFac = () => {
                     id={`${type}`}
                     label={type}
                     onClick={handleFacExtras}
+                    style={{ marginLeft: "1.5em", padding: "0.1em" }}
                   />
                 </div>
               ))}

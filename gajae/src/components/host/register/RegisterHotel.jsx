@@ -8,7 +8,7 @@ import {
   Titlehotel,
   Titlehotel_content,
 } from "../../../style/HostStyle";
-import { Button, Card, Form } from "react-bootstrap";
+import { Alert, Button, Card, Form } from "react-bootstrap";
 import { hostpropertyInsertDB } from "../../../service/hostLogic";
 import { useNavigate } from "react-router-dom";
 import HostZipCode from "./HostZipCode";
@@ -17,9 +17,11 @@ import ImageUpload from "../../review/ImageUpload";
 import HostHeaderNav from "../HostHeaderNav";
 import Footer from "../../footer/Footer";
 import Swal from "sweetalert2";
+import { render } from "@testing-library/react";
 
 const RegisterHotel = () => {
   const navigate = useNavigate();
+  const [show, setShow] = useState(true);
   //시퀀스로 받아온 p_id 저장하기
   const [tempid, setTempid] = useState("");
   const [p_title, setHostHotelTitle] = useState("");
@@ -161,6 +163,7 @@ const RegisterHotel = () => {
   useEffect(() => {
     console.log("선택된 체크박스:" + selectedRooms.ROOM_ID);
   }, [selectedRooms]);
+
   return (
     <>
       <Background>
@@ -330,29 +333,82 @@ const RegisterHotel = () => {
                 <i class="fa-solid fa-check"></i>호텔의 룸타입을 선택해주세요.
               </Card.Title>
               <hr style={{ border: "1px solid gray" }} />
-              <Form>
-                {[
-                  { label: "스위트룸", value: "1" },
-                  { label: "트윈룸", value: "2" },
-                  { label: "싱글룸", value: "3" },
-                  { label: "트리플룸", value: "4" },
-                  { label: "디럭스룸", value: "5" },
-                  { label: "로얄", value: "6" },
-                  { label: "스탠다드 싱글", value: "7" },
-                  { label: "스탠다드 더블", value: "8" },
-                  { label: "슈페리어 트윈룸", value: "9" },
-                  { label: "슈페리어 싱글룸", value: "10" },
-                ].map((type) => (
-                  <div key={`ROOM_TYPE-${type.value}`} className="mb-1">
-                    <Form.Check
-                      type="checkbox"
-                      id={`${type.value}`}
-                      label={type.label}
-                      onClick={handleRoomType}
-                    />
-                  </div>
-                ))}
-              </Form>
+              <div
+                className="parent-div"
+                style={{ display: "flex", flexDirection: "row" }}
+              >
+                <div className="roomtype-form" style={{ flexBasis: "40%" }}>
+                  <Form style={{ margin: "1em" }}>
+                    {[
+                      { label: "스위트룸", value: "1" },
+                      { label: "트윈룸", value: "2" },
+                      { label: "싱글룸", value: "3" },
+                      { label: "트리플룸", value: "4" },
+                      { label: "디럭스룸", value: "5" },
+                      { label: "로얄", value: "6" },
+                      { label: "스탠다드 싱글", value: "7" },
+                      { label: "스탠다드 더블", value: "8" },
+                      { label: "슈페리어 트윈룸", value: "9" },
+                      { label: "슈페리어 싱글룸", value: "10" },
+                    ].map((type) => (
+                      <div key={`ROOM_TYPE-${type.value}`} className="mb-1">
+                        <Form.Check
+                          type="checkbox"
+                          id={`${type.value}`}
+                          label={type.label}
+                          onClick={handleRoomType}
+                        />
+                      </div>
+                    ))}
+                  </Form>
+                </div>
+                <div className="alter-div" style={{ flexBasis: "60%" }}>
+                  <Button
+                    variant="outline-secondary"
+                    onClick={() => setShow(true)}
+                    style={{ margin: "0.7em" }}
+                  >
+                    룸타입관련 안내사항입니다.
+                  </Button>
+                  {show && (
+                    <Alert
+                      variant="success"
+                      onClose={() => setShow(false)}
+                      dismissible
+                    >
+                      <Alert.Heading
+                        style={{
+                          margin: "0.5em",
+                          fontSize: "18px",
+                        }}
+                      >
+                        객실 이름을 직접 지을 수 없는 이유는 무엇인가요?
+                      </Alert.Heading>
+                      <p style={{ margin: "1em" }}>
+                        
+                        <span style={{ fontSize: "16px" }}>
+                          객실 이름을 개별적으로 짓지 않고 표준화된 이름을
+                          사용하면 다음과 같은 이점을 누리실 수 있습니다.
+                        </span>{" "}
+                        <br />
+                        <br />{" "}
+                        <span style={{ fontSize: "14px" }}>
+                          * 객실에 대한 정보를 전달할 수 있습니다. <br />*
+                          객실에 사이트 전체에서 일관적으로 사용되는 이름을
+                          붙이면 고객이 이를 더 쉽게 찾고 비교할 수 있습니다.{" "}
+                        </span>
+                        <br />
+                        <br />
+                        <span style={{ fontSize: "16px" }}>
+                          등록이 완료되면 객실에 직접 지은 이름을 입력하실 수
+                          있으나, 이는 숙소에서 내부 참고 목적으로만 사용
+                          가능하며 고객에세는 공개되지 않습니다.
+                        </span>
+                      </p>
+                    </Alert>
+                  )}
+                </div>
+              </div>
             </Card.Body>
 
             <Card.Body>
@@ -389,7 +445,6 @@ const RegisterHotel = () => {
                 <i class="fa-solid fa-check"></i>호텔의 환불규정을 알려주세요
               </Card.Title>
               <hr style={{ border: "1px solid gray" }} />
-
               <Form>
                 <Form.Group className="mb-3" controlId="formBasicEmail">
                   <Form.Control

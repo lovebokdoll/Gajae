@@ -1,5 +1,9 @@
 import styled from "styled-components";
 
+export const TableTitle = styled.div`
+  font-size: 18px;
+  margin-bottom: 1em;
+`;
 export const CardTime = styled.div`
   width: 90%;
   margin: auto;

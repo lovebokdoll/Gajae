@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
 import { useState } from "react";
-import { hostHotelListDB, hotelDeleteDB } from "../../../service/hostLogic";
+import { hostHotelListDB } from "../../../service/hostLogic";
 import { Button, Card, ListGroup } from "react-bootstrap";
 /**
  * 호스트페이지에서 등록내역 누르면 뜨는 페이지
@@ -53,70 +53,71 @@ const MyHotelList = ({ hostId }) => {
           &nbsp; 호텔의 정보를 관리하세요!
         </h3>
         <HotelList>
-          {myhotel.slice(start, end).map((hotel, index) => (
-            <HotelItem key={index}>
-              <Card
-                style={{
-                  margin: "1rem",
-                  opacity: hotel.STATUS === "N" ? 0.5 : 1,
-                }}
-              >
-                <Card.Img
-                  variant="top"
-                  style={{ width: "250px", height: "250px" }}
-                  src={hotel.P_PHOTO}
-                />
-                <Card.Body>
-                  <Card.Title style={{ width: "215px", height: "30px" }}>
-                    {hotel.P_TITLE}
-                  </Card.Title>
-                </Card.Body>
-                <ListGroup className="list-group-flush">
-                  <ListGroup.Item>
-                    {" "}
-                    <i
-                      class="fa-solid fa-star"
-                      style={{ marginRight: "7px" }}
-                    ></i>
-                    {hotel.P_STAR} 성급
-                  </ListGroup.Item>
-                  <ListGroup.Item>
-                    {" "}
-                    <i
-                      class="fa-solid fa-location-dot"
-                      style={{ marginRight: "7px" }}
-                    ></i>
-                    {hotel.P_ADDRESS}
-                  </ListGroup.Item>
-                  <ListGroup.Item>
-                    {" "}
-                    <i
-                      class="fa-solid fa-mobile-screen"
-                      style={{ marginRight: "7px" }}
-                    ></i>
-                    {hotel.P_TEL}
-                  </ListGroup.Item>
-                  <ListGroup.Item> {hotel.P_HIREDATE}</ListGroup.Item>
-                </ListGroup>
-                <Card.Body>
-                  <Button
-                    style={{ marginRight: "30px", marginLeft: "13px" }}
-                    variant="warning"
-                    hotel={hotel}
-                    onClick={() => onEdit(hotel.P_ID)}
-                  >
-                    수정하기
-                  </Button>{" "}
-                  <Button
-                    variant={hotel.STATUS === "Y" ? "secondary" : "danger"}
-                    style={{ pointerEvents: "none" }}
-                  >
-                    {hotel.STATUS === "Y" ? "영업중" : "영업중지"}
-                  </Button>{" "}
-                </Card.Body>
-              </Card>
-            </HotelItem>
-          ))}
+          {myhotel &&
+            myhotel.slice(start, end).map((hotel, index) => (
+              <HotelItem key={index}>
+                <Card
+                  style={{
+                    margin: "1rem",
+                    opacity: hotel.STATUS === "N" ? 0.5 : 1,
+                  }}
+                >
+                  <Card.Img
+                    variant="top"
+                    style={{ width: "282px", height: "250px" }}
+                    src={hotel.P_PHOTO}
+                  />
+                  <Card.Body>
+                    <Card.Title style={{ width: "215px", height: "30px" }}>
+                      {hotel.P_TITLE}
+                    </Card.Title>
+                  </Card.Body>
+                  <ListGroup className="list-group-flush">
+                    <ListGroup.Item>
+                      {" "}
+                      <i
+                        class="fa-solid fa-star"
+                        style={{ marginRight: "7px" }}
+                      ></i>
+                      {hotel.P_STAR} 성급
+                    </ListGroup.Item>
+                    <ListGroup.Item>
+                      {" "}
+                      <i
+                        class="fa-solid fa-location-dot"
+                        style={{ marginRight: "7px" }}
+                      ></i>
+                      {hotel.P_ADDRESS}
+                    </ListGroup.Item>
+                    <ListGroup.Item>
+                      {" "}
+                      <i
+                        class="fa-solid fa-mobile-screen"
+                        style={{ marginRight: "7px" }}
+                      ></i>
+                      {hotel.P_TEL}
+                    </ListGroup.Item>
+                    <ListGroup.Item> {hotel.P_HIREDATE}</ListGroup.Item>
+                  </ListGroup>
+                  <Card.Body>
+                    <Button
+                      style={{ marginRight: "30px", marginLeft: "13px" }}
+                      variant="warning"
+                      hotel={hotel}
+                      onClick={() => onEdit(hotel.P_ID)}
+                    >
+                      수정하기
+                    </Button>{" "}
+                    <Button
+                      variant={hotel.STATUS === "Y" ? "secondary" : "danger"}
+                      style={{ pointerEvents: "none" }}
+                    >
+                      {hotel.STATUS === "Y" ? "영업중" : "영업중지"}
+                    </Button>{" "}
+                  </Card.Body>
+                </Card>
+              </HotelItem>
+            ))}
         </HotelList>
         <div>
           <nav>
