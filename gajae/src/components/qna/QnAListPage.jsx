@@ -133,8 +133,8 @@ console.log(userId)
         <HeaderDiv>
           <h3 style={{marginLeft:"10px", marginTop : '25px'}}>문의 게시판</h3>
         </HeaderDiv>
-        <div style={{ marginLeft: 'auto' , display : "flex", marginRight : '150px'}}>
-          <BButton  onClick={handleQna}>작성하기</BButton>
+        <div style={{ marginLeft: 'auto' , display : "flex", marginRight : '380px', marginBottom: '20px'}}>
+          <BButton onClick={handleQna}>작성하기</BButton>
         </div>
         <FormDiv>
           <div>

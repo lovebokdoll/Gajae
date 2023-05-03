@@ -52,6 +52,9 @@ const SearchBox = () => {
   };
   const handleSearch = (e) => {
     const roomCapacity = parseInt(ROOM_CAPACITY.adult); // ROOM_CAPACITY를 숫자형태로 변환
+    Cookies.set('resPeople',ROOM_CAPACITY.adult)
+    Cookies.set('startDate', startDate);
+    Cookies.set('endDate', endDate);
     navigate(
       `/propertylist/?P_ADDRESS=${P_ADDRESS}&ROOM_CAPACITY=${roomCapacity}&startdate=${startDate}&enddate=${endDate}`,
       {
@@ -112,7 +115,7 @@ const SearchBox = () => {
         <FontAwesomeIcon icon="fa-solid fa-user" style={{color: "gray"}}/>
           <span onClick={() => setOpenOptions(!openOptions)} className="headerSearchText" > {PEOPLE} 명</span>
           {openOptions && (
-                  <div className="optionsBar" style={{marginLeft:'50px'}}>
+                  <div className="optionsBar" style={{marginLeft:'15px'}}>
                   <div className="optionItem">
                     <span className="optionText">인원</span>
                     <div className="optionCounter">

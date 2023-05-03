@@ -169,7 +169,7 @@ const PropertyListPage = () => {
                     className="me-2 mb-2"
                     data-bs-dismiss="modal"
                     data-bs-target="#fullScreenModal"
-                    style={{ height: '60px', width: '200px', margin: '20px 50px 0px 10px' }}
+                    style={{ height: '60px', width: '200px', margin: '20px 50px 0px 5px' }}
                     onClick={openModal}
                   >
                     <FontAwesomeIcon style={{}} icon={faMap} /> 지도에서 보기
@@ -183,6 +183,9 @@ const PropertyListPage = () => {
                   {params.P_ADDRESS} : 검색된 숙소 {property.length}개
                 </h4>
                 <DropdownButton id="dropdown-btn" style={{ fontFamily: 'KOTRA_GOTHIC' }} title={orderBy ? orderBy : '정렬 순서'}>
+                  <Dropdown.Item id="dropdownItem-btn" style={{ fontFamily: 'KOTRA_GOTHIC' }} onClick={() => handleOrder('기본 순')}>
+                    기본 순
+                  </Dropdown.Item>
                   <Dropdown.Item id="dropdownItem-btn" style={{ fontFamily: 'KOTRA_GOTHIC' }} onClick={() => handleOrder('가격 낮은순')}>
                     가격 낮은순
                   </Dropdown.Item>
