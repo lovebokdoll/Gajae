@@ -54,6 +54,7 @@ const KakaoPay = (effect, deps) => {
 
   const onClickPayment = () => {
     console.log('resInfo ===> ', resInfo);
+
     if (
       !resInfo.resTitle ||
       !resInfo.resRoomType ||
@@ -167,7 +168,6 @@ const KakaoPay = (effect, deps) => {
       };
       payInsert();
       navigate('/reservation/notification');
-    
     } else {
       alert(`결제 실패 : ${error_msg} 다시 시도해주시길바랍니다`);
     }

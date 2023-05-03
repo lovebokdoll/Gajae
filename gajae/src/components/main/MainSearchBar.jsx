@@ -53,7 +53,7 @@ const MainSearchBar = ({ type, destination }) => {
   //인원수, 객실수 입력
   const [room_capacity, setRoom_Capacity] = useState({
     adult: 1,
-  }); //여기서 바뀌어야 함 
+  }); //여기서 바뀌어야 함
 
   const [openDate, setOpenDate] = useState(false);
 
@@ -96,6 +96,7 @@ const MainSearchBar = ({ type, destination }) => {
       return;
     }
     const roomCapacity = parseInt(options.room);
+    console.log('roomCapacity ===>', roomCapacity);
     const startDate = date[0].startDate;
     const formattedStartDate = `${startDate.getFullYear()}-${(startDate.getMonth() + 1).toString().padStart(2, '0')}-${startDate
       .getDate()
@@ -119,7 +120,7 @@ const MainSearchBar = ({ type, destination }) => {
     Cookies.set('startDate', formattedStartDate, oneWeekFromNow);
     Cookies.set('endDate', formattedEndDate, oneWeekFromNow);
     Cookies.set('destination', p_address, { expires: new Date(Date.now() + 10 * 60 * 1000) });
-    Cookies.set('resPeople', roomCapacity, oneWeekFromNow);
+    Cookies.set('resPeople', options.adult, oneWeekFromNow);
     navigate(
       `/propertylist/?P_ADDRESS=${p_address}&ROOM_CAPACITY=${roomCapacity}&startdate=${formattedStartDate}&enddate=${formattedEndDate}`,
       {
@@ -182,7 +183,7 @@ const MainSearchBar = ({ type, destination }) => {
                     onKeyPress={(e) => {
                       if (e.key === 'Enter') {
                         e.preventDefault();
-                        handleSearch()
+                        handleSearch();
                       }
                     }}
                   />

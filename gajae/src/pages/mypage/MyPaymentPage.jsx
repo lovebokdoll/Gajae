@@ -26,6 +26,7 @@ import {
   CardForm,
   CardInput,
   CardLabel,
+  CardNumberInput,
   CardSaveButton,
   CardSettingsRow
 } from './styled-payment';

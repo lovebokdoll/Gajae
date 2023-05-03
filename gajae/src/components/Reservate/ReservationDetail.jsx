@@ -1,26 +1,21 @@
-import Cookies from "js-cookie";
-import React, { useEffect, useState } from "react";
-import { Button } from "react-bootstrap";
-import { Link } from "react-router-dom";
-import Footer from "../footer/Footer";
-import HeaderNav1 from "../header/HeaderNav1";
-import HeaderNav2 from "../header/HeaderNav2";
-import {
-  convertEndDate,
-  convertStartDate,
-  countNights,
-  dayOfWeek,
-} from "../../service/reservation/resInformation";
-import PaymentSide from "../pay/PaymentSide";
-import PaymentLoginStatus from "../pay/PaymentLoginStatus";
-import PaymentPropertyCard from "../pay/PaymentPropertyCard";
+import Cookies from 'js-cookie';
+import React, { useEffect, useState } from 'react';
+import { Button } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
+import Footer from '../footer/Footer';
+import HeaderNav1 from '../header/HeaderNav1';
+import HeaderNav2 from '../header/HeaderNav2';
+import { convertEndDate, convertStartDate, countNights, dayOfWeek } from '../../service/reservation/resInformation';
+import PaymentSide from '../pay/PaymentSide';
+import PaymentLoginStatus from '../pay/PaymentLoginStatus';
+import PaymentPropertyCard from '../pay/PaymentPropertyCard';
 /*
 DB에서넘어온 정보와, lOGIN에서 넘어온 정보,
 HotelAvailabilityRow 에서 선택한, 
 예약 상세정보와 로그인정보가 넘어온다.
 */
 
-const ReservationDetail = ({row}) => {
+const ReservationDetail = ({ row }) => {
   const [initialName, setInitialName] = useState('');
   const [initialEmail, setInitialEmail] = useState('');
   const [initialNickname, setInitialNickname] = useState('');
@@ -60,6 +55,7 @@ const ReservationDetail = ({row}) => {
     p_checkin: Cookies.get('p_checkin'),
     p_checkout: Cookies.get('p_checkout'),
     resRoomType: Cookies.get('resRoomType'),
+    resRoomId: Cookies.get('resRoomId'),
     selectedRoomNumber: Cookies.get('selectedRoomNumber'),
     resPrice: Cookies.get('resPrice'),
     resAddress: Cookies.get('resAddress'),
@@ -69,6 +65,7 @@ const ReservationDetail = ({row}) => {
     startAndEndDays: dayOfWeek(receivedStartDate, receivedEndDate),
     resPeople: Cookies.get('resPeople'),
   });
+  console.log(paymentSideData);
 
   return (
     <>
@@ -130,13 +127,10 @@ const ReservationDetail = ({row}) => {
           </div>
           <br />
 
-          <div
-            className="card"
-            style={{ width: "60rem", backgroundColor: "rgb(214,230,245)" }}
-          >
+          <div className="card" style={{ width: '60rem', backgroundColor: 'rgb(214,230,245)' }}>
             <div className="card-body">
               {/* end of 상세정보*/}
-              <div className="card" style={{ width: "49rem" }}>
+              <div className="card" style={{ width: '49rem' }}>
                 <div className="card-body">
                   <div style={{ fontSize: 30 }}>예약 정보</div>
                   <hr />
@@ -164,7 +158,7 @@ const ReservationDetail = ({row}) => {
                 </div>
               </div>
               <hr />
-              <div className="card" style={{ width: "49rem" }}>
+              <div className="card" style={{ width: '49rem' }}>
                 <div className="card-body">
                   <div style={{ fontSize: 30 }}> 별도 요청사항 </div> {/* 사용자가 작성했을시 host에게 전달 되고 2차때 할 예정*/}
                   <hr />
@@ -174,8 +168,7 @@ const ReservationDetail = ({row}) => {
                     예약을 완료한 후에도 별도 요청 사항을 보내실 수 있으니 참고 바랍니다.{' '}
                   </div>
                   <div>
-                    아래에 요청 사항을 작성해 주시기 바랍니다. (
-                    <strong>* 선택 사항</strong>)
+                    아래에 요청 사항을 작성해 주시기 바랍니다. (<strong>* 선택 사항</strong>)
                   </div>
                   <textarea style={{ width: 740 }}>여기에 입력하세요</textarea>
                 </div>
@@ -197,10 +190,10 @@ const ReservationDetail = ({row}) => {
                 <Button
                   variant="info"
                   style={{
-                    textDecoration: "none",
-                    borderBottom: "none",
-                    border: "none",
-                    backgroundColor: "transparent",
+                    textDecoration: 'none',
+                    borderBottom: 'none',
+                    border: 'none',
+                    backgroundColor: 'transparent',
                   }}
                 >
                   <Link to="/pay">

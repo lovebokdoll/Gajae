@@ -29,6 +29,7 @@ const PaymentPage = () => {
     p_checkin: Cookies.get('p_checkin'),
     p_checkout: Cookies.get('p_checkout'),
     resRoomType: Cookies.get('resRoomType'),
+    resRoomId: Cookies.get('resRoomId'),
     selectedRoomNumber: Cookies.get('selectedRoomNumber'),
     resPrice: Cookies.get('resPrice'),
     resAddress: Cookies.get('resAddress'),
@@ -77,22 +78,25 @@ const PaymentPage = () => {
         <Form className="inner-outter1" style={{ display: 'flex', justifyContent: 'center', height: 800 }} onSubmit={handleSubmit}>
           <PaymentSide paymentSideData={paymentSideData} />
           <Card
-  className="personal-info"
-  style={{
-    width: '55rem',
-    backgroundColor: 'rgb(214,230,245)',
-    margin: '0px 0px 0px 12.5px',
-    boxShadow: '0px 0px 10px 1px rgba(0,0,0,0.2)',
-  }}
->
-
-            <div className="innner1" style={{width:'810px', paddingLeft: '70px', paddingTop: '10px' }}>
-              <Card className="cardname" style={{ paddingLeft: '15px'  ,
-    borderRadius: '10px',
-    padding: '16px',
-    backgroundColor: 'white',
-    boxShadow: '0px 0px 10px 1px rgba(0,0,0,0.2)',
-   }}>
+            className="personal-info"
+            style={{
+              width: '55rem',
+              backgroundColor: 'rgb(214,230,245)',
+              margin: '0px 0px 0px 12.5px',
+              boxShadow: '0px 0px 10px 1px rgba(0,0,0,0.2)',
+            }}
+          >
+            <div className="innner1" style={{ width: '810px', paddingLeft: '70px', paddingTop: '10px' }}>
+              <Card
+                className="cardname"
+                style={{
+                  paddingLeft: '15px',
+                  borderRadius: '10px',
+                  padding: '16px',
+                  backgroundColor: 'white',
+                  boxShadow: '0px 0px 10px 1px rgba(0,0,0,0.2)',
+                }}
+              >
                 <h3 x style={{ paddingTop: '10px' }}>
                   {' '}
                   개인정보 입력{' '}
@@ -136,12 +140,15 @@ const PaymentPage = () => {
                 </div>
               </Card>
               <hr />
-              <Card className="reservate-check"   style={{
-    borderRadius: '10px',
-    padding: '16px',
-    backgroundColor: 'white',
-    boxShadow: '0px 0px 10px 1px rgba(0,0,0,0.2)',
-  }}>
+              <Card
+                className="reservate-check"
+                style={{
+                  borderRadius: '10px',
+                  padding: '16px',
+                  backgroundColor: 'white',
+                  boxShadow: '0px 0px 10px 1px rgba(0,0,0,0.2)',
+                }}
+              >
                 <h3>예약 내역 확인</h3>
                 <p>선택 호텔: {paymentSideData.p_title}</p>
                 <p>주소: {paymentSideData.resAddress}</p>
