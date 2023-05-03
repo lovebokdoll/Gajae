@@ -338,7 +338,7 @@ const RegisterHotel = () => {
                 style={{ display: "flex", flexDirection: "row" }}
               >
                 <div className="roomtype-form" style={{ flexBasis: "40%" }}>
-                  <Form style={{ margin: "1em" }}>
+                  <Form style={{ padding: "5em" }}>
                     {[
                       { label: "스위트룸", value: "1" },
                       { label: "트윈룸", value: "2" },
@@ -366,13 +366,13 @@ const RegisterHotel = () => {
                   <Button
                     variant="outline-secondary"
                     onClick={() => setShow(true)}
-                    style={{ margin: "0.7em" }}
+                    style={{ margin: "3em 0 1em 0" }}
                   >
                     룸타입관련 안내사항입니다.
                   </Button>
                   {show && (
                     <Alert
-                      variant="success"
+                      variant="secondary"
                       onClose={() => setShow(false)}
                       dismissible
                     >
@@ -385,7 +385,6 @@ const RegisterHotel = () => {
                         객실 이름을 직접 지을 수 없는 이유는 무엇인가요?
                       </Alert.Heading>
                       <p style={{ margin: "1em" }}>
-                        
                         <span style={{ fontSize: "16px" }}>
                           객실 이름을 개별적으로 짓지 않고 표준화된 이름을
                           사용하면 다음과 같은 이점을 누리실 수 있습니다.

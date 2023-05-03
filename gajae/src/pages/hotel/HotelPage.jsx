@@ -116,7 +116,7 @@ const HotelPage = () => {
         <HotelInformation row={property[0]} />
         {/* 이동할 컴포넌트에 ref로 넘겨준다 */}
         <div ref={availabilityRef}>
-          <HotelAvailabilityHeader />
+          <HotelAvailabilityHeader row={property} />
         </div>
         {/* 호텔 데이터 받아오는 부분 */}
         <HotelAvailabilityRow row={property} />

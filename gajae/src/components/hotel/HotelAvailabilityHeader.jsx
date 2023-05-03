@@ -8,12 +8,12 @@ import Book_HotelSearchBar from "./Book_HotelSearchBar";
  * @param {*} param0
  * @returns
  */
-const HotelAvailabilityHeader = () => {
+const HotelAvailabilityHeader = ({ row }) => {
   return (
     <>
       <div className="availabilitytitle">예약 가능 여부</div>
       <div>
-        <Book_HotelSearchBar />
+        <Book_HotelSearchBar row={row} />
       </div>
     </>
   );
