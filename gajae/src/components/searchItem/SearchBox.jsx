@@ -108,9 +108,21 @@ const SearchBox = () => {
         <FontAwesomeIcon icon={faCalendarCheck} style={{marginRight: '10px'}}/>
           <label style={{ fontSize: '15px', marginBottom: '10px', fontFamily: 'KOTRA_GOTHIC', color: '#333' }}>체크아웃 날짜</label>
           <br />
-          <input className="databox" style={{width: '180px'}} type="date" defaultValue={endDate} onChange={(e) => setEndDate(e.target.value)}/>
-        </div>
-
+            <input
+              className="databox"
+              style={{ width: '180px' }}
+              type="date"
+              defaultValue={endDate}
+              onChange={(e) => {
+                if (new Date(e.target.value) < new Date(startDate)) {
+                  setEndDate(startDate);
+                } else {
+                  setEndDate(e.target.value);
+                }
+              }}
+              min={startDate} // 추가된 부분
+            />
+      </div>  
         <div className="headerSearchItem">
         <FontAwesomeIcon icon="fa-solid fa-user" style={{color: "gray"}}/>
           <span onClick={() => setOpenOptions(!openOptions)} className="headerSearchText" > {PEOPLE} 명</span>
