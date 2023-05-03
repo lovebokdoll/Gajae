@@ -1,6 +1,6 @@
 import axios from 'axios';
 import Cookies from 'js-cookie';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import '../main/mainSearchBar.css';
@@ -8,22 +8,17 @@ import { faCalendarCheck, faLocationDot } from '@fortawesome/free-solid-svg-icon
 
 const SearchBox = () => {
   const navigate = useNavigate();
+  
+    //쿠키에 저장되어있는 지역이름
+    const ADDRESS = Cookies.get('p_address');
+    const CHECKIN = Cookies.get('startDate');
+    const CHECKOUT = Cookies.get('endDate');
+    const PEOPLE = Cookies.get('resPeople');
+    console.log(CHECKOUT)
 
-  //쿠키에 저장되어있는 지역이름
-  const ADDRESS = Cookies.get('p_address');
-  const CHECKIN = Cookies.get('startDate');
-  const CHECKOUT = Cookies.get('endDate');
-  const PEOPLE = Cookies.get('resPeople');
-  console.log(CHECKOUT)
-
-  //지역 입력
-  const [P_ADDRESS, setP_Address] = useState('');
-  console.log(P_ADDRESS);
-
-  const [startDate, setStartDate] = useState('');
-  console.log(P_ADDRESS);
-  const [endDate, setEndDate] = useState('');
-  console.log(P_ADDRESS);
+  const [startDate, setStartDate] = useState(Cookies.get('CHECKIN') || CHECKIN);
+  const [endDate, setEndDate] = useState(Cookies.get('CHECKOUT') || CHECKOUT);
+  const [P_ADDRESS, setP_Address] = useState(Cookies.get('p_address') || ADDRESS);
 
   const [openOptions, setOpenOptions] = useState(false);
 
@@ -41,7 +36,12 @@ const SearchBox = () => {
     },
   ]);
 
-
+  useEffect(() => {
+    if (new Date(startDate) > new Date(endDate)) {
+      setEndDate(startDate);
+    }
+  }, [startDate]);
+  
   const handleOption = (name, operation) => {
     setRoom_Capacity((prev) => {
       return {
@@ -102,13 +102,13 @@ const SearchBox = () => {
         <FontAwesomeIcon icon={faCalendarCheck} style={{marginRight: '10px'}}/>
           <label style={{ fontSize: '15px', marginBottom: '10px', fontFamily: 'KOTRA_GOTHIC', color: '#333' }}>체크인 날짜</label>
           <br />
-          <input className="databox" style={{width: '180px'}} type="date" defaultValue={CHECKIN}  onChange={(e) => setStartDate(e.target.value)}/>
+          <input className="databox" style={{width: '180px'}} type="date" defaultValue={startDate}  onChange={(e) => setStartDate(e.target.value)}/>
         </div>
         <div style={{ marginTop: '10px' }}>
         <FontAwesomeIcon icon={faCalendarCheck} style={{marginRight: '10px'}}/>
           <label style={{ fontSize: '15px', marginBottom: '10px', fontFamily: 'KOTRA_GOTHIC', color: '#333' }}>체크아웃 날짜</label>
           <br />
-          <input className="databox" style={{width: '180px'}} type="date" defaultValue={CHECKOUT} onChange={(e) => setEndDate(e.target.value)}/>
+          <input className="databox" style={{width: '180px'}} type="date" defaultValue={endDate} onChange={(e) => setEndDate(e.target.value)}/>
         </div>
 
         <div className="headerSearchItem">
