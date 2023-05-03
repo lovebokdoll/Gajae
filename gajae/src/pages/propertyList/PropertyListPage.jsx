@@ -169,13 +169,13 @@ const PropertyListPage = () => {
                     className="me-2 mb-2"
                     data-bs-dismiss="modal"
                     data-bs-target="#fullScreenModal"
-                    style={{ height: '60px', width: '200px', margin: '30px 0px 0px 50px' }}
+                    style={{ height: '60px', width: '200px', margin: '20px 50px 0px 10px' }}
                     onClick={openModal}
                   >
                     <FontAwesomeIcon style={{}} icon={faMap} /> 지도에서 보기
                   </BButton>
                   <MapModal show={showModal} closeModal={closeModal} />
-                  <FilterSidebar checkedFilters={checkedFilters} checkedRanks={checkedRanks} />
+                  <FilterSidebar checkedFilters={checkedFilters} checkedRanks={checkedRanks}/>
                 </div>
               </div>
               <div className="col-lg-9 col-md-12" style={{ width: '850px' }}>
