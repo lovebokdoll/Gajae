@@ -1,11 +1,11 @@
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const ReplyForm = ({ reply }) => {
+const ReplyForm = ({ content }) => {
   return (
     <>
-      {reply &&
-        reply.map((comment, index) => (
+      {content &&
+        content.map((comment, index) => (
           <SpeechBubbleDiv key={index}>
             <div
               style={{

@@ -41,7 +41,7 @@ const MyHotelReviewPage = () => {
           <Nav defaultActiveKey="/home" className="flex-column">
             <MyPageLinkMove to="/host/myhostpage">
               <span style={{ paddingRight: "5px" }}>
-                <i class="fa-solid fa-minus"></i>
+                <i className="fa-solid fa-minus"></i>
               </span>
               메인
             </MyPageLinkMove>

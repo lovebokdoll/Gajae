@@ -12,54 +12,46 @@ import {
 
 const MyHotelReviewList = ({ hostId }) => {
   const [hostReviews, setHostReviews] = useState([]); //고객의 리뷰리스트
-
-  const [reply, setReply] = useState([]);
-
   const [showModal, setShowModal] = useState(false); //새 댓글 모달창
   const [editShowModal, setEditShowModal] = useState(false);
-
+  //모달창, 수정 모달창
   const handleEditShow = () => setEditShowModal(true);
   const handleEditClose = () => {
     setEditShowModal(false);
   };
-
   const handleShow = () => setShowModal(true);
   const handleClose = () => {
     setShowModal(false);
   };
 
-  const [currentPage, setCurrentPage] = useState(1); //페이지네이션 처리
-  const pageNumber = [];
+  const [reply, setReply] = useState(""); // 새댓글시
+  const [content, setContent] = useState([]); //서버에서 가져온 댓글정보
+
+  const handleContent = (value) => {
+    setReply(value);
+  };
+  const reviewNumber =
+    hostReviews.length > 0 ? hostReviews[0].REVIEW_NUMBER : null;
+  const replyInsert = async () => {
+    const hostreply = {
+      HOST_ID: hostId,
+      REPLY_CONTENT: reply,
+      REVIEW_NUMBER: reviewNumber,
+    };
+    const res = await replyInsertDB(hostreply);
+    console.log(res.data);
+    await getReply(reviewNumber);
+    handleClose();
+  };
 
   const getReply = async (reviewNumber) => {
     const res = await replyListDB({ REVIEW_NUMBER: reviewNumber });
     if (res) {
-      setReply(res.data);
+      setContent(res.data);
+      console.log(res.data);
     }
   };
-  //댓글
-  const [content, setContent] = useState("");
 
-  const handleContent = (value) => {
-    setContent(value);
-    console.log(content);
-  };
-  const reviewNumber =
-    hostReviews.length > 0 ? hostReviews[0].REVIEW_NUMBER : null;
-
-  const replyInsert = async () => {
-    const reply = {
-      HOST_ID: hostId,
-      REPLY_CONTENT: content,
-      REVIEW_NUMBER: reviewNumber,
-    };
-    const res = await replyInsertDB(reply);
-    console.log(res.data);
-
-    await getReply(reviewNumber);
-
-    handleClose();
-  };
   //고객의 리뷰 리스트 불러오기
   useEffect(() => {
     const reviewList = async () => {
@@ -102,7 +94,11 @@ const MyHotelReviewList = ({ hostId }) => {
 
     handleEditClose();
   };
+  console.log(content);
 
+  console.log(hostReviews);
+  const [currentPage, setCurrentPage] = useState(1); //페이지네이션 처리
+  const pageNumber = [];
   return (
     <>
       <BackDiv>
@@ -199,6 +195,7 @@ const MyHotelReviewList = ({ hostId }) => {
                         </button>
                       )}
                     </ButtonContainer>
+                    {/* --------------모달창 입력 부분------------------ */}
                     {showModal && (
                       <AlertModal show={showModal} onHide={handleClose}>
                         <AlertHeader>
@@ -215,7 +212,7 @@ const MyHotelReviewList = ({ hostId }) => {
                               placeholder="Leave a comment here"
                               id="floatingTextarea"
                               style={{ width: "430px", height: "400px" }}
-                              value={content}
+                              value={reply}
                               onChange={(e) => {
                                 handleContent(e.target.value);
                               }}
@@ -233,7 +230,7 @@ const MyHotelReviewList = ({ hostId }) => {
                         </Footer>
                       </AlertModal>
                     )}
-                    {reply && (
+                    {content && (
                       <EditModal show={editShowModal} onHide={handleClose}>
                         <EditHeader>
                           &nbsp;&nbsp;&nbsp;
@@ -270,7 +267,7 @@ const MyHotelReviewList = ({ hostId }) => {
                   </ReplyWrapper>
                 </ReviewWrapper>
                 <ReplyWrapper>
-                  <ReplyForm reply={reply} />
+                  <ReplyForm content={content} />
                 </ReplyWrapper>
               </ReviewItem>
             ))}
@@ -461,9 +458,4 @@ const ButtonContainer = styled.div`
   width: 100%;
   text-align: right;
   height: 40px;
-`;
-
-const EmtyColorDiv = styled.div`
-  height: 3px;
-  color: #003580;
 `;

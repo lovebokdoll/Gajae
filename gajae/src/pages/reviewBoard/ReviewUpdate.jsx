@@ -11,7 +11,7 @@ import ReviewScore from "../../components/review/ReviewScore";
 export const ReviewUpdate = () => {
   const param = useLocation();
   const reviewNumber = new URLSearchParams(param.search).get("review_number");
-
+  console.log(reviewNumber);
   const [title, setTitle] = useState("");
   const [reviewgood, setReviewgood] = useState("");
   const [reviewbad, setReviewbad] = useState("");
@@ -49,7 +49,7 @@ export const ReviewUpdate = () => {
     };
     myReview();
   }, []);
-  console.log(imageUrl);
+
   const handleTitle = useCallback((value) => {
     setTitle(value);
   }, []);
