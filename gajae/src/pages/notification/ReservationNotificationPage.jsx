@@ -6,13 +6,21 @@ import Footer from '../../components/footer/Footer';
 import HeaderNav1 from '../../components/header/HeaderNav1';
 import HeaderNav2 from '../../components/header/HeaderNav2';
 import { resNotification } from '../../service/reservation/reservation';
-import ReservationPush from '../../components/Reservate/ReservatePush';
 import Cookies from 'js-cookie';
 
 const ReservationNotificationPage = () => {
   const userNickname = localStorage.getItem('userNickname');
 
-  const [resNotificationData, setResNotificationData] = useState();
+/*   const [resNotificationData, setResNotificationData] = useState(); */
+
+const [resTitle, setResTitle] = useState(Cookies.get('p_title'));
+const [resPrice, setResPrice] = useState(Cookies.get('resPrice'));
+const [resStartDate, setResStartDate] = useState(Cookies.get('startDate'));
+const [resEndDate, setResEndDate] = useState(Cookies.get('endDate'));
+const [resAdd, setResAdd] = useState(Cookies.get('resAddress'));
+const [resRoomType, setResRoomType] = useState(Cookies.get('resRoomType'));
+const [resCheckin, setResCheckin] = useState(Cookies.get('p_checkin'));
+const [resCheckout, setResCheckout] = useState(Cookies.get('p_checkout'));
 
   useEffect(() => {
     const resNotificationParams = {
@@ -24,20 +32,19 @@ const ReservationNotificationPage = () => {
 
     console.log(resNotificationParams);
 
-    const getResNotification = async () => {
+   /*  const getResNotification = async () => {
       const response = await resNotification(resNotificationParams);
       console.log('response.data ===>', response.data);
       setResNotificationData(response.data);
-    };
-    getResNotification();
-  }, []);
+    }; */
+    /* getResNotification();
+ */  }, []);
 
   return (
     <>
       <HeaderNav1 />
       <HeaderNav2 />
-      <ReservationPush />
-      {resNotificationData && (
+    {/*   {resNotificationData && ( */}
         <>
           <br />
           <div className="resThankYou" style={{ width: '100%', marginBottom: 10, fontSize: '1.7rem', color: 'black', textAlign: 'center' }}>
@@ -57,10 +64,9 @@ const ReservationNotificationPage = () => {
               <div className="bottom-logo" style={{ position: 'absolute', bottom: '0', left: '50%', transform: 'translateX(-50%)' }}>
                 <img src="../images/LoginLogo.png" alt="bottomlogo" />
               </div>
-              <div className="cardtop" style={{ display: 'flex', alignItems: 'center' }}>
+              <div className="cardtop" style={{marginLeft:'50px' }}>
                 <Card.Img
                   variant="top"
-                  src="../images/서울하야트.jpg"
                   style={{
                     position: 'relative',
                     width: '40%',
@@ -75,17 +81,17 @@ const ReservationNotificationPage = () => {
                   <Card.Title style={{ display: 'flex', justifyContent: 'flex-end' }}></Card.Title>
                   <Card.Text style={{ fontSize: 30 }}>
                     {' '}
-                    {resNotificationData[0].P_TITLE}
+                   {/*  {resNotificationData[0].P_TITLE} */} {resTitle}
                     <br />
-                    {resNotificationData[0].ROOM_TYPE}
+                    {/* {resNotificationData[0].ROOM_TYPE} */}
                   </Card.Text>
                   <Card.Text style={{ fontSize: 25 }}>
                     <FontAwesomeIcon icon="fa-solid fa-location-dot" fade size="xs" style={{ color: '#1c2d4a' }} />
-                    {resNotificationData[0].P_ADDRESS}
+                   {/*  {resNotificationData[0].P_ADDRESS} */} {resAdd}
                   </Card.Text>
-                  <Card.Text style={{ fontSize: 30 }}> CHECKIN : {resNotificationData[0].P_CHECKIN} </Card.Text>
-                  <Card.Text style={{ fontSize: 30 }}> CHECKOUT : {resNotificationData[0].P_CHECKOUT} </Card.Text>
-                  <div style={{ fontSize: '30px', fontWeight: 'bold' }}>결제금액: {resNotificationData[0].PAID_AMOUNT} 원 </div>
+                  <Card.Text style={{ fontSize: 30 }}> CHECKIN :{/*  {resNotificationData[0].P_CHECKIN} */}  {resStartDate} {resCheckin} 부터</Card.Text>
+                  <Card.Text style={{ fontSize: 30 }}> CHECKOUT : {/* {resNotificationData[0].P_CHECKOUT} */} {resEndDate} {resCheckout} 까지</Card.Text>
+                  <div style={{ fontSize: '40px', fontWeight: 'bold' }}>결제금액:{/*  {resNotificationData[0].PAID_AMOUNT}  */} {resPrice}원 </div>
                 </Card.Body>
               </div>
               <div
@@ -117,7 +123,7 @@ const ReservationNotificationPage = () => {
           </div>
           <br />{' '}
         </>
-      )}
+      {/* )} */}
       <Footer />
     </>
   );

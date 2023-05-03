@@ -291,7 +291,7 @@ const HotelAvailabilityRow = ({ row }) => {
               {selectedFacModal[key]}
             </Modal.Body>
           ))}
-
+ 
           <Modal.Footer>
             <i class="fa-regular fa-credit-card"></i>
             <span className="hotelTax">요금정보를 확인하세요! </span>

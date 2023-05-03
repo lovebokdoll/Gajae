@@ -20,7 +20,7 @@ HotelAvailabilityRow 에서 선택한,
 예약 상세정보와 로그인정보가 넘어온다.
 */
 
-const ReservationDetail = () => {
+const ReservationDetail = ({row}) => {
   const [initialName, setInitialName] = useState('');
   const [initialEmail, setInitialEmail] = useState('');
   const [initialNickname, setInitialNickname] = useState('');
@@ -79,7 +79,6 @@ const ReservationDetail = () => {
         <PaymentSide paymentSideData={paymentSideData} />
         <div className="card1" style={{ width: '958px', backgroundColor: 'rgb(214,230,245)', margin: '0px 0px 0px 12.5px' }}>
           <div className="space-div" style={{ width: '20px' }}></div>
-          <PaymentPropertyCard />
           <PaymentLoginStatus initialEmail={initialEmail} />
           <div className="card" style={{ width: '60rem', backgroundColor: 'white' }}>
             <div className="card-inner" style={{ width: '60rem', backgroundColor: 'rgb(214,230,245)' }}>
@@ -89,7 +88,6 @@ const ReservationDetail = () => {
                   style={{ backgroundColor: 'white', borderRadius: '10px', width: '782px', fontSize: '30px', padding: '20px' }}
                 >
                   <div style={{ fontSize: '30px' }}>상세정보를 입력하세요</div>
-                  <br />
                   <hr />
                   <span className="card-title" style={{ fontSize: '20px', fontWeight: 'bold' }}>
                     <strong> {initialNickname}</strong>님 거의 마무리가 되었어요!
@@ -151,19 +149,13 @@ const ReservationDetail = () => {
                             <br />
                             체크아웃:{paymentSideData.endDate} {paymentSideData.p_checkout} ({paymentSideData.startAndEndDays[1]})까지
                           </li>
-                          <li>
-                            ({paymentSideData.startAndEndDays[0]}) ~ ({paymentSideData.startAndEndDays[1]}){' '}
-                          </li>
                           <li>총 숙박 기간: {paymentSideData.diffDays}박</li>
-                          <hr style={{ width: '47rem' }} />
                           <li>선택 숙소: {paymentSideData.p_title}</li>
                           <li>선택 객실: {paymentSideData.resRoomType}</li>
                           <li>호텔 주소: {paymentSideData.resAddress} </li>
                           <li>체크인: {paymentSideData.p_checkin} </li>
                           <li>체크아웃: {paymentSideData.p_checkout}</li>
                           <li>객실 수: {paymentSideData.selectedRoomNumber}</li>
-                          <li>투숙 인원: 성인 {paymentSideData.resPeople} 명</li>
-                          <li>선택한 인원에 적합한 객실입니다!</li>
                           {/* 쿠키에서 꺼내오기*/}
                         </ul>
                       </div>
