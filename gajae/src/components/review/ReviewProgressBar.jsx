@@ -11,10 +11,11 @@ const ReviewProgressBar = ({ review }) => {
   let locationScore = 0;
 
   let numReviews = 0;
+  console.log(review);
 
-  if (review && review.length > 0) {
+  if (Array.isArray(review) && review.length > 0) {
     review.forEach((item) => {
-      cleanScore += item.REVIEW_SERVICE;
+      cleanScore += item.REVIEW_CLEAN;
       facilityScore += item.REVIEW_FACILITY;
       locationScore += item.REVIEW_LOCATION;
       serviceScore += item.REVIEW_SERVICE;
@@ -22,14 +23,17 @@ const ReviewProgressBar = ({ review }) => {
       numReviews += 1;
     });
   }
-  //각 학몽의 총합을 리뷰의 총 개수로 나누어 평균
-  const avgCleanScore = Math.round(cleanScore / numReviews);
-  const avgServiceScore = Math.round(serviceScore / numReviews);
-  const avgCostScore = Math.round(costScore / numReviews);
-  const avgLocationScore = Math.round(locationScore / numReviews);
-  const avgFacilityScore = Math.round(facilityScore / numReviews);
+  console.log(cleanScore);
 
-  console.log(review);
+  //각 학몽의 총합을 리뷰의 총 개수로 나누어 평균
+  const avgCleanScore = Math.floor(cleanScore / numReviews);
+  const avgServiceScore = Math.floor(serviceScore / numReviews);
+  const avgCostScore = Math.floor(costScore / numReviews);
+  const avgLocationScore = Math.floor(locationScore / numReviews);
+  const avgFacilityScore = Math.floor(facilityScore / numReviews);
+
+  console.log(avgCleanScore);
+  console.log(avgLocationScore);
   return (
     <>
       <GridContainer class="grid-container">
@@ -79,6 +83,9 @@ const ReviewProgressBar = ({ review }) => {
           <ProgressBar variant="ProgressBar" now={avgLocationScore * 10} />
         </GridItem>
       </GridContainer>
+      <p style={{ fontSize: "0.8rem", textAlign: "right" }}>
+        평점은 소수점을 버리고 정수로 계산됩니다{" "}
+      </p>
     </>
   );
 };
