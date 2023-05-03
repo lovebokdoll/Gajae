@@ -53,7 +53,7 @@ const MainSearchBar = ({ type, destination }) => {
   //인원수, 객실수 입력
   const [room_capacity, setRoom_Capacity] = useState({
     adult: 1,
-  });
+  }); //여기서 바뀌어야 함 
 
   const [openDate, setOpenDate] = useState(false);
 

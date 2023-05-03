@@ -6,7 +6,6 @@ import './App.css';
 import KakaoProfile from './api/kakao/KakaoProfile';
 import KakaoRedirectHandler from './api/kakao/KakaoRedirectHandler';
 import NaverPay from './api/naver/NaverPay';
-import ReservationPush from './components/Reservate/ReservatePush';
 import ReservationDetail from './components/Reservate/ReservationDetail';
 import HostEndPage from './components/host/HostEndPage';
 import HostLogin from './components/host/HostLogin';
@@ -64,7 +63,6 @@ const App = () => {
       {/*  */}
       {modalStatus.status && <CurrencyModal />}
       {nationStatus.status && <NationModal />}
-      {isReservationSuccess && <ReservationPush />}
       <Routes>
         <Route path="/" exact="true" element={<MainPage />} />
         {/* signup & signin */}

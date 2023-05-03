@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { paymentInsert } from '../../service/pay/pay';
 import { resInsert } from '../../service/reservation/reservation';
-import ReservationPush from '../Reservate/ReservatePush';
 
 const KakaoPay = (effect, deps) => {
   const thirtyMinutesFromNow = new Date(Date.now() + 10 * 60 * 3000);
@@ -168,9 +167,7 @@ const KakaoPay = (effect, deps) => {
       };
       payInsert();
       navigate('/reservation/notification');
-      setTimeout(() => {
-        return <ReservationPush />;
-      }, 1000);
+    
     } else {
       alert(`결제 실패 : ${error_msg} 다시 시도해주시길바랍니다`);
     }

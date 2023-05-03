@@ -32,7 +32,7 @@ const PaymentPropertyCard = () => {
   return (
     <>
         <div className="card-body" style={{ width: '800px',height: '17rem', backgroundColor: 'rgb(214,230,245)' ,padding:'25px'}} >
-          <div style={{ backgroundColor:'white',width: '782px', height: '222px', display: 'flex', alignItems: 'center',borderRadius:'10px' }}>
+          <div style={{ backgroundColor:'white',width: '782px', height: '260px', display: 'flex', alignItems: 'center',borderRadius:'10px' }}>
             <div class="image-container" >
             <img src="https://cf.bstatic.com/xdata/images/hotel/square600/261707778.webp?k=fa6b6128468ec15e81f7d076b6f2473fa3a80c255582f155cae35f9edbffdd78&o=&s=1" alt="" className="siImg" height="244px" />
             </div>
@@ -50,7 +50,7 @@ const PaymentPropertyCard = () => {
               </p>
             </div>
           </div>
-          <div></div>
+        
         </div>
       
       <br />

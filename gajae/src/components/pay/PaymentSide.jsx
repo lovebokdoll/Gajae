@@ -53,10 +53,6 @@ const PaymentSide = ({ paymentSideData }) => {
               </ul>
               <ul style={{ width: '282.98px', height: '70px', padding: '0px 0px 0px 25px' }}>
                 {' '}
-                <div style={{ width: '282.98px', height: '20px', fontSize: '0.9em', margin: '0px 0px 0px 0px' }}>투숙 인원&nbsp;(최대)</div>
-                <div style={{ width: '282.98px', height: '20px', fontSize: '0.9em', margin: '0px 0px 3px 0px' }}>
-                  성인 {paymentSideData.resPeople} 명
-                </div>
                 <div style={{ width: '282.98px', height: '20px', fontSize: '0.9em', margin: '0px 0px 10px 0px' }}>
                   <FontAwesomeIcon icon={faCheckCircle} style={{ color: '#00CC99' }} />
                   선택한 인원에 적합한 객실입니다.

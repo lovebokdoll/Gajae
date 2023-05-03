@@ -258,15 +258,7 @@ const HotelAvailabilityRow = ({ row }) => {
           {Object.keys(selectedFacModal).map((key) => (
             <Modal.Body key={key}>{selectedFacModal[key]}</Modal.Body>
           ))}
-          {/* {selectedFacModal &&
-            selectedFacModal.facilities &&
-            selectedFacModal.facilities
-              .join(",")
-              .split(",")
-              .map((item, index) => (
-                <Modal.Body key={index}>{item.trim()}</Modal.Body>
-              ))} */}
-
+ 
           <Modal.Footer>
             <span>요금정보를 확인하세요! </span>
             {selectedPriceModal}원
