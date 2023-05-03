@@ -19,7 +19,7 @@ public class ResultDao {
 	public List<Map<String, Object>> searchlist(Map<String, Object> pMap) {
 	    log.info("pMap = {}", pMap);
 
-	    List<Map<String, Object>> bList = sqlSessionTemplate.selectList("searchlist", pMap);
+	    List<Map<String, Object>> bList = sqlSessionTemplate.selectList("search.searchlist", pMap);
 
 	    StringTokenizer st = null;
 
@@ -45,7 +45,7 @@ public class ResultDao {
 	public List<Map<String, Object>> priceLow(Map<String, Object> pMap, String orderBy) {
 		log.info("pMap = {}", pMap);
 		log.info("orderby = {}", orderBy);
-		List<Map<String, Object>> bList = sqlSessionTemplate.selectList("priceLow", pMap);
+		List<Map<String, Object>> bList = sqlSessionTemplate.selectList("search.priceLow", pMap);
 		
 		return bList;
 	}
@@ -53,7 +53,7 @@ public class ResultDao {
 	public List<Map<String, Object>> priceHigh(Map<String, Object> pMap, String orderBy) {
 		log.info("pMap = {}", pMap);
 		log.info("orderby = {}", orderBy);
-		List<Map<String, Object>> bList = sqlSessionTemplate.selectList("priceHigh", pMap);
+		List<Map<String, Object>> bList = sqlSessionTemplate.selectList("search.priceHigh", pMap);
 		
 		return bList;
 	}
@@ -61,14 +61,14 @@ public class ResultDao {
 	public List<Map<String, Object>> reviewwHigh(Map<String, Object> pMap, String orderBy) {
 		log.info("pMap = {}", pMap);
 		log.info("orderby = {}", orderBy);
-		List<Map<String, Object>> bList = sqlSessionTemplate.selectList("reviewwHigh", pMap);
+		List<Map<String, Object>> bList = sqlSessionTemplate.selectList("search.reviewHigh", pMap);
 		
 		return bList;
 	}
 	public List<Map<String, Object>> markList() {
 		log.info("markList호출");
 		
-		List<Map<String, Object>>  mList = sqlSessionTemplate.selectList("markList");
+		List<Map<String, Object>>  mList = sqlSessionTemplate.selectList("search.markList");
 	  
 	    return mList;}
 }

@@ -31,7 +31,6 @@ const MainPage = () => {
       <HeaderNav1 />
       <MainSearchBar destination={destination} />
       <CovidInfo />
-  
       <MainAdvertisement />
       <MainRecommandLoc />
       <MainProperty />

@@ -33,7 +33,7 @@
 .tooltip-text_hotelInsert {
   display: none;
   position: absolute;
-  bottom: -32px;
+  bottom: -40px;
   left: 50%;
   transform: translateX(-43%);
   width: 70px;
@@ -51,5 +51,206 @@
   display: block;
 }
 
+.tooltip_hotelInsert::before {
+  content: '숙소등록';
+  display: block;
+  position: absolute;
+  bottom: -40px;
+  left: 50%;
+  transform: translateX(-42%);
+  width: 70px;
+  height: 25px;
+  background-color: black;
+  color: white;
+  text-align: center;
+  font-size: 0.8rem;
+  padding-top: 2px;
+  z-index: 1;
+  border-radius: 5px;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
 
+.tooltip_hotelInsert:hover::before {
+  opacity: 1;
+}
 
+.tooltip-text_qna {
+  display: none;
+  position: absolute;
+  bottom: -40px;
+  left: 50%;
+  transform: translateX(-47%);
+  width: 70px;
+  height: 25px;
+  background-color: black;
+  color: white;
+  text-align: center;
+  font-size: 0.8rem;
+  padding-top: 2px;
+  z-index: 1;
+  border-radius: 5px;
+}
+
+.tooltip_qna:hover .tooltip-text_qna {
+  display: block;
+}
+
+.tooltip_qna::before {
+  content: '1:1 문의';
+  display: block;
+  position: absolute;
+  bottom: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 70px;
+  height: 25px;
+  background-color: black;
+  color: white;
+  text-align: center;
+  font-size: 0.8rem;
+  padding-top: 2px;
+  z-index: 1;
+  border-radius: 5px;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.tooltip_qna:hover::before {
+  opacity: 1;
+}
+
+.tooltip-text_notice {
+  display: none;
+  position: absolute;
+  bottom: -40px;
+  left: 50%;
+  transform: translateX(-95%);
+  width: 85px;
+  height: 25px;
+  background-color: black;
+  color: white;
+  text-align: center;
+  font-size: 0.8rem;
+  padding-top: 2px;
+  z-index: 1;
+  border-radius: 5px;
+}
+
+.tooltip_notice:hover .tooltip-text_notice {
+  display: block;
+}
+
+.tooltip_notice::before {
+  content: '자주 묻는 질문';
+  display: block;
+  position: absolute;
+  bottom: -40px;
+  left: 50%;
+  transform: translateX(-96%);
+  width: 85px;
+  height: 25px;
+  background-color: black;
+  color: white;
+  text-align: center;
+  font-size: 0.8rem;
+  padding-top: 2px;
+  z-index: 1;
+  border-radius: 5px;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.tooltip_notice:hover::before {
+  opacity: 1;
+}
+
+.tooltip-text_signup {
+  display: none;
+  position: absolute;
+  bottom: -40px;
+  left: 50%;
+  transform: translateX(-95%);
+  width: 85px;
+  height: 25px;
+  background-color: black;
+  color: white;
+  text-align: center;
+  font-size: 0.8rem;
+  padding-top: 2px;
+  z-index: 1;
+  border-radius: 5px;
+}
+
+.tooltip_signup:hover .tooltip-text_signup {
+  display: block;
+}
+
+.tooltip_signup::before {
+  content: '가입하기';
+  display: block;
+  position: absolute;
+  bottom: -40px;
+  left: 50%;
+  transform: translateX(-56%);
+  width: 70px;
+  height: 25px;
+  background-color: black;
+  color: white;
+  text-align: center;
+  font-size: 0.8rem;
+  padding-top: 2px;
+  z-index: 1;
+  border-radius: 5px;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.tooltip_signup:hover::before {
+  opacity: 1;
+}
+
+.tooltip-text_login {
+  display: none;
+  position: absolute;
+  bottom: -40px;
+  left: 50%;
+  transform: translateX(-95%);
+  width: 85px;
+  height: 25px;
+  background-color: black;
+  color: white;
+  text-align: center;
+  font-size: 0.8rem;
+  padding-top: 2px;
+  z-index: 1;
+  border-radius: 5px;
+}
+
+.tooltip_login:hover .tooltip-text_login {
+  display: block;
+}
+
+.tooltip_login::before {
+  content: '로그인';
+  display: block;
+  position: absolute;
+  bottom: -40px;
+  left: 50%;
+  transform: translateX(-53%);
+  width: 60px;
+  height: 25px;
+  background-color: black;
+  color: white;
+  text-align: center;
+  font-size: 0.8rem;
+  padding-top: 2px;
+  z-index: 1;
+  border-radius: 5px;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.tooltip_login:hover::before {
+  opacity: 1;
+}

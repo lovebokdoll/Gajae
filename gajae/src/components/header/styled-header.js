@@ -16,7 +16,7 @@ export const CurrencyButton = styled.button`
     content: '통화 선택';
     display: block;
     position: absolute;
-    bottom: -21px;
+    bottom: -29px;
     left: 50%;
     transform: translateX(-50%);
     width: 70px;
@@ -54,7 +54,7 @@ export const NationButton = styled.button`
     content: '언어 선택';
     display: block;
     position: absolute;
-    bottom: -21.5px;
+    bottom:  -30px;
     left: 50%;
     transform: translateX(-50%);
     width: 70px;

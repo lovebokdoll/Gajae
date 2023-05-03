@@ -1,14 +1,10 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useEffect, useState } from "react";
-import { Modal, ModalFooter, ModalHeader } from "react-bootstrap";
-import styled from "styled-components";
-import { hostReviewListDB } from "../../../service/host/hostReview/hostReview";
-import ReplyForm from "./ReplyForm";
-import {
-  replyInsertDB,
-  replyListDB,
-  replyUpdateDB,
-} from "../../../service/host/hostReview/hostReply";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import React, { useEffect, useState } from 'react';
+import { Modal, ModalFooter, ModalHeader } from 'react-bootstrap';
+import styled from 'styled-components';
+import { hostReviewListDB } from '../../../service/host/hostReview/hostReview';
+import ReplyForm from './ReplyForm';
+import { replyInsertDB, replyListDB, replyUpdateDB } from '../../../service/host/hostReview/hostReply';
 
 const MyHotelReviewList = ({ hostId }) => {
   const [hostReviews, setHostReviews] = useState([]); //고객의 리뷰리스트
@@ -33,19 +29,19 @@ const MyHotelReviewList = ({ hostId }) => {
 
   const getReply = async (reviewNumber) => {
     const res = await replyListDB({ REVIEW_NUMBER: reviewNumber });
+    console.log('res.data ===>', res.data);
     if (res) {
       setReply(res.data);
     }
   };
   //댓글
-  const [content, setContent] = useState("");
+  const [content, setContent] = useState('');
 
   const handleContent = (value) => {
     setContent(value);
     console.log(content);
   };
-  const reviewNumber =
-    hostReviews.length > 0 ? hostReviews[0].REVIEW_NUMBER : null;
+  const reviewNumber = hostReviews.length > 0 ? hostReviews[0].REVIEW_NUMBER : null;
 
   const replyInsert = async () => {
     const reply = {
@@ -80,7 +76,7 @@ const MyHotelReviewList = ({ hostId }) => {
   }, [hostId]);
 
   //댓글 수정
-  const [editContent, setEditContent] = useState("");
+  const [editContent, setEditContent] = useState('');
 
   const handleEditReply = (reply) => {
     console.log(reply);
@@ -106,12 +102,8 @@ const MyHotelReviewList = ({ hostId }) => {
   return (
     <>
       <BackDiv>
-        <h3 style={{ fontWeight: "bold" }}>
-          <FontAwesomeIcon
-            icon="fa-solid fa-magnifying-glass"
-            bounce
-            style={{ color: "#010813" }}
-          />
+        <h3 style={{ fontWeight: 'bold' }}>
+          <FontAwesomeIcon icon="fa-solid fa-magnifying-glass" bounce style={{ color: '#010813' }} />
           &nbsp; 이용후기
         </h3>
         <EmtyDiv></EmtyDiv>
@@ -122,10 +114,10 @@ const MyHotelReviewList = ({ hostId }) => {
                 <ReviewWrapper>
                   <div
                     style={{
-                      fontSize: "1.2rem",
-                      textAlign: "left",
-                      marginLeft: "1rem",
-                      padding: "0.2rem",
+                      fontSize: '1.2rem',
+                      textAlign: 'left',
+                      marginLeft: '1rem',
+                      padding: '0.2rem',
                     }}
                   >
                     <FontAwesomeIcon icon="fa-solid fa-hotel" />
@@ -133,19 +125,19 @@ const MyHotelReviewList = ({ hostId }) => {
                   </div>
                   <hr
                     style={{
-                      width: "100%",
-                      margin: "0",
-                      padding: "0",
-                      border: "none",
-                      borderTop: "2px solid lightgray",
+                      width: '100%',
+                      margin: '0',
+                      padding: '0',
+                      border: 'none',
+                      borderTop: '2px solid lightgray',
                     }}
                   />
                   <div
                     style={{
-                      fontSize: "1.2rem",
-                      textAlign: "left",
-                      marginLeft: "1rem",
-                      padding: "0.2rem",
+                      fontSize: '1.2rem',
+                      textAlign: 'left',
+                      marginLeft: '1rem',
+                      padding: '0.2rem',
                     }}
                   >
                     <FontAwesomeIcon icon="fa-solid fa-magnifying-glass" />
@@ -153,22 +145,15 @@ const MyHotelReviewList = ({ hostId }) => {
                   </div>
                   <hr
                     style={{
-                      width: "100%",
-                      margin: "0",
-                      border: "none",
-                      borderTop: "2px solid lightgray",
+                      width: '100%',
+                      margin: '0',
+                      border: 'none',
+                      borderTop: '2px solid lightgray',
                     }}
                   />
                   <WrapperDiv>
                     <ImageContainer>
-                      <img
-                        src={
-                          review.REVIEW_PHOTO
-                            ? review.REVIEW_PHOTO
-                            : "https://via.placeholder.com/150"
-                        }
-                        alt="placeholder image"
-                      />
+                      <img src={review.REVIEW_PHOTO ? review.REVIEW_PHOTO : 'https://via.placeholder.com/150'} alt="placeholder image" />
                     </ImageContainer>
                     <ContentWrapper>
                       <ReviewTitle>{review.REVIEW_TITLE}</ReviewTitle>
@@ -183,18 +168,13 @@ const MyHotelReviewList = ({ hostId }) => {
                         <button
                           type="button"
                           className="btn btn-warning"
-                          style={{ marginBottom: "8" }}
+                          style={{ marginBottom: '8' }}
                           onClick={() => handleEditReply(reply)}
                         >
                           수정
                         </button>
                       ) : (
-                        <button
-                          type="button"
-                          className="btn btn-warning"
-                          style={{ marginBottom: "8%" }}
-                          onClick={handleShow}
-                        >
+                        <button type="button" className="btn btn-warning" style={{ marginBottom: '8%' }} onClick={handleShow}>
                           답변
                         </button>
                       )}
@@ -203,10 +183,7 @@ const MyHotelReviewList = ({ hostId }) => {
                       <AlertModal show={showModal} onHide={handleClose}>
                         <AlertHeader>
                           &nbsp;&nbsp;&nbsp;
-                          <FontAwesomeIcon
-                            icon="fa-solid fa-quote-right"
-                            style={{ color: "#1e3050" }}
-                          />
+                          <FontAwesomeIcon icon="fa-solid fa-quote-right" style={{ color: '#1e3050' }} />
                         </AlertHeader>
                         <ActionContainer>
                           <div className="form-floating">
@@ -214,22 +191,18 @@ const MyHotelReviewList = ({ hostId }) => {
                               className="form-control"
                               placeholder="Leave a comment here"
                               id="floatingTextarea"
-                              style={{ width: "430px", height: "400px" }}
+                              style={{ width: '430px', height: '400px' }}
                               value={content}
                               onChange={(e) => {
                                 handleContent(e.target.value);
                               }}
                             ></textarea>
-                            <label htmlFor="floatingTextarea">
-                              &nbsp; 답변을 작성해주세요!
-                            </label>
+                            <label htmlFor="floatingTextarea">&nbsp; 답변을 작성해주세요!</label>
                           </div>
                         </ActionContainer>
                         <Footer>
                           <SaveButton onClick={replyInsert}>저장</SaveButton>
-                          <CancelButton onClick={handleClose}>
-                            취소
-                          </CancelButton>
+                          <CancelButton onClick={handleClose}>취소</CancelButton>
                         </Footer>
                       </AlertModal>
                     )}
@@ -237,10 +210,7 @@ const MyHotelReviewList = ({ hostId }) => {
                       <EditModal show={editShowModal} onHide={handleClose}>
                         <EditHeader>
                           &nbsp;&nbsp;&nbsp;
-                          <FontAwesomeIcon
-                            icon="fa-solid fa-quote-right"
-                            style={{ color: "#1e3050" }}
-                          />
+                          <FontAwesomeIcon icon="fa-solid fa-quote-right" style={{ color: '#1e3050' }} />
                         </EditHeader>
                         <ActionContainer>
                           <div className="form-floating">
@@ -248,22 +218,18 @@ const MyHotelReviewList = ({ hostId }) => {
                               className="form-control"
                               placeholder="Leave a comment here"
                               id="floatingTextarea"
-                              style={{ width: "430px", height: "400px" }}
+                              style={{ width: '430px', height: '400px' }}
                               value={editContent}
                               onChange={(e) => {
                                 setEditContent(e.target.value);
                               }}
                             ></textarea>
-                            <label htmlFor="floatingTextarea">
-                              &nbsp; 답변을 작성해주세요!
-                            </label>
+                            <label htmlFor="floatingTextarea">&nbsp; 답변을 작성해주세요!</label>
                           </div>
                         </ActionContainer>
                         <Footer>
                           <SaveButton onClick={replyUpdate}>수정</SaveButton>
-                          <CancelButton onClick={handleEditClose}>
-                            취소
-                          </CancelButton>
+                          <CancelButton onClick={handleEditClose}>취소</CancelButton>
                         </Footer>
                       </EditModal>
                     )}
@@ -278,17 +244,8 @@ const MyHotelReviewList = ({ hostId }) => {
         <nav>
           <ul className="pagination justify-content-center">
             {pageNumber.map((page) => (
-              <li
-                key={page}
-                className={
-                  page === currentPage ? "page-item active" : "page-item"
-                }
-              >
-                <a
-                  href="#"
-                  className="page-link"
-                  onClick={() => setCurrentPage(page)}
-                >
+              <li key={page} className={page === currentPage ? 'page-item active' : 'page-item'}>
+                <a href="#" className="page-link" onClick={() => setCurrentPage(page)}>
                   {page}
                 </a>
               </li>
@@ -425,7 +382,7 @@ const ActionContainer = styled.div`
   justify-content: center;
   flex-direction: column;
   align-items: center;
-  font-family: "KOTRA_GOTHIC";
+  font-family: 'KOTRA_GOTHIC';
   text-align: center;
   p {
     margin: 0 0 8px;

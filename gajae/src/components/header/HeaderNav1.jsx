@@ -51,15 +51,15 @@ const HeaderNav1 = () => {
                     className="nav-link tooltip_hotelInsert"
                   >
                     숙소등록
-                    <span className="tooltip-text_hotelInsert">숙소등록</span>
                   </Link>
                   <Link
                     to="/qnalist"
                     style={{ color: 'white', textAlign: 'center', width: '80px', margin: '0px 0px 0px 0px', padding: '0px 0px 0px 0px' }}
-                    className="nav-link"
+                    className="nav-link tooltip_qna"
                   >
-                    1:1 문의
-                  </Link>{' '}
+                    <span>1:1 문의</span>
+                  </Link>
+
                   {userId ? (
                     <MyPageDropDown />
                   ) : (
@@ -67,14 +67,14 @@ const HeaderNav1 = () => {
                       <Link
                         to="/signup"
                         style={{ color: 'white', width: '70px', margin: '0px 0px 0px 0px', padding: '0px 0px 0px 2px' }}
-                        className="nav-link"
+                        className="nav-link tooltip_signup"
                       >
                         가입하기
                       </Link>
                       <Link
                         to="/login"
                         style={{ color: 'white', width: '60px', margin: '0px 0px 0px 0px', padding: '0px 0px 0px 6px' }}
-                        className="nav-link"
+                        className="nav-link tooltip_login"
                       >
                         로그인
                       </Link>
@@ -83,7 +83,7 @@ const HeaderNav1 = () => {
                   <Link
                     to="/notice"
                     style={{ color: 'white', width: '110px', margin: '0px 0px 0px 0px', padding: '0px 0px 0px 5px' }}
-                    className="nav-link"
+                    className="nav-link tooltip_notice"
                   >
                     <FaQuestionCircle size={20} />
                   </Link>

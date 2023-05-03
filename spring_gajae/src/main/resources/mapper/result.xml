@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.gajae.demo">
+<mapper namespace="search">
 
 	<!-- 검색 -->
 	<select id="searchlist" parameterType="map" resultType="map">
@@ -12,7 +12,8 @@
 		MIN(CAST(A.ROOM_PRICE AS INTEGER)) AS ROOM_PRICE,
 		WM_CONCAT(DISTINCT A.ROOM_TYPE) AS ROOM_TYPE,
 		MAX(A.ROOM_OPTION) AS ROOM_OPTION,
-		P.P_STAR
+		P.P_STAR,
+		P.P_PHOTO
 		FROM PROPERTIES P
 		INNER JOIN P_ROOMTYPE A ON P.ROOM_ID = A.ROOM_ID
 		INNER JOIN P_EXTRAS B ON P.P_ID = B.P_ID
@@ -49,7 +50,7 @@
 			</foreach>
 		</if>
 		GROUP BY P.P_ID, P.P_TITLE, P.P_ADDRESS, P.P_CHECKOUT, P.P_CHECKIN,
-		P.P_STAR
+		P.P_STAR, P.P_PHOTO
 		ORDER BY P_ID DESC
 	</select>
 
@@ -163,7 +164,7 @@
 
 
 	<!-- 리뷰 순 -->
-	<select id="reviewwHigh" parameterType="map" resultType="map">
+	<select id="reviewHigh" parameterType="map" resultType="map">
 		SELECT P.P_ID, P.P_TITLE, P.P_ADDRESS, P.P_CHECKOUT,
 		WM_CONCAT(DISTINCT B.P_EXTRA) AS P_EXTRA,
 		COALESCE(MAX(R.REVIEW_AVERAGE), 0) AS REVIEW_AVERAGE,

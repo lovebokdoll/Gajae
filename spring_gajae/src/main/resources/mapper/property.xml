@@ -3,7 +3,7 @@
 <mapper namespace="property">
 
 	<select id="list" parameterType="map"
-		resultType="com.gajae.demo.dto.PropertyDTO">
+		resultType="map">
 		SELECT
 		P_ID,
 		P_TITLE,
