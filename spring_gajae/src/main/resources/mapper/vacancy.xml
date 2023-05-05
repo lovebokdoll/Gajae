@@ -15,11 +15,15 @@
 		UPDATE P_VACANCY_${P_ID}
 		SET RES_YN = 'Y'
 		WHERE P_ID=#{P_ID}
-		AND ROOM_ID=#{ROOM_ID}
-		AND TO_DATE(RES_DATE, 'YYYY-MM-DD') <![CDATA[ >= ]]> TO_DATE(#{START_DATE}, 'YYYY-MM-DD')
-		AND TO_DATE(RES_DATE, 'YYYY-MM-DD') <![CDATA[ <= ]]> TO_DATE(#{END_DATE}, 'YYYY-MM-DD')
+		AND
+		ROOM_ID=#{ROOM_ID}
+		AND TO_DATE(RES_DATE, 'YYYY-MM-DD') <![CDATA[ >= ]]>
+		TO_DATE(#{START_DATE}, 'YYYY-MM-DD')
+		AND TO_DATE(RES_DATE,
+		'YYYY-MM-DD') <![CDATA[ <= ]]>
+		TO_DATE(#{END_DATE}, 'YYYY-MM-DD')
 	</update>
-	
+
 	<!-- 달력create -->
 	<insert id="vacancyCreate" parameterType="int">
 		CREATE TABLE
@@ -34,48 +38,66 @@
 		)
 	</insert>
 
-	<update id="vacancyInsert" parameterType="java.util.List">
+	<update id="vacancyInsert22" parameterType="java.util.List">
+		<foreach collection="list" item="item" index="index"
+			open="INSERT ALL" close="SELECT * FROM DUAL" separator=" ">
+			INTO P_VACANCY_${item.p_id} (
+			P_ID,
+			ROOM_ID,
+			RES_DATE,
+			RES_YN
+			)
+			WITH
+			date_range AS (
+			SELECT TO_DATE('2023-05-01', 'YYYY-MM-DD') + LEVEL - 1
+			as res_date
+			FROM dual
+			CONNECT BY LEVEL <![CDATA[ <= ]]>(TO_DATE('2023-07-30','YYYY-MM-DD')-
+			TO_DATE('2023-05-01', 'YYYY-MM-DD') + 1)
+			)
+			SELECT
+			${item.p_id},
+			${item.ROOM_ID},
+			TO_DATE(res_date, 'YYYY-MM-DD') + LEVEL - 1 as
+			res_date,
+			'N'
+			FROM
+			date_range;
+		</foreach>
+	</update>
+
+
+	<update id="vacancyInsert" parameterType="list">
 		INSERT ALL
 		<foreach collection="list" item="item" index="index"
 			separator=" ">
-			INTO
-			P_VACANCY_${item.p_id}(
-			P_ID, ROOM_ID, RES_DATE, RES_YN
-			)
-			VALUES(
-			#{item.p_id},
-			#{item.ROOM_ID},
-			TO_CHAR(LEVEL - 1 +
-			TO_DATE('2023-04-24', 'YYYY-MM-DD'), 'YYYY-MM-DD'),
-			'N'
-			)
+         <![CDATA[
+                into
+    P_VACANCY_18 (
+            P_ID,
+            ROOM_ID,
+            RES_DATE,
+            RES_YN
+            )
+            WITH date_range
+            AS (
+            SELECT TO_DATE('2023-05-01', 'YYYY-MM-DD') + LEVEL - 1 res_date
+            FROM dual
+            CONNECT BY LEVEL <=
+            (TO_DATE('2023-07-30', 'YYYY-MM-DD') - TO_DATE('2023-05-01',
+            'YYYY-MM-DD') + 1)
+            )
+            SELECT
+            18,
+            2,
+            TO_DATE(TO_CHAR(res_date,'YYYY-MM-DD'),'YYYY-MM-DD'),
+            'N'
+            FROM date_range
+            ]]>
 		</foreach>
-			WHERE LEVEL  <![CDATA[ <= ]]>
-			(TO_DATE('2023-07-30', 'YYYY-MM-DD') - TO_DATE('2023-04-24',
-			'YYYY-MM-DD') + 1)
-			CONNECT BY LEVEL  <![CDATA[ <= ]]>
-			(TO_DATE('2023-07-30', 'YYYY-MM-DD') - TO_DATE('2023-04-24',
-			'YYYY-MM-DD') + 1)
-		SELECT * FROM dual
+		SELECT * FROM DUAL
 	</update>
 
-	<!-- 달력insert -->
-		<!--<insert id="vacancyInsert" parameterType="java.util.List">
-		INSERT INTO P_VACANCY_${p_id} (P_ID, ROOM_ID, RES_DATE, RES_YN)VALUES
-		<foreach item="item" index="index" collection="list"
-			separator=" ">
-			(
-			SELECT #{item.p_id}, #{item.ROOM_ID}, TO_CHAR(LEVEL - 1 +
-			TO_DATE('2023-04-24', 'YYYY-MM-DD'), 'YYYY-MM-DD'), 'N'
-			FROM DUAL
-			WHERE LEVEL  <![CDATA[ <= ]]>
-			(TO_DATE('2023-07-30', 'YYYY-MM-DD') - TO_DATE('2023-04-24',
-			'YYYY-MM-DD') + 1)
-			CONNECT BY LEVEL  <![CDATA[ <= ]]>
-			(TO_DATE('2023-07-30', 'YYYY-MM-DD') - TO_DATE('2023-04-24',
-			'YYYY-MM-DD') + 1)
-			)
-		</foreach>
-	</insert> -->
+
 
 </mapper>

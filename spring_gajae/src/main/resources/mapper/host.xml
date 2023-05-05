@@ -89,7 +89,7 @@
 			P_STAR,
 			P_POSTAL,
 			P_TEL,
-			P_ADDRESS,
+			<!-- P_ADDRESS, -->
 			P_OVERVIEW,
 			P_SCALE,
 			P_CHECKIN,

@@ -125,7 +125,6 @@ const RegisterHotel = () => {
   const handleStar = useCallback((e) => {
     const value = e.target.id;
     console.log(value);
-    const checked = e.target.checked;
     console.log(e.target.checked);
     document.querySelectorAll('input[type="checkbox"]').forEach((checkbox) => {
       if (checkbox.id !== value) {

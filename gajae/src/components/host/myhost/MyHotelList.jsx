@@ -64,7 +64,7 @@ const MyHotelList = ({ hostId }) => {
                 >
                   <Card.Img
                     variant="top"
-                    style={{ width: "282px", height: "250px" }}
+                    style={{ width: "auto", height: "250px" }}
                     src={hotel.P_PHOTO}
                   />
                   <Card.Body>

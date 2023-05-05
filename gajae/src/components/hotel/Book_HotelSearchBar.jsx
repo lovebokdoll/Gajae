@@ -24,7 +24,6 @@ import moment from "moment/moment";
 const HotelSearchBar = ({ selectDate, selectOptions }) => {
   //쿠키 1주일 설정하는 변수
   const oneWeekFromNow = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
-  const navigate = useNavigate();
   //상태관리
   const [openDate, setOpenDate] = useState(false);
   const [date, setDate] = useState([
@@ -49,19 +48,14 @@ const HotelSearchBar = ({ selectDate, selectOptions }) => {
     }
   }, []);
   console.log(date);
-  //서치바 상태 담음 => props넘겨받기 사용자가 조건 변경할 때
-  const [searchOption, setSearchOption] = useState([
-    {
-      selectDate: selectDate, // 초기값은 사용자가 선택해서 넘겨받은 값
-      selectOptions: selectOptions, // 초기값은 사용자가 선택해서 넘겨받은 값
-    },
-  ]);
   const [openOptions, setOpenOptions] = useState(false);
   //인원수 선택하기 위한 option상태 사용
   const [options, setOptions] = useState({
-    adult: 1,
+    adult: parseInt(Cookies.get("resPeople")),
   });
+
   const handleSearch = () => {
+    console.log("options.adult ===>", options.adult);
     const startDate = date[0].startDate;
     const formattedStartDate = `${startDate.getFullYear()}-${(
       startDate.getMonth() + 1
@@ -78,6 +72,8 @@ const HotelSearchBar = ({ selectDate, selectOptions }) => {
     console.log("Formatted end date:", formattedEndDate);
     Cookies.set("startDate", formattedStartDate, oneWeekFromNow);
     Cookies.set("endDate", formattedEndDate, oneWeekFromNow);
+    Cookies.set("resPeople", options.adult, oneWeekFromNow);
+    window.location.reload();
   };
   //검색버튼 누르면 페이지 이동
   const handleOption = (name, operation) => {
@@ -92,10 +88,15 @@ const HotelSearchBar = ({ selectDate, selectOptions }) => {
     <>
       <div className="hotelHeaderSearch">
         <div className="hotelHeaderSearchItem">
-          <FontAwesomeIcon icon={faCalendarDays} className="headerIcon" />
+          <FontAwesomeIcon
+            icon={faCalendarDays}
+            className="headerIcon"
+            style={{ color: "gray" }}
+          />
           <span
             onClick={() => setOpenDate(!openDate)}
             className="headerSearchText"
+            style={{ color: "gray" }}
           >
             {" "}
             &nbsp;
@@ -118,15 +119,20 @@ const HotelSearchBar = ({ selectDate, selectOptions }) => {
           )}
         </div>
         <div className="hotelHeaderSearchItem">
-          <FontAwesomeIcon icon={faPerson} className="headerIcon" />
+          <FontAwesomeIcon
+            icon={faPerson}
+            className="headerIcon"
+            style={{ color: "gray" }}
+          />
           <span
             onClick={() => setOpenOptions(!openOptions)}
             className="hotelheaderSearchText"
-          >{`${options.adult} adult`}</span>
+            style={{ color: "gray" }}
+          >{`${options.adult} 성인`}</span>
           {openOptions && (
             <div className="hotelOptions">
               <div className="optionItem">
-                <span className="optionText">Adult</span>
+                <span className="optionText">성인</span>
                 <div className="optionCounter">
                   <button
                     disabled={options.adult <= 1}
@@ -139,46 +145,6 @@ const HotelSearchBar = ({ selectDate, selectOptions }) => {
                   <button
                     className="optionCounterButton"
                     onClick={() => handleOption("adult", "i")}
-                  >
-                    +
-                  </button>
-                </div>
-              </div>
-              <div className="optionItem">
-                <span className="optionText">Children</span>
-                <div className="optionCounter">
-                  <button
-                    disabled={options.children <= 0}
-                    className="optionCounterButton"
-                    onClick={() => handleOption("children", "d")}
-                  >
-                    -
-                  </button>
-                  <span className="optionCounterNumber">
-                    {options.children}
-                  </span>
-                  <button
-                    className="optionCounterButton"
-                    onClick={() => handleOption("children", "i")}
-                  >
-                    +
-                  </button>
-                </div>
-              </div>
-              <div className="optionItem">
-                <span className="optionText">Room</span>
-                <div className="optionCounter">
-                  <button
-                    disabled={options.room <= 1}
-                    className="optionCounterButton"
-                    onClick={() => handleOption("room", "d")}
-                  >
-                    -
-                  </button>
-                  <span className="optionCounterNumber">{options.room}</span>
-                  <button
-                    className="optionCounterButton"
-                    onClick={() => handleOption("room", "i")}
                   >
                     +
                   </button>

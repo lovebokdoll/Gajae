@@ -42,7 +42,7 @@ public class HostLogic {
 		return hostList;
 	}
 
-//호텔등록 로직
+	// 호텔등록 로직
 	public int propertyInsert(Map<String, Object> map) {
 		log.info("map={}", map);
 		log.info(map.get("room_id"));
@@ -62,8 +62,7 @@ public class HostLogic {
 			rids[i] = Integer.parseInt(roomtypes[i]);
 		}
 		ArrayList<Map<String, Object>> list = new ArrayList<>();
-		
-		
+
 		Map<String, Object> pMap = null;
 		int p_id = hostDAO.getPid();
 
@@ -71,10 +70,10 @@ public class HostLogic {
 			return -1;
 		}
 		// p_id에 해당하는 달력테이블 생성
-		//vacancyCreate(p_id);
+	/*	vacancyCreate(p_id);
 
-		// p_id화 room_id받아와서 달력insert
-	/*	ArrayList<Map<String, Object>> vacancyList = new ArrayList<>();
+		// p_id room_id받아와서 달력insert
+		ArrayList<Map<String, Object>> vacancyList = new ArrayList<>();
 		Map<String, Object> vacancyMap = null;
 		for (int i = 0; i < rids.length; i++) {
 			vacancyMap = new HashMap<>();
@@ -122,6 +121,7 @@ public class HostLogic {
 
 	// 달력생성
 	private int vacancyCreate(int p_id) {
+		log.info("p_id={}", p_id);
 
 		int result = hostDAO.vacancyCreate(p_id);
 

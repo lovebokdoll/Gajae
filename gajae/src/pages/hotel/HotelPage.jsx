@@ -33,13 +33,6 @@ const HotelPage = () => {
       block: "start",
     });
   };
-
-  /* const onMoveToReview = () => {
-     reviewRef?.current?.scrollIntoView({
-     behavior: "smooth",
-     block: "start",
-     });
-      }; */
   const onMoveToFacilities = () => {
     facilitiesRef?.current?.scrollIntoView({
       behavior: "smooth",

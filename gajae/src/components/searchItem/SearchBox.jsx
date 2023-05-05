@@ -1,6 +1,6 @@
 import axios from "axios";
 import Cookies from "js-cookie";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "../main/mainSearchBar.css";
@@ -19,14 +19,11 @@ const SearchBox = () => {
   const PEOPLE = Cookies.get("resPeople");
   console.log(CHECKOUT);
 
-  //지역 입력
-  const [P_ADDRESS, setP_Address] = useState("");
-  console.log(P_ADDRESS);
-
-  const [startDate, setStartDate] = useState("");
-  console.log(P_ADDRESS);
-  const [endDate, setEndDate] = useState("");
-  console.log(P_ADDRESS);
+  const [startDate, setStartDate] = useState(Cookies.get("CHECKIN") || CHECKIN);
+  const [endDate, setEndDate] = useState(Cookies.get("CHECKOUT") || CHECKOUT);
+  const [P_ADDRESS, setP_Address] = useState(
+    Cookies.get("p_address") || ADDRESS
+  );
 
   const [openOptions, setOpenOptions] = useState(false);
 
@@ -43,6 +40,12 @@ const SearchBox = () => {
       key: "selection",
     },
   ]);
+
+  useEffect(() => {
+    if (new Date(startDate) > new Date(endDate)) {
+      setEndDate(startDate);
+    }
+  }, [startDate]);
 
   const handleOption = (name, operation) => {
     setRoom_Capacity((prev) => {
@@ -140,7 +143,7 @@ const SearchBox = () => {
             className="databox"
             style={{ width: "180px" }}
             type="date"
-            defaultValue={CHECKIN}
+            defaultValue={startDate}
             onChange={(e) => setStartDate(e.target.value)}
           />
         </div>
@@ -164,7 +167,7 @@ const SearchBox = () => {
             className="databox"
             style={{ width: "180px" }}
             type="date"
-            defaultValue={CHECKOUT}
+            defaultValue={endDate}
             onChange={(e) => setEndDate(e.target.value)}
           />
         </div>
@@ -179,7 +182,7 @@ const SearchBox = () => {
             {PEOPLE} 명
           </span>
           {openOptions && (
-            <div className="optionsBar" style={{ marginLeft: "50px" }}>
+            <div className="optionsBar" style={{ marginLeft: "15px" }}>
               <div className="optionItem">
                 <span className="optionText">인원</span>
                 <div className="optionCounter">

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "./hotel.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import HotelDetailMapModal from "./HotelDetailMapModal";
@@ -18,6 +18,7 @@ const HotelInformation = ({ row }) => {
     setShowModal(true);
   };
   console.log(row);
+
   return (
     <>
       <div>
@@ -59,6 +60,7 @@ const HotelInformation = ({ row }) => {
                     __html: row.P_OVERVIEW?.split(".").join(".<br>"),
                   }}
                 ></div>
+                <div></div>
               </div>
             </div>
           </div>
