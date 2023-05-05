@@ -2,16 +2,17 @@ import React from 'react'
 import { useEffect } from 'react';
 import { useCallback } from 'react';
 import { useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { BButton, ContainerDiv, FormDiv, HeaderDiv } from '../../style/FormStyle';
 import MyFilter from './MyFilter';
-import { qnaUpdateDB } from '../../service/database';
+import { qnaListDB, qnaUpdateDB } from '../../service/database';
 import Swal from 'sweetalert2';
 
 const QnAUpdatePage = () => {
-  const {QNA_NO} = useParams()
   const navigate = useNavigate()
-  console.log(QNA_NO); //글 번호를 가져오는지 체크
+  const path = window.location.pathname;
+  const QNA_NO = path.split('/').pop();  
+  console.log(QNA_NO);
   const [QNA_TITLE, setTitle] = useState(""); //사용자가 입력한 제목 담기
   const [QNA_CONTENT, setContent] = useState(""); //사용자가 입력한 내용 담기
   const [QNA_TYPE, setTitleType] = useState("");
@@ -27,7 +28,7 @@ console.log(userId)
       const qna = {
         QNA_NO : QNA_NO,
       }
-      const res = await qnaUpdateDB(qna)
+      const res = await qnaListDB(qna)
       console.log(res.data)
       const temp = JSON.stringify(res.data) //문자열로 전환
       const jsonDoc = JSON.parse(temp) //배열로 접근
@@ -78,6 +79,7 @@ console.log(userId)
   })
 ) 
     const qna = {
+      QNA_NO: QNA_NO,
       USER_ID: userId, // 로그인한 사용자의 ID
       QNA_TITLE: QNA_TITLE, // 작성한 글의 제목
       QNA_CONTENT: QNA_CONTENT, // 작성한 글의 내용
@@ -102,7 +104,6 @@ console.log(userId)
         });
       }
     }
-
 
   return (
     <>
