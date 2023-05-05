@@ -39,7 +39,6 @@ const PropertyMap = () => {
           content: `
           <div>
           <h5>${item.P_TITLE}</h5>
-          <p>${item.P_STAR}</p>
         </div>
         `,
         });

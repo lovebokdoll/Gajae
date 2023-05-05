@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.gajae.demo.dao.ReviewBoardDAO;
+import com.gajae.demo.dto.ReplyDTO;
 
 import lombok.extern.log4j.Log4j2;
 
@@ -26,11 +27,15 @@ public class ReviewBoardLogic {
 	    log.info(pMap);
 	    float reviewAverage = calculateReviewAverage.calculateReviewAverage(pMap);
 	    pMap.put("REVIEW_AVERAGE", reviewAverage);
+	    log.info(pMap);
 		int result = reviewBoardDao.reviewInsert(pMap);
 	    return result;
 	}
 			
 	public int reviewUpdate(Map<String, Object> pMap) {
+		float reviewAverage = calculateReviewAverage.calculateReviewAverage(pMap);
+	    pMap.put("REVIEW_AVERAGE", reviewAverage);
+	    log.info(pMap);
 		int result = reviewBoardDao.reviewUpdate(pMap);
 		return result;
 	}
@@ -70,13 +75,13 @@ public class ReviewBoardLogic {
 
 	public int replyInsert(Map<String, Object> pMap) {
 		log.info("replyInsert");
-		 if (pMap.get("REVIEW_NUMBER") == null || pMap.get("REPLY_CONTENT") == null) {
-		    log.error("Missing parameter: REVIEW_NUMBER or REPLY_CONTENT");
-		    return 0;
-		 }		    
 	    int result = reviewBoardDao.replyInsert(pMap);
 	    return result;	
 	    
+	}
+	public List<ReplyDTO> getRepliesByReviewNumber(Integer reviewNumber) {
+		log.info("돌아가니?");
+		return reviewBoardDao.getRepliesByReviewNumber(reviewNumber);
 	}
 
 	public List<Map<String, Object>> hostreplyList(Map<String, Object> pMap) {
@@ -98,5 +103,18 @@ public class ReviewBoardLogic {
 		int result = reviewBoardDao.hostreplyUpdate(pMap);
 		return result;
 	}
+
+	public List<Map<String, Object>> hostReviewDetail(Map<String, Object> pMap) {
+		log.info("hostReviewDetail호출 성공");
+		List<Map<String, Object>> hrList = null;
+		hrList = reviewBoardDao.hostReviewDetail(pMap);		
+	    return hrList;
+	}
+
+	public int hostReviewDelete(Map<String, Object> pMap) {
+		int result = reviewBoardDao.hostReviewDelete(pMap);
+		return 0;
+	}
+
 
 }

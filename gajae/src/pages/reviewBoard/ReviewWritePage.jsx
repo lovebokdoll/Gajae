@@ -9,6 +9,7 @@ import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ImageUpload from "../../components/review/ImageUpload";
 import ReviewScore from "../../components/review/ReviewScore";
+import Swal from "sweetalert2";
 
 /**
  *
@@ -61,6 +62,22 @@ const ReviewWritePage = () => {
   };
 
   const reviewInsert = async () => {
+    if (
+      !title ||
+      !reviewgood ||
+      !reviewbad ||
+      !service ||
+      !facility ||
+      !clean ||
+      !cost ||
+      !location
+    ) {
+      Swal.fire({
+        title: "모든 항목을 작성해주세요.",
+        icon: "error",
+      });
+      return;
+    }
     const review = {
       REVIEW_NUMBER: 0,
       R_NUMBER: r_number,
@@ -89,7 +106,7 @@ const ReviewWritePage = () => {
       setErrorMessage("");
     }
   };
-  /* 디자인 적인 요소   */
+
   const handleInputBlurBad = () => {
     if (reviewbad.length <= 20) {
       setErrorMessageBad("20자 이상 입력하세요.");
@@ -242,6 +259,8 @@ const ReviewWritePage = () => {
                 }}
               ></div>
               <ImageUpload getImage={getImage} />
+
+              
               <hr />
               {/*--------------------------------리뷰점수-------------------------------------  */}
               <ReviewScore

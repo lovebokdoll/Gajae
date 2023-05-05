@@ -119,28 +119,26 @@ const MyReviewList = ({ userId }) => {
             </ReviewItem>
           ))}
         </ReviewList>
-        <PageDiv>
-          <nav>
-            <ul className="pagination justify-content-center">
-              {pageNumber.map((page) => (
-                <li
-                  key={page}
-                  className={
-                    page === currentPage ? "page-item active" : "page-item"
-                  }
+        <nav>
+          <ul className="pagination justify-content-center">
+            {pageNumber.map((page) => (
+              <li
+                key={page}
+                className={
+                  page === currentPage ? "page-item active" : "page-item"
+                }
+              >
+                <a
+                  href="#"
+                  className="page-link"
+                  onClick={() => setCurrentPage(page)}
                 >
-                  <a
-                    href="#"
-                    className="page-link"
-                    onClick={() => setCurrentPage(page)}
-                  >
-                    {page}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </nav>
-        </PageDiv>
+                  {page}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
       </BackDiv>
     </>
   );
@@ -151,10 +149,9 @@ const BackDiv = styled.div`
   display: block;
   position: relative;
   flex-direction: column;
-  max-width: 1000px;
+  width: 700px;
   max-height: 1000px;
   align-items: center;
-  font-family: "KOTRA_GOTHIC";
 `;
 
 const ReviewList = styled.ul`
@@ -166,18 +163,16 @@ const ReviewItem = styled.li`
   border: 1px solid lightgrey;
   border-radius: 10px;
   margin-bottom: 15px;
-  height: 400px;
-  min-height: 480px;
+
   list-style-type: none;
 `;
 const ReviewWrapper = styled.div`
   display: flex;
   flex-direction: row;
-  max-width: 800px;
   position: relative;
   margin-top: 1.9rem;
-  min-height: 200px;
 `;
+
 const ImageContainer = styled.div`
   display: flex;
   margin-left: 40px;
@@ -203,7 +198,7 @@ const ImageDescription = styled.div`
 
 const ContentWrapper = styled.div`
   flex: 0 0 60.666667%;
-  margin-left: 0px;
+  margin-left: 2rem;
 `;
 const TextWrapper = styled.div`
   display: flex;
@@ -244,16 +239,12 @@ const EmtyDiv = styled.div`
 `;
 
 const ReviewImg = styled.div`
-  margin-top: 0.5rem;
-  height: 200px;
-  width: 200px;
+  margin-top: 0.7rem;
+  height: 180px;
+  width: 180px;
   img {
     width: 100%;
     height: 100%;
     object-fit: cover;
   }
-`;
-
-const PageDiv = styled.div`
-  bottom: 0;
 `;

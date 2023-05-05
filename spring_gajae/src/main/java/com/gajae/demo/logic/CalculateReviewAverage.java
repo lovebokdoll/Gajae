@@ -15,6 +15,7 @@ public class CalculateReviewAverage {
 		  int reviewCost = (int) pMap.get("REVIEW_COST");
 
 		  float reviewAverage = (reviewService + reviewFacility + reviewClean + reviewLocation + reviewCost) / 5.0f;
+		  	
 		  return reviewAverage;
-	}
+		}
 }

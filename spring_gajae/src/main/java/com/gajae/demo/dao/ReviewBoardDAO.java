@@ -5,6 +5,9 @@ import java.util.Map;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
+import com.gajae.demo.dto.ReplyDTO;
+
 import lombok.extern.log4j.Log4j2;
 
 @Log4j2
@@ -83,6 +86,13 @@ public class ReviewBoardDAO {
 	     int result = sqlSessionTemplate.update( "review.replyInsert", pMap );   
 	     return result;
 	    }
+	
+	public List<ReplyDTO> getRepliesByReviewNumber(Integer reviewNumber) {
+		log.info(reviewNumber);
+		return sqlSessionTemplate.selectList("review.getRepliesByReviewNumber", reviewNumber);
+	}
+	
+	
 	//호스트 댓글 가져오기
 	public List<Map<String, Object>> hostreplyList(Map<String, Object> pMap) {
 	     log.info( "hostreplyList" );	
@@ -97,5 +107,19 @@ public class ReviewBoardDAO {
 	      int result = sqlSessionTemplate.update( "review.hostreplyUpdate", pMap );
 	        
 	      return result;
+	}
+
+	public List<Map<String, Object>> hostReviewDetail(Map<String, Object> pMap) {
+		 log.info( "pMap = {}", pMap );	        
+	     List<Map<String, Object>> hrList = sqlSessionTemplate.selectList( "review.hostReviewDetail", pMap );	        
+	     log.info( hrList );	        
+	     return hrList;
+	}
+
+	public int hostReviewDelete(Map<String, Object> pMap) {
+		  log.info( "pMap = {}", pMap );
+	        int result = sqlSessionTemplate.delete( "review.hostReviewDelete", pMap );
+	        
+	        return result;
 	}
 }

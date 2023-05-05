@@ -3,6 +3,9 @@ import React from "react";
 import styled from "styled-components";
 
 const HotelReviewReply = ({ review }) => {
+  if (!review.REPLY_DATE || !review.REPLY_CONTENT) {
+    return null;
+  }
   return (
     <>
       <SpeechBubbleDiv>

@@ -85,9 +85,11 @@
 			REVIEW_CLEAN = #{REVIEW_CLEAN},
 			REVIEW_PHOTO = #{REVIEW_PHOTO}, 
 			REVIEW_LOCATION = #{REVIEW_LOCATION},
-			REVIEW_COST = #{REVIEW_COST}
+			REVIEW_COST = #{REVIEW_COST},
+			REVIEW_AVERAGE = #{REVIEW_AVERAGE}
 	  WHERE REVIEW_NUMBER = #{REVIEW_NUMBER} 	
 	 </update>
+	 
 	 <delete id="reviewDelete" parameterType="map">
 	 	DELETE FROM REVIEW
 	 	WHERE REVIEW_NUMBER = #{REVIEW_NUMBER}
@@ -120,6 +122,13 @@
 			TO_CHAR(SYSDATE, 'YYYY-MM-DD')
 			)
 	 </insert>
+	 
+	 <select id="getRepliesByReviewNumber" resultType="com.gajae.demo.dto.ReplyDTO">
+	    SELECT REPLY_NUMBER, REVIEW_NUMBER, HOST_ID, REPLY_CONTENT, REPLY_DATE
+	    FROM REPLY
+	    WHERE REVIEW_NUMBER = #{reviewNumber}
+  	</select>
+	 
 	<update id="hostreplyUpdate" parameterType="map">
 	 	UPDATE REPLY
 	 	   SET
@@ -133,4 +142,17 @@
 		FROM REPLY 
 		WHERE REVIEW_NUMBER = #{REVIEW_NUMBER} 
 	 </select>
+	 
+	<select id="hostReviewDetail" parameterType="java.util.HashMap" resultType="map">		        
+		SELECT DISTINCT R.REVIEW_TITLE, R.REVIEW_DATE, R.REVIEW_GOOD, R.REVIEW_BAD, R.REVIEW_PHOTO, P.P_ID, P.P_TITLE
+		  FROM REVIEW R
+		  JOIN RESERVATIONS RV ON R.R_NUMBER = RV.R_NUMBER
+		  JOIN PROPERTIES P ON RV.P_ID = P.P_ID
+		 WHERE R.REVIEW_NUMBER = #{REVIEW_NUMBER}
+	 </select>
+	 
+	<delete id="hostReviewDelete" parameterType="map">
+	 	DELETE FROM REPLY
+	 	WHERE REPLY_NUMBER = #{REPLY_NUMBER}
+	</delete>
 	</mapper>

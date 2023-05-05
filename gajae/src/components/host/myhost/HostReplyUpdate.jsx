@@ -1,18 +1,33 @@
-/* 
+import React, { useState } from "react";
+import { Modal, ModalFooter, ModalHeader } from "react-bootstrap";
+import styled from "styled-components";
+import { replyUpdateDB } from "../../../service/host/hostReview/hostReply";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const MyhotelReplyUpdate = ({ handleClose }) => {
-  const [content, setContent] = useState("");
+const HostReplyUpdate = ({ editShowModal, onHide, comment, setComment }) => {
+  const [editContent, setEditContent] = useState("");
 
   const handleContent = (value) => {
-    setContent(value);
+    setEditContent(value);
   };
-
-  const replyOne= async()=>{
-    
-  }
+  console.log(comment);
+  const replyUpdate = async () => {
+    const updatedReply = {
+      REPLY_NUMBER: comment[0].REPLY_NUMBER,
+      REPLY_CONTENT: editContent,
+    };
+    const res = await replyUpdateDB(updatedReply);
+    setComment((prevState) => {
+      const newComment = [...prevState];
+      newComment[0].REPLY_CONTENT = editContent;
+      return newComment;
+    });
+    onHide();
+    /* window.location.href = "/host/myhotelreview"; */
+  };
   return (
     <>
-      <AlertModal show={showModal} onHide={handleClose}>
+      <AlertModal show={editShowModal} onHide={onHide}>
         <AlertHeader>
           &nbsp;&nbsp;&nbsp;
           <FontAwesomeIcon
@@ -26,7 +41,6 @@ const MyhotelReplyUpdate = ({ handleClose }) => {
               className="form-control"
               placeholder="Leave a comment here"
               id="floatingTextarea"
-              value={content}
               style={{ width: "430px", height: "400px" }}
               onChange={(e) => {
                 handleContent(e.target.value);
@@ -38,15 +52,15 @@ const MyhotelReplyUpdate = ({ handleClose }) => {
           </div>
         </ActionContainer>
         <Footer>
-          <SaveButton onClick={replyInsert}>저장</SaveButton>
-          <CancelButton onClick={handleClose}>취소</CancelButton>
+          <SaveButton onClick={replyUpdate}>수정</SaveButton>
+          <CancelButton onClick={onHide}>취소</CancelButton>
         </Footer>
       </AlertModal>
     </>
   );
 };
 
-export default MyhotelReplyUpdate;
+export default HostReplyUpdate;
 
 const AlertModal = styled(Modal)`
   position: fixed;
@@ -67,6 +81,12 @@ const AlertHeader = styled(ModalHeader)`
   border: none;
 `;
 
+const Footer = styled(ModalFooter)`
+  display: flex;
+  justify-content: center;
+  margin-top: 24px;
+`;
+
 const ActionContainer = styled.div`
   display: flex;
   justify-content: center;
@@ -79,11 +99,6 @@ const ActionContainer = styled.div`
   }
 `;
 
-const Footer = styled(ModalFooter)`
-  display: flex;
-  justify-content: center;
-  margin-top: 24px;
-`;
 const SaveButton = styled.button`
   background-color: #dc3545;
   border: none;
@@ -92,7 +107,6 @@ const SaveButton = styled.button`
   border-radius: 4px;
   margin-right: 10px;
 `;
-
 const CancelButton = styled.button`
   background-color: #1e3050;
   border: none;
@@ -100,4 +114,3 @@ const CancelButton = styled.button`
   padding: 8px 16px;
   border-radius: 4px;
 `;
- */

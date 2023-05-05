@@ -34,8 +34,8 @@ const HotelDetailMap = ({ row }) => {
       <div
         id="map-container"
         style={{
-          width: "100%",
-          height: "500px",
+          width: "400px",
+          height: "400px",
           marginBottom: "20px",
           border: "2px solid lightgray",
         }}
@@ -44,7 +44,7 @@ const HotelDetailMap = ({ row }) => {
           ref={mapRef}
           style={{
             width: "100%",
-            height: "500px",
+            height: "100%",
           }}
         ></div>
       </div>
