@@ -29,7 +29,6 @@ const PaymentPage = () => {
     p_checkin: Cookies.get('p_checkin'),
     p_checkout: Cookies.get('p_checkout'),
     resRoomType: Cookies.get('resRoomType'),
-    resRoomId: Cookies.get('resRoomId'),
     selectedRoomNumber: Cookies.get('selectedRoomNumber'),
     resPrice: Cookies.get('resPrice'),
     resAddress: Cookies.get('resAddress'),
@@ -75,7 +74,7 @@ const PaymentPage = () => {
       <HeaderNav2 />
       <br />
       <div className="Container">
-        <Form className="inner-outter1" style={{ display: 'flex', justifyContent: 'center', height: 800 }} onSubmit={handleSubmit}>
+        <Form className="inner-outter1" style={{ display: 'flex', justifyContent: 'center', height: 900 }} onSubmit={handleSubmit}>
           <PaymentSide paymentSideData={paymentSideData} />
           <Card
             className="personal-info"
@@ -101,7 +100,7 @@ const PaymentPage = () => {
                   {' '}
                   개인정보 입력{' '}
                 </h3>
-                <div style={{ width: '600px', height: '90px', border: '1px solid grey', marginBottom: '15px' }}>
+                <div style={{ width: '500px', height: '90px', border: '1px solid grey', marginBottom: '15px' }}>
                   <span>
                     <FontAwesomeIcon icon={faInfoCircle} />
                     이제 거의 마무리되었어요! * 필수 정보만 마저 입력하시면 됩니다. 호텔 측에서 알아볼 수 있도록 로마자로 상세 정보를
@@ -164,48 +163,50 @@ const PaymentPage = () => {
                 <p>투숙 인원: 성인 {paymentSideData.resPeople}명</p>
               </Card>
             </div>
+            <br />
+            <Form className="inner-outter3" style={{ height: 95 }}>
+              <Card
+                className="agree-checkbox"
+                style={{
+                  width: '45rem',
+                  alignContent: 'center',
+                  backgroundColor: 'rgb(214,230,245)',
+                  margin: 'auto',
+                  marginRight: '120px', // 오른쪽으로 50px 이동
+                  marginLeft: '35px',
+                  border: 'none',
+                }}
+              >
+                <h3 style={{ paddingLeft: '40px' }}>개인정보 동의</h3>
+                <div className="innner3" style={{ paddingLeft: '40px' }}>
+                  <input type="checkbox" id="agreed" checked={agreed} onChange={handleAgreeChange} required />
+                  <label htmlFor="agreed">개인정보 수집에 동의합니다.</label>
+                  <br />
+                  <span style={{ fontWeight: 'bold' }}> 동의버튼을 누르셔야만 결제버튼이 생깁니다.</span>
+                </div>
+              </Card>
+            </Form>
+            {agreed && (
+              <div>
+                <div className="pay-button" style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                  <span
+                    className="Pay"
+                    style={{ display: 'flex', justifyContent: 'flex-end', width: 500, margin: '-80px 0px 0px 0px', zIndex: 9999 }}
+                  >
+                    <InicisPay />
+                    <KakaoPay />
+                  </span>
+                </div>
+              </div>
+            )}
           </Card>
         </Form>
         {/* end of inner-outter1 */}
         <br />
         {/* 개인정보 동의 */}
-        <Form className="inner-outter3" style={{ height: 95 }}>
-          <Card
-            className="agree-checkbox"
-            style={{
-              width: '55.5rem',
-              alignContent: 'center',
-              backgroundColor: 'rgb(214,230,245)',
-              margin: 'auto',
-              marginRight: '120px', // 오른쪽으로 50px 이동
-            }}
-          >
-            <h3 style={{ paddingLeft: '40px' }}>개인정보 동의</h3>
-            <div className="innner3" style={{ paddingLeft: '40px' }}>
-              <input type="checkbox" id="agreed" checked={agreed} onChange={handleAgreeChange} required />
-              <label htmlFor="agreed">개인정보 수집에 동의합니다.</label>
-              <br />
-              <span style={{ fontWeight: 'bold' }}> 동의버튼을 누르셔야만 결제버튼이 생깁니다.</span>
-            </div>
-          </Card>
-        </Form>
         {/* inner-outter3 */}
         <br />
-        {agreed && (
-          <div>
-            <span className="pay-button" style={{ display: 'flex', justifyContent: 'center' }}>
-              <span style={{ fontSize: 30, marginRight: 200, border: '1,solid,black' }}> 결제하실 금액 {paymentSideData.resPrice} 원</span>
-              <span className="Pay" style={{ display: 'flex', justifyContent: 'flex-end', width: 500 }}>
-                <InicisPay />
-                <KakaoPay />
-              </span>
-            </span>
-          </div>
-        )}
       </div>
-      <MGDIV></MGDIV>
-      <MGDIV></MGDIV>
-      <Footer />
     </>
   );
 };

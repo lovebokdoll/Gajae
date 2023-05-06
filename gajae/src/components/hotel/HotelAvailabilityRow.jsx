@@ -1,11 +1,11 @@
-import Cookies from "js-cookie";
-import { useCallback, useEffect, useState } from "react";
-import { Alert, Button, Dropdown, Modal } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
-import Swal from "sweetalert2";
-import { checkVacancyDB } from "../../service/hotelReservLogic";
-import { TotalPrice } from "../../style/HotelStyle";
-import "./hotel.css";
+import Cookies from 'js-cookie';
+import { useCallback, useEffect, useState } from 'react';
+import { Alert, Button, Dropdown, Modal } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
+import { checkVacancyDB } from '../../service/hotelReservLogic';
+import { TotalPrice } from '../../style/HotelStyle';
+import './hotel.css';
 /**
  * HotelPage에서 넘어온 정보를 이용하여 갯수만큼 화면에 뿌려준다.
  * 옵션정보&요금 - 숙소정보
@@ -16,13 +16,13 @@ const HotelAvailabilityRow = ({ row }) => {
   //모달 창
   const Toast = Swal.mixin({
     toast: true,
-    position: "center-center",
+    position: 'center-center',
     showConfirmButton: false,
     timer: 2000,
     timerProgressBar: true,
     didOpen: (toast) => {
-      toast.addEventListener("mouseenter", Swal.stopTimer);
-      toast.addEventListener("mouseleave", Swal.resumeTimer);
+      toast.addEventListener('mouseenter', Swal.stopTimer);
+      toast.addEventListener('mouseleave', Swal.resumeTimer);
     },
   });
   const [hotels, setHotels] = useState([]);
@@ -43,12 +43,12 @@ const HotelAvailabilityRow = ({ row }) => {
   //쿠키에 선택된 룸Id저장하는 useState
   const [selectRoomId, setSelectRoomId] = useState({});
   const [localID, setLocalID] = useState();
-  const p_id = Cookies.get("p_id");
-  const startDate = Cookies.get("startDate");
-  const endDate = Cookies.get("endDate");
+  const p_id = Cookies.get('p_id');
+  const startDate = Cookies.get('startDate');
+  const endDate = Cookies.get('endDate');
 
   useEffect(() => {
-    setLocalID(window.localStorage.getItem("userId"));
+    setLocalID(window.localStorage.getItem('userId'));
   }, []);
   const selectNum = useCallback(
     (index, value) => {
@@ -93,7 +93,7 @@ const HotelAvailabilityRow = ({ row }) => {
     setSelectRoom(selectedRoomTypes);
     //룸아이디
     setSelectRoomId(selectedRids);
-    Cookies.set("resRoomId", selectedRids);
+    Cookies.set('resRoomId', selectedRids);
     //넘어온 날짜 담기
     const checkRoomNDate = async () => {
       const checkRoom = {
@@ -153,8 +153,8 @@ const HotelAvailabilityRow = ({ row }) => {
     if (totalPrice > 0) {
       if (localID == null) {
         Toast.fire({
-          icon: "warning", // Alert 타입
-          title: "로그인을 먼저 진행해주세요.", // Alert 제목
+          icon: 'warning', // Alert 타입
+          title: '로그인이 필요한 서비스입니다.', // Alert 제목
           timer: 1000,
           timerProgressBar: false,
         });
@@ -169,17 +169,17 @@ const HotelAvailabilityRow = ({ row }) => {
       for (let i = 0; i < roomTypes.length; i++) {
         const selecteNumber = selectedNumber[i];
         const selectRoomid = roomIds[i];
-        Cookies.set("resRoomType", roomTypes); // 사용자가 선택한 객실 유형
-        Cookies.set("selectedRoomNumber", selecteNumber); // 사용자가 선택한 객실 개수
+        Cookies.set('resRoomType', roomTypes); // 사용자가 선택한 객실 유형
+        Cookies.set('selectedRoomNumber', selecteNumber); // 사용자가 선택한 객실 개수
       }
-      Cookies.set("resPrice", totalPrice); // 총액 쿠키에 담음
+      Cookies.set('resPrice', totalPrice); // 총액 쿠키에 담음
       for (let i = 0; i < checkResRoom.length; i++) {
-        console.log("여기");
-        if (checkResRoom[i].RES_YN == "Y") {
+        console.log('여기');
+        if (checkResRoom[i].RES_YN == 'Y') {
           console.log(checkResRoom[i].RES_YN);
           Toast.fire({
-            icon: "warning", // Alert 타입
-            title: "이미 예약된 객실입니다. <br/>다른 객실을 선택해 주세요", // Alert 제목
+            icon: 'warning', // Alert 타입
+            title: '이미 예약된 객실입니다. <br/>다른 객실을 선택해 주세요', // Alert 제목
             timer: 1000,
             timerProgressBar: false,
           });
@@ -187,7 +187,7 @@ const HotelAvailabilityRow = ({ row }) => {
         }
       }
     }
-    navigate("/reservate");
+    navigate('/reservate');
   };
 
   const handleClose = () => setShow(false);
@@ -197,11 +197,8 @@ const HotelAvailabilityRow = ({ row }) => {
   return (
     <>
       {/* 룸타입별 내용 */}
-      <div
-        className="table-wrapper"
-        style={{ width: "70%", display: "flex", flexDirection: "row" }}
-      >
-        <span className="table-wrapper-item1" style={{ flex: "300" }}>
+      <div className="table-wrapper" style={{ width: '70%', display: 'flex', flexDirection: 'row' }}>
+        <span className="table-wrapper-item1" style={{ flex: '300' }}>
           <table className="table caption-top table-hover ">
             <thead className="table-primary">
               <tr>
@@ -219,7 +216,7 @@ const HotelAvailabilityRow = ({ row }) => {
                     <a
                       href="javascript:void(0);"
                       style={{
-                        textDecoration: "none",
+                        textDecoration: 'none',
                       }}
                       onClick={() => {
                         setSelectedRoomModal(hotel.ROOM_TYPE);
@@ -239,31 +236,23 @@ const HotelAvailabilityRow = ({ row }) => {
                   </td>
                   <td>{hotel.ROOM_CAPACITY}명</td>
 
-                  <td> {Number(hotel.ROOM_PRICE).toLocaleString() + "원"}</td>
+                  <td> {Number(hotel.ROOM_PRICE).toLocaleString() + '원'}</td>
 
                   <td>
-                    {hotel.ROOM_OPTION?.split(",").map((option, index) => (
+                    {hotel.ROOM_OPTION?.split(',').map((option, index) => (
                       <div key={index}>{option}</div>
                     ))}
                   </td>
                   <td>
                     {/* 금액선택 토글 */}
-                    <div className="table-wrapper-item2" style={{ flex: "1" }}>
+                    <div className="table-wrapper-item2" style={{ flex: '1' }}>
                       <Dropdown>
-                        <Dropdown.Toggle
-                          variant="Secondary"
-                          id="dropdown-basic"
-                        >
-                          {selectNumber[index] || 0}{" "}
-                          {/* index값이 존재하지 않을 경우 0으로 보여줌 */}
+                        <Dropdown.Toggle variant="Secondary" id="dropdown-basic">
+                          {selectNumber[index] || 0} {/* index값이 존재하지 않을 경우 0으로 보여줌 */}
                         </Dropdown.Toggle>
                         <Dropdown.Menu>
-                          <Dropdown.Item onClick={() => selectNum(index, 0)}>
-                            0
-                          </Dropdown.Item>
-                          <Dropdown.Item onClick={() => selectNum(index, 1)}>
-                            1
-                          </Dropdown.Item>
+                          <Dropdown.Item onClick={() => selectNum(index, 0)}>0</Dropdown.Item>
+                          <Dropdown.Item onClick={() => selectNum(index, 1)}>1</Dropdown.Item>
                         </Dropdown.Menu>
                       </Dropdown>
                     </div>
@@ -281,9 +270,9 @@ const HotelAvailabilityRow = ({ row }) => {
             <Modal.Body
               key={key}
               style={{
-                fontSize: "18px",
-                margin: "0",
-                textAlign: "left",
+                fontSize: '18px',
+                margin: '0',
+                textAlign: 'left',
               }}
             >
               <i class="fa-solid fa-check"></i>
@@ -294,14 +283,10 @@ const HotelAvailabilityRow = ({ row }) => {
           <Modal.Footer>
             <i class="fa-regular fa-credit-card"></i>
             <span className="hotelTax">요금정보를 확인하세요! </span>
-            {Number(selectedPriceModal).toLocaleString() + "원"}
+            {Number(selectedPriceModal).toLocaleString() + '원'}
           </Modal.Footer>
           <Modal.Footer>
-            <Button
-              className="btn_close"
-              variant="secondary"
-              onClick={handleClose}
-            >
+            <Button className="btn_close" variant="secondary" onClick={handleClose}>
               닫기
             </Button>
           </Modal.Footer>
@@ -309,10 +294,10 @@ const HotelAvailabilityRow = ({ row }) => {
         {/* 예약버튼 */}
         <span
           style={{
-            width: "350px",
-            marginTop: "0.6em",
-            marginLeft: "0.6em",
-            flexGrow: "0.5",
+            width: '350px',
+            marginTop: '0.6em',
+            marginLeft: '0.6em',
+            flexGrow: '0.5',
           }}
         >
           <Alert variant="secondary">
@@ -325,19 +310,15 @@ const HotelAvailabilityRow = ({ row }) => {
               ))}
               <div
                 style={{
-                  textAlign: "left",
-                  marginTop: "1em",
-                  fontWeight: "bold",
+                  textAlign: 'left',
+                  marginTop: '1em',
+                  fontWeight: 'bold',
                 }}
               >
-                {" "}
-                최종 금액 : {Number(totalPrice).toLocaleString() + "원"}
-              </div>{" "}
-              <Button
-                variant="outline-warning"
-                onClick={onReservation}
-                style={{ margin: "1em 0 0 13em" }}
-              >
+                {' '}
+                최종 금액 : {Number(totalPrice).toLocaleString() + '원'}
+              </div>{' '}
+              <Button variant="outline-warning" onClick={onReservation} style={{ margin: '1em 0 0 13em' }}>
                 지금 바로 <br />
                 예약하세요!
               </Button>
@@ -345,13 +326,13 @@ const HotelAvailabilityRow = ({ row }) => {
             </TotalPrice>
             <hr />
             <p className="mb-0">
-              {checkResRoom.find((room) => room.RES_YN === "Y") ? (
-                <p className="blink" style={{ color: "red", margin: "10px" }}>
-                  선택하신 룸타입은 <br />
-                  해당 날짜에 이용이 불가능 합니다
+              {checkResRoom.find((room) => room.RES_YN === 'Y') ? (
+                <p className="blink" style={{ color: 'red', margin: '10px' }}>
+                  선택하신 객실은 <br />
+                  해당 날짜에 예약이 불가능 합니다
                 </p>
-              ) : checkResRoom.find((room) => room.RES_YN === "N") ? (
-                <p>선택하신 룸타입은 이용가능합니다.</p>
+              ) : checkResRoom.find((room) => room.RES_YN === 'N') ? (
+                <p>선택하신 날짜에 예약가능합니다.</p>
               ) : (
                 <p>객실을 선택해 주세요</p>
               )}
