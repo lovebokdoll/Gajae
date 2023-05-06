@@ -1,16 +1,15 @@
+import Cookies from 'js-cookie';
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
 import Footer from '../../components/footer/Footer';
 import HeaderNav1 from '../../components/header/HeaderNav1';
+import CovidInfo from '../../components/main/CovidInfo';
 import MainAdvertisement from '../../components/main/MainAdvertisement';
 import MainMailList from '../../components/main/MainMailList';
 import MainProperty from '../../components/main/MainProperty';
 import MainRecommandLoc from '../../components/main/MainRecommandLoc';
 import MainSearchBar from '../../components/main/MainSearchBar';
-import Popup from './Popup';
-import CovidInfo from '../../components/main/CovidInfo';
 import NextTripCard from '../../components/main/NextTripCard';
-import Cookies from 'js-cookie';
+import Popup from './Popup';
 
 const MainPage = () => {
   const [userName, setUserName] = useState();

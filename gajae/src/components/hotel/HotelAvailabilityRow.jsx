@@ -176,7 +176,6 @@ const HotelAvailabilityRow = ({ row }) => {
       for (let i = 0; i < checkResRoom.length; i++) {
         console.log("여기");
         if (checkResRoom[i].RES_YN == "Y") {
-          console.log("if문 안 ");
           console.log(checkResRoom[i].RES_YN);
           Toast.fire({
             icon: "warning", // Alert 타입
@@ -291,7 +290,7 @@ const HotelAvailabilityRow = ({ row }) => {
               {selectedFacModal[key]}
             </Modal.Body>
           ))}
- 
+
           <Modal.Footer>
             <i class="fa-regular fa-credit-card"></i>
             <span className="hotelTax">요금정보를 확인하세요! </span>
