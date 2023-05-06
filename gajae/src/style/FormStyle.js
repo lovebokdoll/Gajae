@@ -110,6 +110,18 @@ export const SubmitButton = styled.button`
   cursor: pointer;
 `;
 
+export const LoginSubmitButton = styled.button`
+  width: 300px;
+  height: 50px;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 24px;
+  margin-bottom: 20px;
+  border: 1.5px solid rgb(105, 175, 245);
+  color: white;
+  cursor: pointer;
+`;
+
 export const SignUpSubmitButton = styled.button`
   width: 300px;
   height: 50px;

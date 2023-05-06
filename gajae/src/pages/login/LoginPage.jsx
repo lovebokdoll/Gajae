@@ -7,7 +7,7 @@ import HeaderNav2 from '../../components/header/HeaderNav2';
 import { setToastMessage } from '../../redux/toastStatus/action';
 import { googleLogin } from '../../service/authLogic';
 import { signinDB } from '../../service/user/user';
-import { DividerDiv, DividerDiv2, DividerSpan, MyInput, MyLabel, MyP, PwEye, SubmitButton } from '../../style/FormStyle';
+import { DividerDiv, DividerDiv2, DividerSpan, LoginSubmitButton, MyInput, MyLabel, MyP, PwEye, SubmitButton } from '../../style/FormStyle';
 import './loginPage.css';
 import { AuthContainer, SignInForm } from './styled-login';
 import { MGDIV } from './styled-loginpage';
@@ -163,7 +163,7 @@ const LoginPage = () => {
           }}
         >
           <div className="Login-logo" style={{ position: 'absolute', left: '50%', transform: 'translateX(-50%)' }}>
-            <img src="./images/LoginLogo.png" alt="" style={{ width: '100%', height: '100%' }} />
+            <img src="./images/LoginLogo.png" alt="" style={{ width: '100%', height: '100%', margin: ' 10px 0px 0px 0px' }} />
           </div>
           <SignInForm>
             <MGDIV></MGDIV>
@@ -194,7 +194,7 @@ const LoginPage = () => {
                 <PwEye className="fa fa-eye fa-lg"></PwEye>
               </div>
             </MyLabel>
-            <SubmitButton
+            <LoginSubmitButton
               type="button"
               style={{ backgroundColor: submitButton.bgColor }}
               onMouseEnter={toggleHover}
@@ -208,7 +208,7 @@ const LoginPage = () => {
               }}
             >
               로 그 인
-            </SubmitButton>
+            </LoginSubmitButton>
           </SignInForm>{' '}
           <DividerDiv>
             <DividerSpan>또는 다음 중 하나로 계속</DividerSpan>
