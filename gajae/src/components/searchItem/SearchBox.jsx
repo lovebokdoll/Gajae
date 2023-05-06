@@ -1,29 +1,27 @@
-import axios from "axios";
-import Cookies from "js-cookie";
-import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import "../main/mainSearchBar.css";
 import {
   faCalendarCheck,
   faLocationDot,
 } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import axios from "axios";
+import Cookies from "js-cookie";
+import {  React, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import "../main/mainSearchBar.css";
 
 const SearchBox = () => {
   const navigate = useNavigate();
+  
+    //쿠키에 저장되어있는 지역이름
+    const ADDRESS = Cookies.get('p_address');
+    const CHECKIN = Cookies.get('startDate');
+    const CHECKOUT = Cookies.get('endDate');
+    const PEOPLE = Cookies.get('resPeople');
+    console.log(CHECKOUT)
 
-  //쿠키에 저장되어있는 지역이름
-  const ADDRESS = Cookies.get("p_address");
-  const CHECKIN = Cookies.get("startDate");
-  const CHECKOUT = Cookies.get("endDate");
-  const PEOPLE = Cookies.get("resPeople");
-  console.log(CHECKOUT);
-
-  const [startDate, setStartDate] = useState(Cookies.get("CHECKIN") || CHECKIN);
-  const [endDate, setEndDate] = useState(Cookies.get("CHECKOUT") || CHECKOUT);
-  const [P_ADDRESS, setP_Address] = useState(
-    Cookies.get("p_address") || ADDRESS
-  );
+  const [startDate, setStartDate] = useState(Cookies.get('CHECKIN') || CHECKIN);
+  const [endDate, setEndDate] = useState(Cookies.get('CHECKOUT') || CHECKOUT);
+  const [P_ADDRESS, setP_Address] = useState(Cookies.get('p_address') || ADDRESS);
 
   const [openOptions, setOpenOptions] = useState(false);
 
@@ -46,7 +44,7 @@ const SearchBox = () => {
       setEndDate(startDate);
     }
   }, [startDate]);
-
+  
   const handleOption = (name, operation) => {
     setRoom_Capacity((prev) => {
       return {
@@ -58,9 +56,9 @@ const SearchBox = () => {
   };
   const handleSearch = (e) => {
     const roomCapacity = parseInt(ROOM_CAPACITY.adult); // ROOM_CAPACITY를 숫자형태로 변환
-    Cookies.set("resPeople", ROOM_CAPACITY.adult);
-    Cookies.set("startDate", startDate);
-    Cookies.set("endDate", endDate);
+    Cookies.set('resPeople',ROOM_CAPACITY.adult)
+    Cookies.set('startDate', startDate);
+    Cookies.set('endDate', endDate);
     navigate(
       `/propertylist/?P_ADDRESS=${P_ADDRESS}&ROOM_CAPACITY=${roomCapacity}&startdate=${startDate}&enddate=${endDate}`,
       {
@@ -139,13 +137,7 @@ const SearchBox = () => {
             체크인 날짜
           </label>
           <br />
-          <input
-            className="databox"
-            style={{ width: "180px" }}
-            type="date"
-            defaultValue={startDate}
-            onChange={(e) => setStartDate(e.target.value)}
-          />
+          <input className="databox" style={{width: '180px'}} type="date" defaultValue={startDate}  onChange={(e) => setStartDate(e.target.value)}/>
         </div>
         <div style={{ marginTop: "10px" }}>
           <FontAwesomeIcon
@@ -163,14 +155,21 @@ const SearchBox = () => {
             체크아웃 날짜
           </label>
           <br />
-          <input
-            className="databox"
-            style={{ width: "180px" }}
-            type="date"
-            defaultValue={endDate}
-            onChange={(e) => setEndDate(e.target.value)}
-          />
-        </div>
+            <input
+              className="databox"
+              style={{ width: '180px' }}
+              type="date"
+              defaultValue={endDate}
+              onChange={(e) => {
+                if (new Date(e.target.value) < new Date(startDate)) {
+                  setEndDate(startDate);
+                } else {
+                  setEndDate(e.target.value);
+                }
+              }}
+              min={startDate} // 추가된 부분
+            />
+      </div>  
         <div className="headerSearchItem">
           <FontAwesomeIcon icon="fa-solid fa-user" style={{ color: "gray" }} />
           <span
@@ -181,15 +180,11 @@ const SearchBox = () => {
             {PEOPLE} 명
           </span>
           {openOptions && (
-            <div className="optionsBar" style={{ marginLeft: "15px" }}>
-              <div className="optionItem">
-                <span className="optionText">인원</span>
-                <div className="optionCounter">
-                  <button
-                    disabled={ROOM_CAPACITY.adult <= 1}
-                    className="optionCounterButton"
-                    onClick={() => handleOption("adult", "d")}
-                  >
+                  <div className="optionsBar" style={{marginLeft:'15px'}}>
+                  <div className="optionItem">
+                    <span className="optionText">인원</span>
+                    <div className="optionCounter">
+                  <button disabled={ROOM_CAPACITY.adult <= 1} className="optionCounterButton" onClick={() => handleOption('adult', 'd')}>
                     -
                   </button>
                   <span className="optionCounterNumber">

@@ -13,6 +13,7 @@ import { useNavigate } from 'react-router-dom';
 import { setToastMessage } from '../../redux/toastStatus/action';
 import { BButton } from '../../style/FormStyle';
 import './mainSearchBar.css';
+import Swal from 'sweetalert2';
 
 const MainSearchBar = ({ type, destination }) => {
   console.log("type ===>", type);
@@ -70,9 +71,31 @@ const MainSearchBar = ({ type, destination }) => {
     });
   };
 
+   //지역 입력 안했을 시 모달 창
+  const Toast = Swal.mixin({
+    toast: true,
+    position: 'center-center',
+    showConfirmButton: false,
+    timer: 2000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+      toast.addEventListener('mouseenter', Swal.stopTimer);
+      toast.addEventListener('mouseleave', Swal.resumeTimer);
+    },
+  });
+  
   const handleSearch = (e) => {
     console.log("options.adult ===>", options.adult);
     console.log("options.room ===>", options.room);
+
+    if (p_address == "") {
+      Toast.fire({
+        icon: 'info',
+        title: '지역을 입력하세요.',
+        timerProgressBar : false
+    })
+      return;
+    }
 
     if (date[0].startDate === date[0].endDate) {
       dispatch(setToastMessage("다른 날짜를 선택해주세요!"));
@@ -203,7 +226,7 @@ const MainSearchBar = ({ type, destination }) => {
                   <input
                     type={type}
                     onChange={handleInputChange}
-                    placeholder={`어디로 떠나시나요?`}
+                    placeholder={"어디로 떠나시나요?"}
                     className="headerSearchInput"
                     onKeyPress={(e) => {
                       if (e.key === "Enter") {
