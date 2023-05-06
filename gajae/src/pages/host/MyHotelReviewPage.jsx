@@ -18,10 +18,11 @@ import {
   MySettingsFlexByRow,
   MySettingsPageTitle,
 } from "../mypage/styled-mypage";
-import MyHotelReviewList from "../../components/host/myhost/MyHotelReviewList";
 import Footer from "../../components/footer/Footer";
 import HostHeaderNav from "../../components/host/HostHeaderNav";
 import { useNavigate } from "react-router-dom";
+import MyHotelReview from "../../components/host/myhost/MyHotelReview";
+import styled from "styled-components";
 
 const MyHotelReviewPage = () => {
   const navigate = useNavigate();
@@ -69,7 +70,7 @@ const MyHotelReviewPage = () => {
         <MSCRightDIV>
           <MySettingsFlexByRow>
             <MySettingsPageTitle>
-              <MyHotelReviewList hostId={hostId} />
+              <MyHotelReview hostId={hostId} />
             </MySettingsPageTitle>
           </MySettingsFlexByRow>
         </MSCRightDIV>

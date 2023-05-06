@@ -10,8 +10,7 @@ const HotelDetailMapModal = (props) => {
         <Modal.Header closeButton>
           <Modal.Title>
             &nbsp;&nbsp;<i class="fa-solid fa-map-location-dot"></i>
-            &nbsp;&nbsp;&nbsp;&nbsp; 지도를 드래그하거나 확대/축소하여 원하는
-            위치를 자세히 살펴보세요.
+            &nbsp;지도로 확인해보세요
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>

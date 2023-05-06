@@ -5,13 +5,13 @@ import './App.css';
 import KakaoProfile from './api/kakao/KakaoProfile';
 import KakaoRedirectHandler from './api/kakao/KakaoRedirectHandler';
 import NaverPay from './api/naver/NaverPay';
-import ReservationDetail from './components/reservate/ReservationDetail';
 import HostEndPage from './components/host/HostEndPage';
 import HostLogin from './components/host/HostLogin';
 import HostSignUp from './components/host/HostSignUp';
 import HostHotelUpdate from './components/host/myhost/HostHotelUpdate';
 import MyHostpage from './components/host/myhost/MyHostpage';
 import MyHotelPage from './components/host/myhost/MyHotelPage';
+import MyHotelReviewDetail from './components/host/myhost/MyHotelReviewDetail';
 import RegisterHotel from './components/host/register/RegisterHotel';
 import RegisterRoom from './components/host/register/RegisterRoom';
 import SignUpTest from './components/login/SignUpTest';
@@ -23,6 +23,7 @@ import QnADetailPage from './components/qna/QnADetailPage';
 import QnAListPage from './components/qna/QnAListPage';
 import QnAUpdatePage from './components/qna/QnAUpdatePage';
 import QnAWritePage from './components/qna/QnAWritePage';
+import ReservationDetail from './components/reservate/ReservationDetail';
 import Toast from './components/toast/Toast';
 import HostPage from './pages/host/HostPage';
 import MyHotelReviewPage from './pages/host/MyHotelReviewPage';
@@ -100,6 +101,7 @@ const App = () => {
         <Route path="/host/myhotelreview" exact={true} element={<MyHotelReviewPage />} />
         <Route path="/host/update" exact={true} element={<HostHotelUpdate />} />
         <Route path="/review/update" exact={true} element={<ReviewUpdate />} />
+        <Route path="/reviewNumber/:reviewNumber" exact={true} element={<MyHotelReviewDetail />} />
       </Routes>
     </div>
   );

@@ -9,9 +9,7 @@ const ReviewProgressBar = ({ review }) => {
   let serviceScore = 0;
   let costScore = 0;
   let locationScore = 0;
-
   let numReviews = 0;
-  console.log(review);
 
   if (Array.isArray(review) && review.length > 0) {
     review.forEach((item) => {
@@ -23,7 +21,6 @@ const ReviewProgressBar = ({ review }) => {
       numReviews += 1;
     });
   }
-  console.log(cleanScore);
 
   //각 학몽의 총합을 리뷰의 총 개수로 나누어 평균
   const avgCleanScore = Math.floor(cleanScore / numReviews);
@@ -32,8 +29,6 @@ const ReviewProgressBar = ({ review }) => {
   const avgLocationScore = Math.floor(locationScore / numReviews);
   const avgFacilityScore = Math.floor(facilityScore / numReviews);
 
-  console.log(avgCleanScore);
-  console.log(avgLocationScore);
   return (
     <>
       <GridContainer class="grid-container">
@@ -114,4 +109,10 @@ const ItemContentWrapper = styled.div`
   align-items: center;
   justify-content: space-between;
   margin: 7px 0px 20px 0px;
+`;
+
+const LineDiv = styled.div`
+  background-color: lightgray;
+  height: 1px;
+  width: 100%;
 `;

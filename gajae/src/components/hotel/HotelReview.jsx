@@ -42,7 +42,7 @@ const HotelReview = ({ property, handleClose }) => {
       setTotalReviews(review.length);
     }
   }, [review]);
-
+  console.log(review);
   return (
     <>
       {review && review.length > 0 ? (
@@ -55,8 +55,8 @@ const HotelReview = ({ property, handleClose }) => {
             </RatingWrapper>
             <Title>100% 실제 이용후기 제공을 목표로 합니다 </Title>
           </TitleContainer>
-          <hr />
           <BackDiv>
+            <div style={{ margin: "15px" }}></div>
             <ReviewProgressBar review={review} />
             <ReviewList>
               {review &&
@@ -110,12 +110,14 @@ const HotelReview = ({ property, handleClose }) => {
                           &nbsp;&nbsp;
                           {review.REVIEW_BAD}
                         </RText>
-                        <ReviewImg>
-                          <img
-                            src={review.REVIEW_PHOTO}
-                            style={{ width: "100%" }}
-                          />
-                        </ReviewImg>
+                        {review.REVIEW_PHOTO && (
+                          <ReviewImg>
+                            <img
+                              src={review.REVIEW_PHOTO}
+                              style={{ width: "100%" }}
+                            />
+                          </ReviewImg>
+                        )}
                         <CardTimestamp>{review.REVIEW_DATE}</CardTimestamp>
                         {/* host의 댓글 */}
                         <ReplyWrapper>
@@ -145,8 +147,8 @@ export default HotelReview;
 const BackDiv = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 10px;
   align-items: center;
+  height: 100%;
 `;
 const TitleContainer = styled.div`
   display: flex;
@@ -186,9 +188,8 @@ const BtnClose = styled(CloseButton)`
 const ReviewWrapper = styled.div`
   display: flex;
   flex-direction: row;
-  max-width: 1000px;
-  width: 800px;
-  height: 600px;
+  width: 900px;
+  max-height: 650px;
   position: relative;
   margin: 0 0 1.5rem 0;
   padiing: 0;
@@ -198,7 +199,7 @@ const ReviewWrapper = styled.div`
 `;
 
 const ReviewList = styled.ul`
-  margin: 60px 0 0;
+  margin-top: 1rem;
   padding: 0;
   list-style-type: none;
 `;
@@ -246,8 +247,6 @@ const RText = styled.p`
 const CardTimestamp = styled.p`
   font-size: 1rem;
   color: #006ce3;
-  margin-top: 4px;
-  margin-bottom: auto;
   text-align: right;
 `;
 
@@ -278,9 +277,8 @@ const Rating = styled.button`
 `;
 
 const ReplyWrapper = styled.div`
-  margin-top: 10%;
   width: 100%;
-  bottom: 0;
+  margin-bottom: 1rem;
   display: flex;
   justify-content: center;
 `;

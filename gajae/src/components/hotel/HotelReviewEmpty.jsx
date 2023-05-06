@@ -8,8 +8,8 @@ const HotelReviewEmpty = ({ handleClose }) => {
       <TitleContainer>
         <BtnClose onClick={handleClose}></BtnClose>
         <Title>
-          "첫 리뷰어가 되어보세요! 이 숙소는 아직 리뷰가 없습니다. 다른
-          이용자들을 위해 여러분의 경험을 공유해주세요!"
+          "첫 리뷰어가 되어보세요! 이 숙소는 아직 리뷰가 없습니다. <br />
+          다른 이용자들을 위해 여러분의 경험을 공유해주세요!"
         </Title>
       </TitleContainer>
       <hr />
@@ -30,7 +30,7 @@ const TitleContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 90px;
+  height: 70px;
 `;
 const Title = styled.div`
   text-align: left;
