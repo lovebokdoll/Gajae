@@ -1,6 +1,7 @@
-import React from 'react';
+import { faCheckCircle, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCheckCircle, faCog, faPlus } from '@fortawesome/free-solid-svg-icons';
+import React from 'react';
+import { Button } from 'react-bootstrap';
 const PaymentSide = ({ paymentSideData }) => {
   console.log('PaymentSide ===>', paymentSideData);
   return (
@@ -58,7 +59,7 @@ const PaymentSide = ({ paymentSideData }) => {
                   선택한 인원에 적합한 객실입니다.
                 </div>
                 <div style={{ width: '290.98px', height: '44px' }}>
-                  <button>다른 객실로 변경</button>
+                  <Button>다른 객실로 변경</Button>
                 </div>
               </ul>
               <div></div>
