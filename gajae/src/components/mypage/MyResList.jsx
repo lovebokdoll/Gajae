@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { myReservation } from '../../service/mypage/mypage';
 import '../mypage/mypage_css/myRes.css';
 import MyResRow from './MyResRow';
-import { ResDiv, ResEmtyDiv, ResTLineDiv } from './mypage_css/styled-myres';
+import { ResEmtyDiv, ResTLineDiv } from './mypage_css/styled-myres';
 
 const MyResList = ({ userId }) => {
   const [reservationList, setReservationList] = useState();
@@ -44,6 +44,7 @@ const MyResList = ({ userId }) => {
         <ResEmtyDiv></ResEmtyDiv>
         {reservationList &&
           reservationList
+            .sort((a, b) => new Date(b.R_DATE) - new Date(a.R_DATE))
             .slice((currentPage - 1) * resPerPage, currentPage * resPerPage)
             .map((reservation) => <MyResRow key={reservation.R_NUMBER} reservation={reservation} />)}
         <div>

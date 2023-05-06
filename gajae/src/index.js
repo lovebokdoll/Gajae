@@ -20,8 +20,6 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 const store = legacy_createStore(rootReducer);
 store.dispatch(setAuth(authLogic.getUserAuth(), authLogic.getGoogleAuthProvider()));
 
-console.log(store.getState());
-
 root.render(
   <>
     {' '}

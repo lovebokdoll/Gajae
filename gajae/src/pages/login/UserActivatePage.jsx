@@ -18,11 +18,9 @@ const UserActivatePage = () => {
   const [id, setId] = useState('');
 
   const [email, setEmail] = useState('');
-  const [emailMessage, setEmailMessage] = useState('');
 
   const handleEmailChange = (event) => {
     const message = regexEmail(event);
-    setEmailMessage(message);
     setEmail(event.target.value);
   };
 
@@ -108,7 +106,6 @@ const UserActivatePage = () => {
             <FormGroup>
               <InputLabel htmlFor="email">이메일주소</InputLabel>
               <Input type="text" id="email" value={email} onChange={handleEmailChange} />
-              <div>{emailMessage}</div>
             </FormGroup>
             <ButtonContainer>
               <Button type="submit">인증 코드 발송</Button>{' '}
@@ -118,12 +115,12 @@ const UserActivatePage = () => {
         </FormContainer>
       )}{' '}
       <DividerDiv>
-        <DividerHr />
         <DividerSpan>
           <CenteredContainer>
+            {' '}
             <p>
-              <FindLink to="/" className="text-decoration-none">
-                여행가재 홈페이지
+              <FindLink to="/login" className="text-decoration-none">
+                로그인
               </FindLink>
             </p>
           </CenteredContainer>
@@ -193,4 +190,5 @@ const FooterContainer = styled.div`
 const ButtonContainer = styled.div`
   display: flex;
   justify-content: center;
+  padding: 20px 0px 0px 0px;
 `;

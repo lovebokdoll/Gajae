@@ -1,12 +1,11 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Route, Routes } from 'react-router-dom';
 import './App.css';
 import KakaoProfile from './api/kakao/KakaoProfile';
 import KakaoRedirectHandler from './api/kakao/KakaoRedirectHandler';
 import NaverPay from './api/naver/NaverPay';
-import ReservationDetail from './components/Reservate/ReservationDetail';
+import ReservationDetail from './components/reservate/ReservationDetail';
 import HostEndPage from './components/host/HostEndPage';
 import HostLogin from './components/host/HostLogin';
 import HostSignUp from './components/host/HostSignUp';
@@ -36,7 +35,7 @@ import UserActivatePage from './pages/login/UserActivatePage';
 import MainPage from './pages/main/MainPage';
 import MyNotificationsPage from './pages/mypage/MyNotificationsPage';
 import MyPaymentPage from './pages/mypage/MyPaymentPage';
-import MyReservatiosPage from './pages/mypage/MyReservatiosPage';
+import MyReservationsPage from './pages/mypage/MyReservationsPage';
 import MyReviewPage from './pages/mypage/MyReviewPage';
 import MySettings from './pages/mypage/MySettings';
 import MyWishListPage from './pages/mypage/MyWishListPage';
@@ -51,11 +50,6 @@ const App = () => {
   const toastStatus = useSelector((state) => state.toastStatus);
   const modalStatus = useSelector((state) => state.modalInfo);
   const nationStatus = useSelector((state) => state.nationModalInfo);
-  const [isReservationSuccess, setIsReservationSuccess] = useState(false);
-
-  const handleReservationSuccess = () => {
-    setIsReservationSuccess(true);
-  };
 
   return (
     <div style={{ height: '100vh' }}>
@@ -87,7 +81,7 @@ const App = () => {
         <Route path="/mypage" exact={true} element={<Mypage />} />
         <Route path="/mypage/settings" exact={true} element={<MySettings />} />
         <Route path="/mypage/notifications" exact={true} element={<MyNotificationsPage />} />
-        <Route path="/mypage/reservations" exact={true} element={<MyReservatiosPage />} />
+        <Route path="/mypage/reservations" exact={true} element={<MyReservationsPage />} />
         <Route path="/mypage/review" exact={true} element={<MyReviewPage />} />
         <Route path="/mypage/payment" exact={true} element={<MyPaymentPage />} />
         <Route path="/mypage/wishlist" exact={true} element={<MyWishListPage />} />

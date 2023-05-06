@@ -52,10 +52,15 @@
 		AND RES.R_NUMBER
 		= #{R_NUMBER}
 		AND PRO.P_ID = #{P_ID} AND PRO.ROOM_ID = #{ROOM_ID}
+		ORDER BY RES.R_DATE DESC
 	</select>
 
 	<select id="myResFirst" parameterType="map" resultType="map">
 		SELECT * FROM GAJAE.RESERVATIONS WHERE USER_ID=#{USER_ID}
 	</select>
 
+	<delete id="myResDelete" parameterType="map">
+	DELETE FROM GAJAE.RESERVATIONS
+	WHERE R_NUMBER = #{R_NUMBER}
+	</delete>
 </mapper>

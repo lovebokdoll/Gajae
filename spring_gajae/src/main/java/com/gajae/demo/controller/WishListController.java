@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.gajae.demo.logic.WishListLogic;
-import com.gajae.demo.vo.WishListVO;
 import com.google.gson.Gson;
 
 import lombok.extern.log4j.Log4j2;

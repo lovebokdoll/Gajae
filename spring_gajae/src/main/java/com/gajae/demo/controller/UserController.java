@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,10 +25,23 @@ public class UserController {
     @Autowired
     private UserLogic userLogic;
     
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+    
+    public UserController( UserLogic userLogic, PasswordEncoder passwordEncoder ) {
+        this.userLogic = userLogic;
+        this.passwordEncoder = passwordEncoder;
+    }
+    
     @PostMapping( "signup" )
     public String userRegister( @RequestBody Map<String, Object> map ) {
         
         log.info( "map = {}", map );
+        
+        String password          = ( String ) map.get( "USER_PW" );
+        String encryptedPassword = passwordEncoder.encode( password );
+        map.put( "USER_PW", encryptedPassword );
+        log.info( "encryptedPassword = {}", encryptedPassword );
         
         int result = userLogic.userSignup( map );
         

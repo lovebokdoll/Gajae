@@ -6,7 +6,6 @@ import { faUser, faCalendarAlt, faCreditCard, faPen, faHeart, faSignOutAlt } fro
 import '../mypage/mypage_css/myPageDropDown.css';
 const MyPageDropDown = () => {
   const signOut = () => {
-    console.log('signOut');
     window.localStorage.clear();
     window.location.reload();
   };
@@ -38,8 +37,8 @@ const MyPageDropDown = () => {
           위시리스트
         </Link>
         <button onClick={signOut} className="mypageLogout">
-          <FontAwesomeIcon icon={faSignOutAlt} style={{ width: '20px', marginRight: '13px' }} />
-          LOGOUT
+          <FontAwesomeIcon icon={faSignOutAlt} style={{ width: '20px' }} />
+          <span style={{ margin: '0px 57px 0px 15px' }}>LOGOUT</span>
         </button>
       </Dropdown.Menu>
     </Dropdown>

@@ -14,6 +14,7 @@ import {
   MySettingsPageTitle,
   SignOutButton,
 } from './styled-mypage';
+import HeaderNav2 from '../../components/header/HeaderNav2';
 
 const MyReviewPage = () => {
   const userId = localStorage.getItem('userId');
@@ -21,6 +22,7 @@ const MyReviewPage = () => {
   return (
     <>
       <HeaderNav1 />
+      <HeaderNav2 />
       <MSContainer>
         <MSCLeftDIV>
           {' '}

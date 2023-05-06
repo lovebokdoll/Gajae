@@ -1,21 +1,20 @@
-import React from "react";
-import { useState } from "react";
-import { searchListDB } from "../../service/database";
+import React from 'react';
+import { useState } from 'react';
+import { searchListDB } from '../../service/database';
 
 const ModalSearchBox = () => {
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState('');
 
   const handleSearch = (value) => {
     setSearch(value);
   };
 
   const handleKeyPress = async (e) => {
-    if (e.key === "Enter") {
+    if (e.key === 'Enter') {
       const response = await searchListDB(search);
       setSearch(response.data);
     }
   };
-
 
   return (
     <>

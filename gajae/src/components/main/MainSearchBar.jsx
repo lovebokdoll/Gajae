@@ -1,14 +1,4 @@
-import {
-  faBed,
-  faCalendarDays,
-  faCar,
-  faHotel,
-  faPerson,
-  faPlane,
-  faSuitcaseRolling,
-  faTaxi,
-  faCaretDown,
-} from '@fortawesome/free-solid-svg-icons';
+import { faBed, faCalendarDays, faCar, faCaretDown, faPerson, faPlane, faSuitcaseRolling, faTaxi } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import axios from 'axios';
 import { addDays } from 'date-fns';
@@ -70,14 +60,7 @@ const MainSearchBar = ({ type, destination }) => {
     adult: 1,
     room: 1,
   });
-  /*   const handleOption = (name, operation) => {
-    setRoom_Capacity((prev) => {
-      return {
-        ...prev,
-        [name]: operation === 'i' ? room_capacity[name] + 1 : room_capacity[name] - 1,
-      };
-    });
-  }; */
+
   const handleOption = (name, operation) => {
     setOptions((prev) => {
       return {
@@ -97,11 +80,14 @@ const MainSearchBar = ({ type, destination }) => {
     }
     const roomCapacity = parseInt(options.room);
     console.log('roomCapacity ===>', roomCapacity);
+    
     const startDate = date[0].startDate;
-    const formattedStartDate = `${startDate.getFullYear()}-${(startDate.getMonth() + 1).toString().padStart(2, '0')}-${startDate
-      .getDate()
-      .toString()
-      .padStart(2, '0')}`;
+    const formattedStartDate = 
+    `${startDate.getFullYear()}-${(startDate.getMonth() + 1).toString().padStart(2, '0')}-${
+      startDate.getDate().toString().padStart(2, '0')}`;
+
+
+
     console.log('Formatted start date:', formattedStartDate);
 
     const endDate = date[0].endDate;
@@ -139,37 +125,62 @@ const MainSearchBar = ({ type, destination }) => {
         console.error(error);
       });
   };
+  const [selectedItem, setSelectedItem] = useState(null);
 
+  const handleHotelsClick = () => {
+    setSelectedItem('hotels');
+    window.location.href = 'https://www.booking.com/';
+  };
+
+  const handleFlightsClick = () => {
+    setSelectedItem('flights');
+    window.location.href = 'https://www.skyscanner.co.kr/';
+  };
+
+  const handleCarRentalClick = () => {
+    setSelectedItem('carRental');
+    window.location.href = 'https://www.socar.kr/';
+  };
+
+  const handleToursClick = () => {
+    setSelectedItem('tours');
+    window.location.href = 'https://www.hanatour.com/';
+  };
+
+  const handleTaxiClick = () => {
+    setSelectedItem('taxi');
+    window.location.href = 'https://allvan.kr/';
+  };
   return (
     <div className="header">
       <div className={type === 'list' ? 'headerContainer listMode' : 'headerContainer'}>
         <div className="headerList">
-          <div className="headerListItem active">
-            <FontAwesomeIcon icon={faHotel} />
-            <span>숙소</span>
-          </div>
-          <div className="headerListItem">
-            <FontAwesomeIcon icon={faPlane} />
-            <span>항공권</span>
-          </div>
-          <div className="headerListItem">
-            <FontAwesomeIcon icon={faCar} />
-            <span>렌트카</span>
-          </div>
-          <div className="headerListItem">
+          <div className={`headerListItem ${selectedItem === 'hotels' ? 'selected' : ''}`} onClick={handleHotelsClick}>
             <FontAwesomeIcon icon={faBed} />
-            <span>투어</span>
+            <span>숙 소</span>
           </div>
-          <div className="headerListItem">
+          <div className={`headerListItem ${selectedItem === 'flights' ? 'selected' : ''}`} onClick={handleFlightsClick}>
+            <FontAwesomeIcon icon={faPlane} />
+            <span>항 공 권</span>
+          </div>
+          <div className={`headerListItem ${selectedItem === 'carRental' ? 'selected' : ''}`} onClick={handleCarRentalClick}>
+            <FontAwesomeIcon icon={faCar} />
+            <span>렌 터 카</span>
+          </div>
+          <div className={`headerListItem ${selectedItem === 'tours' ? 'selected' : ''}`} onClick={handleToursClick}>
+            <FontAwesomeIcon icon={faBed} />
+            <span>투 어</span>
+          </div>
+          <div className={`headerListItem ${selectedItem === 'taxi' ? 'selected' : ''}`} onClick={handleTaxiClick}>
             <FontAwesomeIcon icon={faTaxi} />
-            <span>택시</span>
+            <span>택 시</span>
           </div>
         </div>
         {type !== 'list' && (
           <>
-            <h4 className="headerTitle" style={{ textAlign: 'center', color: '#FFFFFF', marginTop: '30px' }}>
+            <h2 className="headerTitle" style={{ textAlign: 'center', color: '#FFFFFF', marginTop: '30px' }}>
               새로운 모험, 새로운 경험, 그리고 새로운 나를 만나다
-            </h4>
+            </h2>
             <br />
             <div className="headerSearch">
               <div className="headerSearchText">

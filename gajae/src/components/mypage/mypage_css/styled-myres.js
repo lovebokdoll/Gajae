@@ -10,16 +10,17 @@ export const ResDiv = styled.div`
 `;
 
 export const ResList = styled.ul`
-  margin: 0;
   padding: 0;
+  margin: 0;
 `;
 
 export const ResItem = styled.li`
   width: 805px;
-  height: 332px;
+  height: 345px;
   border: 1px solid lightgrey;
   border-radius: 10px;
   list-style-type: none;
+  margin: 10px 0px 0px 0px;
 `;
 
 export const ResWrapper = styled.div`
@@ -28,7 +29,7 @@ export const ResWrapper = styled.div`
   max-width: 800px;
   height: 300px;
   position: relative;
-  margin: 20px 0 20px 0;
+  margin: 15px 0 15px 0;
 `;
 export const ImageContainer = styled.div`
   display: flex;
@@ -89,7 +90,7 @@ export const ColorDiv = styled.div`
 export const ResBtnWrapper = styled.div`
   float: right;
   background-color: white;
-  margin: 2.1px 2.1px 0px 0px;
+  margin: 1.0px 1.0px 0px 0px;
 `;
 
 export const ResTLineDiv = styled.div`

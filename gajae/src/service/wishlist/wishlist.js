@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 export const wishlistInformation = (params) => {
+  console.log(params);
   return new Promise((resolve, reject) => {
     try {
       const response = axios({

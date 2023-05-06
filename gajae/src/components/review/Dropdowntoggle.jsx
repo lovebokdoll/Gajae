@@ -1,9 +1,8 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useEffect, useRef, useState } from "react";
-import { Alert, Modal, ModalFooter, ModalHeader } from "react-bootstrap";
-import DropdownItem from "react-bootstrap/esm/DropdownItem";
-import { Link } from "react-router-dom";
-import styled from "styled-components";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import React, { useState } from 'react';
+import { Modal, ModalFooter, ModalHeader } from 'react-bootstrap';
+import DropdownItem from 'react-bootstrap/esm/DropdownItem';
+import styled from 'styled-components';
 
 const Dropdowntoggle = ({ review, onDelete }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -20,7 +19,6 @@ const Dropdowntoggle = ({ review, onDelete }) => {
   };
 
   const handleDeleteClick = () => {
-    console.log("삭제클릭함");
     onDelete(review.REVIEW_NUMBER);
     handleClose();
   };
@@ -28,17 +26,11 @@ const Dropdowntoggle = ({ review, onDelete }) => {
   return (
     <>
       <div className="dropdown">
-        <Btn
-          className="btn btn-custom dropdown-toggle border-0"
-          type="button"
-          onClick={toggleDropdown}
-        >
+        <Btn className="btn btn-custom dropdown-toggle border-0" type="button" onClick={toggleDropdown}>
           <i className="fa-solid fa-bars"></i>
         </Btn>
         {isDropdownOpen && (
-          <div
-            className={isDropdownOpen ? "dropdown-menu show" : "dropdown-menu"}
-          >
+          <div className={isDropdownOpen ? 'dropdown-menu show' : 'dropdown-menu'}>
             <DropdownItem onClick={handleEditClick}>수정</DropdownItem>
             <DropdownItem onClick={handleShow}>삭제</DropdownItem>
           </div>
@@ -46,10 +38,7 @@ const Dropdowntoggle = ({ review, onDelete }) => {
       </div>
       <AlertModal show={showModal} onHide={handleClose}>
         <AlertHeader>
-          <FontAwesomeIcon
-            icon="fa-regular fa-trash-can"
-            style={{ color: "#1E3050" }}
-          />
+          <FontAwesomeIcon icon="fa-regular fa-trash-can" style={{ color: '#1E3050' }} />
         </AlertHeader>
         <ActionContainer>
           <p>리뷰를 삭제하시겠습니까?</p>
@@ -74,7 +63,7 @@ const Btn = styled.button`
   border: 1px solid lightgray;
   background-color: white;
   &::after {
-    content: "";
+    content: '';
     transform: none;
     display: none;
   }
@@ -104,7 +93,7 @@ const ActionContainer = styled.div`
   justify-content: center;
   flex-direction: column;
   align-items: center;
-  font-family: "KOTRA_GOTHIC";
+  font-family: 'KOTRA_GOTHIC';
   text-align: center;
   p {
     margin: 0 0 8px;

@@ -45,18 +45,17 @@ const Footer = () => {
           </ul>
         </div>
         <div className="footerText" style={{ fontSize: 18, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-  <span style={{ marginRight: 10 }}>
-    Copyright ©2023
-    <span style={{}}>GAJAE.COM</span>
-  </span>
-  <div style={{ display: 'flex' }}>
-    <img src="/images/부킹닷컴.png" alt="" style={{ marginRight: 10 }} />
-    <img src="/images/priceline.png" alt="" style={{ marginRight: 10 }} />
-    <img src="/images/카약.png" alt="" style={{ marginRight: 10 }} />
-    <img src="/images/아고다.png" alt="" />
-  </div>
-</div>
-
+          <span style={{ marginRight: 10 }}>
+            Copyright ©2023
+            <span style={{}}>GAJAE.COM</span>
+          </span>
+          <div style={{ display: 'flex' }}>
+            <img src="/images/부킹닷컴.png" alt="" style={{ marginRight: 10 }} />
+            <img src="/images/priceline.png" alt="" style={{ marginRight: 10 }} />
+            <img src="/images/카약.png" alt="" style={{ marginRight: 10 }} />
+            <img src="/images/아고다.png" alt="" />
+          </div>
+        </div>
       </div>
     </div>
   );

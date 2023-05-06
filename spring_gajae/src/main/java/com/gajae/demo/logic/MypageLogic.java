@@ -49,4 +49,11 @@ public class MypageLogic {
         return myResJoinList;
     }
     
+    public int myResDelete( Map<String, Object> map ) {
+       
+        int result = mypageDAO.myResDelete( map );
+        
+        return result;
+    }
+    
 }

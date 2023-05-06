@@ -107,7 +107,6 @@ const SearchBox = () => {
           <br />
           <input className="databox" style={{width: '180px'}} type="date" defaultValue={CHECKOUT} onChange={(e) => setEndDate(e.target.value)}/>
         </div>
-
         <div className="headerSearchItem">
         <FontAwesomeIcon icon="fa-solid fa-user" style={{color: "gray"}}/>
           <span onClick={() => setOpenOptions(!openOptions)} className="headerSearchText" > {PEOPLE} 명</span>

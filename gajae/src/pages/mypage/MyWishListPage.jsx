@@ -16,6 +16,7 @@ import {
   SignOutButton,
 } from './styled-mypage';
 import { useState } from 'react';
+import HeaderNav2 from '../../components/header/HeaderNav2';
 const MyWishListPage = () => {
   const [localID, setLocalID] = useState('');
   const navigate = useNavigate();
@@ -33,6 +34,7 @@ const MyWishListPage = () => {
   return (
     <>
       <HeaderNav1 />
+      <HeaderNav2 />
       <MSContainer >
         <MSCLeftDIV>
           {' '}
@@ -79,7 +81,11 @@ const MyWishListPage = () => {
           {' '}
           <MySettingsFlexByRow>
             <MySettingsPageTitle>
-              <MSPTTitle>위시리스트</MSPTTitle>
+              <MSPTTitle>위시리스트
+
+                
+              </MSPTTitle>
+
             </MySettingsPageTitle>
           </MySettingsFlexByRow>
         </MSCRightDIV>

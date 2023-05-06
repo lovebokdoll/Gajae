@@ -2,20 +2,19 @@ import Cookies from 'js-cookie';
 import React, { useEffect, useState } from 'react';
 import { Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import { convertEndDate, convertStartDate, countNights, dayOfWeek } from '../../service/reservation/resInformation';
 import Footer from '../footer/Footer';
 import HeaderNav1 from '../header/HeaderNav1';
 import HeaderNav2 from '../header/HeaderNav2';
-import { convertEndDate, convertStartDate, countNights, dayOfWeek } from '../../service/reservation/resInformation';
-import PaymentSide from '../pay/PaymentSide';
 import PaymentLoginStatus from '../pay/PaymentLoginStatus';
-import PaymentPropertyCard from '../pay/PaymentPropertyCard';
+import PaymentSide from '../pay/PaymentSide';
 /*
 DB에서넘어온 정보와, lOGIN에서 넘어온 정보,
 HotelAvailabilityRow 에서 선택한, 
 예약 상세정보와 로그인정보가 넘어온다.
 */
 
-const ReservationDetail = ({ row }) => {
+const ReservationDetail = () => {
   const [initialName, setInitialName] = useState('');
   const [initialEmail, setInitialEmail] = useState('');
   const [initialNickname, setInitialNickname] = useState('');
@@ -32,16 +31,12 @@ const ReservationDetail = ({ row }) => {
   const resNameChange = (event) => {
     setName(event.target.value);
     const resName = event.target.value;
-    console.log('name ===>', name);
-    console.log('resName ===>', resName);
     Cookies.set('resName', resName);
   };
 
   const resEmailChange = (event) => {
     setEmail(event.target.value);
     const resEmail = event.target.value;
-    console.log('email ===>', email);
-    console.log('resEmail ===>', resEmail);
     Cookies.set('resEmail', resEmail);
   };
 

@@ -180,4 +180,8 @@
 		WHERE USER_ID=#{USER_ID}
 		AND USER_PW=#{USER_PW}
 	</select>
+	
+	<select id="getUserById" parameterType="map" resultType="map">
+	SELECT * FROM GAJAE.USERS WHERE USER_ID = #{USER_ID}
+	</select>
 </mapper>

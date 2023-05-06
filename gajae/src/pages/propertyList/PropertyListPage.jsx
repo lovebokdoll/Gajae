@@ -14,6 +14,7 @@ import MapModal from '../../components/searchItem/MapModal';
 import PropertyCard from '../../components/searchItem/PropertyCard';
 import SearchBox from '../../components/searchItem/SearchBox';
 import { searchListDB } from '../../service/database';
+import { wishlistInformation } from '../../service/wishlist/wishlist';
 import { BButton } from '../../style/FormStyle';
 import './propertyList.css';
 
@@ -55,6 +56,8 @@ const PropertyListPage = () => {
   console.log(params.P_ADDRESS);
   console.log(params.ROOM_CAPACITY);
 
+  const [wishlistData, setWishlistData] = useState();
+
   //사용자가 검색한 결과에 대한 배열
   useEffect(() => {
     const propertyList = async () => {
@@ -62,8 +65,23 @@ const PropertyListPage = () => {
       setProperty(response.data);
     };
     propertyList();
+    // propertyCard 마운트될 때 위시리스트 테이블에서 USER_ID로 데이터 가져와서 P_ID가 존재하는지 비교하고 WL_ACTIVATE가 Y면 하트 표시
+    if (window.localStorage.getItem('userId') === undefined) {
+      console.log('asdasdsa');
+      return;
+    } else {
+      const wishlistParameter = {
+        USER_ID: window.localStorage.getItem('userId'),
+      };
+      const getWishlistInformation = async () => {
+        const response = await wishlistInformation(wishlistParameter);
+        console.log(response.data);
+        setWishlistData(response.data);
+      };
+      getWishlistInformation();
+    }
   }, []);
-
+  console.log(wishlistData);
   //쿠키에 검색정보 저장
   Cookies.set('p_address', params.P_ADDRESS);
 
@@ -175,7 +193,7 @@ const PropertyListPage = () => {
                     <FontAwesomeIcon style={{}} icon={faMap} /> 지도에서 보기
                   </BButton>
                   <MapModal show={showModal} closeModal={closeModal} />
-                  <FilterSidebar checkedFilters={checkedFilters} checkedRanks={checkedRanks}/>
+                  <FilterSidebar checkedFilters={checkedFilters} checkedRanks={checkedRanks} />
                 </div>
               </div>
               <div className="col-lg-9 col-md-12" style={{ width: '850px' }}>
@@ -204,9 +222,23 @@ const PropertyListPage = () => {
                     width: '1000px',
                   }}
                 >
-                  {currentProperties.map((row, index) => (
-                    <PropertyCard key={index} row={row} style={{ marginRight: '10px', marginBottom: '10px' }} />
-                  ))}
+                  {currentProperties.map((row, index) => {
+                    // wishlistData에서 P_ID와 일치하는 데이터 찾기
+                    const wishlistItem = wishlistData ? wishlistData.find((item) => item.P_ID === row.P_ID) : null;
+
+                    // wishlistItem이 존재하고, WL_ACTIVATE 값이 'Y'인 경우 하트 표시
+                    const isWishlistActive = wishlistItem && wishlistItem.WL_ACTIVATE === 'Y';
+
+                    return (
+                      <PropertyCard
+                        key={index}
+                        row={row}
+                        style={{ marginRight: '10px', marginBottom: '10px' }}
+                        isWishlistActive={wishlistData ? isWishlistActive : false} // isWishlistActive prop 추가
+                      />
+                    );
+                  })}
+
                   <div className="rounded-box">
                     <ReactPaginate
                       pageCount={Math.ceil(property.length / propertiesPerPage)}

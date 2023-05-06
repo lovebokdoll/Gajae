@@ -112,13 +112,13 @@ public class UserDAO {
         
         return result;
     }
-
-	public int profileupload(Map<String, Object> map) {
-		int result = sqlSessionTemplate.update( "user.profileupload", map );     
+    
+    public int profileupload( Map<String, Object> map ) {
+        int result = sqlSessionTemplate.update( "user.profileupload", map );
         log.info( "result = {}", result );
         
         return result;
-	}
+    }
     
     public List<Map<String, Object>> afterUpdate( Map<String, Object> map ) {
         
@@ -134,5 +134,12 @@ public class UserDAO {
         log.info( "userList = {}", userList );
         
         return userList;
+    }
+    
+    public Map<String, Object> getUserById( String userId ) {
+     
+        Map<String, Object> user = sqlSessionTemplate.selectOne( "user.getUserById", userId );
+   
+        return user;
     }
 }

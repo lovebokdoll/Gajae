@@ -38,7 +38,6 @@
 .siTitle {
   font-size: 20px;
   font-family: 'KOTRA_GOTHIC';
-  width: 4y00px;
   color: black;
 }
 
@@ -111,12 +110,12 @@
 }
 
 .siPrice {
-  font-size: 24px;
+  font-size: 22px;
   font-family: 'KOTRA_GOTHIC';
 }
 
 .siTaxes {
-  font-size: 12px;
+  font-size: 11px;
   font-family: 'KOTRA_GOTHIC';
   color: gray;
 }

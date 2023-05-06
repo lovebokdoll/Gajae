@@ -1,15 +1,10 @@
-import {
-  deleteObject,
-  getDownloadURL,
-  ref,
-  uploadBytes,
-} from "@firebase/storage";
-import React from "react";
-import { useState } from "react";
-import { Button, Modal } from "react-bootstrap";
-import styled from "styled-components";
-import { storage } from "../../service/firebase";
-import { profileUploadDB } from "../../service/user/user";
+import { deleteObject, getDownloadURL, ref, uploadBytes } from '@firebase/storage';
+import React from 'react';
+import { useState } from 'react';
+import { Button, Modal } from 'react-bootstrap';
+import styled from 'styled-components';
+import { storage } from '../../service/firebase';
+import { profileUploadDB } from '../../service/user/user';
 
 const ProfileModal = (props) => {
   const { showModal, closeModal, localID, onProfileUploaded } = props;
@@ -23,11 +18,9 @@ const ProfileModal = (props) => {
     // 이전 이미지 삭제
     if (selectedImage !== null) {
       const prevImageRef = ref(storage, `profiles/${profile.name}`);
-      const prevImageSnapshot = await getDownloadURL(prevImageRef).catch(
-        (error) => {
-          console.log(error);
-        }
-      );
+      const prevImageSnapshot = await getDownloadURL(prevImageRef).catch((error) => {
+        console.log(error);
+      });
       if (prevImageSnapshot) {
         await deleteObject(prevImageRef);
       }
@@ -52,17 +45,17 @@ const ProfileModal = (props) => {
       const imageRef = ref(storage, `profiles/${profile.name}`);
       await uploadBytes(imageRef, profile);
       const downloadURL = await getDownloadURL(imageRef);
-      console.log("image uploaded successfully, Download URL:", downloadURL);
+      console.log('image uploaded successfully, Download URL:', downloadURL);
       console.log(downloadURL);
       setSelectedImage(downloadURL);
       /*호스트이미지 업로드 */
     } catch (error) {
-      console.log("error uploading image", error);
+      console.log('error uploading image', error);
     }
   };
 
   const profileUpload = async () => {
-    console.log("profileUpload 호출");
+    console.log('profileUpload 호출');
     const profile = {
       USER_ID: localID,
       USER_PHOTO: selectedImage,
@@ -86,20 +79,14 @@ const ProfileModal = (props) => {
           <Modal.Body>
             <ProfileContainer>
               <div>
-                <img
-                  src={selectedImage ? selectedImage : "../images/default.png"}
-                  style={{ height: "180px", borderRadius: "50%" }}
-                />
+                <img src={selectedImage ? selectedImage : '../images/default.png'} style={{ height: '180px', borderRadius: '50%' }} />
               </div>
               <UploadWrapper>
                 <div>업로드할 이미지를 선택해주세요</div>
                 <input type="file" onChange={handleImageChange}></input>
               </UploadWrapper>
               <Btn onClick={() => profileUpload()}>저장</Btn>
-              {isUploadComplete && (
-                <div style={{ color: "#55ad7a" }}>업로드 완료!</div>
-              )}{" "}
-              {/* 업로드 완료 시 메시지를 띄움 */}
+              {isUploadComplete && <div style={{ color: '#55ad7a' }}>업로드 완료!</div>} {/* 업로드 완료 시 메시지를 띄움 */}
             </ProfileContainer>
           </Modal.Body>
         </Modal>

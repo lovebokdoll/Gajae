@@ -36,4 +36,15 @@ public class MypageController {
         
         return temp;
     }
+    
+    @GetMapping( "myResDelete" )
+    public String myResDelete( @RequestParam Map<String, Object> map ) {
+        
+        log.info( "map = {}", map );
+        
+        int result = mypageLogic.myResDelete( map );
+        
+        return String.valueOf( result );
+        
+    }
 }

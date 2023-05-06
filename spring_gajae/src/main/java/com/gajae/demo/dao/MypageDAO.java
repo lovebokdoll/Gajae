@@ -34,4 +34,13 @@ public class MypageDAO {
         return myResJoinList;
     }
     
+    public int myResDelete( Map<String, Object> map ) {
+        
+        int result = sqlSessionTemplate.delete( "mypage.myResDelete", map );
+        
+        log.info( "result = {}", result );
+        
+        return result;
+    }
+    
 }

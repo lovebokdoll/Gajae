@@ -28,14 +28,16 @@ const MyCardRow = ({ card }) => {
         <div class="payment-info">
           <div class="payment-title">결제정보</div>
           <div class="card-info">
-            <div class="card-number">
-              <FontAwesomeIcon icon={faCreditCardAlt} /> 카드번호:{card.CARD_NUMBER}
+            <div className="card-number">
+              <FontAwesomeIcon icon={faCreditCardAlt} /> 카드번호:&nbsp;
+              {card.CARD_NUMBER.replace(/(\d{4})(\d{4})(\d{4})(\d{4})/, '$1-$2-$3-$4')}
             </div>
-            <div class="expiration-date"><FontAwesomeIcon icon={faCalendarAlt} /> 유효기간:{card.CARD_EXP}</div>
+            <div class="expiration-date">
+              <FontAwesomeIcon icon={faCalendarAlt} /> 유효기간:&nbsp;{card.CARD_EXP}
+            </div>
           </div>
           <div class="delete-btn">
             <button onClick={() => setShowModal(true)}>삭제</button>
-            {/*  <button onClick={cardInfoDelete}>삭제</button> */}
           </div>
         </div>
         {/* 모달 창 */}

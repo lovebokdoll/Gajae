@@ -17,13 +17,11 @@
 }
 
 .card-number {
-  margin-right: 10%;
-  width: 20%;
+  width: 100%;
 }
 
 .expiration-date {
-  margin-right: 30%;
-  width: 40%;
+  width: 60%;
 }
 
 .delete-btn {

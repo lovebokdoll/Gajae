@@ -36,7 +36,6 @@ const MainPage = () => {
       <MainProperty />
       <NextTripCard userName={userName} />
       <MainMailList />
-      <div style={{}}></div>
       <Footer />
       <Popup onClose={handlePopupClose} />
     </>

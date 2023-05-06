@@ -5,31 +5,22 @@ import { Button, Nav } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import Footer from '../../components/footer/Footer';
 import HeaderNav1 from '../../components/header/HeaderNav1';
+import HeaderNav2 from '../../components/header/HeaderNav2';
 import MyCardList from '../../components/mypage/MyCardList';
 import { cardInformation, cardInsert } from '../../service/card/card';
 import './paymentpage.css';
 import {
   MSCLeftDIV,
   MSCRightDIV,
-  MSContainer,
   MSPTComment,
   MSPTTitle,
   MyPageLinkMove,
+  MyPaymentContainer,
   MySettingsFlexByRow,
   MySettingsPageTitle,
-  SignOutButton
+  SignOutButton,
 } from './styled-mypage';
-import {
-  CardButton,
-  CardDiv,
-  CardEXPInput,
-  CardForm,
-  CardInput,
-  CardLabel,
-  CardNumberInput,
-  CardSaveButton,
-  CardSettingsRow
-} from './styled-payment';
+import { CardButton, CardDiv, CardEXPInput, CardForm, CardInput, CardLabel, CardSaveButton, CardSettingsRow } from './styled-payment';
 
 const MyPaymentPage = () => {
   const [isCardAdd, setIsCardAdd] = useState(false);
@@ -93,7 +84,8 @@ const MyPaymentPage = () => {
   return (
     <>
       <HeaderNav1 />
-      <MSContainer>
+      <HeaderNav2 />
+      <MyPaymentContainer>
         <MSCLeftDIV>
           {' '}
           <Nav defaultActiveKey="/home" className="flex-column">
@@ -209,7 +201,8 @@ const MyPaymentPage = () => {
             )}
           </CardSettingsRow>
         </MSCRightDIV>
-      </MSContainer>
+      </MyPaymentContainer>
+      <div style={{ height: '100px' }}></div>
       <Footer />
     </>
   );

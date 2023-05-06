@@ -15,7 +15,8 @@ import {
   MySettingsPageTitle,
   SignOutButton,
 } from './styled-mypage';
-const MyReservatiosPage = () => {
+import HeaderNav2 from '../../components/header/HeaderNav2';
+const MyReservationsPage = () => {
   const [localID, setLocalID] = useState('');
   const navigate = useNavigate();
 
@@ -31,6 +32,7 @@ const MyReservatiosPage = () => {
   return (
     <>
       <HeaderNav1 />
+      <HeaderNav2 />
       <MSContainer>
         <MSCLeftDIV>
           {' '}
@@ -81,9 +83,8 @@ const MyReservatiosPage = () => {
           </MySettingsFlexByRow>
         </MSCRightDIV>{' '}
       </MSContainer>{' '}
-      <Footer />
     </>
   );
 };
 
-export default MyReservatiosPage;
+export default MyReservationsPage;

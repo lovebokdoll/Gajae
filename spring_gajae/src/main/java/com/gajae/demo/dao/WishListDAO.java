@@ -7,8 +7,6 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.gajae.demo.vo.WishListVO;
-
 import lombok.extern.log4j.Log4j2;
 
 @Log4j2

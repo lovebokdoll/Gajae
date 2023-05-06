@@ -94,21 +94,38 @@ export const MSContainer = styled.div`
   height: 1500px;
   margin: 0 auto; /* 수평 중앙 정렬 */
   padding-top: 50px;
-  margin-top: 50px;
+  margin-top: 0px;
 `;
 
+export const MySettingContainer = styled.div`
+  width: 1140px;
+  height: 800px;
+  margin: 0 auto; /* 수평 중앙 정렬 */
+  padding-top: 50px;
+  margin-top: 0px;
+`;
+
+export const MyPaymentContainer = styled.div`
+  width: 1140px;
+  height: 700px;
+  margin: 0 auto; /* 수평 중앙 정렬 */
+  padding-top: 50px;
+  margin-top: 0px;
+`;
 export const MSCLeftDIV = styled.div`
-  width: 310px;
+  width: 260px;
   height: 100%;
   float: left;
   display: flex; /* add display: flex */
   justify-content: center; /* add justify-content: center */
+  margin: 0px 0px 0px 10px;
 `;
 
 export const MSCRightDIV = styled.div`
   width: 806px;
   height: 100%;
   float: right;
+  margin: 0px 30px 0px 0px;
 `;
 
 export const MySettingsFlexByRow = styled.div`

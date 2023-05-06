@@ -5,10 +5,12 @@ import { faComment, faCreditCard, faHeart, faHistory, faSignOutAlt, faUser } fro
 import Footer from '../../components/footer/Footer';
 import HeaderNav1 from '../../components/header/HeaderNav1';
 import { MSCLeftDIV, MSCRightDIV, MSContainer, MyPageLinkMove, SignOutButton } from './styled-mypage';
+import HeaderNav2 from '../../components/header/HeaderNav2';
 const MyNotificationsPage = () => {
   return (
     <>
       <HeaderNav1 />
+      <HeaderNav2 />
       <MSContainer className="container">
         <MSCLeftDIV>
           {' '}

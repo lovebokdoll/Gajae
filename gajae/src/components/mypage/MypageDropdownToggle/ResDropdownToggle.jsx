@@ -1,11 +1,15 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useState } from "react";
-import { Modal, ModalFooter, ModalHeader } from "react-bootstrap";
-import DropdownItem from "react-bootstrap/esm/DropdownItem";
-import styled from "styled-components";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import React, { useState } from 'react';
+import { Modal, ModalFooter, ModalHeader } from 'react-bootstrap';
+import DropdownItem from 'react-bootstrap/esm/DropdownItem';
+import styled from 'styled-components';
+import { myResDelete } from '../../../service/mypage/mypage';
+import { useDispatch } from 'react-redux';
+import { setToastMessage } from '../../../redux/toastStatus/action';
 
 const ResDropdownToggle = ({ reservation }) => {
-  console.log("rdt ===>", reservation);
+  const dispatch = useDispatch();
+  console.log('rdt ===>', reservation);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const handleShow = () => setShowModal(true);
@@ -21,23 +25,33 @@ const ResDropdownToggle = ({ reservation }) => {
   };
 
   const resDelete = () => {
-    handleClose();
+    console.log('reservation.R_NUMBER ===>', reservation.R_NUMBER);
+    const resDeleteParameter = {
+      R_NUMBER: reservation.R_NUMBER,
+    };
+
+    const resDelete = async () => {
+      const resDeleteResponse = await myResDelete(resDeleteParameter);
+      console.log(resDeleteResponse.data);
+      if (resDeleteResponse.data === 1) {
+        dispatch(setToastMessage('예약내역이 삭제되었습니다.'));
+        handleClose();
+        window.location.reload();
+      } else {
+        dispatch(setToastMessage('예약내역 삭제중 오류가 발생했습니다.'));
+      }
+    };
+    resDelete();
   };
 
   return (
     <>
       <div className="dropdown">
-        <ResBtn
-          className="btn btn-custom dropdown-toggle border-0"
-          type="button"
-          onClick={toggleDropdown}
-        >
+        <ResBtn className="btn btn-custom dropdown-toggle border-0" type="button" onClick={toggleDropdown}>
           <i className="fa-solid fa-bars"></i>
         </ResBtn>
         {isDropdownOpen && (
-          <div
-            className={isDropdownOpen ? "dropdown-menu show" : "dropdown-menu"}
-          >
+          <div className={isDropdownOpen ? 'dropdown-menu show' : 'dropdown-menu'}>
             <DropdownItem onClick={writeReview}>이용후기 작성</DropdownItem>
             <DropdownItem onClick={() => handleShow()}>삭제</DropdownItem>
           </div>
@@ -45,10 +59,7 @@ const ResDropdownToggle = ({ reservation }) => {
       </div>
       <ResAlertModal show={showModal} onHide={handleClose}>
         <ResAlertHeader>
-          <FontAwesomeIcon
-            icon="fa-regular fa-trash-can"
-            style={{ color: "#1E3050" }}
-          />
+          <FontAwesomeIcon icon="fa-regular fa-trash-can" style={{ color: '#1E3050' }} />
         </ResAlertHeader>
         <ResActionContainer>
           <p></p>
@@ -73,7 +84,7 @@ const ResBtn = styled.button`
   border: 1px solid lightgray;
   background-color: white;
   &::after {
-    content: "";
+    content: '';
     transform: none;
     display: none;
   }
@@ -103,7 +114,7 @@ const ResActionContainer = styled.div`
   justify-content: center;
   flex-direction: column;
   align-items: center;
-  font-family: "KOTRA_GOTHIC";
+  font-family: 'KOTRA_GOTHIC';
   text-align: center;
   p {
     margin: 0 0 8px;

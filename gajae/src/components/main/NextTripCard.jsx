@@ -7,7 +7,7 @@ const NextTripCard = ({ userName }) => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setCurrentLetterIndex((currentLetterIndex) => (currentLetterIndex + 1) % letters.length);
-    }, 2500);
+    }, 1500);
     return () => clearTimeout(timer);
   }, [currentLetterIndex, letters.length]);
 

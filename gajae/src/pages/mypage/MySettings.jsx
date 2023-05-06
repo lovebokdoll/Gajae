@@ -13,10 +13,10 @@ import { nicknameCheck, userUpdateDB } from '../../service/user/user';
 import {
   MSCLeftDIV,
   MSCRightDIV,
-  MSContainer,
   MSPTComment,
   MSPTTitle,
   MyPageLinkMove,
+  MySettingContainer,
   MySettingsFlexByRow,
   MySettingsPageTitle,
   MySettingsRow,
@@ -26,6 +26,7 @@ import {
   SignOutButton,
 } from './styled-mypage';
 
+import HeaderNav2 from '../../components/header/HeaderNav2';
 import ProfileModal from '../../components/mypage/ProfileModal';
 
 const MySettings = () => {
@@ -67,7 +68,7 @@ const MySettings = () => {
   const [localMobile, setLocalMobile] = useState('');
   const [localID, setLocalId] = useState('');
   const [createDate, setCreateDate] = useState('');
-  const [localPhoto, setLocalPhoto] = useState();
+  const [localPhoto, setLocalPhoto] = useState('');
 
   useEffect(() => {
     const tempID = window.localStorage.getItem('userId');
@@ -84,7 +85,6 @@ const MySettings = () => {
     setCreateDate(window.localStorage.getItem('userCreateDate'));
     setLocalPhoto(window.localStorage.getItem('userPhoto'));
   }, []);
-  console.log(localNickName);
 
   const [user, setUser] = useState({
     USER_ID: '',
@@ -334,7 +334,8 @@ const MySettings = () => {
   };
   /* 프로필 업로드 모달창 */
   const [showModal, setShowModal] = useState(false);
-  const [profileImage, setProfileImage] = useState('/images/default.png');
+  const [profileImage, setProfileImage] = useState('/images/001.png');
+
   console.log(profileImage);
   const closeModal = () => {
     setShowModal(false);
@@ -347,11 +348,12 @@ const MySettings = () => {
     localStorage.setItem('userPhoto', imageUrl);
     setLocalPhoto(imageUrl);
   };
-
+  console.log('localPhoto ===>', localPhoto);
   return (
     <>
       <HeaderNav1 />
-      <MSContainer>
+      <HeaderNav2 />
+      <MySettingContainer>
         <MSCLeftDIV>
           {' '}
           <Nav defaultActiveKey="/home" className="flex-column">
@@ -400,7 +402,7 @@ const MySettings = () => {
               <MSPTComment>정보를 업데이트하고 각 정보가 어떻게 활용되는지 알아보세요.</MSPTComment>
             </MySettingsPageTitle>
             <ProfileUploadButton onClick={openModal}>
-              <ProfileImage src={localPhoto ? localPhoto : profileImage} alt="이미지" />
+              {localPhoto ? <ProfileImage src={localPhoto} alt="이미지" /> : <img src="/images/default.png" />}
             </ProfileUploadButton>
             <ProfileModal show={showModal} closeModal={closeModal} localID={localID} onProfileUploaded={onProfileUploaded}></ProfileModal>
           </MySettingsFlexByRow>
@@ -696,7 +698,7 @@ const MySettings = () => {
             </div>
           </MySettingsRow>
         </MSCRightDIV>
-      </MSContainer>
+      </MySettingContainer>
       <Footer />
     </>
   );

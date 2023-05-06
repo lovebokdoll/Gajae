@@ -4,9 +4,7 @@ import './MainRecommandLoc.css';
 const MainRecommandLoc = () => {
   return (
     <>
-   <div className="space" style={{height:30}}></div>
-
-
+      <div className="space" style={{ height: 30 }}></div>
       <div className="pList">
         <div className="pListItem">
           <img
@@ -29,7 +27,6 @@ const MainRecommandLoc = () => {
             <h2>2331 hotels</h2>
           </div>
         </div>
-        
         <div className="pListItem">
           <img
             src="https://cf.bstatic.com/static/img/theme-index/carousel_320x240/card-image-villas_300/dd0d7f8202676306a661aa4f0cf1ffab31286211.jpg"
