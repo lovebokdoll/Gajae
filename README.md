@@ -8,4 +8,7 @@
 ### 기능: 숙소 검색, 숙소 등록, 숙소 필터링, 숙소 예약, 결제, 이용후기 작성 
 
 *** 
-### Skill: Java, Javascript(React, JQuery, Ajax, Axios), HTML, CSS, Bootstrap, OracleDB, MyBatis, Spring Boot Framework
+#### Skill: Java, Javascript(React, JQuery, Ajax, Axios), HTML, CSS, Bootstrap, OracleDB, MyBatis, Spring Boot Framework
+#### 프로젝트 시연 영상: (링크 작성)
+
+***
