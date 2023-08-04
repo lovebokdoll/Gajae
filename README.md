@@ -39,5 +39,6 @@ booking.com을 참고하여 만든 사이트입니다.</br>
 - 숙소정보 수정
 
 
-#### 프로젝트 시연 영상: (링크 작성)
+#### 프로젝트 시연 영상: 
+<a href="https://www.youtube.com/watch?v=qypjONkLTKg"> 🔗 시연영상 바로가기
 
