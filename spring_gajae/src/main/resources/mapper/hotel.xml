@@ -11,7 +11,7 @@
 		P.P_ADDRESS,
 		P.P_OVERVIEW,
 		P.ROOM_ID,
-		NVL(P.P_SCALE, ' ') ,
+		IFNULL(P.P_SCALE, ' ') ,
 		P.P_CHECKIN,
 		P.P_CHECKOUT,
 		P.P_REFUND,
@@ -32,7 +32,7 @@
 		F.FAC_BATHROOM,
 		F.FAC_PARKING,
 		F.FAC_BED,
-		NVL(F.FAC_LIVING, ' ') ,
+		IFNULL(F.FAC_LIVING, ' ') ,
 		F.FAC_MEDIA,
 		F.FAC_INTERNET,
 		F.FAC_SERVICE,
@@ -41,12 +41,12 @@
 		F.FAC_KITCHEN,
 		F.FAC_RECEPTION
 		FROM
-		PROPERTIES P
-		INNER JOIN P_ROOMTYPE R ON
+		GAJAE.PROPERTIES P
+		INNER JOIN GAJAE.P_ROOMTYPE R ON
 		P.ROOM_ID =
 		R.ROOM_ID
 		INNER JOIN
-		PRO_FACILITIES F ON
+		GAJAE.PRO_FACILITIES F ON
 		P.P_ID = F.P_ID
 		<if test='P_ID!=null and P_ID.length()>0'>
 			WHERE P.P_ID = #{P_ID}
@@ -61,10 +61,8 @@
 			<if test='ROOM_ID!=null and ROOM_ID.length()>0'>
 				AND ROOM_ID = ${ROOM_ID}
 			</if>
-			AND TO_DATE(RES_DATE, 'YYYY-MM-DD') <![CDATA[  >=]]>
-			TO_DATE('${START_DATE}', 'YYYY-MM-DD')
-			AND TO_DATE(RES_DATE, 'YYYY-MM-DD') <![CDATA[  <=]]>
-			TO_DATE('${END_DATE}', 'YYYY-MM-DD')
+				AND	RES_DATE <![CDATA[  >=]]>'${START_DATE}'
+			    AND	RES_DATE <![CDATA[  <=]]>'${END_DATE}'
 		</where>
 	</select> 
 

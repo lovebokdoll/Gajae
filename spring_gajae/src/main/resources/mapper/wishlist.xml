@@ -33,18 +33,15 @@
 		INSERT INTO
 		GAJAE.WISHLIST
 		(
-		WL_ID ,
 		USER_ID ,
 		P_ID ,
 		WL_DATE,
 		WL_ACTIVATE
 		)
 		VALUES(
-		SEQ_WISHLIST_NUMBER.NEXTVAL,
 		#{USER_ID},
 		#{P_ID},
-		TO_CHAR(
-		SYSDATE, 'YYYY-MM-DD HH24:MI:SS'),
+		NOW(),
 		'Y'
 		)
 	</insert>

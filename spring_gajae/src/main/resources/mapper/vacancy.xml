@@ -14,14 +14,9 @@
 	<update id="vacancyUpdate" parameterType="map">
 		UPDATE P_VACANCY_${P_ID}
 		SET RES_YN = 'Y'
-		WHERE P_ID=#{P_ID}
-		AND
-		ROOM_ID=#{ROOM_ID}
-		AND TO_DATE(RES_DATE, 'YYYY-MM-DD') <![CDATA[ >= ]]>
-		TO_DATE(#{START_DATE}, 'YYYY-MM-DD')
-		AND TO_DATE(RES_DATE,
-		'YYYY-MM-DD') <![CDATA[ <= ]]>
-		TO_DATE(#{END_DATE}, 'YYYY-MM-DD')
+		WHERE ROOM_ID=#{ROOM_ID}
+		AND RES_DATE  
+		BETWEEN #{START_DATE} AND #{END_DATE};
 	</update>
 
 	<!-- 달력create -->

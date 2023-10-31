@@ -6,7 +6,6 @@
 		useGeneratedKeys="true" keyColumn="r_number" keyProperty="r_number">
 		INSERT INTO
 		GAJAE.RESERVATIONS (
-		R_NUMBER,
 		USER_ID,
 		P_ID,
 		R_DATE,
@@ -23,11 +22,9 @@
 		ROOM_ID
 		)
 		VALUES (
-		SEQ_R_NUMBER.NEXTVAL,
 		#{USER_ID},
 		#{P_ID},
-		TO_CHAR(
-		SYSDATE, 'YYYY-MM-DD HH24:MI:SS'),
+		NOW(),
 		#{R_START_DATE},
 		#{R_END_DATE},
 		#{R_NAME},

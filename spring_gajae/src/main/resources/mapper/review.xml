@@ -1,37 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace = "review" >
-	<insert id="reviewInsert" parameterType="map">
-		INSERT INTO REVIEW(
-			REVIEW_NUMBER,
-			R_NUMBER,
-			REVIEW_TITLE,
-			REVIEW_GOOD,
-			REVIEW_BAD,
-			REVIEW_DATE,
-			REVIEW_PHOTO,
-			REVIEW_SERVICE,
-			REVIEW_FACILITY,
-			REVIEW_CLEAN,
-			REVIEW_LOCATION,
-			REVIEW_COST,
-			REVIEW_AVERAGE
-			) VALUES (
-			SEQ_REVIEW_NUMBER.NEXTVAL, 
-			#{R_NUMBER},
-			#{REVIEW_TITLE}, 
-			#{REVIEW_GOOD}, 
-			#{REVIEW_BAD}, 
-			TO_CHAR( SYSDATE, 'YYYY-MM-DD'), 
-			#{REVIEW_PHOTO},
-			#{REVIEW_SERVICE}, 
-			#{REVIEW_FACILITY}, 
-			#{REVIEW_CLEAN}, 
-			#{REVIEW_LOCATION}, 
-			#{REVIEW_COST},
-			#{REVIEW_AVERAGE}
-			)
-	 </insert>
+		<insert id="reviewInsert" parameterType="map">
+	    <selectKey keyProperty="temp_review_number" resultType="int" order="BEFORE">
+	        SELECT IFNULL(MAX(REVIEW_NUMBER), 0) + 1 as temp_review_number FROM GAJAE.REVIEW
+	    </selectKey>
+	    INSERT INTO GAJAE.REVIEW (
+	        REVIEW_NUMBER,
+	        R_NUMBER,
+	        REVIEW_TITLE,
+	        REVIEW_GOOD,
+	        REVIEW_BAD,
+	        REVIEW_DATE,
+	        REVIEW_PHOTO,
+	        REVIEW_SERVICE,
+	        REVIEW_FACILITY,
+	        REVIEW_CLEAN,
+	        REVIEW_LOCATION,
+	        REVIEW_COST,
+	        REVIEW_AVERAGE
+	    ) VALUES (
+	        #{temp_review_number},
+	        #{R_NUMBER},
+	        #{REVIEW_TITLE},
+	        #{REVIEW_GOOD},
+	        #{REVIEW_BAD},
+	        NOW(),
+	        #{REVIEW_PHOTO},
+	        #{REVIEW_SERVICE},
+	        #{REVIEW_FACILITY},
+	        #{REVIEW_CLEAN},
+	        #{REVIEW_LOCATION},
+	        #{REVIEW_COST},
+	        #{REVIEW_AVERAGE}
+	    )
+	</insert>
+
 	 
 	 <select id="propertyList" parameterType="java.util.HashMap" resultType="map">
 		 SELECT DISTINCT RV.R_NUMBER, RV.USER_ID, RV.R_PEOPLE,
@@ -39,9 +43,9 @@
                R.REVIEW_TITLE, R.REVIEW_DATE, R.REVIEW_GOOD, R.REVIEW_BAD, R.REVIEW_PHOTO,
                R.REVIEW_SERVICE, R.REVIEW_FACILITY, R.REVIEW_CLEAN, R.REVIEW_COST,
                R.REVIEW_LOCATION, R.REVIEW_AVERAGE,
-               TO_DATE(RV.R_START_DATE, 'YYYY-MM-DD') AS CHECKIN_DATE,
-               TO_DATE(RV.R_END_DATE, 'YYYY-MM-DD') AS CHECKOUT_DATE,
-               TO_DATE(RV.R_END_DATE, 'YYYY-MM-DD') - TO_DATE(RV.R_START_DATE, 'YYYY-MM-DD') AS NUM_NIGHTS,
+               RV.R_START_DATE AS CHECKIN_DATE,
+               RV.R_END_DATE AS CHECKOUT_DATE,
+               DATEDIFF(STR_TO_DATE(RV.R_END_DATE, '%Y-%m-%d'), STR_TO_DATE(RV.R_START_DATE, '%Y-%m-%d')) AS NUM_NIGHTS,
                RP.REPLY_CONTENT, RP.REPLY_DATE
 		  FROM REVIEW R
 		 INNER JOIN RESERVATIONS RV ON R.R_NUMBER = RV.R_NUMBER
@@ -79,7 +83,7 @@
 	 	   	REVIEW_TITLE = #{REVIEW_TITLE}, 
 			REVIEW_GOOD = #{REVIEW_GOOD}, 
 			REVIEW_BAD = #{REVIEW_BAD}, 
-			REVIEW_DATE = TO_CHAR( SYSDATE, 'YYYY-MM-DD'), 
+			REVIEW_DATE =  NOW(), 
 			REVIEW_SERVICE = #{REVIEW_SERVICE}, 
 			REVIEW_FACILITY =#{REVIEW_FACILITY}, 
 			REVIEW_CLEAN = #{REVIEW_CLEAN},
@@ -119,7 +123,7 @@
 			#{REVIEW_NUMBER},
 			#{HOST_ID},
 			#{REPLY_CONTENT}, 
-			TO_CHAR(SYSDATE, 'YYYY-MM-DD')
+			 NOW()
 			)
 	 </insert>
 	 
@@ -133,7 +137,7 @@
 	 	UPDATE REPLY
 	 	   SET
 			REPLY_CONTENT = #{REPLY_CONTENT}, 
-			REPLY_DATE = TO_CHAR( SYSDATE, 'YYYY-MM-DD')
+			REPLY_DATE =  NOW()
 	  WHERE REPLY_NUMBER = #{REPLY_NUMBER} 	
 	 </update>
 	 <!-- host댓글가져오기 -->

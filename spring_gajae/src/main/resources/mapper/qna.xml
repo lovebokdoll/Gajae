@@ -16,12 +16,12 @@
 
 	<insert id="qnaInsert" parameterType="map"
 		useGeneratedKeys="true" keyColumn="QNA_NO" keyProperty="QNA_NO">
-		INSERT INTO qna
-		(QNA_NO, USER_ID, QNA_TITLE, QNA_CONTENT, QNA_TYPE, QNA_DATE)
+		INSERT INTO QNA
+		(USER_ID, QNA_TITLE, QNA_CONTENT, QNA_TYPE, QNA_DATE)
 		VALUES
-		(SEQ_QNA_NO.nextval, #{USER_ID}, #{QNA_TITLE}, #{QNA_CONTENT},
+		( #{USER_ID}, #{QNA_TITLE}, #{QNA_CONTENT},
 		#{QNA_TYPE},
-		to_char(SYSDATE,'YYYY-MM-DD'))
+		CURDATE())
 	</insert>
 
 	<select id="qnaDetail" parameterType="map" resultType="map">

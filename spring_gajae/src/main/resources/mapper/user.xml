@@ -97,8 +97,7 @@
 		#{USER_MOBILE},
 		#{USER_BIRTH},
 		#{USER_AUTH},
-		TO_CHAR( SYSDATE,
-		'YYYY-MM-DD HH24:MI:SS')
+		DATE_FORMAT(NOW(), '%Y-%m-%d %H:%i:%s')
 		)
 	</insert>
 
@@ -127,7 +126,7 @@
 		<if test="USER_GENDER != null and USER_GENDER.length()>0">
 			USER_GENDER = #{USER_GENDER}
 		</if>
-		, USER_EDIT_DATE = TO_CHAR( SYSDATE,'YYYY-MM-DD HH24:MI:SS')
+		, USER_EDIT_DATE = 	DATE_FORMAT(NOW(), '%Y-%m-%d %H:%i:%s')
 		WHERE
 		USER_ID = #{USER_ID}
 	</update>

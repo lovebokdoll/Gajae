@@ -15,19 +15,16 @@ spring:
       prefix: /WEB-INF/views/
       suffix: .jsp
   datasource:
-    url: jdbc:oracle:thin:@focusrite.iptime.org:54300/orcl11
-    username: gajae
-    password: gajae
-    driver-class-name: oracle.jdbc.OracleDriver
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/gajae?serverTimezone=Asia/Seoul
+    username: cos
+    password: 1234
     hikari:
-      connection-timeout: 20000
+      connection-timeout: 3000
       validation-timeout: 3000
       minimum-idle: 5
-      maximum-pool-size: 12
-      idle-timeout: 300000
-      max-lifetime: 1200000
-      auto-commit: true
-      pool-name: oraPool
+      max-lifetime: 240000
+      maximum-pool-size: 20
   servlet:
     multipart:
       enabled: true

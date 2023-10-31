@@ -63,9 +63,7 @@
 		#{HOST_PW},
 		#{HOST_EMAIL},
 		#{HOST_TEL},
-		TO_CHAR(
-		SYSDATE, 'YYYY-MM-DD
-		HH24:MI:SS'),
+		DATE_FORMAT(NOW(), '%Y-%m-%d %H:%i:%s'),
 		#{HOST_BUSINESS_NUM}
 		)
 	</insert>
@@ -115,8 +113,7 @@
 			#{item.p_checkin},
 			#{item.p_checkout},
 			#{item.p_refund},
-			TO_DATE(SYSDATE,
-			'YYYY-MM-DDHH24:MI:SS'),
+			NOW(),
 			#{item.p_photo},
 			#{item.host_business_num},
 			#{item.p_mapx},
@@ -263,8 +260,7 @@
 		P_SCALE=#{P_SCALE},
 		P_CHECKIN=#{P_CHECKIN},
 		P_CHECKOUT=#{P_CHECKOUT},
-		P_CHANGE_DATE= TO_DATE(SYSDATE,'YYYY-MM-DD
-		HH24:MI:SS'),
+		P_CHANGE_DATE= NOW(),
 		STATUS=#{STATUS}
 		WHERE P_ID = #{P_ID}
 	</update>
