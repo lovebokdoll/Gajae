@@ -5,7 +5,7 @@
 	<select id="qnalist" parameterType="map" resultType="map">
 		SELECT
 		QNA_NO, QNA_TITLE, QNA_CONTENT, QNA_TYPE, QNA_DATE,USER_ID
-		FROM qna
+		FROM QNA
 		<where>
 			<if test='QNA_NO !=null'>
 				AND QNA_NO = #{QNA_NO}
@@ -35,7 +35,7 @@
 	</select>
 
 	<update id="qnaUpdate" parameterType="map">
-		UPDATE qna
+		UPDATE QNA
 		SET
 		<if test='QNA_TITLE !=null'>
 			QNA_TITLE=#{QNA_TITLE},
