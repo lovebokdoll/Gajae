@@ -17,8 +17,10 @@ public class QnALogic {
 	    private QnADao qnaDao;
 
 	    public List<Map<String, Object>> qnalist(Map<String, Object> pMap) {
+	    	 log.info( "pMap = {}", pMap );
 	    	List<Map<String, Object>> qList = null;
 			qList = qnaDao.qnalist(pMap);
+			log.info( "qList = {}", qList );
 			return qList;	
 	    }
 

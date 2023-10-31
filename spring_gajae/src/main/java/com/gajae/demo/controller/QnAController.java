@@ -23,6 +23,7 @@ public class QnAController {
     
     @PostMapping( "list" )
     public String qnalist( @RequestBody Map<String, Object> pMap ) {
+    	 log.info( "message = {}",  "로그 찍힘 ");
         List<Map<String, Object>> qList = null;
         qList = qnaLogic.qnalist( pMap );
         Gson   g    = new Gson();

@@ -16,7 +16,9 @@ public class QnADao {
 	private SqlSessionTemplate sqlSessionTemplate;
 
 	public List<Map<String, Object>> qnalist(Map<String, Object> pMap) {
+		log.info( "pMap = {}", pMap );
 		List<Map<String, Object>> qList = sqlSessionTemplate.selectList("qnalist", pMap);
+		log.info( "qList = {}", qList );
 		return qList;
 	}
 

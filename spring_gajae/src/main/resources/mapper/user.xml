@@ -16,7 +16,7 @@
 		USER_MOBILE,
 		USER_HIREDATE
 		FROM
-		GAJAE.USERS
+		USERS
 		WHERE
 		USER_ID = #{user_id}
 		AND
@@ -36,7 +36,7 @@
 		USER_ACTIVATE,
 		USER_AUTH,
 		USER_HIREDATE
-		FROM GAJAE.USERS
+		FROM USERS
 		WHERE
 		<if test='USER_NAME!=null'>
 			USER_NAME =#{USER_NAME}
@@ -49,34 +49,34 @@
 	<select id="idCheck" parameterType="map" resultType="map">
 		SELECT
 		USER_ID
-		FROM GAJAE.USERS
+		FROM USERS
 		WHERE USER_ID = #{USER_ID}
 	</select>
 
 	<select id="nicknameCheck" parameterType="map" resultType="map">
 		SELECT
 		USER_NICKNAME
-		FROM GAJAE.USERS
+		FROM USERS
 		WHERE USER_NICKNAME =
 		#{USER_NICKNAME}
 	</select>
 
 	<update id="activate">
-		UPDATE GAJAE.USERS
+		UPDATE USERS
 		SET USER_ACTIVATE = 'Y'
 		WHERE
 		USER_ID = #{USER_ID}
 	</update>
 
 	<update id="deactivate">
-		UPDATE GAJAE.USERS
+		UPDATE USERS
 		SET USER_ACTIVATE = 'N'
 		WHERE
 		USER_ID = #{USER_ID}
 	</update>
 
 	<insert id="signup">
-		INSERT INTO GAJAE.USERS
+		INSERT INTO USERS
 		(
 		USER_ID ,
 		USER_PW ,
@@ -103,7 +103,7 @@
 
 
 	<update id="userUpdate">
-		UPDATE GAJAE.USERS
+		UPDATE USERS
 		SET
 		<if test="USER_NAME != null and USER_NAME.length()>0">
 			USER_NAME = #{USER_NAME}
@@ -134,7 +134,7 @@
 	<select id="findUserID" parameterType="map" resultType="map">
 		SELECT
 		USER_ID
-		FROM GAJAE.USERS
+		FROM USERS
 		WHERE USER_NAME =#{USER_NAME}
 		AND USER_EMAIL =
 		#{USER_EMAIL}
@@ -143,14 +143,14 @@
 	<select id="findUserPW" parameterType="map" resultType="map">
 		SELECT
 		USER_PW
-		FROM GAJAE.USERS
+		FROM USERS
 		WHERE USER_ID =#{USER_ID}
 		AND USER_MOBILE =
 		#{USER_MOBILE}
 	</select>
 	
 	<update id="profileupload">
-		UPDATE GAJAE.USERS
+		UPDATE USERS
 		SET USER_PHOTO = #{USER_PHOTO}
 		WHERE
 		USER_ID = #{USER_ID}
@@ -169,18 +169,18 @@
 		USER_PHOTO ,
 		USER_AUTH ,
 		USER_HIREDATE
-		FROM GAJAE.USERS
+		FROM USERS
 		WHERE USER_ID=#{USER_ID}
 	</select>
 
 	<select id="pwCheck" parameterType="map" resultType="map">
 		SELECT USER_ACTIVATE
-		FROM GAJAE.USERS
+		FROM USERS
 		WHERE USER_ID=#{USER_ID}
 		AND USER_PW=#{USER_PW}
 	</select>
 	
 	<select id="getUserById" parameterType="map" resultType="map">
-	SELECT * FROM GAJAE.USERS WHERE USER_ID = #{USER_ID}
+	SELECT * FROM USERS WHERE USER_ID = #{USER_ID}
 	</select>
 </mapper>
