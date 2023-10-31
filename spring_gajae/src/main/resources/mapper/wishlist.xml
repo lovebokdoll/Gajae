@@ -5,7 +5,7 @@
 	<select id="checkWishlist" parameterType="map" resultType="int">
 		SELECT
 		COUNT(*)
-		FROM GAJAE.WISHLIST
+		FROM gajae.WISHLIST
 		WHERE USER_ID = #{USER_ID}
 		AND P_ID = #{P_ID}
 	</select>
@@ -13,7 +13,7 @@
 	<select id="checkActivate" parameterType="map" resultType="map">
 		SELECT
 		WL_ACTIVATE
-		FROM GAJAE.WISHLIST
+		FROM gajae.WISHLIST
 		WHERE USER_ID = #{USER_ID}
 		AND P_ID = #{P_ID}
 	</select>
@@ -25,13 +25,13 @@
 		P_ID ,
 		WL_DATE,
 		WL_ACTIVATE
-		FROM GAJAE.WISHLIST
+		FROM gajae.WISHLIST
 		WHERE USER_ID = #{USER_ID}
 	</select>
 	
 	<insert id="wishlistInsert" parameterType="map">
 		INSERT INTO
-		GAJAE.WISHLIST
+		gajae.WISHLIST
 		(
 		USER_ID ,
 		P_ID ,
@@ -47,7 +47,7 @@
 	</insert>
 
 	<update id="wishlistActivate" parameterType="map">
-		UPDATE GAJAE.WISHLIST
+		UPDATE gajae.WISHLIST
 		SET
 		WL_ACTIVATE = 'Y'
 		WHERE USER_ID=#{USER_ID}
@@ -55,7 +55,7 @@
 	</update>
 	
 	<update id="wishlistDeactivate" parameterType="map">
-		UPDATE GAJAE.WISHLIST
+		UPDATE gajae.WISHLIST
 		SET
 		WL_ACTIVATE = 'N'
 		WHERE USER_ID=#{USER_ID}
