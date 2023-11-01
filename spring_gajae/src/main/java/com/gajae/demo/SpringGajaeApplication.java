@@ -20,7 +20,9 @@ public class SpringGajaeApplication {
         return new WebMvcConfigurer() {
             @Override
             public void addCorsMappings( CorsRegistry registry ) {
-                registry.addMapping( "/**" ).allowedOrigins( "http://3.34.43.169/:3000", "http://3.34.43.169/:3001" );
+                registry.addMapping( "/**" ).allowedOrigins("*")
+                .allowedMethods("*")
+                .allowedOriginPatterns("*").exposedHeaders("*");//추가한 부분
             }
         };
     }
