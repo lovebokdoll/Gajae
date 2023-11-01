@@ -80,5 +80,8 @@
   },
   "description": "final_project_gajae",
   "main": "index.js",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "http-proxy-middleware": "^2.0.6"
+  }
 }
