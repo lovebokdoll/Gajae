@@ -1,22 +1,22 @@
-import { faMap } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import axios from 'axios';
-import Cookies from 'js-cookie';
-import { React, useEffect, useState } from 'react';
-import { Dropdown, DropdownButton } from 'react-bootstrap';
-import ReactPaginate from 'react-paginate';
-import { useLocation } from 'react-router-dom';
-import Footer from '../../components/footer/Footer';
-import HeaderNav1 from '../../components/header/HeaderNav1';
-import HeaderNav2 from '../../components/header/HeaderNav2';
-import FilterSidebar from '../../components/searchItem/FilterSidebar';
-import MapModal from '../../components/searchItem/MapModal';
-import PropertyCard from '../../components/searchItem/PropertyCard';
-import SearchBox from '../../components/searchItem/SearchBox';
-import { searchListDB } from '../../service/database';
-import { wishlistInformation } from '../../service/wishlist/wishlist';
-import { BButton } from '../../style/FormStyle';
-import './propertyList.css';
+import { faMap } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import axios from "axios";
+import Cookies from "js-cookie";
+import { React, useEffect, useState } from "react";
+import { Dropdown, DropdownButton } from "react-bootstrap";
+import ReactPaginate from "react-paginate";
+import { useLocation } from "react-router-dom";
+import Footer from "../../components/footer/Footer";
+import HeaderNav1 from "../../components/header/HeaderNav1";
+import HeaderNav2 from "../../components/header/HeaderNav2";
+import FilterSidebar from "../../components/searchItem/FilterSidebar";
+import MapModal from "../../components/searchItem/MapModal";
+import PropertyCard from "../../components/searchItem/PropertyCard";
+import SearchBox from "../../components/searchItem/SearchBox";
+import { searchListDB } from "../../service/database";
+import { wishlistInformation } from "../../service/wishlist/wishlist";
+import { BButton } from "../../style/FormStyle";
+import "./propertyList.css";
 
 /**6
  * 사용자가 마이페이지에서 여행지, 체크인&체크아웃 날짜, 인원 수&객실 수를 선택한 데이터를 기준하여 화면을 렌더링한다.
@@ -42,15 +42,15 @@ const PropertyListPage = () => {
   console.log(location.search);
 
   // 정렬 순서
-  const [orderBy, setOrderBy] = useState('');
+  const [orderBy, setOrderBy] = useState("");
 
   // 검색 결과
   const [property, setProperty] = useState([]);
 
   //사용자가 입력하는 값
   const params = {
-    P_ADDRESS: searchParams.get('P_ADDRESS'),
-    ROOM_CAPACITY: searchParams.get('ROOM_CAPACITY'),
+    P_ADDRESS: searchParams.get("P_ADDRESS"),
+    ROOM_CAPACITY: searchParams.get("ROOM_CAPACITY"),
   };
 
   console.log(params.P_ADDRESS);
@@ -66,12 +66,12 @@ const PropertyListPage = () => {
     };
     propertyList();
     // propertyCard 마운트될 때 위시리스트 테이블에서 USER_ID로 데이터 가져와서 P_ID가 존재하는지 비교하고 WL_ACTIVATE가 Y면 하트 표시
-    if (window.localStorage.getItem('userId') === undefined) {
-      console.log('asdasdsa');
+    if (window.localStorage.getItem("userId") === undefined) {
+      console.log("asdasdsa");
       return;
     } else {
       const wishlistParameter = {
-        USER_ID: window.localStorage.getItem('userId'),
+        USER_ID: window.localStorage.getItem("userId"),
       };
       const getWishlistInformation = async () => {
         const response = await wishlistInformation(wishlistParameter);
@@ -83,7 +83,7 @@ const PropertyListPage = () => {
   }, []);
   console.log(wishlistData);
   //쿠키에 검색정보 저장
-  Cookies.set('p_address', params.P_ADDRESS);
+  Cookies.set("p_address", params.P_ADDRESS);
 
   //정렬조건
   const handleOrder = (orderBy) => {
@@ -91,8 +91,8 @@ const PropertyListPage = () => {
   };
 
   //쿠키 값 빼서 스프링으로 같이 넘겨주기
-  const P_ADDRESS = Cookies.get('p_address');
-  const ROOM_CAPACITY = Cookies.get('res_people');
+  const P_ADDRESS = Cookies.get("p_address");
+  const ROOM_CAPACITY = Cookies.get("res_people");
 
   ////////////////////////////필터/////////////////////////////
   const checkedFilters = (selectedFilters) => {
@@ -104,7 +104,7 @@ const PropertyListPage = () => {
     };
 
     axios
-      .post('http://localhost:9999/search/list', filterParams)
+      .post(process.env.REACT_APP_SPRING_IP + "search/list", filterParams)
       .then((response) => {
         setProperty(response.data);
         setP_EXTRA(selectedFilters);
@@ -124,7 +124,7 @@ const PropertyListPage = () => {
     };
 
     axios
-      .post('http://localhost:9999/search/list', ranksParams)
+      .post("http://localhost:9999/search/list", ranksParams)
       .then((response) => {
         setProperty(response.data);
         setP_STAR(selectedRanks);
@@ -137,16 +137,16 @@ const PropertyListPage = () => {
   ////////////////////////////정렬조건/////////////////////////////
   useEffect(() => {
     let data = { orderBy, P_ADDRESS, ROOM_CAPACITY, P_EXTRA, P_STAR };
-    if (orderBy === '가격 낮은순') {
-      data.orderBy = 'priceLow';
-    } else if (orderBy === '가격 높은순') {
-      data.orderBy = 'priceHigh';
-    } else if (orderBy === '평점 높은순') {
-      data.orderBy = 'reviewwHigh';
+    if (orderBy === "가격 낮은순") {
+      data.orderBy = "priceLow";
+    } else if (orderBy === "가격 높은순") {
+      data.orderBy = "priceHigh";
+    } else if (orderBy === "평점 높은순") {
+      data.orderBy = "reviewwHigh";
     }
 
     axios
-      .post('http://localhost:9999/search/list', data)
+      .post(process.env.REACT_APP_SPRING_IP + "search/list", data)
       .then((response) => {
         setProperty(response.data);
       })
@@ -176,9 +176,15 @@ const PropertyListPage = () => {
         <HeaderNav2></HeaderNav2>
         {/*end of the Header */}
         <div className="body">
-          <div className="container" style={{ display: 'flex', justifyContent: 'center' }}>
-            <div className="row" style={{ width: '1140px' }}>
-              <div className="col-lg-3 col-md-12" style={{ padding: '0px 0px 0px 0px' }}>
+          <div
+            className="container"
+            style={{ display: "flex", justifyContent: "center" }}
+          >
+            <div className="row" style={{ width: "1140px" }}>
+              <div
+                className="col-lg-3 col-md-12"
+                style={{ padding: "0px 0px 0px 0px" }}
+              >
                 <SearchBox />
                 <div>
                   <BButton
@@ -187,30 +193,64 @@ const PropertyListPage = () => {
                     className="me-2 mb-2"
                     data-bs-dismiss="modal"
                     data-bs-target="#fullScreenModal"
-                    style={{ height: '60px', width: '200px', margin: '20px 50px 0px 5px' }}
+                    style={{
+                      height: "60px",
+                      width: "200px",
+                      margin: "20px 50px 0px 5px",
+                    }}
                     onClick={openModal}
                   >
                     <FontAwesomeIcon style={{}} icon={faMap} /> 지도에서 보기
                   </BButton>
                   <MapModal show={showModal} closeModal={closeModal} />
-                  <FilterSidebar checkedFilters={checkedFilters} checkedRanks={checkedRanks} />
+                  <FilterSidebar
+                    checkedFilters={checkedFilters}
+                    checkedRanks={checkedRanks}
+                  />
                 </div>
               </div>
-              <div className="col-lg-9 col-md-12" style={{ width: '850px' }}>
-                <h4 className="search-hotel" style={{ marginTop: '39px', fontSize: '1.9em', fontWeight: 'bold' }}>
+              <div className="col-lg-9 col-md-12" style={{ width: "850px" }}>
+                <h4
+                  className="search-hotel"
+                  style={{
+                    marginTop: "39px",
+                    fontSize: "1.9em",
+                    fontWeight: "bold",
+                  }}
+                >
                   {params.P_ADDRESS} : 검색된 숙소 {property.length}개
                 </h4>
-                <DropdownButton id="dropdown-btn" style={{ fontFamily: 'KOTRA_GOTHIC' }} title={orderBy ? orderBy : '정렬 순서'}>
-                  <Dropdown.Item id="dropdownItem-btn" style={{ fontFamily: 'KOTRA_GOTHIC' }} onClick={() => handleOrder('기본 순')}>
+                <DropdownButton
+                  id="dropdown-btn"
+                  style={{ fontFamily: "KOTRA_GOTHIC" }}
+                  title={orderBy ? orderBy : "정렬 순서"}
+                >
+                  <Dropdown.Item
+                    id="dropdownItem-btn"
+                    style={{ fontFamily: "KOTRA_GOTHIC" }}
+                    onClick={() => handleOrder("기본 순")}
+                  >
                     기본 순
                   </Dropdown.Item>
-                  <Dropdown.Item id="dropdownItem-btn" style={{ fontFamily: 'KOTRA_GOTHIC' }} onClick={() => handleOrder('가격 낮은순')}>
+                  <Dropdown.Item
+                    id="dropdownItem-btn"
+                    style={{ fontFamily: "KOTRA_GOTHIC" }}
+                    onClick={() => handleOrder("가격 낮은순")}
+                  >
                     가격 낮은순
                   </Dropdown.Item>
-                  <Dropdown.Item id="dropdownItem-btn" style={{ fontFamily: 'KOTRA_GOTHIC' }} onClick={() => handleOrder('가격 높은순')}>
+                  <Dropdown.Item
+                    id="dropdownItem-btn"
+                    style={{ fontFamily: "KOTRA_GOTHIC" }}
+                    onClick={() => handleOrder("가격 높은순")}
+                  >
                     가격 높은순
                   </Dropdown.Item>
-                  <Dropdown.Item id="dropdownItem-btn" style={{ fontFamily: 'KOTRA_GOTHIC' }} onClick={() => handleOrder('평점 높은순')}>
+                  <Dropdown.Item
+                    id="dropdownItem-btn"
+                    style={{ fontFamily: "KOTRA_GOTHIC" }}
+                    onClick={() => handleOrder("평점 높은순")}
+                  >
                     평점 높은순
                   </Dropdown.Item>
                 </DropdownButton>
@@ -219,25 +259,30 @@ const PropertyListPage = () => {
                 <div
                   className="pcContainerDiv"
                   style={{
-                    display: 'flex',
-                    flexWrap: 'wrap',
-                    alignItems: 'center',
-                    width: '1000px',
+                    display: "flex",
+                    flexWrap: "wrap",
+                    alignItems: "center",
+                    width: "1000px",
                   }}
                 >
                   {currentProperties.map((row, index) => {
                     // wishlistData에서 P_ID와 일치하는 데이터 찾기
-                    const wishlistItem = wishlistData ? wishlistData.find((item) => item.P_ID === row.P_ID) : null;
+                    const wishlistItem = wishlistData
+                      ? wishlistData.find((item) => item.P_ID === row.P_ID)
+                      : null;
 
                     // wishlistItem이 존재하고, WL_ACTIVATE 값이 'Y'인 경우 하트 표시
-                    const isWishlistActive = wishlistItem && wishlistItem.WL_ACTIVATE === 'Y';
+                    const isWishlistActive =
+                      wishlistItem && wishlistItem.WL_ACTIVATE === "Y";
 
                     return (
                       <PropertyCard
                         key={index}
                         row={row}
-                        style={{ marginRight: '10px', marginBottom: '10px' }}
-                        isWishlistActive={wishlistData ? isWishlistActive : false} // isWishlistActive prop 추가
+                        style={{ marginRight: "10px", marginBottom: "10px" }}
+                        isWishlistActive={
+                          wishlistData ? isWishlistActive : false
+                        } // isWishlistActive prop 추가
                       />
                     );
                   })}
@@ -263,7 +308,7 @@ const PropertyListPage = () => {
             <hr />
             <br />
           </div>
-        </div>{' '}
+        </div>{" "}
         {/*end of the Body*/}
         <Footer />
       </div>
